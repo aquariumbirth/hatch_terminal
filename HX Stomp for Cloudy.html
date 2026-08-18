@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE BOARD, TRANSLATED &middot; HX Stomp XL Rig Dossier</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Work+Sans:ital,wght@0,300..700;1,300..600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0d11; --bg2:#101218; --panel:#15171f; --panel2:#1b1e28; --ink:#ecedf0; --sub:#8f96a3; --faint:#565d6b;
+    --line:#242836; --line2:#303546;
+    --amber:#e6a93c; --amber-dim:#8a6828;
+    /* enclosure palette */
+    --waza-purple:#9c8cd4; --boss-red:#cf4d43; --ua-gold:#d9a441; --mood-peach:#e8937c;
+    --pete-blue:#5b9bd9; --ehx-silver:#c3cad3; --jam-grape:#a877d4; --rockett:#d8dde3;
+    --lehle:#7f8899; --holo-teal:#5fc9b0; --led-green:#79e08a; --led-red:#ff5a4e; --led-amber:#e6a93c;
+    --hi:#79e08a; --mid:#e6a93c; --lo:#f0645a;
+    --mono:'JetBrains Mono',Consolas,monospace;
+    --disp:'Bricolage Grotesque',Haettenschweiler,'Arial Narrow Bold',sans-serif;
+    --body:'Work Sans','Segoe UI',Helvetica,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:70px}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;
+    background-image:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(230,169,60,.06),transparent),
+      repeating-linear-gradient(0deg,transparent 0 47px,rgba(255,255,255,.012) 47px 48px)}
+  ::selection{background:var(--amber);color:#0c0d11}
+  a{color:inherit}
+
+  /* ============ MASTHEAD ============ */
+  .masthead{max-width:1140px;margin:0 auto;padding:70px 28px 20px;position:relative}
+  .meta-strip{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--line2);border-bottom:1px solid var(--line2);margin-bottom:44px}
+  .meta-strip span{font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sub);padding:9px 18px;border-right:1px solid var(--line)}
+  .meta-strip span:first-child{padding-left:2px;color:var(--amber)}
+  h1{font-family:var(--disp);font-weight:800;font-size:clamp(3rem,8.5vw,6.4rem);line-height:.92;letter-spacing:-.028em;text-transform:uppercase}
+  h1 .ghost{color:transparent;-webkit-text-stroke:1.5px var(--faint);display:block}
+  h1 .solid{display:block}
+  h1 .solid em{font-style:normal;color:var(--amber)}
+  .dek{max-width:640px;margin:30px 0 0;font-size:1.08rem;color:var(--sub);font-weight:300}
+  .dek b{color:var(--ink);font-weight:500}
+
+  /* signal flow motif */
+  .flowline{display:flex;align-items:center;gap:0;margin:44px 0 0;overflow:hidden}
+  .flowline .node{width:11px;height:11px;border-radius:50%;flex:none;border:1.5px solid var(--faint)}
+  .flowline .node.on{background:var(--amber);border-color:var(--amber);box-shadow:0 0 12px rgba(230,169,60,.7)}
+  .flowline .wire{height:1px;background:var(--line2);flex:1}
+  .flowline .tag{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;color:var(--faint);padding:0 10px;flex:none;text-transform:uppercase}
+
+  /* ============ NAV ============ */
+  nav{position:sticky;top:0;z-index:50;background:rgba(12,13,17,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);margin-top:40px}
+  .nav-in{max-width:1140px;margin:0 auto;padding:0 28px;display:flex;overflow-x:auto;scrollbar-width:none}
+  .nav-in::-webkit-scrollbar{display:none}
+  nav a{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--sub);text-decoration:none;padding:14px 16px;white-space:nowrap;border-bottom:2px solid transparent}
+  nav a:hover{color:var(--amber);border-bottom-color:var(--amber)}
+  nav a i{font-style:normal;color:var(--amber-dim);margin-right:6px}
+
+  /* ============ SECTIONS ============ */
+  .wrap{max-width:1140px;margin:0 auto;padding:0 28px 120px}
+  section{padding-top:84px}
+  .sec-head{display:flex;align-items:baseline;gap:22px;border-bottom:1px solid var(--line2);padding-bottom:16px;margin-bottom:34px}
+  .sec-num{font-family:var(--disp);font-weight:800;font-size:3.4rem;line-height:1;color:transparent;-webkit-text-stroke:1.5px var(--amber);flex:none}
+  .sec-head h2{font-family:var(--disp);font-weight:700;font-size:clamp(1.5rem,3.4vw,2.3rem);letter-spacing:-.015em;text-transform:uppercase}
+  .sec-head .sub{font-family:var(--mono);font-size:.68rem;color:var(--sub);letter-spacing:.14em;text-transform:uppercase;margin-left:auto;text-align:right}
+  h3{font-family:var(--disp);font-weight:700;font-size:1.28rem;letter-spacing:.01em;margin:40px 0 14px;text-transform:uppercase}
+  h3::before{content:"";display:inline-block;width:22px;height:3px;background:var(--amber);margin-right:12px;vertical-align:middle}
+  p{margin:12px 0;color:#c6cad2}
+  p b,li b{color:var(--ink)}
+  .small{font-size:.82rem;color:var(--sub)}
+  ul,ol{margin:12px 0 12px 22px;color:#c6cad2}
+  li{margin:7px 0}
+
+  /* ============ TLDR ============ */
+  .tldr{border:1px solid var(--amber-dim);background:linear-gradient(180deg,rgba(230,169,60,.06),rgba(230,169,60,.015));border-radius:2px;padding:26px 30px;margin:52px 0 0;position:relative}
+  .tldr::before{content:"THE SHORT VERSION";position:absolute;top:-10px;left:24px;background:var(--bg);padding:0 12px;font-family:var(--mono);font-size:.64rem;letter-spacing:.22em;color:var(--amber)}
+  .tldr li{margin:12px 0}
+
+  /* ============ PEDAL LEDGER (mapping) ============ */
+  .ledger{border:1px solid var(--line2);border-radius:2px;overflow:hidden}
+  .lrow{display:grid;grid-template-columns:14px 200px 1fr 190px 110px;gap:0;border-bottom:1px solid var(--line);background:var(--panel)}
+  .lrow:last-child{border-bottom:none}
+  .lrow:hover{background:var(--panel2)}
+  .lrow.head{background:var(--bg2);font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--sub)}
+  .lrow.head>div{padding:11px 14px}
+  .lrow .swatch{padding:0}
+  .lrow .cell{padding:15px 14px}
+  .lrow .pname{font-family:var(--disp);font-weight:700;font-size:.98rem;line-height:1.25}
+  .lrow .pname small{display:block;font-family:var(--mono);font-weight:400;font-size:.62rem;color:var(--sub);letter-spacing:.08em;margin-top:3px;text-transform:uppercase}
+  .lrow .hxm{font-family:var(--mono);font-size:.82rem;color:var(--ink)}
+  .lrow .hxm small{display:block;font-size:.68rem;color:var(--sub);margin-top:3px}
+  .lrow .note-c{font-size:.8rem;color:var(--sub);line-height:1.5}
+  .fid{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase}
+  .fid .dot{width:8px;height:8px;border-radius:50%}
+  .fid.hi{color:var(--hi)}.fid.hi .dot{background:var(--hi);box-shadow:0 0 8px rgba(121,224,138,.6)}
+  .fid.mid{color:var(--mid)}.fid.mid .dot{background:var(--mid);box-shadow:0 0 8px rgba(230,169,60,.6)}
+  .fid.lo{color:var(--lo)}.fid.lo .dot{background:var(--lo);box-shadow:0 0 8px rgba(240,100,90,.6)}
+
+  /* ============ SPEC CARDS (per-pedal settings) ============ */
+  .spec{border:1px solid var(--line2);border-radius:2px;background:var(--panel);margin:26px 0;overflow:hidden}
+  .spec-h{display:flex;align-items:center;gap:14px;padding:16px 22px;border-bottom:1px solid var(--line);background:var(--bg2)}
+  .spec-h .chip{width:34px;height:34px;border-radius:4px;flex:none;position:relative;box-shadow:inset 0 -3px 6px rgba(0,0,0,.4),inset 0 2px 3px rgba(255,255,255,.18)}
+  .spec-h .chip::after{content:"";position:absolute;top:5px;right:5px;width:5px;height:5px;border-radius:50%;background:var(--led-red);box-shadow:0 0 6px var(--led-red)}
+  .spec-h h4{font-family:var(--disp);font-weight:700;font-size:1.08rem;text-transform:uppercase;letter-spacing:.01em}
+  .spec-h h4 span{color:var(--sub);font-weight:400}
+  .spec-h .arr{color:var(--amber);font-family:var(--mono);font-weight:700}
+  .spec-h .hxname{font-family:var(--mono);font-size:.8rem;color:var(--amber);margin-left:auto;letter-spacing:.06em}
+  .spec-b{padding:20px 22px}
+  .ptable{width:100%;border-collapse:collapse;margin:8px 0}
+  .ptable td{padding:8px 12px;border-bottom:1px dashed var(--line);vertical-align:top}
+  .ptable tr:last-child td{border-bottom:none}
+  .ptable td:first-child{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--sub);width:38%;white-space:nowrap}
+  .ptable td:last-child{font-family:var(--mono);font-size:.84rem;color:var(--ink)}
+  .ptable td:last-child .v{color:var(--amber)}
+  .twin{display:grid;grid-template-columns:1fr 1fr;gap:0}
+  .twin>div{padding:20px 22px}
+  .twin>div:first-child{border-right:1px solid var(--line)}
+  .twin h5{font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:10px}
+
+  /* ============ CALLOUTS ============ */
+  .callout{border-left:3px solid var(--amber);background:var(--panel);padding:16px 22px;margin:20px 0;font-size:.92rem;border-radius:0 2px 2px 0}
+  .callout.red{border-left-color:var(--lo)}
+  .callout.green{border-left-color:var(--hi)}
+  .callout .ct{font-family:var(--mono);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;display:block;margin-bottom:6px}
+  .callout .ct{color:var(--amber)} .callout.red .ct{color:var(--lo)} .callout.green .ct{color:var(--hi)}
+
+  /* ============ PRESET CHAINS ============ */
+  .preset{margin:44px 0;border:1px solid var(--line2);border-radius:2px;overflow:hidden}
+  .preset-h{background:var(--bg2);padding:18px 24px;border-bottom:1px solid var(--line);display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+  .preset-h .pn{font-family:var(--mono);font-size:.66rem;color:var(--amber);letter-spacing:.2em}
+  .preset-h h4{font-family:var(--disp);font-weight:800;font-size:1.45rem;text-transform:uppercase;letter-spacing:-.01em}
+  .preset-h .use{font-family:var(--mono);font-size:.7rem;color:var(--sub);margin-left:auto}
+  .rail{display:flex;align-items:center;padding:28px 22px;overflow-x:auto;background:
+    linear-gradient(180deg,transparent 49.5%,var(--line2) 49.5%,var(--line2) 50.5%,transparent 50.5%)}
+  .pedal{flex:none;width:108px;background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line2);border-radius:6px;padding:10px 10px 12px;position:relative;box-shadow:0 6px 14px rgba(0,0,0,.45)}
+  .pedal .band{height:5px;border-radius:3px;margin-bottom:8px;box-shadow:inset 0 1px 1px rgba(255,255,255,.25)}
+  .pedal .knobs{display:flex;gap:5px;margin-bottom:8px}
+  .pedal .knob{width:10px;height:10px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#3a4050,#171a22);border:1px solid var(--line2);position:relative}
+  .pedal .knob::after{content:"";position:absolute;top:1px;left:50%;width:1px;height:4px;background:var(--sub)}
+  .pedal .pm{font-family:var(--disp);font-weight:700;font-size:.78rem;line-height:1.15;text-transform:uppercase}
+  .pedal .pt{font-family:var(--mono);font-size:.56rem;color:var(--sub);margin-top:4px;letter-spacing:.06em;text-transform:uppercase}
+  .pedal .num{position:absolute;top:-9px;left:-7px;width:19px;height:19px;border-radius:50%;background:var(--bg);border:1px solid var(--amber-dim);color:var(--amber);font-family:var(--mono);font-size:.6rem;display:flex;align-items:center;justify-content:center}
+  .patch{flex:none;width:34px;height:2px;background:repeating-linear-gradient(90deg,var(--amber-dim) 0 4px,transparent 4px 7px);position:relative}
+  .io{flex:none;font-family:var(--mono);font-size:.58rem;color:var(--faint);letter-spacing:.14em;writing-mode:vertical-rl;text-orientation:mixed;padding:0 6px;text-transform:uppercase}
+  .preset-b{padding:20px 24px;border-top:1px solid var(--line)}
+
+  /* ============ FOOTSWITCH PANEL ============ */
+  .device{background:linear-gradient(180deg,#181b23,#12141b);border:1px solid var(--line2);border-radius:8px;padding:20px 22px 16px;margin:18px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 8px 22px rgba(0,0,0,.4)}
+  .device .dlabel{font-family:var(--mono);font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;color:var(--faint);text-align:center;margin-bottom:14px}
+  .fsgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .fsw{text-align:center}
+  .fsw .cap{width:34px;height:34px;margin:0 auto 8px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#454c5c,#1c202a);border:2px solid #2c3140;box-shadow:0 3px 6px rgba(0,0,0,.5),inset 0 1px 2px rgba(255,255,255,.15);position:relative}
+  .fsw .cap::before{content:"";position:absolute;top:-7px;left:50%;transform:translateX(-50%);width:6px;height:6px;border-radius:50%;background:var(--led)}
+  .fsw.g{--led:var(--led-green)} .fsw.a{--led:var(--led-amber)} .fsw.r{--led:var(--led-red)} .fsw.b{--led:var(--pete-blue)}
+  .fsw .cap::before{box-shadow:0 0 8px var(--led)}
+  .fsw .fl{font-family:var(--mono);font-size:.58rem;color:var(--amber);letter-spacing:.12em;text-transform:uppercase}
+  .fsw .fv{font-size:.72rem;color:#c6cad2;margin-top:2px;line-height:1.3}
+  .snapline{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);font-family:var(--mono);font-size:.7rem;color:var(--sub);line-height:1.8}
+  .snapline b{color:var(--amber);font-weight:500}
+
+  /* ============ PLUGIN CARDS ============ */
+  .plug-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin:22px 0}
+  .plug{background:var(--panel);border:1px solid var(--line2);border-radius:2px;padding:20px 22px;position:relative}
+  .plug.star{border-color:var(--amber-dim);background:linear-gradient(180deg,rgba(230,169,60,.07),var(--panel) 55%)}
+  .plug .rank{position:absolute;top:14px;right:16px;font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;color:var(--amber);text-transform:uppercase}
+  .plug h4{font-family:var(--disp);font-weight:700;font-size:1.12rem;text-transform:uppercase;margin-bottom:2px}
+  .plug .pmeta{font-family:var(--mono);font-size:.66rem;color:var(--sub);letter-spacing:.08em;margin-bottom:10px}
+  .plug .pmeta .pr{color:var(--hi)}
+  .plug p{font-size:.86rem;margin:8px 0 0}
+
+  /* ============ STANDARD TABLES ============ */
+  table.std{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86rem;background:var(--panel);border:1px solid var(--line2)}
+  table.std th{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--sub);text-align:left;padding:11px 14px;border-bottom:1px solid var(--line2);background:var(--bg2)}
+  table.std td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top;color:#c6cad2}
+  table.std tr:last-child td{border-bottom:none}
+  table.std tr:hover td{background:var(--panel2)}
+  table.std td b{color:var(--ink)}
+  table.std .m{font-family:var(--mono);font-size:.78rem}
+
+  /* ============ EQ CARD ============ */
+  .eqcard{background:var(--panel);border:1px solid var(--amber-dim);border-radius:2px;margin:26px 0;overflow:hidden}
+  .eqcard .eh{background:var(--amber);color:#14120a;padding:12px 24px;font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:1.05rem;letter-spacing:.02em}
+  .eqcard .eb{padding:22px 24px}
+  .eqbig{display:flex;gap:0;border:1px solid var(--line2);border-radius:2px;overflow:hidden;margin-bottom:18px}
+  .eqbig>div{flex:1;padding:18px 20px;text-align:center;background:var(--bg2)}
+  .eqbig>div+div{border-left:1px solid var(--line2)}
+  .eqbig .el{font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--sub)}
+  .eqbig .ev{font-family:var(--disp);font-weight:800;font-size:1.9rem;color:var(--amber);margin-top:4px}
+  .eqbig .eu{font-family:var(--mono);font-size:.66rem;color:var(--sub)}
+
+  /* ============ VERDICT ============ */
+  .verdict{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:24px 0}
+  .vcol{border-top:4px solid;background:var(--panel);border-left:1px solid var(--line2);border-right:1px solid var(--line2);border-bottom:1px solid var(--line2);padding:18px 20px}
+  .vcol.g{border-top-color:var(--hi)} .vcol.y{border-top-color:var(--mid)} .vcol.r{border-top-color:var(--lo)}
+  .vcol h4{font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:1rem;margin-bottom:10px}
+  .vcol.g h4{color:var(--hi)} .vcol.y h4{color:var(--mid)} .vcol.r h4{color:var(--lo)}
+  .vcol ul{margin-left:16px;font-size:.84rem}
+  .vcol li{margin:6px 0}
+
+  footer{border-top:1px solid var(--line2);margin-top:80px;padding:24px 0 0;font-family:var(--mono);font-size:.64rem;color:var(--faint);letter-spacing:.12em;text-transform:uppercase;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+  @media(max-width:860px){
+    .lrow{grid-template-columns:10px 1fr;grid-auto-rows:auto}
+    .lrow.head{display:none}
+    .lrow .cell{padding:10px 14px}
+    .lrow .swatch{grid-row:span 4}
+    .twin{grid-template-columns:1fr}
+    .twin>div:first-child{border-right:none;border-bottom:1px solid var(--line)}
+    .verdict{grid-template-columns:1fr}
+    .fsgrid{grid-template-columns:repeat(2,1fr)}
+    .sec-head .sub{display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= MASTHEAD ================= -->
+<div class="masthead">
+  <div class="meta-strip">
+    <span>Rig Dossier 001</span><span>HX/Helix FW 3.80</span><span>06 Jul 2026</span><span>Fouke, AR</span><span>Mono Monitoring</span>
+  </div>
+  <h1>
+    <span class="ghost">The Board,</span>
+    <span class="solid">Trans<em>lated.</em></span>
+  </h1>
+  <p class="dek">Eleven pedals, one <b>HX Stomp XL</b>, two DAWs, and an honest accounting of what survives the trip. Mapping the physical board (plus a Microcosm curveball) into Helix models, plugin substitutes, and mono-friendly monitoring for the <b>Peavey XR600F / Harbinger M60</b> and the single <b>KRK Rokit 8</b>.</p>
+  <div class="flowline">
+    <span class="tag">Guitar</span><span class="node on"></span><span class="wire"></span>
+    <span class="node"></span><span class="wire"></span>
+    <span class="node on"></span><span class="wire"></span>
+    <span class="node"></span><span class="wire"></span>
+    <span class="node on"></span><span class="tag">Mono Out</span>
+  </div>
+
+  <div class="tldr">
+    <ul>
+      <li><b>Eight of eleven pedals translate cleanly.</b> DM-2w, DC-2w, Archer, Rattler, Holy Grail, the Lehle, the Peterson's stage duties, and the Enigmatic's ODS voice all have strong native homes in firmware 3.80.</li>
+      <li><b>MOOD and Microcosm do not translate, and neither has an official plugin.</b> They stay hardware. The best digital stand-in is a dedicated granular plugin (Arturia Efx FRAGMENTS, $99) plus what Live 12 Suite and Logic already ship.</li>
+      <li><b>Both of your rigs are mono.</b> The Dimension C's whole identity is a stereo crossmix, so it collapses to a mild thicken. Set Global EQ low cut around 80 to 100 Hz, high cut 8 to 10 kHz, and save true stereo judgment for headphones or the DAW.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ================= NAV ================= -->
+<nav><div class="nav-in">
+  <a href="#s1"><i>01</i>Mapping</a>
+  <a href="#s2"><i>02</i>Dial-Ins</a>
+  <a href="#s3"><i>03</i>Presets</a>
+  <a href="#s4"><i>04</i>Plugins</a>
+  <a href="#s5"><i>05</i>AmpliTube</a>
+  <a href="#s6"><i>06</i>Monitoring</a>
+  <a href="#s7"><i>07</i>Verdicts</a>
+</div></nav>
+
+<div class="wrap">
+
+<!-- ================= 01 MAPPING ================= -->
+<section id="s1">
+  <div class="sec-head">
+    <div class="sec-num">01</div>
+    <h2>Board to HX Mapping</h2>
+    <div class="sub">11 pedals / firmware 3.80 / 8-block ceiling</div>
+  </div>
+  <p>The Stomp XL runs the full Helix core model set: <b>8 blocks per preset, 4 snapshots, 8 footswitches, a stereo FX loop, and Global EQ</b> with parametric bands plus variable low and high cuts. Current firmware is <b>3.80</b> (released 19 Nov 2024, the "19th free update" per Line 6's Eric Klein). Nothing newer has shipped for the HX line, so 3.80 is the ceiling for this whole document.</p>
+
+  <div class="ledger">
+    <div class="lrow head"><div></div><div>Physical pedal</div><div>HX model / basis</div><div>Notes</div><div>Fidelity</div></div>
+
+    <div class="lrow"><div class="swatch" style="background:var(--boss-red)"></div>
+      <div class="cell pname">Boss RC-5<small>Loop Station</small></div>
+      <div class="cell hxm">6 Switch Looper<small>Line 6 original</small></div>
+      <div class="cell note-c">Record, overdub, undo, reverse, half-speed. Loses the rhythm engine, 99 memories, and 13 hours of storage.</div>
+      <div class="cell"><span class="fid mid"><span class="dot"></span>Medium</span></div></div>
+
+    <div class="lrow"><div class="swatch" style="background:var(--ua-gold)"></div>
+      <div class="cell pname">UAFX Enigmatic '82<small>Overdrive Special</small></div>
+      <div class="cell hxm">Litigator + cab/IR<small>Dumble ODS</small></div>
+      <div class="cell note-c">Model as an amp block, not a stomp. Litigator is Line 6's ODS; a Klon boost in front reaches the Rock voicing.</div>
+      <div class="cell"><span class="fid hi"><span class="dot"></span>High</span></div></div>
+
+    <div class="lrow"><div class="swatch" style="background:var(--mood-peach)"></div>
+      <div class="cell pname">Chase Bliss MOOD<small>Micro-looper / texture</small></div>
+      <div class="cell hxm">Glitch Delay / Poly Sustain<small>adjacent only</small></div>
+      <div class="cell note-c">No always-listening sampler, no stretch. HX gets you the vibe of the wet channel, never the instrument.</div>
+      <div class="cell"><span class="fid lo"><span class="dot"></span>Low</span></div></div>
+
+    <div class="lrow"><div class="swatch" style="background:var(--pete-blue)"></div>
+      <div class="cell pname">Peterson StroboStomp<small>Strobe tuner</small></div>
+      <div class="cell hxm">Built-in tuner<small>strobe mode</small></div>
+      <div class="cell note-c">Peterson resolves 0.1 cent; the HX tuner is stage-grade at roughly 1 cent. Keep the Peterson for intonation work.</div>
+      <div class="cell"><span class="fid mid"><span class="dot"></span>Medium</span></div></div>
+
+    <div class="lrow"><div class="swatch" style="background:var(--waza-purple)"></div>
+      <div class="cell pname">Boss DC-2w<small>Dimension C Waza</small></div>
+      <div class="cell hxm">Dimension<small>Roland Dimension D</small></div>
+      <div class="cell note-c">The HX Dimension is the SDD-320 studio rack the DC-2 descends from. Four button modes map 1:1 to the Mode parameter.</div>
+      <div class="cell"><span class="fid hi"><span class="dot"></span>High</span></div></div>
+
+    <div class="lrow"><div class="swatch" style="background:var(--ehx-silver)"></div>
+      <div class="cell pname">EHX Holy Grail<small>Spring / Hall / Flerb</small></div>
+      <div class="cell hxm">63 Spring / Hall<small>+ Plate&rarr;Flanger for Flerb</small></div>
+      <div class="cell note-c">Spring and Hall are direct. Flerb (flanged reverb) gets rebuilt as a Plate feeding a subtle Flanger.</div>
+      <div class="cell"><span class="fid hi"><span class="dot"></span>High*</span></div></div>
+
+    <div class="lrow"><div class="swatch" style="background:var(--boss-red);filter:brightness(.75)"></div>
+      <div class="cell pname">Boss DM-2w<small>Delay Waza</small></div>
+      <div class="cell hxm">Bucket Brigade / Adriatic<small>DM-2 / DM-2 Adrian mod</small></div>
+      <div class="cell note-c">Bucket Brigade = Standard mode (300 ms ceiling). Adriatic = the modded, longer, brighter Custom voicing.</div>
+      <div class="cell"><span class="fid hi"><span class="dot"></span>High</span></div></div>
+
+    <div class="lrow"><div class="swatch" style="background:var(--jam-grape)"></div>
+      <div class="cell pname">JAM Rattler<small>Custom VW-bus art</small></div>
+      <div class="cell hxm">Vermin Dist<small>Pro Co RAT</small></div>
+      <div class="cell note-c">The Rattler is an LM308 RAT in boutique clothes. Vermin Dist is the right circuit; JAM's op-amp warmth is close, not identical.</div>
+      <div class="cell"><span class="fid hi"><span class="dot"></span>High</span></div></div>
+
+    <div class="lrow"><div class="swatch" style="background:var(--rockett)"></div>
+      <div class="cell pname">J. Rockett Archer<small>Klon-style OD</small></div>
+      <div class="cell hxm">Minotaur<small>Klon Centaur</small></div>
+      <div class="cell note-c">Output / Treble / Gain map directly. The Archer has a slight lower-mid hump: do not scoop the Minotaur's Tone.</div>
+      <div class="cell"><span class="fid hi"><span class="dot"></span>High</span></div></div>
+
+    <div class="lrow"><div class="swatch" style="background:var(--lehle)"></div>
+      <div class="cell pname">Lehle Volume<small>Active VCA pedal</small></div>
+      <div class="cell hxm">Volume block + EXP<small>EXP 1/2 TRS jack</small></div>
+      <div class="cell note-c">Note: Lehle volumes are active (Hall-effect sensor into a Blackmer VCA), not passive. HX Volume block covers it fully.</div>
+      <div class="cell"><span class="fid hi"><span class="dot"></span>High</span></div></div>
+
+    <div class="lrow"><div class="swatch" style="background:var(--holo-teal)"></div>
+      <div class="cell pname">Hologram Microcosm<small>The curveball</small></div>
+      <div class="cell hxm">Euclidean / Glitch Delay<small>+ Searchlights</small></div>
+      <div class="cell note-c">Glitchy multitap and granular-flavored delay, yes. The mosaic / arp / sequence looping engine, no.</div>
+      <div class="cell"><span class="fid lo"><span class="dot"></span>Low</span></div></div>
+  </div>
+</section>
+
+<!-- ================= 02 DIAL-INS ================= -->
+<section id="s2">
+  <div class="sec-head">
+    <div class="sec-num">02</div>
+    <h2>Knob-by-Knob Dial-Ins</h2>
+    <div class="sub">Starting points, not gospel / P90s run hotter than the Sire's singles</div>
+  </div>
+
+  <!-- Enigmatic -->
+  <div class="spec">
+    <div class="spec-h"><div class="chip" style="background:var(--ua-gold)"></div>
+      <h4>UAFX Enigmatic '82 <span>&rarr;</span></h4><span class="hxname">LITIGATOR (amp block)</span></div>
+    <div class="spec-b">
+      <p class="small" style="margin-bottom:10px">This is a full Dumble in a box, so it lives as an amp block, not a stomp. Litigator cleans up with guitar volume exactly like the ODS Jazz mode. For the Rock voicing, push Drive or slam it with the Minotaur.</p>
+      <table class="ptable">
+        <tr><td>Drive (Jazz / clean)</td><td><span class="v">3.0 to 4.5</span></td></tr>
+        <tr><td>Drive (Rock voicing)</td><td><span class="v">5.5 to 7.0</span> &nbsp;(map to a footswitch or snapshot)</td></tr>
+        <tr><td>Bass / Mid / Treble</td><td><span class="v">5.0 / 6.5 / 5.5</span> &nbsp;(ODS is mid-forward)</td></tr>
+        <tr><td>Presence</td><td><span class="v">4.0 to 5.5</span></td></tr>
+        <tr><td>Master</td><td>higher = more power-amp bloom</td></tr>
+        <tr><td>Sag / Ripple</td><td><span class="v">4 to 6</span> / low</td></tr>
+        <tr><td>Cab</td><td>1x12 Deluxe + 4x10 Tweed dual, or a D-style 2x12 IR</td></tr>
+      </table>
+      <p class="small">Hybrid: keep the real Enigmatic in the <b>stereo FX loop</b> after a cab-less amp block, HX cab off, so its own speaker/mic modeling feeds the HX time blocks without double-cabbing.</p>
+    </div>
+  </div>
+
+  <!-- DC-2w -->
+  <div class="spec">
+    <div class="spec-h"><div class="chip" style="background:var(--waza-purple)"></div>
+      <h4>Boss DC-2w Dimension C <span>&rarr;</span></h4><span class="hxname">DIMENSION (stereo)</span></div>
+    <div class="spec-b">
+      <table class="ptable">
+        <tr><td>Mode 1</td><td>DC-2 button 1: subtle thicken, slowest movement</td></tr>
+        <tr><td>Mode 2</td><td>button 2: light chorus width</td></tr>
+        <tr><td>Mode 3</td><td>button 3: wider, faster</td></tr>
+        <tr><td>Mode 4</td><td>button 4: maximum width and depth</td></tr>
+        <tr><td>Mix</td><td><span class="v">near unity</span> (Dimension is a crossmix, not a full-wet chorus)</td></tr>
+        <tr><td>Level</td><td>match bypassed volume</td></tr>
+      </table>
+      <div class="callout red"><span class="ct">Mono warning</span>The Dimension effect is fundamentally stereo; the left/right crossmix IS the effect. Through the Peavey or a single Rokit it collapses to a mild thicken. Judge the real thing on headphones or in the DAW.</div>
+    </div>
+  </div>
+
+  <!-- DM-2w -->
+  <div class="spec">
+    <div class="spec-h"><div class="chip" style="background:var(--boss-red);filter:brightness(.8)"></div>
+      <h4>Boss DM-2w Delay <span>&rarr;</span></h4><span class="hxname">BUCKET BRIGADE / ADRIATIC</span></div>
+    <div class="twin">
+      <div>
+        <h5>Standard mode &rarr; Bucket Brigade</h5>
+        <table class="ptable">
+          <tr><td>Time</td><td><span class="v">60 to 300 ms</span> (DM-2 hard ceiling)</td></tr>
+          <tr><td>Feedback</td><td><span class="v">25 to 35%</span></td></tr>
+          <tr><td>Mix</td><td><span class="v">20 to 30%</span></td></tr>
+          <tr><td>High Cut</td><td><span class="v">3 to 4 kHz</span></td></tr>
+          <tr><td>Low Cut</td><td><span class="v">150 to 200 Hz</span></td></tr>
+        </table>
+        <p class="small">Warm, short, self-darkening slap. Authentic DM-2.</p>
+      </div>
+      <div>
+        <h5>Custom mode &rarr; Adriatic Delay</h5>
+        <table class="ptable">
+          <tr><td>Time</td><td><span class="v">350 to 600 ms</span> (up to ~1.8 s)</td></tr>
+          <tr><td>Feedback</td><td><span class="v">25 to 30%</span></td></tr>
+          <tr><td>Mix</td><td><span class="v">25 to 30%</span></td></tr>
+          <tr><td>Mod Rate / Depth</td><td><span class="v">1.5 Hz / 30%</span></td></tr>
+          <tr><td>High / Low Cut</td><td><span class="v">3 kHz / 200 Hz</span></td></tr>
+        </table>
+        <p class="small">The Ben Adrian mod: brighter, longer, the Custom voicing's closest analog.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Holy Grail -->
+  <div class="spec">
+    <div class="spec-h"><div class="chip" style="background:var(--ehx-silver)"></div>
+      <h4>EHX Holy Grail <span>&rarr;</span></h4><span class="hxname">63 SPRING / HALL / PLATE+FLANGER</span></div>
+    <div class="spec-b">
+      <table class="ptable">
+        <tr><td>Spring mode</td><td>63 Spring: Dwell <span class="v">5</span>, Mix <span class="v">20-25%</span>, HiCut <span class="v">8k</span>, LoCut <span class="v">150</span>, Trails <span class="v">On</span></td></tr>
+        <tr><td>Hall mode</td><td>Hall or Dynamic Hall: Decay <span class="v">1.8-2.5 s</span>, Predelay <span class="v">10-20 ms</span>, Mix <span class="v">18-25%</span>, HiCut <span class="v">~7k</span></td></tr>
+        <tr><td>Flerb mode</td><td>Plate (Mix <span class="v">30%</span>, Decay <span class="v">2 s</span>) &rarr; Flanger (Depth low, Rate slow, Mix <span class="v">~25%</span>)</td></tr>
+      </table>
+      <p class="small">Nano/original has Spring, Hall, Flerb. The Neo swaps Flerb for Plate; if yours is a Neo, skip the flanger rebuild and use Plate straight.</p>
+    </div>
+  </div>
+
+  <!-- Archer + Rattler side by side -->
+  <div class="spec">
+    <div class="spec-h"><div class="chip" style="background:var(--rockett)"></div>
+      <h4>Archer + Rattler <span>&rarr;</span></h4><span class="hxname">MINOTAUR / VERMIN DIST</span></div>
+    <div class="twin">
+      <div>
+        <h5>J. Rockett Archer &rarr; Minotaur</h5>
+        <table class="ptable">
+          <tr><td>Gain</td><td><span class="v">8 to 11 o'clock</span> transparent; higher for grit</td></tr>
+          <tr><td>Tone (= Treble)</td><td><span class="v">noon to 1</span>; do not scoop, the Archer voice is mid-present</td></tr>
+          <tr><td>Output</td><td>above unity to slam the Litigator front end</td></tr>
+        </table>
+      </div>
+      <div>
+        <h5>JAM Rattler &rarr; Vermin Dist</h5>
+        <table class="ptable">
+          <tr><td>Distortion</td><td><span class="v">9 to 1 o'clock</span>; the Rattler likes mid gain, fat and creamy</td></tr>
+          <tr><td>Filter</td><td>RAT-style: turn up to darken</td></tr>
+          <tr><td>Level</td><td>match bypass volume</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Looper / Tuner / Volume -->
+  <div class="spec">
+    <div class="spec-h"><div class="chip" style="background:var(--boss-red)"></div>
+      <h4>Utility trio <span>&rarr;</span></h4><span class="hxname">LOOPER / TUNER / VOLUME</span></div>
+    <div class="spec-b">
+      <table class="ptable">
+        <tr><td>RC-5 &rarr; 6 Switch Looper</td><td>Keeps: rec/dub/undo/reverse/half-speed, <span class="v">60 s mono / 30 s stereo</span>. Loses: 57x2 rhythm patterns, 7 kits, 99 memories, 13 hr storage, USB WAV import. The HX looper is a scratchpad, not a song manager.</td></tr>
+        <tr><td>Peterson &rarr; HX tuner</td><td>Set strobe display in Global Settings; enable Tuner Trails if you want reverb ringing while muted. Peterson stays on the bench at <span class="v">0.1 cent</span> for intonation and Sweetened tunings.</td></tr>
+        <tr><td>Lehle &rarr; Volume block</td><td>EXP pedal on the <span class="v">EXP 1/2 TRS</span> jack. Min <span class="v">0%</span>, Max <span class="v">100%</span>, log curve. Post-amp for swells, pre-amp to act as a gain rider. Reminder: Lehle volumes are active VCA pedals, not passive.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- MOOD / Microcosm -->
+  <div class="spec">
+    <div class="spec-h"><div class="chip" style="background:var(--mood-peach)"></div>
+      <h4>MOOD + Microcosm <span>&rarr;</span></h4><span class="hxname">ADJACENT VIBES ONLY</span></div>
+    <div class="spec-b">
+      <table class="ptable">
+        <tr><td>Glitch Delay</td><td>randomized slice pitch/rhythm; Feedback mid, Pitch probability mid, Intervals 1/2 to octaves, HiCut to tame</td></tr>
+        <tr><td>Euclidean Delay</td><td>multitap via Steps + Fill; run two panned in parallel for polyrhythmic Microcosm-ish repeats</td></tr>
+        <tr><td>Poly Sustain</td><td>infinite polyphonic freeze on a parallel path &asymp; MOOD's hold (3.80 fixed the max Random glitch bug)</td></tr>
+        <tr><td>Searchlights / Glitz</td><td>the big diffuse wash underneath everything</td></tr>
+      </table>
+      <div class="callout red"><span class="ct">The honest line</span>No always-listening micro-looper, no time-stretch, no mosaic/arp/sequence engine. These blocks are additive texture, not the instrument. The real answer is Section 04.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 03 PRESETS ================= -->
+<section id="s3">
+  <div class="sec-head">
+    <div class="sec-num">03</div>
+    <h2>Three Preset Builds</h2>
+    <div class="sub">8 blocks max / Litigator is DSP-hungry / stereo path sums mono at the jack</div>
+  </div>
+
+  <!-- PRESET 1 -->
+  <div class="preset">
+    <div class="preset-h"><span class="pn">PRESET 01</span><h4>Board in a Box</h4><span class="use">drive / ODS / the whole pedalboard</span></div>
+    <div class="rail">
+      <span class="io">Input</span><span class="patch"></span>
+      <div class="pedal"><span class="num">1</span><div class="band" style="background:var(--rockett)"></div><div class="knobs"><span class="knob"></span><span class="knob"></span><span class="knob"></span></div><div class="pm">Minotaur</div><div class="pt">Klon boost</div></div>
+      <span class="patch"></span>
+      <div class="pedal"><span class="num">2</span><div class="band" style="background:var(--jam-grape)"></div><div class="knobs"><span class="knob"></span><span class="knob"></span><span class="knob"></span></div><div class="pm">Vermin Dist</div><div class="pt">RAT / Rattler</div></div>
+      <span class="patch"></span>
+      <div class="pedal"><span class="num">3</span><div class="band" style="background:var(--ua-gold)"></div><div class="knobs"><span class="knob"></span><span class="knob"></span><span class="knob"></span></div><div class="pm">Litigator</div><div class="pt">ODS amp</div></div>
+      <span class="patch"></span>
+      <div class="pedal"><span class="num">4</span><div class="band" style="background:var(--ua-gold);filter:brightness(.7)"></div><div class="knobs"><span class="knob"></span><span class="knob"></span></div><div class="pm">Cab / IR</div><div class="pt">D-style 2x12</div></div>
+      <span class="patch"></span>
+      <div class="pedal"><span class="num">5</span><div class="band" style="background:var(--waza-purple)"></div><div class="knobs"><span class="knob"></span><span class="knob"></span></div><div class="pm">Dimension</div><div class="pt">DC-2w</div></div>
+      <span class="patch"></span>
+      <div class="pedal"><span class="num">6</span><div class="band" style="background:var(--boss-red)"></div><div class="knobs"><span class="knob"></span><span class="knob"></span><span class="knob"></span></div><div class="pm">Bucket Brigade</div><div class="pt">DM-2 std</div></div>
+      <span class="patch"></span>
+      <div class="pedal"><span class="num">7</span><div class="band" style="background:var(--ehx-silver)"></div><div class="knobs"><span class="knob"></span><span class="knob"></span></div><div class="pm">63 Spring</div><div class="pt">Holy Grail</div></div>
+      <span class="patch"></span><span class="io">Output</span>
+    </div>
+    <div class="preset-b">
+      <div class="device">
+        <div class="dlabel">HX Stomp XL &middot; stomp mode</div>
+        <div class="fsgrid">
+          <div class="fsw g"><div class="cap"></div><div class="fl">FS1</div><div class="fv">Minotaur (Archer)</div></div>
+          <div class="fsw r"><div class="cap"></div><div class="fl">FS2</div><div class="fv">Vermin (lead)</div></div>
+          <div class="fsw b"><div class="cap"></div><div class="fl">FS3</div><div class="fv">Dimension</div></div>
+          <div class="fsw a"><div class="cap"></div><div class="fl">FS4</div><div class="fv">Bucket Brigade</div></div>
+          <div class="fsw g"><div class="cap"></div><div class="fl">FS5</div><div class="fv">63 Spring</div></div>
+          <div class="fsw a"><div class="cap"></div><div class="fl">FS6</div><div class="fv">Amp gain jump</div></div>
+          <div class="fsw b"><div class="cap"></div><div class="fl">UP/DN</div><div class="fv">Preset nav</div></div>
+          <div class="fsw r"><div class="cap"></div><div class="fl">TAP</div><div class="fv">Tap / hold = Tuner</div></div>
+        </div>
+        <div class="snapline"><b>SNAP 1</b> clean rhythm &middot; <b>SNAP 2</b> crunch (Minotaur on) &middot; <b>SNAP 3</b> lead (Mino + Vermin + delay) &middot; <b>SNAP 4</b> ambient tail (delay + verb up)</div>
+      </div>
+      <p class="small">DSP note: Litigator + IR + three time blocks rides the ceiling. If it refuses a block, swap the dual IR for a single stock cab. This one patch replaces six pedals.</p>
+    </div>
+  </div>
+
+  <!-- PRESET 2 -->
+  <div class="preset">
+    <div class="preset-h"><span class="pn">PRESET 02</span><h4>Clean Ambient / Texture</h4><span class="use">the MOOD-adjacent patch / full 8 blocks</span></div>
+    <div class="rail">
+      <span class="io">Input</span><span class="patch"></span>
+      <div class="pedal"><span class="num">1</span><div class="band" style="background:var(--lehle)"></div><div class="knobs"><span class="knob"></span><span class="knob"></span></div><div class="pm">Deluxe Comp</div><div class="pt">optical squish</div></div>
+      <span class="patch"></span>
+      <div class="pedal"><span class="num">2</span><div class="band" style="background:var(--ua-gold)"></div><div class="knobs"><span class="knob"></span><span class="knob"></span><span class="knob"></span></div><div class="pm">Litigator</div><div class="pt">Drive 3, clean</div></div>
+      <span class="patch"></span>
+      <div class="pedal"><span class="num">3</span><div class="band" style="background:var(--ua-gold);filter:brightness(.7)"></div><div class="knobs"><span class="knob"></span></div><div class="pm">Cab / IR</div><div class="pt">1x12 Deluxe</div></div>
+      <span class="patch"></span>
+      <div class="pedal"><span class="num">4</span><div class="band" style="background:var(--waza-purple)"></div><div class="knobs"><span class="knob"></span><span class="knob"></span></div><div class="pm">Dimension</div><div class="pt">mode 3</div></div>
+      <span class="patch"></span>
+      <div class="pedal"><span class="num">5</span><div class="band" style="background:var(--mood-peach)"></div><div class="knobs"><span class="knob"></span><span class="knob"></span><span class="knob"></span></div><div class="pm">Glitch Delay</div><div class="pt">MOOD-ish</div></div>
+      <span class="patch"></span>
+      <div class="pedal"><span class="num">6</span><div class="band" style="background:var(--holo-teal)"></div><div class="knobs"><span class="knob"></span><span class="knob"></span></div><div class="pm">Searchlights</div><div class="pt">big verb</div></div>
+      <span class="patch"></span>
+      <div class="pedal"><span class="num">7</span><div class="band" style="background:var(--mood-peach);filter:brightness(.75)"></div><div class="knobs"><span class="knob"></span><span class="knob"></span></div><div class="pm">Poly Sustain</div><div class="pt">freeze / pad</div></div>
+      <span class="patch"></span>
+      <div class="pedal"><span class="num">8</span><div class="band" style="background:var(--lehle);filter:brightness(1.2)"></div><div class="knobs"><span class="knob"></span></div><div class="pm">Volume</div><div class="pt">EXP swell</div></div>
+      <span class="patch"></span><span class="io">Output</span>
+    </div>
+    <div class="preset-b">
+      <div class="device">
+        <div class="dlabel">HX Stomp XL &middot; stomp mode</div>
+        <div class="fsgrid">
+          <div class="fsw g"><div class="cap"></div><div class="fl">FS1</div><div class="fv">Compressor</div></div>
+          <div class="fsw b"><div class="cap"></div><div class="fl">FS2</div><div class="fv">Dimension</div></div>
+          <div class="fsw r"><div class="cap"></div><div class="fl">FS3</div><div class="fv">Glitch Delay</div></div>
+          <div class="fsw a"><div class="cap"></div><div class="fl">FS4</div><div class="fv">Searchlights</div></div>
+          <div class="fsw g"><div class="cap"></div><div class="fl">FS5</div><div class="fv">Poly Sustain (freeze)</div></div>
+          <div class="fsw a"><div class="cap"></div><div class="fl">FS6</div><div class="fv">Volume bypass</div></div>
+          <div class="fsw b"><div class="cap"></div><div class="fl">EXP 1</div><div class="fv">Swell, heel = silent</div></div>
+          <div class="fsw r"><div class="cap"></div><div class="fl">TAP</div><div class="fv">Tap / Tuner</div></div>
+        </div>
+        <div class="snapline"><b>Full 8 blocks:</b> no room for a gain jump, so use snapshots for level moves. This is a texture generator, not a granular looper. Evolving pads and glitchy repeats, yes; capture-and-mangle, no.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRESET 3 -->
+  <div class="preset">
+    <div class="preset-h"><span class="pn">PRESET 03</span><h4>Looper-Centric Performance</h4><span class="use">the XL's whole reason to exist</span></div>
+    <div class="rail">
+      <span class="io">Input</span><span class="patch"></span>
+      <div class="pedal"><span class="num">1</span><div class="band" style="background:var(--rockett)"></div><div class="knobs"><span class="knob"></span><span class="knob"></span></div><div class="pm">Minotaur</div><div class="pt">boost</div></div>
+      <span class="patch"></span>
+      <div class="pedal"><span class="num">2</span><div class="band" style="background:var(--ua-gold)"></div><div class="knobs"><span class="knob"></span><span class="knob"></span><span class="knob"></span></div><div class="pm">Litigator</div><div class="pt">amp</div></div>
+      <span class="patch"></span>
+      <div class="pedal"><span class="num">3</span><div class="band" style="background:var(--ua-gold);filter:brightness(.7)"></div><div class="knobs"><span class="knob"></span></div><div class="pm">Cab / IR</div><div class="pt">cab</div></div>
+      <span class="patch"></span>
+      <div class="pedal"><span class="num">4</span><div class="band" style="background:var(--waza-purple)"></div><div class="knobs"><span class="knob"></span><span class="knob"></span></div><div class="pm">Dimension</div><div class="pt">width</div></div>
+      <span class="patch"></span>
+      <div class="pedal"><span class="num">5</span><div class="band" style="background:var(--boss-red)"></div><div class="knobs"><span class="knob"></span><span class="knob"></span><span class="knob"></span></div><div class="pm">Adriatic</div><div class="pt">DM-2 custom</div></div>
+      <span class="patch"></span>
+      <div class="pedal"><span class="num">6</span><div class="band" style="background:var(--pete-blue)"></div><div class="knobs"><span class="knob"></span><span class="knob"></span></div><div class="pm">Ganymede</div><div class="pt">hall verb</div></div>
+      <span class="patch"></span>
+      <div class="pedal"><span class="num">7</span><div class="band" style="background:var(--boss-red);filter:brightness(1.15)"></div><div class="knobs"><span class="knob"></span><span class="knob"></span></div><div class="pm">6SW Looper</div><div class="pt">LAST block</div></div>
+      <span class="patch"></span><span class="io">Output</span>
+    </div>
+    <div class="preset-b">
+      <div class="device">
+        <div class="dlabel">HX Stomp XL &middot; 6-switch looper mode</div>
+        <div class="fsgrid">
+          <div class="fsw r"><div class="cap"></div><div class="fl">FS1</div><div class="fv">Record / Overdub</div></div>
+          <div class="fsw g"><div class="cap"></div><div class="fl">FS2</div><div class="fv">Play / Stop</div></div>
+          <div class="fsw a"><div class="cap"></div><div class="fl">FS3</div><div class="fv">Undo / Redo</div></div>
+          <div class="fsw b"><div class="cap"></div><div class="fl">FS4</div><div class="fv">Reverse</div></div>
+          <div class="fsw b"><div class="cap"></div><div class="fl">FS5</div><div class="fv">Half Speed</div></div>
+          <div class="fsw a"><div class="cap"></div><div class="fl">FS6</div><div class="fv">Exit looper</div></div>
+          <div class="fsw g"><div class="cap"></div><div class="fl">STOMP</div><div class="fv">Mino / Dim / Adriatic / Ganymede</div></div>
+          <div class="fsw r"><div class="cap"></div><div class="fl">SNAP</div><div class="fv">Clean bed / Lead on top</div></div>
+        </div>
+        <div class="snapline">Looper sits <b>last</b> so loops capture the full wet tone. Keep effects static while layering so overdubs stack cleanly. The one-screen transport is the XL's edge over the standard Stomp.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout"><span class="ct">Hybrid routing</span>The XL's stereo FX loop takes any real pedal via a Send/Return block. Best candidates: the actual Enigmatic (as the whole amp stage), MOOD or Microcosm on a parallel post-amp path, and the RC-5 after everything if you need its drums and song memories.</div>
+</section>
+
+<!-- ================= 04 PLUGINS ================= -->
+<section id="s4">
+  <div class="sec-head">
+    <div class="sec-num">04</div>
+    <h2>Plugin Substitutes</h2>
+    <div class="sub">Logic Pro + Ableton Live 12 Suite / VST3 + AU</div>
+  </div>
+
+  <div class="callout red"><span class="ct">The headline</span>As of mid-2026 there is <b>no official Chase Bliss MOOD plugin</b> (their Goodhertz collaboration went the other way: Lossy became a pedal) and <b>no official Hologram Microcosm plugin</b>. Both boxes are hardware-only and genuinely unique. Below is the best digital adjacency money can and cannot buy.</div>
+
+  <h3>MOOD + Microcosm territory</h3>
+  <div class="plug-grid">
+    <div class="plug star"><span class="rank">Buy first</span>
+      <h4>Arturia Efx FRAGMENTS</h4>
+      <div class="pmeta">VST/VST3/AU/AAX/NKS &middot; <span class="pr">$99</span> (often on sale)</div>
+      <p>Real-time granular processor: stutters, grainy stereo ambience, texture and rhythmic modes. The name that keeps coming up as the guitar-into-granular Microcosm alternative, and it earns it.</p>
+    </div>
+    <div class="plug"><span class="rank">If Fragments isn't deep enough</span>
+      <h4>Output Portal</h4>
+      <div class="pmeta">VST3/AU/AAX &middot; <span class="pr">~$129</span></div>
+      <p>Playable grain engine, excellent for MOOD-style clouds. Pair with Valhalla Supermassive (free) for the wash underneath.</p>
+    </div>
+    <div class="plug">
+      <h4>Unfiltered Audio Silo</h4>
+      <div class="pmeta">VST3/AU/AAX &middot; <span class="pr">~$99</span></div>
+      <p>Granular sample-and-scatter delay; strong glitch textures.</p>
+    </div>
+    <div class="plug">
+      <h4>Audio Damage Other Desert Cities</h4>
+      <div class="pmeta">VST3/AU/AAX &middot; <span class="pr">~$79</span></div>
+      <p>Granular delay with reverse and grain modes for Microcosm-ish delay glitch.</p>
+    </div>
+  </div>
+
+  <div class="twin" style="border:1px solid var(--line2);background:var(--panel)">
+    <div>
+      <h5>Free path: Ableton Live 12 Suite</h5>
+      <ul style="font-size:.86rem">
+        <li><b>Granulator III</b> (Suite bundle, download from Ableton.com): 3 modes incl. Cloud, real-time capture, MPE. Your closest native granular engine.</li>
+        <li><b>Beat Repeat</b> (stutter), <b>Echo</b> (dub delay), <b>Hybrid Reverb</b>, <b>Roar</b> (color), <b>Looper</b>.</li>
+        <li>Chain: Looper &rarr; Granulator III &rarr; Hybrid Reverb &asymp; the Microcosm capture-and-scatter workflow.</li>
+      </ul>
+    </div>
+    <div>
+      <h5>Free path: Logic Pro 12.3</h5>
+      <ul style="font-size:.86rem">
+        <li><b>Sample Alchemy / Alchemy</b> granular engines (12.3 added tempo-locked Sync and formant shifting).</li>
+        <li><b>Delay Designer</b> (26 taps), <b>Space Designer</b>, <b>Sculpture</b>, <b>Beat Breaker</b> (slice/glitch), <b>ChromaGlow</b>.</li>
+        <li>Chain: record a phrase &rarr; Sample Alchemy granular &rarr; Space Designer.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>The rest of the board, in the box</h3>
+  <table class="std">
+    <tr><th>Pedal</th><th>Best dedicated plugin</th><th>Format / price</th><th>Native fallback</th></tr>
+    <tr><td><b>UAFX Enigmatic '82</b></td><td><b>UAD Enigmatic '82 ODS native</b> (UADx, no UA hardware). Released 1 May 2026; models 4+ D-style amp eras "from early Santa Cruz builds to later LA studio favorites" per UA's James Santiago. Same Rock/Jazz/Custom engine as the pedal.</td><td class="m">VST3/AU/AAX &middot; $99 (intro $49 ended 25 May 2026)</td><td>AmpliTube has no Dumble; TONEX capture is the workaround</td></tr>
+    <tr><td><b>Boss DC-2</b></td><td><b>Arturia Chorus DIMENSION-D</b>: the Roland Dimension D with the same 4-button operation plus BBD warmth and stereo width control</td><td class="m">VST/VST3/AU/AAX &middot; $149 list, cheap in bundles</td><td>Logic Chorus/Ensemble; Live Chorus-Ensemble; UAD Studio D</td></tr>
+    <tr><td><b>Boss DM-2</b></td><td><b>Arturia Delay MEMORY-BRIGADE</b>: BBD delay modeled on the Deluxe Memory Man, same bucket-brigade family</td><td class="m">VST/VST3/AU/AAX &middot; $99 list, seen $49-69</td><td>UAD Galaxy Tape Echo for tape flavor; stock delays + high cut</td></tr>
+    <tr><td><b>Archer / Klon</b></td><td>No AmpliTube Klon exists. Third-party Klon plugin or a TONEX Archer capture into your amp sim</td><td class="m">varies</td><td>Generic transparent boost stomp</td></tr>
+    <tr><td><b>Holy Grail</b></td><td>Covered inside AmpliTube 5 MAX (Hall / Plate / Spring)</td><td class="m">included</td><td>Space Designer; Hybrid Reverb; Supermassive (free)</td></tr>
+    <tr><td><b>Rattler / RAT</b></td><td>AmpliTube RAT-style distortion stomps</td><td class="m">included</td><td>HX Vermin Dist if hybrid</td></tr>
+    <tr><td><b>RC-5</b></td><td>Ableton <b>Looper</b> device (all editions). In Logic, Live Loops cells; true live looping is stronger in MainStage</td><td class="m">DAW native</td><td>Any drummer/pattern track replaces the RC-5 rhythm engine</td></tr>
+  </table>
+</section>
+
+<!-- ================= 05 AMPLITUBE ================= -->
+<section id="s5">
+  <div class="sec-head">
+    <div class="sec-num">05</div>
+    <h2>AmpliTube 5 MAX Coverage</h2>
+    <div class="sub">435 models: 111 stomp / 111 amp / 106 cab / 48 rack</div>
+  </div>
+  <table class="std">
+    <tr><th>Board pedal</th><th>AmpliTube equivalent</th><th>Coverage</th></tr>
+    <tr><td><b>Boss DM-2</b></td><td>EchoMan (EHX Memory Man BBD echo w/ chorus-vibrato) + Analog Delay</td><td><span class="fid hi"><span class="dot"></span>Direct-ish</span></td></tr>
+    <tr><td><b>Boss DC-2</b></td><td>Chorus / Analog Chorus family (generic, not a Dimension D model)</td><td><span class="fid mid"><span class="dot"></span>Approx</span></td></tr>
+    <tr><td><b>EHX Holy Grail</b></td><td>Hall, Plate, Room, Spring (Fender 63), Shimmer, Inverse</td><td><span class="fid hi"><span class="dot"></span>Covered</span></td></tr>
+    <tr><td><b>JAM Rattler</b></td><td>Distortion / Crusher / diode family (RAT-style present)</td><td><span class="fid mid"><span class="dot"></span>Approx</span></td></tr>
+    <tr><td><b>J. Rockett Archer</b></td><td>No named Klon in the stock list</td><td><span class="fid lo"><span class="dot"></span>Gap</span></td></tr>
+    <tr><td><b>Enigmatic / Dumble</b></td><td>No named ODS amp; TONEX capture or UAD native instead</td><td><span class="fid lo"><span class="dot"></span>Gap</span></td></tr>
+    <tr><td><b>Lehle Volume</b></td><td>Volume stomp + Wah/Volume</td><td><span class="fid hi"><span class="dot"></span>Covered</span></td></tr>
+    <tr><td><b>MOOD / Microcosm</b></td><td>Nothing; AmpliTube has no granular engine</td><td><span class="fid lo"><span class="dot"></span>Gap</span></td></tr>
+  </table>
+  <p class="small">Read: AmpliTube handles delay, reverb, and RAT dirt well. No Klon, no Dumble, no granular. Those three gaps are exactly where UAD Enigmatic native, a TONEX capture, and a granular plugin earn their keep.</p>
+</section>
+
+<!-- ================= 06 MONITORING ================= -->
+<section id="s6">
+  <div class="sec-head">
+    <div class="sec-num">06</div>
+    <h2>Monitoring, Mono, and EQ</h2>
+    <div class="sub">Peavey XR600F + Harbinger M60 / single KRK Rokit 8</div>
+  </div>
+  <p>Two mono, full-range-ish outputs; neither is a flat FRFR wedge. Treat the HX output as a finished front-of-house signal (amp + cab always on) and tame each rig with Global EQ.</p>
+
+  <div class="eqcard">
+    <div class="eh">Global EQ Quick Reference</div>
+    <div class="eb">
+      <div class="eqbig">
+        <div><div class="el">Low Cut</div><div class="ev">80-100</div><div class="eu">Hz</div></div>
+        <div><div class="el">High Cut</div><div class="ev">8-10</div><div class="eu">kHz</div></div>
+        <div><div class="el">Output</div><div class="ev">LINE</div><div class="eu">not instrument</div></div>
+      </div>
+      <table class="ptable">
+        <tr><td>Peavey / Harbinger</td><td>LoCut <span class="v">90-100 Hz</span> (a 10" gains nothing below), HiCut <span class="v">7.5-8.5 kHz</span> (horn fizz). If harsh, pull <span class="v">2-3 dB</span> at <span class="v">2.5-4 kHz</span> parametric. Conservative channel gain on the XR600F; the HX runs near line level.</td></tr>
+        <tr><td>KRK Rokit 8</td><td>LoCut <span class="v">80 Hz</span>, HiCut <span class="v">9-10 kHz</span> (it's honest up top, keep the air). Flatten parametric bands unless the room rings. The 8" woofer will fart out on sub-heavy IRs at volume.</td></tr>
+        <tr><td>Mono summing</td><td>Fold L/R to the mono jack; audition every stereo block for phase weirdness. If a stereo effect thins in mono, switch that block to its <span class="v">Mono</span> variant.</td></tr>
+        <tr><td>Headroom</td><td>Channel Volume + block Levels so the output meter never clips. Re-check the whole card whenever you swap rigs.</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 07 VERDICTS ================= -->
+<section id="s7">
+  <div class="sec-head">
+    <div class="sec-num">07</div>
+    <h2>Verdicts + Next Moves</h2>
+    <div class="sub">where the digital rig ends and the boxes stay unique</div>
+  </div>
+
+  <div class="verdict">
+    <div class="vcol g"><h4>Translates</h4>
+      <ul>
+        <li>DM-2w &rarr; Bucket Brigade / Adriatic: same circuit lineage</li>
+        <li>DC-2w &rarr; Dimension: the actual SDD-320</li>
+        <li>Archer &rarr; Minotaur; Rattler &rarr; Vermin</li>
+        <li>Holy Grail spring + hall</li>
+        <li>Enigmatic's ODS character via Litigator</li>
+        <li>Lehle + Peterson stage duties</li>
+      </ul>
+    </div>
+    <div class="vcol y"><h4>Approximate</h4>
+      <ul>
+        <li>Litigator is one ODS voice, not the Enigmatic's four eras (UAD native is the 1:1)</li>
+        <li>Flerb needs the Plate&rarr;Flanger rebuild</li>
+        <li>DC-2 in mono loses its identity</li>
+        <li>RC-5 minus drums, memories, storage</li>
+        <li>Rattler's boutique op-amp warmth, close not equal</li>
+      </ul>
+    </div>
+    <div class="vcol r"><h4>Doesn't</h4>
+      <ul>
+        <li>MOOD: no always-listening micro-looper, no stretch, no plugin exists</li>
+        <li>Microcosm: no mosaic/arp/sequence engine anywhere in software, official or otherwise</li>
+        <li>Keep both. Run them in the FX loop. That's the answer.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Move list</h3>
+  <ol>
+    <li><b>Build Preset 01 tonight.</b> Litigator + D-style cab, Minotaur and Vermin in front, Dimension / Bucket Brigade / 63 Spring behind. Six pedals in one patch. If DSP balks, single stock cab instead of dual IR.</li>
+    <li><b>MOOD and Microcosm stay physical, in the FX loop.</b> For in-the-box work: Arturia Efx FRAGMENTS ($99) first, Output Portal only if Fragments runs shallow. If you reach for MOOD's freeze/stretch more than its texture, no plugin will satisfy; the pedal stays.</li>
+    <li><b>UAD Enigmatic '82 native ($99)</b> for tracking: the exact engine, all four D-style eras, no UA hardware needed. Litigator live, UAD in the studio.</li>
+    <li><b>Arturia Chorus DIMENSION-D + Delay MEMORY-BRIGADE</b> on the next sale: more accurate than the HX blocks for mixing, and DIMENSION-D gives you the real stereo crossmix your monitors can't.</li>
+    <li><b>Peterson on the bench, HX tuner on stage.</b> RC-5 survives only if you use its drums or song memories.</li>
+    <li><b>Set the Global EQ card before judging any tone.</b> It's the single biggest quality jump on non-FRFR mono monitoring, and it needs re-checking every rig swap.</li>
+  </ol>
+
+  <h3>Caveats</h3>
+  <ul>
+    <li><b>Firmware:</b> everything here reflects HX/Helix 3.80 (19 Nov 2024), current for the whole HX line. A future update could change model lists.</li>
+    <li><b>Lehle:</b> Mono Volume / Mono Volume 90 are active VCA pedals, not passive. If yours is truly passive it is another brand or the Dual Expression. Mapping unchanged either way.</li>
+    <li><b>JAM ID:</b> two knobs plus tone, LM308 lineage, custom bus art = Rattler. If it's actually a Fuzz Phrase or TubeDreamer, swap to Fuzz Face or Tube Screamer models.</li>
+    <li><b>Holy Grail version:</b> settings assume Nano/original (Spring/Hall/Flerb). Neo owners use Plate directly.</li>
+    <li><b>Pricing:</b> list/typical mid-2026, moves constantly. UAD intro pricing expired 25 May 2026. MOOD MKII hardware: $399 US, recently $359 direct.</li>
+    <li><b>DSP:</b> Litigator is hungry; some builds hit the wall before 8 blocks. Stock cab over dual IR is the standard escape hatch.</li>
+    <li><b>Mono reality:</b> every stereo effect here is compromised on your current monitoring. Judge stereo work on headphones or in the DAW, full stop.</li>
+  </ul>
+
+  <footer>
+    <span>Rig Dossier 001 / The Board, Translated</span>
+    <span>HX 3.80 &middot; AmpliTube 5 MAX &middot; Logic 12.3 &middot; Live 12 Suite</span>
+  </footer>
+</section>
+
+</div>
+</body>
+</html>
