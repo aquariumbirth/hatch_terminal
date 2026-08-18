@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Shelf</title>
+<meta name="description" content="Interactive documents and references.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wdth,wght@62..125,400..900&family=Spline+Sans:wght@300;400;500;600;700&family=Spline+Sans+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E8E4DA; --paper-2:#DEDACE; --bone:#F5F2EA;
+  --ink:#111014; --ink-2:#1C1A22; --ink-3:#2A2833;
+  --M:#FF2D6F; --C:#00A9C7; --Y:#FFC300; --K:#8A8798;
+  --grey:#6E6A62; --grey-dim:#9A958B;
+  --disp:'Archivo Black','Archivo',system-ui,sans-serif;
+  --cond:'Archivo',system-ui,sans-serif;
+  --body:'Spline Sans',system-ui,sans-serif;
+  --mono:'Spline Sans Mono',ui-monospace,monospace;
+  --gutter:clamp(18px,4vw,56px);
+}
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.001ms !important;animation-duration:.001ms !important;}}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.6; font-weight:350;
+  min-height:100vh; display:flex; flex-direction:column;
+}
+body::after{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:900;
+  opacity:.14; mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='.55'/></svg>");
+}
+.wrap{max-width:1120px; margin:0 auto; padding-inline:var(--gutter); width:100%;}
+
+/* ---- hero ---- */
+header{background:var(--ink); color:var(--bone); padding-block:clamp(38px,7vw,74px) clamp(30px,5vw,56px);}
+.eyebrow{font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:var(--grey-dim);}
+h1{
+  margin:clamp(16px,3vw,26px) 0 0; font-weight:400; font-family:var(--disp);
+  font-size:clamp(3rem,13vw,8.5rem); line-height:.84; letter-spacing:-.035em; text-transform:uppercase;
+  color:var(--bone);
+}
+.misreg{position:relative; z-index:0; display:inline-block;}
+.misreg::before,.misreg::after{content:attr(data-t); position:absolute; inset:0; z-index:-1; pointer-events:none; user-select:none;}
+.misreg::before{color:var(--M); transform:translate(-.055em,.03em);}
+.misreg::after{color:var(--C); transform:translate(.055em,-.03em);}
+.tagline{margin-top:24px; max-width:52ch; color:#CFCBC2; font-size:clamp(1rem,1.9vw,1.2rem); line-height:1.5;}
+
+/* ---- controls ---- */
+.controls{
+  display:flex; flex-wrap:wrap; gap:12px 16px; align-items:center;
+  padding-block:clamp(22px,3.5vw,34px);
+}
+#q{
+  font-family:var(--mono); font-size:13px; padding:11px 14px; min-width:min(300px,100%);
+  background:transparent; color:var(--ink); border:2px solid var(--ink); border-radius:2px; flex:1 1 240px;
+}
+#q::placeholder{color:var(--grey);}
+.chips{display:flex; flex-wrap:wrap; gap:7px;}
+.chip{
+  appearance:none; cursor:pointer; font-family:var(--mono); font-size:11px; font-weight:500;
+  letter-spacing:.1em; text-transform:uppercase; padding:7px 12px; border-radius:99px;
+  border:1.5px solid rgba(17,16,20,.3); background:transparent; color:var(--ink); transition:all .12s ease;
+}
+.chip:hover{border-color:var(--ink);}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--bone); border-color:var(--ink);}
+:focus-visible{outline:3px solid var(--Y); outline-offset:2px;}
+
+/* ---- the list: signature element ---- */
+main{flex:1;}
+.list{border-top:2px solid var(--ink); margin-bottom:clamp(40px,7vw,84px);}
+.row{
+  display:grid; grid-template-columns:clamp(58px,7vw,96px) 1fr auto;
+  gap:clamp(14px,3vw,32px); align-items:start;
+  padding:clamp(20px,3vw,30px) clamp(12px,2vw,20px);
+  border-bottom:1px solid rgba(17,16,20,.22);
+  text-decoration:none; color:inherit; position:relative;
+  transition:background .14s ease, color .14s ease, padding-left .14s ease;
+}
+.row:hover,.row:focus-visible{background:var(--ink); color:var(--bone); padding-left:clamp(18px,2.6vw,30px);}
+.row .n{
+  font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:.14em;
+  color:var(--grey); padding-top:6px;
+}
+.row:hover .n{color:var(--M);}
+.row .t{
+  font-family:var(--cond); font-variation-settings:'wdth' 80,'wght' 900;
+  font-size:clamp(1.35rem,4vw,2.35rem); line-height:1; letter-spacing:.005em; text-transform:uppercase;
+}
+.row .d{font-size:15px; line-height:1.5; margin-top:10px; max-width:62ch; color:#3A3740;}
+.row:hover .d{color:#CFCBC2;}
+.row .meta{display:flex; flex-wrap:wrap; gap:6px; margin-top:14px; align-items:center;}
+.row .tag{
+  font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+  padding:4px 8px; border:1px solid currentColor; opacity:.55; border-radius:2px;
+}
+.row .ch{width:9px; height:9px; border-radius:50%; display:inline-block; margin-right:4px;}
+.row .go{
+  font-family:var(--mono); font-size:22px; line-height:1; padding-top:4px; opacity:.35; transition:opacity .14s ease, transform .14s ease;
+}
+.row:hover .go{opacity:1; transform:translateX(4px); color:var(--Y);}
+@media (max-width:640px){
+  .row{grid-template-columns:1fr; gap:0;}
+  .row .n{padding-top:0; margin-bottom:8px;}
+  .row .go{display:none;}
+}
+.empty{
+  padding:44px 20px; font-family:var(--mono); font-size:13px; color:var(--grey);
+  border-bottom:1px solid rgba(17,16,20,.22);
+}
+.empty b{color:var(--ink);}
+
+footer{background:var(--ink); color:var(--grey-dim); padding-block:38px; font-family:var(--mono); font-size:11.5px; letter-spacing:.05em; line-height:1.8;}
+footer b{color:var(--bone);}
+footer a{color:var(--K);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow" id="hdrCount">&nbsp;</div>
+    <h1><span class="misreg" id="hdrTitle" data-t="THE SHELF">THE SHELF</span></h1>
+    <p class="tagline" id="hdrTagline"></p>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="controls">
+      <input id="q" type="search" placeholder="Search titles, topics, tags" aria-label="Search documents" autocomplete="off">
+      <div class="chips" id="chips"></div>
+    </div>
+    <div class="list" id="list"></div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <b id="ftTitle">The Shelf</b><br>
+    Static HTML, no build step, no dependencies. Everything here runs entirely in the browser.<br>
+    <span id="ftNote"></span>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   EDIT HERE. Everything below this block is machinery.
+
+   To add a document:
+     1. Drop its .html file in the same folder as this index.
+     2. Add one entry to DOCS. Newest first.
+
+   channel  colours the dot: 'M' magenta, 'C' cyan, 'Y' yellow, 'K' grey.
+   tags     become filter chips automatically. Keep them short.
+   ============================================================ */
+
+const SITE = {
+  title: 'THE SHELF',
+  tagline: 'Interactive documents, references, and things worth keeping in one place. Everything here is a single self-contained HTML file.',
+  footer: 'Hosted on GitHub Pages.'
+};
+
+const DOCS = [
+  {
+    title: 'The Tuning Arsenal',
+    file: 'sonic-youth-tuning-arsenal.html',
+    desc: 'Every documented Sonic Youth guitar tuning from EVOL to The Eternal, with playable fretboard shapes, synthesised audio for each tuning, the Thurston and Lee split, and a live string-tension calculator that builds a custom gauge set for any tuning and scale length.',
+    tags: ['music', 'reference', 'interactive'],
+    date: '2026',
+    channel: 'M'
+  }
+  /*
+  ,{
+    title: 'Next Thing',
+    file: 'next-thing.html',
+    desc: 'One or two sentences on what it is and who it is for.',
+    tags: ['tag', 'tag'],
+    date: '2026',
+    channel: 'C'
+  }
+  */
+];
+
+/* ------------------------------------------------------------
+   machinery
+   ------------------------------------------------------------ */
+const CHCOL = {M:'#FF2D6F', C:'#00A9C7', Y:'#FFC300', K:'#8A8798'};
+const $ = s => document.querySelector(s);
+
+document.title = SITE.title.replace(/\b\w/g, c=>c.toUpperCase());
+$('#hdrTitle').textContent = SITE.title;
+$('#hdrTitle').setAttribute('data-t', SITE.title);
+$('#hdrTagline').textContent = SITE.tagline;
+$('#ftTitle').textContent = SITE.title;
+$('#ftNote').textContent = SITE.footer;
+$('#hdrCount').textContent = DOCS.length + (DOCS.length === 1 ? ' document' : ' documents');
+
+let activeTag = null;
+
+const allTags = Array.from(new Set(DOCS.flatMap(d => d.tags || []))).sort();
+$('#chips').innerHTML = allTags.map(t =>
+  '<button class="chip" data-tag="' + t + '" aria-pressed="false">' + t + '</button>').join('');
+
+function esc(s){
+  return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+}
+
+function render(){
+  const q = $('#q').value.trim().toLowerCase();
+  const hits = DOCS.filter(d => {
+    if(activeTag && !(d.tags || []).includes(activeTag)) return false;
+    if(!q) return true;
+    return (d.title + ' ' + d.desc + ' ' + (d.tags || []).join(' ')).toLowerCase().includes(q);
+  });
+
+  if(!hits.length){
+    $('#list').innerHTML = '<div class="empty">Nothing matches <b>' + esc($('#q').value) +
+      '</b>. Clear the search or pick a different tag.</div>';
+    return;
+  }
+
+  $('#list').innerHTML = hits.map((d, i) => {
+    const col = CHCOL[d.channel] || CHCOL.K;
+    const num = String(i + 1).padStart(2, '0');
+    const tags = (d.tags || []).map(t => '<span class="tag">' + esc(t) + '</span>').join('');
+    return '<a class="row" href="' + esc(d.file) + '">' +
+      '<div class="n">' + num + '</div>' +
+      '<div>' +
+        '<div class="t">' + esc(d.title) + '</div>' +
+        '<div class="d">' + esc(d.desc) + '</div>' +
+        '<div class="meta"><span class="ch" style="background:' + col + '"></span>' + tags +
+          (d.date ? '<span class="tag">' + esc(d.date) + '</span>' : '') +
+        '</div>' +
+      '</div>' +
+      '<div class="go" aria-hidden="true">&rarr;</div>' +
+    '</a>';
+  }).join('');
+}
+
+$('#q').addEventListener('input', render);
+$('#chips').addEventListener('click', e => {
+  const b = e.target.closest('.chip');
+  if(!b) return;
+  const t = b.dataset.tag;
+  activeTag = (activeTag === t) ? null : t;
+  Array.from($('#chips').children).forEach(c =>
+    c.setAttribute('aria-pressed', String(c.dataset.tag === activeTag)));
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
