@@ -1,4 +1,4 @@
-# The Shelf
+# SOUNDWAX
 
 Self-contained interactive HTML documents. No build step, no dependencies, no server-side anything. Every file runs entirely in the browser.
 
