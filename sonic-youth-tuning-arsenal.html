@@ -1,0 +1,1873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Tuning Arsenal — Sonic Youth, EVOL to The Eternal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wdth,wght@62..125,400..900&family=Spline+Sans:wght@300;400;500;600;700&family=Spline+Sans+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   THE TUNING ARSENAL
+   Palette logic: Sonic Youth sleeve art lived on a xerox machine.
+   The four print channels map to the four guitarists.
+   M = Thurston. C = Lee. Y = Kim. K = Jim O'Rourke (the key plate,
+   added 1999, pulled 2005).
+   ============================================================ */
+:root{
+  --paper:#E8E4DA;
+  --paper-2:#DEDACE;
+  --ink:#111014;
+  --ink-2:#1C1A22;
+  --ink-3:#2A2833;
+  --bone:#F5F2EA;
+
+  --M:#FF2D6F;   /* Thurston */
+  --C:#00A9C7;   /* Lee */
+  --Y:#FFC300;   /* Kim */
+  --K:#8A8798;   /* Jim O'Rourke */
+
+  --grey:#6E6A62;
+  --grey-dim:#9A958B;
+
+  --sig-low:#00A9C7;
+  --sig-ok:#FFC300;
+  --sig-hot:#FF2D6F;
+
+  --disp:'Archivo Black', 'Archivo', system-ui, sans-serif;
+  --cond:'Archivo', system-ui, sans-serif;
+  --body:'Spline Sans', system-ui, sans-serif;
+  --mono:'Spline Sans Mono', ui-monospace, monospace;
+
+  --maxw:1180px;
+  --gutter:clamp(18px, 4vw, 56px);
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth; -webkit-text-size-adjust:100%;}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
+}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.6;
+  font-weight:350; letter-spacing:.002em;
+  overflow-x:hidden;
+}
+
+/* photocopy grain, sits over everything, ignores pointer */
+body::after{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:900;
+  opacity:.14; mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='.55'/></svg>");
+}
+
+.wrap{max-width:var(--maxw); margin:0 auto; padding-inline:var(--gutter);}
+.wrap-wide{max-width:1440px; margin:0 auto; padding-inline:var(--gutter);}
+
+/* ---------- type ---------- */
+h1,h2,h3,h4{margin:0; font-weight:400;}
+.eyebrow{
+  font-family:var(--mono); font-size:11px; font-weight:600;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--grey);
+}
+.h-mega{
+  font-family:var(--disp);
+  font-size:clamp(3.1rem, 12.5vw, 9.5rem);
+  line-height:.83; letter-spacing:-.035em; text-transform:uppercase;
+}
+.h-sec{
+  font-family:var(--disp);
+  font-size:clamp(2rem, 6.2vw, 4.4rem);
+  line-height:.88; letter-spacing:-.03em; text-transform:uppercase;
+}
+.h-sub{
+  font-family:var(--cond); font-variation-settings:'wdth' 82,'wght' 800;
+  font-size:clamp(1.15rem,2.6vw,1.7rem); line-height:1.05;
+  text-transform:uppercase; letter-spacing:.005em;
+}
+.lede{
+  font-size:clamp(1.05rem,2.1vw,1.35rem); line-height:1.45; font-weight:350;
+  max-width:62ch;
+}
+p{margin:0 0 1.05em;}
+.prose{max-width:66ch;}
+.prose p{margin-bottom:1.1em;}
+strong{font-weight:600;}
+em{font-style:italic;}
+a{color:inherit;}
+q{font-style:italic;}
+q::before{content:'\201C';} q::after{content:'\201D';}
+.src{font-family:var(--mono); font-size:.72em; color:var(--grey); letter-spacing:.02em; white-space:nowrap;}
+
+/* misregistration: the one real risk. magenta + cyan plates slipped. */
+.misreg{position:relative; z-index:0; display:inline-block;}
+.misreg::before,.misreg::after{
+  content:attr(data-t); position:absolute; inset:0; z-index:-1;
+  pointer-events:none; user-select:none;
+}
+.misreg::before{color:var(--M); transform:translate(-.055em,.03em);}
+.misreg::after{color:var(--C); transform:translate(.055em,-.03em);}
+
+/* ---------- sections ---------- */
+section{position:relative;}
+.band-ink{background:var(--ink); color:var(--bone);}
+.band-ink .eyebrow{color:var(--K);}
+.pad{padding-block:clamp(56px,9vw,120px);}
+.pad-sm{padding-block:clamp(36px,5vw,64px);}
+.rule{height:2px; background:var(--ink); opacity:.85;}
+.band-ink .rule{background:var(--bone); opacity:.25;}
+
+/* ---------- hero ---------- */
+#hero{
+  background:var(--ink); color:var(--bone);
+  padding-block:clamp(40px,7vw,70px) clamp(30px,5vw,54px);
+  overflow:hidden;
+}
+.hero-top{display:flex; flex-wrap:wrap; gap:14px 26px; align-items:baseline; margin-bottom:clamp(20px,4vw,38px);}
+.hero-top .eyebrow{color:var(--grey-dim);}
+#hero .h-mega{color:var(--bone);}
+.hero-strap{
+  display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:22px;
+  font-family:var(--mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--grey-dim);
+}
+.hero-strap b{font-weight:600;}
+.chan{display:inline-flex; align-items:center; gap:7px;}
+.chan i{width:10px; height:10px; border-radius:50%; display:inline-block;}
+.hero-lede{margin-top:26px; max-width:56ch; color:#CFCBC2; font-size:clamp(1rem,1.9vw,1.22rem); line-height:1.5;}
+
+/* ---------- THE TUNING STRIP: signature element ---------- */
+.strip{
+  display:grid; grid-template-columns:repeat(6,1fr); gap:3px;
+  position:relative; padding:0; margin:0; list-style:none;
+}
+.strip .sbtn{
+  appearance:none; border:0; width:100%; cursor:pointer; text-align:center;
+  font-family:var(--mono); color:var(--ink); background:var(--paper-2);
+  padding:11px 2px 9px; border-radius:1px; position:relative;
+  transition:transform .12s ease, background .12s ease, box-shadow .12s ease;
+  display:block;
+}
+.strip .sbtn .n{display:block; font-size:clamp(15px,2.6vw,21px); font-weight:700; letter-spacing:-.01em; line-height:1;}
+.strip .sbtn .o{display:block; font-size:10px; opacity:.55; margin-top:3px; letter-spacing:.06em;}
+.strip .sbtn .idx{
+  position:absolute; top:3px; left:5px; font-size:8px; opacity:.35; letter-spacing:.08em;
+}
+.strip .sbtn:hover,.strip .sbtn:focus-visible{transform:translateY(-3px); background:#fff;}
+.strip .sbtn.lit{background:var(--Y); box-shadow:0 0 0 2px var(--ink) inset;}
+.strip.on-ink .sbtn{background:var(--ink-3); color:var(--bone);}
+.strip.on-ink .sbtn:hover,.strip.on-ink .sbtn:focus-visible{background:var(--ink-2); color:#fff;}
+.strip.on-ink .sbtn.lit{background:var(--Y); color:var(--ink); box-shadow:none;}
+/* unison bracket */
+.uni{
+  height:12px; display:grid; grid-template-columns:repeat(6,1fr); gap:3px; margin-top:4px;
+}
+.uni span{position:relative;}
+.uni span.u{border-top:2px solid currentColor; opacity:.5;}
+.uni span.u::after{content:""; position:absolute; top:0; height:5px; width:2px; background:currentColor;}
+.uni span.u.l::after{left:0;} .uni span.u.r::after{right:0;}
+
+/* hero strip is bigger */
+#heroStrip .sbtn{padding:clamp(14px,2.6vw,26px) 2px clamp(12px,2vw,20px);}
+#heroStrip .sbtn .n{font-size:clamp(20px,5.2vw,44px);}
+.hero-strip-wrap{margin-top:clamp(28px,5vw,48px);}
+.hero-strip-meta{
+  display:flex; flex-wrap:wrap; gap:10px 18px; align-items:center; justify-content:space-between;
+  margin-bottom:10px; font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--grey-dim);
+}
+.tune-in .sbtn{animation:tuneIn .5s cubic-bezier(.2,.9,.25,1) both;}
+@keyframes tuneIn{from{transform:translateY(14px) scaleY(.6); opacity:0;} to{transform:none; opacity:1;}}
+
+/* ---------- buttons ---------- */
+.btn{
+  appearance:none; cursor:pointer; font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase; padding:11px 17px; border-radius:2px;
+  border:2px solid var(--ink); background:var(--ink); color:var(--bone);
+  transition:transform .1s ease, background .12s ease, color .12s ease;
+  display:inline-flex; align-items:center; gap:9px;
+}
+.btn:hover{transform:translate(-1px,-1px); background:var(--M); border-color:var(--M); color:#fff;}
+.btn:active{transform:none;}
+.btn.ghost{background:transparent; color:var(--ink);}
+.btn.ghost:hover{background:var(--ink); color:var(--bone); border-color:var(--ink);}
+.band-ink .btn{background:var(--bone); color:var(--ink); border-color:var(--bone);}
+.band-ink .btn:hover{background:var(--M); border-color:var(--M); color:#fff;}
+.band-ink .btn.ghost{background:transparent; color:var(--bone);}
+.band-ink .btn.ghost:hover{background:var(--bone); color:var(--ink);}
+.btn .k{font-size:14px; line-height:1;}
+:focus-visible{outline:3px solid var(--Y); outline-offset:2px;}
+
+/* ---------- origin / prose grid ---------- */
+.two-col{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(26px,5vw,64px);}
+.three-col{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(22px,3.5vw,44px);}
+@media (max-width:860px){.two-col,.three-col{grid-template-columns:1fr;}}
+.sec-head{display:flex; flex-wrap:wrap; gap:12px 28px; align-items:flex-end; justify-content:space-between; margin-bottom:clamp(22px,4vw,44px);}
+.sec-head .num{font-family:var(--mono); font-size:12px; letter-spacing:.2em; color:var(--grey);}
+.band-ink .sec-head .num{color:var(--K);}
+
+.pull{
+  border-left:3px solid var(--M); padding:2px 0 2px 18px; margin:26px 0;
+  font-family:var(--cond); font-variation-settings:'wdth' 88,'wght' 600;
+  font-size:clamp(1.1rem,2.4vw,1.45rem); line-height:1.25;
+}
+.pull .src{display:block; margin-top:9px; font-variation-settings:normal;}
+.pull.c{border-color:var(--C);} .pull.y{border-color:var(--Y);}
+
+/* ---------- key / legend ---------- */
+.keygrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:18px; margin-top:26px;}
+.keycard{border:2px solid var(--ink); padding:16px 16px 14px; background:var(--bone);}
+.keycard h4{font-family:var(--cond); font-variation-settings:'wdth' 85,'wght' 800; text-transform:uppercase; font-size:14px; letter-spacing:.04em; margin-bottom:7px;}
+.keycard p{font-size:14px; line-height:1.45; margin:0; color:#3A3740;}
+
+/* ---------- THE RACK ---------- */
+#rack{background:var(--ink); color:var(--bone);}
+.filters{display:flex; flex-wrap:wrap; gap:9px; margin-bottom:26px; align-items:center;}
+.filters .lab{font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--grey-dim); margin-right:4px;}
+.chip{
+  appearance:none; cursor:pointer; font-family:var(--mono); font-size:11px; font-weight:500;
+  letter-spacing:.1em; text-transform:uppercase; padding:7px 12px; border-radius:99px;
+  border:1.5px solid #43404E; background:transparent; color:#CFCBC2; transition:all .12s ease;
+}
+.chip:hover{border-color:var(--bone); color:#fff;}
+.chip[aria-pressed="true"]{background:var(--bone); color:var(--ink); border-color:var(--bone);}
+.chip[data-ch="M"][aria-pressed="true"]{background:var(--M); border-color:var(--M); color:#fff;}
+.chip[data-ch="C"][aria-pressed="true"]{background:var(--C); border-color:var(--C); color:var(--ink);}
+.chip[data-ch="Y"][aria-pressed="true"]{background:var(--Y); border-color:var(--Y); color:var(--ink);}
+.chip[data-ch="K"][aria-pressed="true"]{background:var(--K); border-color:var(--K); color:var(--ink);}
+
+.rack-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(268px,1fr)); gap:14px;}
+/* gaff tape label = the tech's actual artifact */
+.tape{
+  position:relative; cursor:pointer; text-align:left; appearance:none; border:0;
+  background:#DAD6CB; color:var(--ink); padding:14px 15px 13px; width:100%;
+  font-family:inherit; border-radius:1px;
+  box-shadow:2px 3px 0 rgba(0,0,0,.55);
+  transition:transform .13s cubic-bezier(.2,.9,.3,1), box-shadow .13s ease;
+  clip-path:polygon(0 3px, 6px 0, 24% 4px, 52% 0, 78% 4px, 100% 1px, 100% calc(100% - 3px), 74% 100%, 46% calc(100% - 4px), 20% 100%, 0 calc(100% - 2px));
+}
+.tape:hover,.tape:focus-visible{transform:translate(-2px,-3px) rotate(-.35deg); box-shadow:5px 6px 0 rgba(0,0,0,.6);}
+.tape[aria-pressed="true"]{background:var(--Y); transform:translate(-2px,-3px);}
+.tape .who{
+  position:absolute; top:0; right:0; width:10px; height:100%;
+}
+.tape .tn{display:block; font-family:var(--mono); font-size:clamp(17px,2.4vw,21px); font-weight:700; letter-spacing:-.01em; line-height:1.05;}
+.tape .tmeta{display:block; font-family:var(--mono); font-size:10px; letter-spacing:.11em; text-transform:uppercase; color:#54505B; margin-top:6px;}
+.tape .tsong{display:block; font-size:13.5px; line-height:1.3; margin-top:8px; color:#2E2B34; padding-right:12px;}
+.tape .conf{
+  display:inline-block; font-family:var(--mono); font-size:9px; letter-spacing:.12em;
+  text-transform:uppercase; padding:2px 6px; margin-top:9px; border:1px solid currentColor; opacity:.6;
+}
+
+/* ---------- DETAIL PANEL ---------- */
+.detail{
+  margin-top:22px; border:2px solid #43404E; background:var(--ink-2);
+  padding:clamp(18px,3vw,34px); border-radius:2px;
+}
+.detail[hidden]{display:none;}
+.d-head{display:flex; flex-wrap:wrap; gap:14px 24px; align-items:flex-start; justify-content:space-between; margin-bottom:20px;}
+.d-title{font-family:var(--mono); font-size:clamp(1.5rem,4.5vw,2.5rem); font-weight:700; letter-spacing:-.02em; line-height:1;}
+.d-who{font-family:var(--cond); font-variation-settings:'wdth' 82,'wght' 800; text-transform:uppercase; font-size:15px; letter-spacing:.06em; margin-top:8px;}
+.d-grid{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:clamp(22px,3.5vw,40px);}
+@media (max-width:900px){.d-grid{grid-template-columns:1fr;}}
+.d-block{margin-bottom:26px;}
+.d-block:last-child{margin-bottom:0;}
+.d-lab{font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--K); margin-bottom:10px;}
+.d-text{font-size:15px; line-height:1.55; color:#CFCBC2;}
+.d-text b{color:var(--bone); font-weight:600;}
+.transport{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px;}
+
+/* fretboard diagrams */
+.shapes{display:grid; grid-template-columns:repeat(auto-fill,minmax(132px,1fr)); gap:12px;}
+.shape{
+  appearance:none; border:1.5px solid #43404E; background:transparent; cursor:pointer;
+  padding:11px 8px 9px; border-radius:2px; color:inherit; font-family:inherit;
+  transition:border-color .12s ease, background .12s ease, transform .12s ease;
+}
+.shape:hover,.shape:focus-visible{border-color:var(--Y); background:#22202B; transform:translateY(-2px);}
+.shape svg{display:block; width:100%; height:auto;}
+.shape .sname{font-family:var(--mono); font-size:10.5px; letter-spacing:.05em; text-transform:uppercase; margin-top:8px; line-height:1.3; color:#CFCBC2;}
+.shape .snote{font-size:11px; line-height:1.35; color:var(--K); margin-top:4px;}
+
+.songlist{display:flex; flex-wrap:wrap; gap:6px;}
+.songlist span{font-family:var(--mono); font-size:11px; letter-spacing:.03em; padding:4px 8px; border:1px solid #43404E; border-radius:99px; color:#CFCBC2;}
+
+/* gauge table inside detail */
+.gtable{width:100%; border-collapse:collapse; font-family:var(--mono); font-size:12.5px;}
+.gtable th{text-align:left; font-weight:600; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--K); padding:0 8px 8px 0; border-bottom:1px solid #43404E;}
+.gtable td{padding:8px 8px 8px 0; border-bottom:1px solid #2A2833;}
+.gtable tr:last-child td{border-bottom:0;}
+.meter{height:7px; background:#2A2833; border-radius:99px; overflow:hidden; min-width:56px;}
+.meter i{display:block; height:100%; border-radius:99px;}
+.tag{font-size:9.5px; letter-spacing:.1em; text-transform:uppercase;}
+
+/* ---------- TIMELINE ---------- */
+.tl{position:relative; margin-top:10px;}
+.tl-row{
+  display:grid; grid-template-columns:clamp(78px,11vw,132px) 1fr; gap:clamp(16px,3vw,34px);
+  padding:22px 0; border-top:1px solid rgba(17,16,20,.22);
+}
+.tl-row:first-child{border-top:2px solid var(--ink);}
+.tl-yr{font-family:var(--disp); font-size:clamp(1.5rem,4vw,2.6rem); line-height:.9; letter-spacing:-.03em;}
+.tl-alb{font-family:var(--cond); font-variation-settings:'wdth' 80,'wght' 900; text-transform:uppercase; font-size:clamp(1.05rem,2.6vw,1.5rem); line-height:1; letter-spacing:.01em;}
+.tl-note{font-size:14.5px; line-height:1.5; margin-top:9px; max-width:62ch; color:#39363F;}
+.tl-tunes{display:flex; flex-wrap:wrap; gap:6px; margin-top:12px;}
+.tl-tunes button{
+  appearance:none; cursor:pointer; font-family:var(--mono); font-size:11px; letter-spacing:.02em;
+  padding:5px 9px; border:1.5px solid var(--ink); background:transparent; color:var(--ink); border-radius:2px;
+  transition:all .12s ease; display:inline-flex; align-items:center; gap:6px;
+}
+.tl-tunes button:hover{background:var(--ink); color:var(--bone);}
+.tl-tunes button i{width:7px; height:7px; border-radius:50%; display:inline-block;}
+.tl-tunes button:hover i{box-shadow:0 0 0 1px var(--bone);}
+
+.theft{
+  background:var(--ink); color:var(--bone); margin:26px calc(var(--gutter) * -1); padding:clamp(30px,5vw,56px) var(--gutter);
+}
+.theft .h-sub{color:var(--M);}
+.theft p{color:#CFCBC2; font-size:15.5px; line-height:1.55; max-width:64ch;}
+.theft-strip{display:flex; flex-wrap:wrap; gap:5px; margin-top:18px;}
+.theft-strip span{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.05em; padding:4px 8px;
+  border:1px solid #4A4756; color:#8A8798; text-decoration:line-through;
+}
+
+/* ---------- VS ---------- */
+.vs{display:grid; grid-template-columns:1fr 1fr; gap:0; border:2px solid var(--ink);}
+@media (max-width:820px){.vs{grid-template-columns:1fr;}}
+.vs-side{padding:clamp(20px,3vw,32px);}
+.vs-side:first-child{border-right:2px solid var(--ink);}
+@media (max-width:820px){.vs-side:first-child{border-right:0; border-bottom:2px solid var(--ink);}}
+.vs-name{font-family:var(--disp); font-size:clamp(1.6rem,4.4vw,2.7rem); line-height:.9; letter-spacing:-.035em; text-transform:uppercase;}
+.vs-role{font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase; margin-top:9px;}
+.vs-list{list-style:none; padding:0; margin:20px 0 0;}
+.vs-list li{padding:11px 0 11px 22px; border-top:1px solid rgba(17,16,20,.2); font-size:14.5px; line-height:1.45; position:relative;}
+.vs-list li::before{content:""; position:absolute; left:0; top:17px; width:11px; height:2px; background:currentColor;}
+.vs-m .vs-name,.vs-m .vs-role{color:var(--M);}
+.vs-c .vs-name,.vs-c .vs-role{color:var(--C);}
+.interlock{margin-top:26px; border:2px solid var(--ink); padding:clamp(18px,3vw,26px); background:var(--bone);}
+.interlock-rows{display:grid; gap:10px; margin-top:16px;}
+.ilock{
+  display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr) auto; gap:12px; align-items:center;
+  padding:11px 0; border-top:1px solid rgba(17,16,20,.18); font-size:14px;
+}
+.ilock:first-child{border-top:0;}
+.ilock .sg{font-family:var(--cond); font-variation-settings:'wdth' 85,'wght' 700; font-size:15px;}
+.ilock .tm,.ilock .lr{font-family:var(--mono); font-size:12.5px;}
+.ilock .tm{color:var(--M);} .ilock .lr{color:var(--C);}
+@media (max-width:720px){.ilock{grid-template-columns:1fr 1fr; }.ilock .sg{grid-column:1/-1;}}
+
+/* ---------- STRING LAB ---------- */
+#lab{background:var(--ink); color:var(--bone);}
+.lab-controls{display:flex; flex-wrap:wrap; gap:16px 26px; align-items:flex-end; margin-bottom:26px;}
+.field{display:flex; flex-direction:column; gap:7px;}
+.field label{font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--K);}
+select,input[type=number]{
+  font-family:var(--mono); font-size:13px; padding:9px 11px; background:var(--ink-3); color:var(--bone);
+  border:1.5px solid #43404E; border-radius:2px; min-width:150px;
+}
+select:hover,input[type=number]:hover{border-color:var(--K);}
+.lab-table{width:100%; border-collapse:collapse; font-family:var(--mono); font-size:13px;}
+.lab-table th{text-align:left; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--K); padding:0 10px 10px 0; border-bottom:2px solid #43404E; font-weight:600;}
+.lab-table td{padding:10px 10px 10px 0; border-bottom:1px solid #2A2833; vertical-align:middle;}
+.lab-table select{min-width:96px; padding:6px 8px; font-size:12.5px;}
+.lab-table .lbs{font-size:15px; font-weight:600;}
+.total-row{display:flex; flex-wrap:wrap; gap:10px 30px; margin-top:18px; font-family:var(--mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--K);}
+.total-row b{color:var(--bone); font-size:15px; letter-spacing:0;}
+.verdict{margin-top:20px; padding:15px 17px; border-left:3px solid var(--Y); background:#1F1D27; font-size:14.5px; line-height:1.5; color:#CFCBC2;}
+.verdict b{color:var(--bone);}
+@media (max-width:700px){
+  .lab-table thead{display:none;}
+  .lab-table tr{display:grid; grid-template-columns:auto 1fr auto; gap:8px 12px; align-items:center; padding:12px 0; border-bottom:1px solid #2A2833;}
+  .lab-table td{border:0; padding:0;}
+  .lab-table td[data-w="full"]{grid-column:1/-1;}
+}
+
+/* ---------- YOUR GUITARS ---------- */
+.gtr{display:grid; grid-template-columns:1fr 1fr; gap:0; border:2px solid var(--ink); margin-top:8px;}
+@media (max-width:820px){.gtr{grid-template-columns:1fr;}}
+.gtr-side{padding:clamp(20px,3vw,30px);}
+.gtr-side:first-child{border-right:2px solid var(--ink);}
+@media (max-width:820px){.gtr-side:first-child{border-right:0; border-bottom:2px solid var(--ink);}}
+.gtr-name{font-family:var(--cond); font-variation-settings:'wdth' 80,'wght' 900; text-transform:uppercase; font-size:clamp(1.2rem,3vw,1.7rem); line-height:1;}
+.spec{display:flex; flex-wrap:wrap; gap:6px; margin-top:12px;}
+.spec span{font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:4px 8px; background:var(--ink); color:var(--bone);}
+.gtr-body{margin-top:16px; font-size:14.5px; line-height:1.55;}
+.gtr-body ul{padding-left:0; list-style:none; margin:14px 0 0;}
+.gtr-body li{padding:9px 0 9px 20px; border-top:1px solid rgba(17,16,20,.18); position:relative;}
+.gtr-body li::before{content:"→"; position:absolute; left:0; top:9px; font-family:var(--mono); font-size:12px; opacity:.5;}
+
+.plan{display:grid; grid-template-columns:repeat(3,1fr); gap:0; border:2px solid var(--ink); margin-top:26px;}
+@media (max-width:820px){.plan{grid-template-columns:1fr;}}
+.plan-col{padding:clamp(18px,2.6vw,26px); border-right:2px solid var(--ink);}
+.plan-col:last-child{border-right:0;}
+@media (max-width:820px){.plan-col{border-right:0; border-bottom:2px solid var(--ink);} .plan-col:last-child{border-bottom:0;}}
+.plan-wk{font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--grey);}
+.plan-t{font-family:var(--cond); font-variation-settings:'wdth' 84,'wght' 900; text-transform:uppercase; font-size:1.25rem; line-height:1; margin-top:7px;}
+.plan-g{font-family:var(--mono); font-size:12.5px; margin-top:10px; padding:7px 9px; background:var(--ink); color:var(--Y); display:inline-block;}
+.plan-col p{font-size:14px; line-height:1.5; margin-top:12px; margin-bottom:0;}
+
+/* ---------- SOURCES ---------- */
+.srcs{columns:2; column-gap:clamp(24px,4vw,52px); font-size:13.5px; line-height:1.5;}
+@media (max-width:760px){.srcs{columns:1;}}
+.srcs li{break-inside:avoid; margin-bottom:12px; padding-left:0;}
+.srcs a{color:var(--ink); text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:2px; word-break:break-word;}
+.srcs a:hover{color:var(--M);}
+
+footer{background:var(--ink); color:var(--grey-dim); padding-block:44px; font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; line-height:1.7;}
+footer b{color:var(--bone);}
+
+/* audio nudge */
+#nudge{
+  position:fixed; left:50%; transform:translateX(-50%); bottom:20px; z-index:950;
+  background:var(--Y); color:var(--ink); font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.08em; text-transform:uppercase; padding:11px 18px; border-radius:99px;
+  box-shadow:0 6px 22px rgba(0,0,0,.35); border:2px solid var(--ink); cursor:pointer;
+  transition:opacity .3s ease, transform .3s ease;
+}
+#nudge[hidden]{display:none;}
+.dirt-toggle{display:inline-flex; align-items:center; gap:9px; font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; cursor:pointer; color:var(--K);}
+.dirt-toggle input{accent-color:var(--M); width:15px; height:15px;}
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<section id="hero" class="band-ink">
+  <div class="wrap">
+    <div class="hero-top">
+      <span class="eyebrow">EVOL 1986 &rarr; The Eternal 2009</span>
+      <span class="eyebrow">27 tunings &middot; 4 players &middot; 1 stolen truck</span>
+    </div>
+    <h1 class="h-mega"><span class="misreg" data-t="THE TUNING">THE TUNING</span><br><span class="misreg" data-t="ARSENAL">ARSENAL</span></h1>
+    <p class="hero-lede">Sonic Youth almost never retuned a guitar. They picked up a different one. Every instrument in the rack was strung, tuned and taped for exactly one job. Here is what was on all of them, why it sounded like that, and what it takes to put it on yours.</p>
+    <div class="hero-strap">
+      <span class="chan"><i style="background:var(--M)"></i><b>Thurston Moore</b> magenta</span>
+      <span class="chan"><i style="background:var(--C)"></i><b>Lee Ranaldo</b> cyan</span>
+      <span class="chan"><i style="background:var(--Y)"></i><b>Kim Gordon</b> yellow</span>
+      <span class="chan"><i style="background:var(--K)"></i><b>Jim O'Rourke</b> key</span>
+    </div>
+
+    <div class="hero-strip-wrap">
+      <div class="hero-strip-meta">
+        <span id="heroLabel">F&#9839;F&#9839;F&#9839;F&#9839;EB &mdash; Thurston, 1986&ndash;1995</span>
+        <span>note &middot; octave &middot; steps from standard</span>
+      </div>
+      <div class="strip on-ink tune-in" id="heroStrip"></div>
+      <div class="uni" id="heroUni" style="color:var(--K)"></div>
+      <div class="transport" style="margin-top:16px">
+        <button class="btn" id="heroStrum"><span class="k">&#9654;</span> Strum it</button>
+        <button class="btn ghost" id="heroArp">Arpeggiate</button>
+        <button class="btn ghost" id="heroNext">Next tuning</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ORIGIN ============ -->
+<section class="pad">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Where it comes from</div>
+        <h2 class="h-sec">Cheap guitars<br>that would not<br>stay in tune</h2>
+      </div>
+      <div class="num">01 / Origin</div>
+    </div>
+    <div class="two-col">
+      <div class="prose">
+        <p>Both Thurston Moore and Lee Ranaldo came out of <strong>Glenn Branca's</strong> massed-guitar ensembles in early-eighties New York, where a dozen guitars were tuned to specific pitches from the harmonic series and played as one enormous instrument. Ranaldo has described Branca deciding to <q>tune his guitars like a choir</q>. <span class="src">Ranaldo, Uncut</span></p>
+        <p>What they carried out of that room was not a theory. It was a permission slip. The band's early instruments were pawnshop junk, and Ranaldo has said the guitars would not hold a normal tuning, so they <q>started using them more as noise-making devices</q>. <span class="src">Ranaldo, Elektron, 2018</span></p>
+        <p>The turning point came right after <em>Confusion Is Sex</em>. Moore stumbled into <strong>F&#9839;F&#9839;F&#9839;F&#9839;EB</strong> and called it <q>the first real tuning that was sort of notated</q>. <span class="src">Moore, Guitarist, 2015</span> Songs came out of it immediately, and the method was set: find a tuning, write in it, dedicate a guitar to it, never take it apart.</p>
+      </div>
+      <div>
+        <div class="pull c">Tune the guitar a new way and <q>you were a beginner all over again</q>. Ranaldo's argument was that it threw out everything he already knew about the fretboard, which was the point.<span class="src">Lee Ranaldo, LEO Weekly</span></div>
+        <div class="pull y">Kim Gordon on picking up a guitar in a band already built on strange tunings: <q>I almost felt like I had to work against learning how to play</q>.<span class="src">Kim Gordon, NPR, 2015</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW TO READ ============ -->
+<section class="pad-sm">
+  <div class="wrap">
+    <div class="rule" style="margin-bottom:34px"></div>
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">The grammar</div>
+        <h2 class="h-sub">Two facts explain almost every tuning here</h2>
+      </div>
+      <div class="num">02 / Key</div>
+    </div>
+    <div class="two-col">
+      <div class="prose">
+        <p><strong>Unison and octave pairs.</strong> Two strings tuned to the same pitch never land on exactly the same frequency. The tiny difference produces amplitude beating, which your ear reads as a natural chorus. Stack four of them and you get the liquid, ringing, slightly seasick drone that is the band's fingerprint. On the strips below, unison pairs are bracketed underneath.</p>
+        <p><strong>A narrow range.</strong> Standard EADGBE spans two octaves. Joe Gore, writing on the band's setups, noted that in their tunings <q>the distance between the highest and lowest strings was usually an octave or less</q>. <span class="src">Joe Gore, Premier Guitar</span> That compression is why both guitarists could play melodies by barring straight across, and why the two guitars sit on top of each other without either one disappearing.</p>
+      </div>
+      <div>
+        <div class="keygrid">
+          <div class="keycard"><h4>Notation</h4><p>Six letters, lowest string first. GGDDGG means strings six and five are both G, four and three are both D, two and one are both G.</p></div>
+          <div class="keycard"><h4>Octaves are the soft spot</h4><p>Almost no source writes octaves down. The octave placements here are playable reconstructions, chosen so the tension math works. Where a tuning has a well-known alternate voicing it is flagged in the panel.</p></div>
+          <div class="keycard"><h4>Confidence</h4><p><b>Confirmed</b> means liner notes, an interview, or the techs' own gear list. <b>Reported</b> means a single solid secondary source. <b>Transcribed</b> means fans worked it out by ear. Trust accordingly.</p></div>
+          <div class="keycard"><h4>Shapes, not tabs</h4><p>The fingerings are positions that produce the character of the tuning and, where noted, the shape a specific part sits in. They are not note-for-note transcriptions.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE RACK ============ -->
+<section id="rack" class="band-ink pad">
+  <div class="wrap-wide">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">The interactive part</div>
+        <h2 class="h-sec" style="color:var(--bone)">The rack</h2>
+      </div>
+      <div class="num">03 / 27 tunings</div>
+    </div>
+    <p class="lede" style="color:#CFCBC2; margin-bottom:26px">Every label is a guitar that lived in one tuning. Pick one to hear it, see the shapes, and get a string set built for it.</p>
+
+    <div class="filters" id="filters">
+      <span class="lab">Player</span>
+      <button class="chip" data-f="player" data-v="all" data-ch="" aria-pressed="true">All</button>
+      <button class="chip" data-f="player" data-v="Thurston" data-ch="M" aria-pressed="false">Thurston</button>
+      <button class="chip" data-f="player" data-v="Lee" data-ch="C" aria-pressed="false">Lee</button>
+      <button class="chip" data-f="player" data-v="Kim" data-ch="Y" aria-pressed="false">Kim</button>
+      <button class="chip" data-f="player" data-v="Jim" data-ch="K" aria-pressed="false">O'Rourke</button>
+      <span class="lab" style="margin-left:12px">Era</span>
+      <button class="chip" data-f="era" data-v="all" aria-pressed="true">All</button>
+      <button class="chip" data-f="era" data-v="noise" aria-pressed="false">1986&ndash;88 Noise</button>
+      <button class="chip" data-f="era" data-v="major" aria-pressed="false">1990&ndash;98 Major</button>
+      <button class="chip" data-f="era" data-v="reset" aria-pressed="false">1999&ndash;2000 Reset</button>
+      <button class="chip" data-f="era" data-v="late" aria-pressed="false">2002&ndash;09 Late</button>
+    </div>
+
+    <div class="rack-grid" id="rackGrid"></div>
+    <div class="detail" id="detail" hidden></div>
+  </div>
+</section>
+
+<!-- ============ TIMELINE ============ -->
+<section class="pad">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Twenty-three years</div>
+        <h2 class="h-sec">How it moved</h2>
+      </div>
+      <div class="num">04 / Timeline</div>
+    </div>
+    <div class="tl" id="timeline"></div>
+  </div>
+</section>
+
+<!-- ============ THURSTON VS LEE ============ -->
+<section class="pad">
+  <div class="wrap">
+    <div class="rule" style="margin-bottom:34px"></div>
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">The split</div>
+        <h2 class="h-sec"><span class="misreg" data-t="Thurston">Thurston</span> against <span class="misreg" data-t="Lee">Lee</span></h2>
+      </div>
+      <div class="num">05 / Two hands</div>
+    </div>
+    <p class="lede" style="margin-bottom:28px">They almost never played the same tuning at the same time. Moore described it plainly: Lee would either double him in unison or invent something complementary, and it was never discussed.</p>
+
+    <div class="vs">
+      <div class="vs-side vs-m">
+        <div class="vs-name">Thurston</div>
+        <div class="vs-role">Rhythm plate &middot; magenta</div>
+        <ul class="vs-list">
+          <li>Stacks one note. F&#9839;F&#9839;F&#9839;F&#9839;EB, GGDDE&#9837;E&#9837;, DDAF&#9839;AD. Four strings on a single pitch and two left over for melody.</li>
+          <li>Self-taught approach, percussive right hand, drumsticks and screwdrivers jammed under the strings before he ever wrote a tuning down.</li>
+          <li>Chooses tunings that let him hammer a barre and get a wall. The tuning does the harmony so the hand can do the violence.</li>
+          <li>Late period he settles into <b>CGDGCD</b>, borrowed off Pavement and bent to his own use. It runs from Murray Street to The Eternal.</li>
+          <li>His clean signature is a low root plus a fifth plus a suspended second. Never quite major, never quite minor.</li>
+        </ul>
+      </div>
+      <div class="vs-side vs-c">
+        <div class="vs-name">Lee</div>
+        <div class="vs-role">Resonance plate &middot; cyan</div>
+        <ul class="vs-list">
+          <li>Came to open tunings through Joni Mitchell, John Fahey and Reverend Gary Davis before he ever met Branca. The folk lineage is audible.</li>
+          <li>Builds tunings that ring. GGDDGG, AAEEAA, GGCGCD. Stacked fifths and fourths that sustain and bloom instead of crunching.</li>
+          <li>Treats the retune as a compositional constraint. Being a beginner again was the feature, not a side effect.</li>
+          <li>Sits above Thurston in register more often than not, so his part reads as melody even when it is just open strings ringing.</li>
+          <li>From Murray Street on, <b>GGDGGA</b> is his home base, a modification of the GGDAGA he used across A Thousand Leaves.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="interlock">
+      <div class="eyebrow">Hear the interlock</div>
+      <h3 class="h-sub" style="margin-top:8px">Same song, two different tunings</h3>
+      <p style="font-size:14.5px; line-height:1.5; margin-top:12px; margin-bottom:0; max-width:64ch">This is the mechanism most people miss. Play both parts and listen to what the two tunings do to each other. Then play them together.</p>
+      <div class="interlock-rows" id="interlock"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STRING LAB ============ -->
+<section id="lab" class="band-ink pad">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Inspiration &rarr; perspiration</div>
+        <h2 class="h-sec" style="color:var(--bone)">The string lab</h2>
+      </div>
+      <div class="num">06 / Real numbers</div>
+    </div>
+    <p class="lede" style="color:#CFCBC2; margin-bottom:8px">Pick a tuning, pick a guitar, and this builds you a set. The math is the industry-standard tension formula, so these are real pounds, not vibes.</p>
+    <p style="font-family:var(--mono); font-size:12px; letter-spacing:.06em; color:var(--K); margin-bottom:26px">T = UW &times; (2 &times; L &times; f)&sup2; &divide; 386.4 &nbsp;&middot;&nbsp; L in inches, f in Hz, UW derived from string diameter and construction</p>
+
+    <div class="lab-controls">
+      <div class="field">
+        <label for="labTuning">Tuning</label>
+        <select id="labTuning"></select>
+      </div>
+      <div class="field">
+        <label for="labScale">Guitar</label>
+        <select id="labScale">
+          <option value="25.5">Sire S-series Strat &mdash; 25.5"</option>
+          <option value="24.75">Epiphone Les Paul Special &mdash; 24.75"</option>
+          <option value="25.0">Other &mdash; 25.0" (PRS)</option>
+          <option value="24.6">Other &mdash; 24.6" (Jaguar / Mustang)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="labMat">Wound construction</label>
+        <select id="labMat">
+          <option value="1.00">Nickel-plated roundwound</option>
+          <option value="1.01">Pure nickel roundwound</option>
+          <option value="1.02">Stainless roundwound</option>
+          <option value="1.035">Cobalt</option>
+          <option value="1.14">Flatwound</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="labTarget">Target tension per string</label>
+        <input type="number" id="labTarget" value="16" min="10" max="24" step="0.5">
+      </div>
+      <button class="btn" id="labAuto">Rebuild set</button>
+    </div>
+
+    <table class="lab-table" id="labTable"></table>
+    <div class="total-row" id="labTotals"></div>
+    <div class="verdict" id="labVerdict"></div>
+  </div>
+</section>
+
+<!-- ============ YOUR TWO GUITARS ============ -->
+<section class="pad">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Your rack, such as it is</div>
+        <h2 class="h-sec">Two guitars,<br>two jobs</h2>
+      </div>
+      <div class="num">07 / Setup</div>
+    </div>
+    <p class="lede" style="margin-bottom:26px">Three quarters of an inch of scale length changes everything. The same gauge at the same pitch carries about <strong>11% more tension</strong> on 25.5" than on 24.75", because tension scales with the square of the string length. That one number decides which guitar gets which tuning.</p>
+
+    <div class="gtr">
+      <div class="gtr-side">
+        <div class="gtr-name">Sire S-series Strat</div>
+        <div class="spec"><span>25.5" scale</span><span>Floating vibrato</span><span>Bone or synthetic nut</span></div>
+        <div class="gtr-body">
+          <p><strong>Give it the slack tunings.</strong> CGDGCD, EGDGED, DDDDAA, DADABD. Anything with a low C or a low D benefits from the extra length, which keeps the fat strings from turning to spaghetti and holds the intonation together.</p>
+          <ul>
+            <li><strong>Block the trem.</strong> A hardwood block in the cavity plus tightened claw screws. The moment you change overall tension by more than a couple of pounds a floating bridge re-levels itself and every string goes out at once. Blocked, you set relief and intonation once and it stays.</li>
+            <li><strong>Rebalance the claw</strong> before you block it, so the bridge sits flat at the new total tension. Check the totals in the lab above against your current set.</li>
+            <li><strong>Nut slots.</strong> Anything over .052 on the sixth will bind in a stock slot. Have it filed. A binding slot is the single most common cause of "it will not stay in tune in this tuning."</li>
+            <li><strong>Re-intonate every time.</strong> On unison pairs this is not optional. Two strings on the same pitch that are intonated differently do not shimmer, they sour.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="gtr-side">
+        <div class="gtr-name">Epiphone LP Special, 2017</div>
+        <div class="spec"><span>24.75" scale</span><span>Fixed bridge</span><span>Set neck</span></div>
+        <div class="gtr-body">
+          <p><strong>Give it the tuned-up tunings.</strong> F&#9839;F&#9839;F&#9839;F&#9839;EB, AAEEAA, EEBBEF&#9839;. That 11% tension discount is exactly what you want when strings are going above standard pitch, and the fixed bridge does not care what the total load is.</p>
+          <ul>
+            <li><strong>Check the bridge type.</strong> A lightning-bar wraparound only intonates as a whole unit, which is a real problem for unison pairs. If yours is a wraparound, a compensated replacement bar or a tune-o-matic conversion is the highest-value mod you can make for this project.</li>
+            <li><strong>Watch the post lean.</strong> Wraparounds and older tune-o-matics tilt forward under heavy low strings. Check it after a week in any tuning with a low C or B.</li>
+            <li><strong>Tuning up is the risk.</strong> Drop one gauge for roughly every two or three semitones you raise a string. Never take a stock plain string more than three semitones up.</li>
+            <li><strong>Lubricate the nut slots and saddles</strong> with graphite. Breakage on up-tuned strings almost always happens at a binding point, not in the middle of the string.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:40px">
+      <div class="eyebrow">Ninety days</div>
+      <h3 class="h-sub" style="margin-top:8px">If you actually want to live in these</h3>
+      <div class="plan">
+        <div class="plan-col">
+          <div class="plan-wk">Month one &middot; Sire</div>
+          <div class="plan-t">CGDGCD</div>
+          <div class="plan-g">.056 .038 .026 .017 .013 .011</div>
+          <p>Everything is tuned down from standard, so it is close to a normal 11 set and costs you almost no setup work. Learn Rain on Tin, Stones and The Empty Page. This tuning is the highest reward-to-hassle ratio in the whole catalogue and it makes you write differently within a week.</p>
+        </div>
+        <div class="plan-col">
+          <div class="plan-wk">Month two &middot; Epiphone</div>
+          <div class="plan-t">F&#9839;F&#9839;F&#9839;F&#9839;EB</div>
+          <div class="plan-g">.038w .038w .018 .018 .010 .014</div>
+          <p>The iconic one, and the one that will teach you the most about tension. Kool Thing, 100%, Star Power. Two of the strings go well above standard pitch, so build it light on top and expect to change the first string more often than you would like. If the B keeps snapping, voice it an octave lower and use a .014.</p>
+        </div>
+        <div class="plan-col">
+          <div class="plan-wk">Month three &middot; both</div>
+          <div class="plan-t">DDDDAA + CGDGCD</div>
+          <div class="plan-g">.056 .046 .036 .026 .017 .013</div>
+          <p>Lee's tuning on one guitar, Thurston's on the other, and now you can hear what this band actually was. Record a loop in one and play the other over it. Everything in the interlock section above is built to be practised exactly this way.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOURCES ============ -->
+<section class="pad-sm" style="padding-bottom:70px">
+  <div class="wrap">
+    <div class="rule" style="margin-bottom:30px"></div>
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Where this came from, and what to distrust</div>
+        <h2 class="h-sub">Sources and caveats</h2>
+      </div>
+      <div class="num">08 / Notes</div>
+    </div>
+    <div class="two-col">
+      <div class="prose" style="font-size:15px">
+        <p><strong>The tuning lore is not gospel.</strong> Chris Lawrence's tuning tutorial on sonicyouth.com is the closest thing to a canonical list, and it was assembled from set lists, headstock photographs and interviews over many years. Lawrence flags his own uncertainties, including that printed liner-note tunings may not be accurate.</p>
+        <p><strong>Octaves are the weakest link.</strong> Almost no source records them. Several entries in the fan lists say outright that the compiler is unsure whether two strings are in unison or an octave apart. Every octave placement in this document is a reconstruction chosen so the string tension lands in a playable range, cross-checked against the band's own published gauge charts.</p>
+        <p><strong>Multi-guitar songs use multiple simultaneous tunings.</strong> Where you see one tuning attached to a song title, that is usually a simplification of a two-guitar arrangement.</p>
+        <p><strong>The theft numbers vary.</strong> Contemporary reporting in 1999 described roughly two dozen customised guitars taken. The fan-run gear guide later catalogued a larger set. Both agree the truck turned up empty in downtown Los Angeles a few days later.</p>
+      </div>
+      <div>
+        <ul class="srcs" style="list-style:none; padding:0; margin:0">
+          <li><b>Chris Lawrence, Sonic Youth Tuning Tutorial</b><br><a href="http://www.sonicyouth.com/mustang/tab/tunings.html">sonicyouth.com/mustang/tab/tunings.html</a></li>
+          <li><b>Tuning list by song</b><br><a href="http://www.sonicyouth.com/mustang/tab/tuninglist.html">sonicyouth.com/mustang/tab/tuninglist.html</a></li>
+          <li><b>The band's own string gauge chart</b><br><a href="http://www.sonicyouth.com/mustang/tab/gaugechart.html">sonicyouth.com/mustang/tab/gaugechart.html</a></li>
+          <li><b>Sonic Youth Gear Guide</b>, per-guitar tuning and song data<br><a href="http://www.sonicyouth.com/mustang/eq/gearintro.html">sonicyouth.com/mustang/eq/gearintro.html</a></li>
+          <li><b>Stolen equipment list, July 1999</b><br><a href="http://www.sonicyouth.com/mustang/eq/stolen.html">sonicyouth.com/mustang/eq/stolen.html</a></li>
+          <li><b>Guitar Tunings Database</b>, per-tuning notes and octaves<br><a href="https://gtdb.org/artists/sonic-youth/432">gtdb.org/artists/sonic-youth/432</a></li>
+          <li><b>Stringjoy</b>, alternate tuning primer and tension calculator<br><a href="https://stringjoy.com/sonic-youth-alternate-tunings/">stringjoy.com/sonic-youth-alternate-tunings</a> &middot; <a href="https://tension.stringjoy.com/">tension.stringjoy.com</a></li>
+          <li><b>Fender</b>, how Sonic Youth invented the Jazzblaster, with tech quotes from Jim Vincent<br><a href="https://www.fender.com/articles/behind-the-scenes/iconic-mods-how-sonic-youth-invented-the-jazzblaster">fender.com</a></li>
+          <li><b>D'Addario String Tension Pro</b>, unit weight and tension reference<br><a href="https://www.daddario.com/products/guitar/electric-guitar/">daddario.com</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <b>THE TUNING ARSENAL</b> &middot; a working reference, not a discography<br>
+    Tension figures computed live from string diameter, construction, pitch and scale length. Verify against a manufacturer calculator before you buy singles.<br>
+    Built for a Sire S-series and a 2017 Epiphone Les Paul Special. Everything here assumes you are going to break some strings.
+  </div>
+</footer>
+
+<button id="nudge" hidden>Tap to enable sound</button>
+
+<script>
+/* ============================================================
+   THE TUNING ARSENAL — engine
+   ============================================================ */
+
+/* ---------- pitch ---------- */
+const NOTE_IDX = {C:0,'C#':1,Db:1,D:2,'D#':3,Eb:3,E:4,'E#':5,F:5,'F#':6,Gb:6,G:7,'G#':8,Ab:8,A:9,'A#':10,Bb:10,B:11};
+function midi(n){
+  const m = String(n).match(/^([A-G][#b]?)(-?\d)$/);
+  if(!m) return null;
+  return NOTE_IDX[m[1]] + 12*(parseInt(m[2],10)+1);
+}
+function hz(n){ const m = midi(n); return m===null ? null : 440*Math.pow(2,(m-69)/12); }
+function pretty(n){ return String(n).replace(/#/g,'\u266F').replace(/([A-G])b/g,'$1\u266D'); }
+function letterOf(n){ return String(n).replace(/-?\d$/,''); }
+function octOf(n){ return String(n).match(/(-?\d)$/)[1]; }
+const STANDARD = ['E2','A2','D3','G3','B3','E4'];
+function delta(n,i){ return midi(n) - midi(STANDARD[i]); }
+function deltaTxt(d){ return d===0 ? 'unchanged' : (d>0 ? '+'+d : String(d)) + ' semitone' + (Math.abs(d)===1?'':'s'); }
+
+/* ---------- audio ---------- */
+const Kit = (()=>{
+  let ctx=null, input=null, master=null, driveIn=null, cache=new Map(), dirt=false;
+
+  function impulse(dur, decay){
+    const sr=ctx.sampleRate, n=Math.floor(sr*dur), b=ctx.createBuffer(2,n,sr);
+    for(let c=0;c<2;c++){ const d=b.getChannelData(c);
+      for(let i=0;i<n;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/n,decay); }
+    return b;
+  }
+  function shaper(amount){
+    const n=1024, c=new Float32Array(n), k=Math.tanh(amount);
+    for(let i=0;i<n;i++){ const x=i*2/n-1; c[i]=Math.tanh(x*amount)/k; }
+    return c;
+  }
+  function ensure(){
+    if(ctx){ if(ctx.state==='suspended') ctx.resume(); return ctx; }
+    const AC = window.AudioContext||window.webkitAudioContext;
+    if(!AC) return null;
+    ctx = new AC();
+    master = ctx.createGain(); master.gain.value = 0.5;
+    input  = ctx.createGain(); input.gain.value = 1;
+
+    const hp = ctx.createBiquadFilter(); hp.type='highpass'; hp.frequency.value=85;
+    const pk = ctx.createBiquadFilter(); pk.type='peaking'; pk.frequency.value=2300; pk.gain.value=3.2; pk.Q.value=0.85;
+    const lp = ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=5400; lp.Q.value=0.5;
+    const dry= ctx.createGain(); dry.gain.value=0.92;
+    const wet= ctx.createGain(); wet.gain.value=0.24;
+    const cv = ctx.createConvolver(); cv.buffer = impulse(2.1, 2.4);
+
+    input.connect(hp); hp.connect(pk); pk.connect(lp);
+    lp.connect(dry); dry.connect(master);
+    lp.connect(cv);  cv.connect(wet); wet.connect(master);
+    master.connect(ctx.destination);
+
+    // grit path
+    const pre = ctx.createGain(); pre.gain.value=2.6;
+    const ws  = ctx.createWaveShaper(); ws.curve = shaper(3.4); ws.oversample='2x';
+    const post= ctx.createGain(); post.gain.value=0.34;
+    const tone= ctx.createBiquadFilter(); tone.type='lowpass'; tone.frequency.value=3200;
+    driveIn = ctx.createGain();
+    driveIn.connect(pre); pre.connect(ws); ws.connect(tone); tone.connect(post); post.connect(input);
+    return ctx;
+  }
+
+  /* Karplus-Strong plucked string, rendered to a cached buffer */
+  function ks(freq, dur, bright){
+    const key = freq.toFixed(2)+'|'+dur+'|'+bright;
+    if(cache.has(key)) return cache.get(key);
+    if(cache.size>260) cache.clear();
+    const sr=ctx.sampleRate, n=Math.max(1,Math.floor(sr*dur));
+    const buf=ctx.createBuffer(1,n,sr), out=buf.getChannelData(0);
+    const N=Math.max(2,Math.round(sr/freq));
+    const line=new Float32Array(N);
+    let s=0;
+    for(let i=0;i<N;i++){ const w=Math.random()*2-1; s=s*0.42+w*0.58; line[i]=s; }
+    const pp=Math.max(1,Math.floor(N*0.14));           // pick position comb
+    for(let i=N-1;i>=pp;i--) line[i]-=line[i-pp]*0.62;
+    const decay=Math.pow(0.014, 1/Math.max(1,freq*dur));
+    let idx=0, prev=0;
+    for(let i=0;i<n;i++){
+      const cur=line[idx], nxt=line[(idx+1)%N];
+      const avg=0.5*(cur+nxt);
+      prev=prev*(1-bright)+avg*bright;
+      line[idx]=prev*decay;
+      out[i]=cur;
+      idx=(idx+1)%N;
+    }
+    const fade=Math.floor(sr*0.14);
+    for(let i=0;i<fade && i<n;i++) out[n-1-i]*= i/fade;
+    cache.set(key,buf);
+    return buf;
+  }
+
+  function pluck(freq, when, o){
+    if(!ensure()) return;
+    o=o||{};
+    const dur=o.dur||3.2, bright=o.bright||0.88;
+    const src=ctx.createBufferSource(); src.buffer=ks(freq,dur,bright);
+    const g=ctx.createGain(); g.gain.value=(o.gain===undefined?0.42:o.gain);
+    src.connect(g); g.connect(dirt?driveIn:input);
+    try{ src.start(when); }catch(e){}
+  }
+  function now(){ ensure(); return ctx ? ctx.currentTime : 0; }
+
+  function strum(freqs, o){
+    if(!ensure()) return false;
+    o=o||{};
+    const t0=ctx.currentTime+0.03, sp=(o.spread===undefined?0.03:o.spread);
+    const list = o.up ? freqs.slice().reverse() : freqs;
+    list.forEach((f,i)=>{ if(f) pluck(f, t0+i*sp, {gain:(o.gain||0.4)*(0.86+0.28*Math.random()), dur:o.dur||3.6, bright:o.bright||0.88}); });
+    return true;
+  }
+  function arp(freqs, o){
+    if(!ensure()) return false;
+    o=o||{};
+    const pat=o.pattern||[0,2,4,5,3,1,2,4,5,4,2,0];
+    const step=o.step||0.155, t0=ctx.currentTime+0.04;
+    pat.forEach((s,i)=>{ const f=freqs[s]; if(f) pluck(f, t0+i*step, {gain:0.4, dur:o.dur||2.8, bright:0.9}); });
+    return true;
+  }
+  function sequence(groups){ // [{freqs, at, spread, gain}]
+    if(!ensure()) return false;
+    const t0=ctx.currentTime+0.05;
+    groups.forEach(g=>{
+      const sp=g.spread===undefined?0.03:g.spread;
+      g.freqs.forEach((f,i)=>{ if(f) pluck(f, t0+g.at+i*sp, {gain:(g.gain||0.36)*(0.86+0.28*Math.random()), dur:g.dur||3.4}); });
+    });
+    return true;
+  }
+  return {
+    ensure, pluck, strum, arp, sequence, now,
+    setDirt(v){ dirt=!!v; },
+    getDirt(){ return dirt; },
+    state(){ return ctx ? ctx.state : 'none'; }
+  };
+})();
+
+/* audio unlock nudge */
+const nudge = document.getElementById('nudge');
+function checkAudio(){
+  const st = Kit.state();
+  if(st!=='running'){ nudge.hidden=false; } else { nudge.hidden=true; }
+}
+nudge.addEventListener('click', ()=>{ Kit.ensure(); Kit.pluck(196,Kit.now()+0.02,{gain:0.3}); setTimeout(checkAudio,180); });
+
+/* ============================================================
+   THE DATA
+   channel: M Thurston / C Lee / Y Kim / K Jim O'Rourke
+   ============================================================ */
+const CH = {Thurston:'M', Lee:'C', Kim:'Y', Jim:'K', Both:'M'};
+const CHCOL = {M:'#FF2D6F', C:'#00A9C7', Y:'#FFC300', K:'#8A8798'};
+
+const TUNINGS = [
+{
+  id:'fsharp', label:'F#F#F#F#EB', notes:['F#2','F#2','F#3','F#3','E4','B3'],
+  player:'Thurston', era:'noise', years:'1983 \u2013 1995', conf:'Confirmed',
+  albums:['EVOL','Sister','Goo','Dirty','Washing Machine'],
+  songs:['Star Power','Tom Violence','Shadow of a Doubt','(I Got A) Catholic Block','Kool Thing','Mary-Christ','100%','Becuz','Death Valley \u201969','Brave Men Run'],
+  guitars:'Multiple Jazzmasters and Jaguars, each taped for this tuning and nothing else.',
+  why:'The one that started the system. Moore landed on it just after <b>Confusion Is Sex</b> and called it the first tuning he actually wrote down. Songs came out of it immediately, and the band never really put it away: it is still there nine years later on Washing Machine.',
+  theory:'Four F# strings, two of them an octave up, then an E and a B on top. The four F# beat against each other and produce that liquid detuned shimmer with no chorus pedal involved. Because the bottom four are one pitch, <b>any barre is a power chord</b>, so the left hand is free to do almost nothing and the right hand can do everything.',
+  voicing:'The B is written above the E in every source, which reads as a B4. Run the numbers and that voicing is impossible: on a 25.5&quot; scale, B4 sits at the theoretical breaking pitch for steel, and because required tension and breaking tension both scale with the square of the diameter, <b>changing gauge does not help</b>. A .007 needs about 17.7 lb and lets go around 16. So the first string is almost certainly a <b>descending B3</b>, sitting a fourth below the E next to it. That is the same habit you can verify on the band\u2019s own gauge chart for FGCFAF#, where the top string also descends. Some players do voice it E3 and B3 instead, which is darker and equally defensible.',
+  partner:'ddddaa', partnerSong:'(I Got A) Catholic Block',
+  shapes:[
+    {n:'Open drone', f:[0,0,0,0,0,0], t:'The whole tuning ringing. This is the sound.'},
+    {n:'Barre V', f:[5,5,5,5,5,5], t:'The entire cluster up a fourth. Most of Star Power is this move.'},
+    {n:'Octave stab', f:[0,0,7,7,0,0], t:'Open bottom against the fretted octave pair. No hand movement, all attack.'},
+    {n:'Sour third', f:[0,0,3,3,0,0], t:'Adds an A against the F#. The nastiest interval available here.'}
+  ]
+},
+{
+  id:'fgga', label:'F#F#GGAA', notes:['F#2','F#2','G3','G3','A3','A3'],
+  player:'Thurston', era:'noise', years:'1986 \u2013 1988', conf:'Reported',
+  albums:['EVOL','Sister'],
+  songs:['Schizophrenia','White Kross','Tom Violence'],
+  guitars:'A dedicated Jazzmaster, tuned tight and left alone.',
+  why:'The Sister sound. Three adjacent scale tones, each doubled, which is why Schizophrenia can sit on one chord for a minute and still feel like it is moving.',
+  theory:'F#, G and A in three unison pairs. There is no root and no third, so nothing tells your ear what key it is in. The half step between F# and G is doing the damage: it is a cluster, not a chord. Natural harmonics at the twelfth and seventh frets are the whole back half of Schizophrenia.',
+  voicing:'The G and A pairs sit high, so the fourth and third strings are tuned well above their standard pitch. Use a light wound or a heavy plain there.',
+  shapes:[
+    {n:'Open cluster', f:[0,0,0,0,0,0], t:'F#, G and A all ringing at once. Deliberately unresolved.'},
+    {n:'12th harmonics', f:[12,12,12,12,12,12], t:'Touch, do not press. The bell tones under the Schizophrenia outro.'},
+    {n:'Barre VII', f:[7,7,7,7,7,7], t:'Same cluster, up a fifth. Nothing resolves, it just moves.'},
+    {n:'Split', f:[0,0,5,5,0,0], t:'Middle pair up a fourth against the open F#. Opens the cluster out.'}
+  ]
+},
+{
+  id:'ggddebeb', label:'GGDDEbEb', notes:['G2','G2','D3','D3','Eb4','Eb4'],
+  player:'Thurston', era:'noise', years:'1986 \u2013 2004', conf:'Confirmed',
+  albums:['EVOL','Daydream Nation','Goo','Dirty','Experimental Jet Set','Sonic Nurse'],
+  songs:['Death to Our Friends','Stereo Sanctity','Cotton Crown','Total Trash','Hyperstation','Mote','Youth Against Fascism','Sugar Kane','Bull in the Heather','Pattern Recognition'],
+  guitars:'The longest-serving tuning in the band. Kim finally picked it up herself for Sonic Nurse.',
+  why:'The workhorse. It survives from the EVOL sessions all the way to 2004, which no other tuning here manages. If a Sonic Youth song sounds simultaneously huge and slightly wrong, check here first.',
+  theory:'A G power chord doubled, then an Eb pair on top. The Eb against the G is a minor sixth, and against the D it is a minor second. So the bottom four are rock solid and the top two are permanently arguing with them. That tension is the whole trick.',
+  partner:'ggddgg', partnerSong:'Sugar Kane',
+  shapes:[
+    {n:'Open', f:[0,0,0,0,0,0], t:'G5 underneath, Eb grinding on top.'},
+    {n:'Barre III', f:[3,3,3,3,3,3], t:'Everything up a minor third. The Bull in the Heather push.'},
+    {n:'Bottom only', f:[0,0,0,0,-1,-1], t:'Mute the top pair and you have a clean, brutal G5.'},
+    {n:'Top slide VII', f:[0,0,0,0,7,7], t:'Open G under a slid Bb pair. Total Trash lives up here.'}
+  ]
+},
+{
+  id:'egsharp', label:'EG#EG#EG#', notes:['E2','G#2','E3','G#3','E4','G#4'],
+  player:'Thurston', era:'noise', years:'1986 \u2013 2004', conf:'Reported',
+  albums:['EVOL','Sister','Sonic Nurse'],
+  songs:['Expressway to Yr Skull','Tuff Gnarl','Pacific Coast Highway'],
+  guitars:'Shared. Both guitars in it at once on Expressway, which is why the ending does what it does.',
+  why:'The most consonant early tuning and the strangest one to use, because it is straightforwardly beautiful. Expressway to Yr Skull ends in five minutes of this thing disintegrating.',
+  theory:'An E major triad with no fifth, stacked three times across the neck: root, third, root, third, root, third. Every open string is E or G#. It cannot make a wrong note, so the band spent the whole song trying. Play it clean and it chimes like a dulcimer.',
+  shapes:[
+    {n:'Open E', f:[0,0,0,0,0,0], t:'Pure E major, three octaves of it.'},
+    {n:'Barre V', f:[5,5,5,5,5,5], t:'A major. The easiest chord change of your life.'},
+    {n:'Harmonic wash', f:[12,12,12,12,12,12], t:'Touch harmonics. The Expressway outro in one shape.'},
+    {n:'Suspend', f:[0,0,2,2,0,0], t:'Raises the middle third to a fourth. Everything hangs.'}
+  ]
+},
+{
+  id:'gabdeg', label:'GABDEG', notes:['G2','A2','B2','D3','E3','G3'],
+  player:'Thurston', era:'noise', years:'1988', conf:'Confirmed',
+  albums:['Daydream Nation'],
+  songs:['Teen Age Riot'],
+  guitars:'One guitar, one song, and arguably the most famous minute of the band\u2019s career.',
+  why:'The exception that proves the rule. No unison pairs anywhere, which is why Teen Age Riot sounds unlike everything around it: bright, major, almost folk. Moore named this tuning himself in a Guitar World sit-down with the band.',
+  theory:'A G major pentatonic scale laid out across six strings inside a single octave. It is an Aeolian harp. Strum it open and you get the song\u2019s hook with no fretting at all, which is exactly what the intro is doing. Because the range is compressed into one octave, every barre gives you a stacked pentatonic cluster rather than a chord.',
+  voicing:'The top two strings sit far below their standard pitch. This tuning needs a genuinely heavy top end, .017 and .020 territory, or it flops.',
+  partner:'ggddgg', partnerSong:'Teen Age Riot',
+  shapes:[
+    {n:'Open harp', f:[0,0,0,0,0,0], t:'The intro. Let it ring and do not touch anything.'},
+    {n:'Barre V', f:[5,5,5,5,5,5], t:'The whole pentatonic up a fourth. Chorus territory.'},
+    {n:'Drone top', f:[0,0,0,0,0,3], t:'Everything open with one moving voice on top.'},
+    {n:'Barre VII', f:[7,7,7,7,7,7], t:'Up a fifth. The lift under the last section.'}
+  ]
+},
+{
+  id:'ggddgg', label:'GGDDGG', notes:['G2','G2','D3','D3','G3','G3'],
+  player:'Lee', era:'noise', years:'1988 \u2013 2000', conf:'Confirmed',
+  albums:['Daydream Nation','Goo','Dirty','A Thousand Leaves','NYC Ghosts & Flowers'],
+  songs:['Teen Age Riot','Tunic (Song for Karen)','Sugar Kane','Wildflower Soul','Heather Angel','The Ineffable Me','Free City Rhymes'],
+  guitars:'Lee\u2019s most-used tuning of the whole first half of the catalogue.',
+  why:'This is what Lee does. Where Thurston stacks one note, Lee stacks an open chord and lets it ring. Three unison pairs spelling a G5 across two octaves, and it sustains forever.',
+  theory:'Open G with no third, doubled at every position. No third means it is neither major nor minor, so it sits underneath anything Thurston is doing without fighting for the tonality. Barre it anywhere and you get a clean parallel fifth. It is the most usable tuning in this document and the easiest place to start writing.',
+  partner:'gabdeg', partnerSong:'Teen Age Riot',
+  shapes:[
+    {n:'Open G5', f:[0,0,0,0,0,0], t:'Enormous and completely neutral.'},
+    {n:'Barre V', f:[5,5,5,5,5,5], t:'C5. The Tunic move.'},
+    {n:'Add the third', f:[0,0,0,0,4,4], t:'B on top turns it major without committing the bass.'},
+    {n:'Minor', f:[0,0,0,0,3,3], t:'Bb on top. Same shape, opposite mood.'}
+  ]
+},
+{
+  id:'ddddaa', label:'DDDDAA', notes:['D2','D2','D3','D3','A3','A3'],
+  player:'Lee', era:'noise', years:'1987 \u2013 2009', conf:'Confirmed',
+  albums:['Sister','The Eternal'],
+  songs:['(I Got A) Catholic Block','Schizophrenia','Sacred Trickster','Antenna','Leaky Lifeboat','Poison Arrow','Massage the History'],
+  guitars:'Retired for two decades, then hauled back out as Lee\u2019s home tuning for the last record.',
+  why:'Lee\u2019s answer to Thurston\u2019s F# drone: same idea, different hands. Four Ds and two As. In 1987 he used it to cut across Thurston\u2019s dissonance on Sister. In 2009 he built most of The Eternal on it.',
+  theory:'A D5 with everything doubled. The four Ds do the beating, the A pair gives you a fifth on top so melodies have somewhere to land. Because it is all fifths, it never picks a key, which is exactly what you want when the other guitar is in something as opinionated as F#F#F#F#EB.',
+  partner:'fsharp', partnerSong:'(I Got A) Catholic Block',
+  shapes:[
+    {n:'Open D5', f:[0,0,0,0,0,0], t:'The bed. Everything on The Eternal sits on this.'},
+    {n:'Barre VII', f:[7,7,7,7,7,7], t:'A5. The one chord change you need.'},
+    {n:'Major', f:[0,0,0,0,4,4], t:'F# on top. Turns the drone bright without moving the bass.'},
+    {n:'Antenna ring', f:[0,0,2,2,0,0], t:'Middle pair up a step against the open Ds. Suspended and huge.'}
+  ]
+},
+{
+  id:'aaeeaa', label:'AAEEAA', notes:['A2','A2','E3','E3','A3','A3'],
+  player:'Lee', era:'noise', years:'1988 \u2013 1992', conf:'Confirmed',
+  albums:['Daydream Nation','Dirty'],
+  songs:['Silver Rocket','The Sprawl','Candle','Cinderella\u2019s Big Score','Theresa\u2019s Sound-World'],
+  guitars:'A dedicated guitar with a light top set, because the sixth string goes up a fourth.',
+  why:'Daydream Nation\u2019s engine room. Lee holds AAEEAA while Thurston is in ACCGG#C, and the friction between those two is what makes Silver Rocket and The Sprawl sound like they are about to come apart.',
+  theory:'Open A5, doubled at every position, the exact same architecture as GGDDGG a whole tone up. The catch is that the low string is <b>tuned up a fourth</b>, from E to A. That is a real jump in tension, roughly double, so this is a tuning that eats sixth strings unless you drop the gauge. A fan transcriber once warned about breaking a string trying to get into a related tuning, and he was not being dramatic.',
+  partner:'accgg', partnerSong:'Silver Rocket',
+  shapes:[
+    {n:'Open A5', f:[0,0,0,0,0,0], t:'Bright and enormous. Almost too consonant on its own.'},
+    {n:'Barre V', f:[5,5,5,5,5,5], t:'D5. The Sprawl move.'},
+    {n:'Sus', f:[0,0,0,0,2,2], t:'B on top over an open A. Hangs unresolved forever.'},
+    {n:'Barre III', f:[3,3,3,3,3,3], t:'C5. The Silver Rocket lurch.'}
+  ]
+},
+{
+  id:'accgg', label:'ACCGG#C', notes:['A2','C3','C3','G3','G#3','C4'],
+  player:'Thurston', era:'noise', years:'1988 \u2013 1992', conf:'Reported',
+  albums:['Daydream Nation','Dirty'],
+  songs:['Silver Rocket','The Sprawl','Candle','Cinderella\u2019s Big Score','Theresa\u2019s Sound-World'],
+  guitars:'The counterpart guitar to Lee\u2019s AAEEAA, handed over for the same songs.',
+  why:'The single most dissonant tuning in this document, and it is doing that on purpose. G and G# sit right next to each other on adjacent open strings.',
+  theory:'A minor with an added flat sixth and a natural sixth simultaneously. The <b>G and G# half step</b> is the entire point: strum it open and you get a sound that is chording and screaming at the same time. Against Lee\u2019s clean AAEEAA it produces the specific unresolved churn of Daydream Nation. Nothing else here is built like this.',
+  partner:'aaeeaa', partnerSong:'Silver Rocket',
+  shapes:[
+    {n:'Open grind', f:[0,0,0,0,0,0], t:'G against G#. Listen to what that half step does.'},
+    {n:'Kill the rub', f:[0,0,0,0,1,0], t:'Push the G# up to A and it resolves. Then let it go.'},
+    {n:'Barre V', f:[5,5,5,5,5,5], t:'Whole cluster up a fourth, rub intact.'},
+    {n:'Bass only', f:[0,0,0,-1,-1,-1], t:'A and two Cs. The riff engine under Silver Rocket.'}
+  ]
+},
+{
+  id:'ccebgd', label:'CCEBGD', notes:['C2','C3','E3','B3','G3','D4'],
+  player:'Thurston', era:'noise', years:'1988', conf:'Transcribed',
+  albums:['Daydream Nation'],
+  songs:['\u2019Cross the Breeze'],
+  guitars:'Both guitars in it for the same song, which is unusual for this band.',
+  why:'The odd one out. It descends and then climbs again, so the strings are not in pitch order, and it produces a genuinely strange voicing you cannot get any other way.',
+  theory:'C major seventh spread across the neck with the G sitting <b>below</b> the B rather than above it. That inversion is why the open chord sounds like it is folded in on itself. It is the most harmonically complete tuning in the early catalogue and the band used it exactly once.',
+  shapes:[
+    {n:'Open Cmaj7', f:[0,0,0,0,0,0], t:'Folded, wide, unsettled.'},
+    {n:'Barre III', f:[3,3,3,3,3,3], t:'Ebmaj7. Same fold, new key.'},
+    {n:'Drop the top', f:[0,0,0,0,-1,-1], t:'C, C, E, B. The bones of the verse.'},
+    {n:'Barre VII', f:[7,7,7,7,7,7], t:'Up a fifth. The long push in the middle of the song.'}
+  ]
+},
+{
+  id:'ebeeab', label:'EBEEAB', notes:['E2','B2','E3','E3','A3','B3'],
+  player:'Lee', era:'noise', years:'1988', conf:'Reported',
+  albums:['Daydream Nation'],
+  songs:['Eric\u2019s Trip','Hey Joni','Rain King','Kissability'],
+  guitars:'Lee\u2019s guitar for his own songs on Daydream Nation.',
+  why:'This is Lee\u2019s writing tuning, and every song he sings on Daydream Nation comes out of it. Eric\u2019s Trip and Hey Joni are the same six open strings pointed in different directions.',
+  theory:'E suspended fourth, doubled in the middle. Root, fifth, root, root, fourth, fifth. The A sitting where a G# would be is what stops it from resolving, so Lee can talk over it indefinitely and the harmony never demands a landing. Almost everything stays close to standard pitch, which makes this one of the easiest tunings here to try.',
+  shapes:[
+    {n:'Open Esus4', f:[0,0,0,0,0,0], t:'Hangs forever. The Eric\u2019s Trip bed.'},
+    {n:'Resolve it', f:[0,0,0,0,-1,0], t:'Drop the A and it becomes a clean E5.'},
+    {n:'Barre V', f:[5,5,5,5,5,5], t:'Asus4. The Hey Joni lift.'},
+    {n:'Top move', f:[0,0,0,0,2,2], t:'Only the top two move. Everything else drones.'}
+  ]
+},
+{
+  id:'egdged', label:'EGDGED', notes:['E2','G2','D3','G3','E4','D4'],
+  player:'Thurston', era:'major', years:'1990 \u2013 1998', conf:'Confirmed',
+  albums:['Goo','Dirty','Experimental Jet Set','Washing Machine','A Thousand Leaves'],
+  songs:['Dirty Boots','Tunic (Song for Karen)','Mildred Pierce','Titanium Expos\u00e9','Purr','Wish Fulfillment','The Diamond Sea','Hits of Sunshine','Bone'],
+  guitars:'The major-label tuning. If a song from 1990 to 1995 sounds warm and vast, it is probably this.',
+  why:'Thurston\u2019s prettiest tuning and the one that carries the band\u2019s two longest, most patient songs, The Diamond Sea and Hits of Sunshine. It is what happens when the drone idea grows a harmony.',
+  theory:'E, G and D, which is an <b>E minor seventh with no fifth</b>. Open and dark, but the missing fifth keeps it from sounding like a folk tuning. The top two strings descend rather than ascend, E then D, which is a Sonic Youth habit you will see again in FGCFAF#. That descent puts a whole tone right at the top of the chord and gives the ringing its slight sourness.',
+  partner:'eebbef', partnerSong:'The Diamond Sea',
+  shapes:[
+    {n:'Open Em7', f:[0,0,0,0,0,0], t:'The Diamond Sea in one strum.'},
+    {n:'Barre III', f:[3,3,3,3,3,3], t:'Gm7. The Dirty Boots turnaround.'},
+    {n:'Major lift', f:[0,0,0,0,0,2], t:'One finger on top and the whole thing brightens.'},
+    {n:'Barre VII', f:[7,7,7,7,7,7], t:'Bm7. Where the long outros go.'}
+  ]
+},
+{
+  id:'eebbef', label:'EEBBEF#', notes:['E2','E3','B3','B3','E4','F#4'],
+  player:'Lee', era:'major', years:'1990 \u2013 1995', conf:'Reported',
+  albums:['Goo','Dirty','Washing Machine'],
+  songs:['Dirty Boots','Swimsuit Issue','Chapel Hill','The Diamond Sea'],
+  guitars:'A reverse-taper set: light on the bottom relative to pitch, heavy nowhere.',
+  why:'Lee\u2019s counterpart to EGDGED. He sits above Thurston, all the way up, which is why the top line on Dirty Boots and The Diamond Sea reads as melody even when it is just open strings.',
+  theory:'E5 stacked upward with an F# on top, which is a suspended second. Look at the intervals from standard: the fifth string goes <b>up a fifth</b>, the fourth string <b>up a minor sixth</b>. This is the clearest example in the catalogue of a tuning that only works with a purpose-built gauge set, running roughly .046 .022w .013 .013 .010 .009. Try it with a normal set and you will lose strings.',
+  partner:'egdged', partnerSong:'The Diamond Sea',
+  shapes:[
+    {n:'Open E sus2', f:[0,0,0,0,0,0], t:'Bright, high, ringing. Sits on top of everything.'},
+    {n:'Resolve', f:[0,0,0,0,0,-1], t:'Drop the F# and it becomes a clean E5.'},
+    {n:'Barre V', f:[5,5,5,5,5,5], t:'A sus2. The Dirty Boots chorus register.'},
+    {n:'Top pedal', f:[0,0,2,2,0,0], t:'Middle pair moves, top and bottom drone.'}
+  ]
+},
+{
+  id:'beddbb', label:'BEDDBB', notes:['B1','E2','D3','D3','B3','B3'],
+  player:'Kim', era:'major', years:'1994 \u2013 1995', conf:'Confirmed',
+  albums:['Experimental Jet Set','Washing Machine'],
+  songs:['Becuz','Washing Machine','Junkie\u2019s Promise','Panty Lies','Bone'],
+  guitars:'Kim\u2019s guitars ran genuinely heavy, around .052 and .048 on the bottom.',
+  why:'Kim on guitar is a different instrument entirely. She has said she felt she had to work against learning how to play, and this tuning is built for texture rather than chords.',
+  theory:'Everything drops a fourth or a fifth from standard, which puts the sixth string down at B1, well below a normal guitar. That is why her parts sit under the two guitars instead of between them. B, E and D spell a <b>B minor seventh with no fifth</b>, doubled on the D and the B. Slack, dark, and physically loose under the hand, which is the point.',
+  shapes:[
+    {n:'Open Bm7', f:[0,0,0,0,0,0], t:'Low and loose. The Washing Machine bed.'},
+    {n:'Barre V', f:[5,5,5,5,5,5], t:'Up a fourth. Almost the entire song.'},
+    {n:'Top only', f:[-1,-1,0,0,0,0], t:'Kill the bottom and it becomes a shimmer.'},
+    {n:'Barre II', f:[2,2,2,2,2,2], t:'One step up. The Becuz shift.'}
+  ]
+},
+{
+  id:'fgcfaf', label:'FGCFAF#', notes:['F2','G2','C3','F3','A3','F#3'],
+  player:'Thurston', era:'reset', years:'2000', conf:'Confirmed',
+  albums:['NYC Ghosts & Flowers'],
+  songs:['NYC Ghosts & Flowers','Small Flowers Crack Concrete','Side2Side','StreamXSonik Subway','Lightnin\u2019'],
+  guitars:'A maroon Gibson Les Paul Junior, strung .064 .062 .036 .028 .020 .017, per the band\u2019s own gauge chart.',
+  why:'The sound of starting over. Every modified guitar the band owned went into a truck in an Orange County hotel car park in July 1999 and did not come back. This tuning is what Moore found on a replacement instrument.',
+  theory:'F, G, C, F, A and then a <b>descending F#</b> on the top string, a half step below the A underneath it. That descent is the same instinct as EGDGED, taken further. The gauges on this guitar are extraordinary: a .064 on the sixth string at F2 is carrying well over thirty pounds. It was a guitar they were prepared to destroy, and it sounds like it.',
+  shapes:[
+    {n:'Open', f:[0,0,0,0,0,0], t:'F, G, C, F, A, F#. Nothing about it is comfortable.'},
+    {n:'Bottom four', f:[0,0,0,0,-1,-1], t:'Fsus2. The riff foundation.'},
+    {n:'Barre V', f:[5,5,5,5,5,5], t:'Up a fourth. The whole cluster moves as one.'},
+    {n:'Prepared', f:[12,12,12,12,12,12], t:'Harmonics. Small Flowers uses a metal file here instead of fingers.'}
+  ]
+},
+{
+  id:'dgddbb', label:'DGDDBB', notes:['D2','G2','D3','D3','B3','B3'],
+  player:'Kim', era:'reset', years:'2000', conf:'Confirmed',
+  albums:['NYC Ghosts & Flowers'],
+  songs:['Free City Rhymes','Renegade Princess'],
+  guitars:'A mustard-coloured Les Paul Special, per the gear guide.',
+  why:'Kim\u2019s post-theft tuning, and the warmest thing on a cold record.',
+  theory:'G major with the root in the bass and the third doubled on top. Unusually consonant for her, and it is what lets Free City Rhymes stay in one place for six minutes and still feel like it is opening outward. The doubled B is what glows.',
+  partner:'ggddgg', partnerSong:'Free City Rhymes',
+  shapes:[
+    {n:'Open G', f:[0,0,0,0,0,0], t:'A real major chord. Rare in this catalogue.'},
+    {n:'Minor turn', f:[0,0,0,0,-1,-1], t:'Kill the thirds and it goes neutral.'},
+    {n:'Barre V', f:[5,5,5,5,5,5], t:'C. The Renegade Princess move.'},
+    {n:'Open drone + top', f:[0,0,0,0,3,3], t:'D on top over the open G. Sus and shimmering.'}
+  ]
+},
+{
+  id:'cgdgcd', label:'CGDGCD', notes:['C2','G2','D3','G3','C4','D4'],
+  player:'Thurston', era:'late', years:'2002 \u2013 2009', conf:'Confirmed',
+  albums:['Murray Street','Sonic Nurse','Rather Ripped','The Eternal'],
+  songs:['The Empty Page','Disconnection Notice','Rain on Tin','Karen Revisited','Radical Adults Lick Godhead Style','Unmade Bed','Stones','What We Know','Malibu Gas Station','Thunderclap'],
+  guitars:'The late-period home base. Borrowed from Pavement and bent to his own purposes.',
+  why:'The most useful tuning in this entire document, and the one to start with. Everything is tuned <b>down</b> from standard, so a slightly heavy normal set works with almost no setup, and it changes how you write within a week.',
+  theory:'C, G, D, G, C, D. That is a <b>Csus2 with an added ninth</b>, or if you prefer, stacked fifths with a whole tone on top. It has no third, so it leans major or minor depending entirely on what you fret. Two Cs and two Gs give you power-chord weight without a barre. Barre across the middle and you get parallel fifths that ring like open strings. This is why Murray Street sounds warm where Daydream Nation sounds like a fight.',
+  partner:'ggdgga', partnerSong:'Rain on Tin',
+  shapes:[
+    {n:'Open Csus2', f:[0,0,0,0,0,0], t:'The whole late period in one strum.'},
+    {n:'Rain on Tin ring', f:[0,0,2,2,0,0], t:'Middle pair up a step. Open and suspended.'},
+    {n:'Barre V', f:[5,5,5,5,5,5], t:'Fsus2. The Stones move.'},
+    {n:'Minor', f:[0,0,0,3,0,0], t:'Eb on the third string turns it minor without moving the bass.'},
+    {n:'Barre VII', f:[7,7,7,7,7,7], t:'Gsus2. Where the long instrumental sections go.'}
+  ]
+},
+{
+  id:'ggdgga', label:'GGDGGA', notes:['G2','G2','D3','G3','G3','A3'],
+  player:'Lee', era:'late', years:'2002 \u2013 2009', conf:'Confirmed',
+  albums:['Murray Street','Sonic Nurse','Rather Ripped'],
+  songs:['Rain on Tin','Unmade Bed','Stones','Karen Revisited'],
+  guitars:'Lee\u2019s signature from Murray Street onward, a modification of the GGDAGA he used on A Thousand Leaves.',
+  why:'The late-period Lee sound. Three Gs, a D, and an A on top that refuses to resolve.',
+  theory:'Open G with a suspended second sitting on the first string. The three Gs give it the same beating drone as his earlier tunings, but the A on top is a genuine melodic voice rather than another doubling. Against Thurston\u2019s CGDGCD it lands on the ninth, which is why Rain on Tin sounds like two guitars agreeing rather than two guitars colliding. This is the sound of the band getting older, in the best sense.',
+  partner:'cgdgcd', partnerSong:'Rain on Tin',
+  shapes:[
+    {n:'Open G9', f:[0,0,0,0,0,0], t:'Ringing and unresolved. The Rain on Tin bed.'},
+    {n:'Resolve', f:[0,0,0,0,0,-1], t:'Kill the A and it becomes a clean G5.'},
+    {n:'Barre V', f:[5,5,5,5,5,5], t:'C9. The Stones lift.'},
+    {n:'Top melody', f:[0,0,0,0,0,3], t:'Everything drones and one voice walks.'}
+  ]
+},
+{
+  id:'cgdgbb', label:'CGDGBB', notes:['C2','G2','D3','G3','B3','B3'],
+  player:'Thurston', era:'major', years:'1998', conf:'Reported',
+  albums:['A Thousand Leaves'],
+  songs:['Sunday','Wildflower Soul','The Ineffable Me','Heather Angel','Karen Koltrane'],
+  guitars:'The A Thousand Leaves tuning. A step on the road to CGDGCD.',
+  why:'You can hear Thurston working out the late period here. It is CGDGCD with a doubled major third on top instead of a suspended second, and it is warmer and more settled than anything he had written before.',
+  theory:'A full <b>C major seventh</b>, with the third doubled at the top. It is the first genuinely pretty tuning Thurston commits to, and A Thousand Leaves is the first record where the band sounds relaxed. Four years later he takes the B pair off, replaces it with C and D, and never really leaves.',
+  partner:'ggcgcd', partnerSong:'Karen Koltrane',
+  shapes:[
+    {n:'Open Cmaj7', f:[0,0,0,0,0,0], t:'Wide and warm. The Sunday intro.'},
+    {n:'Neutral it', f:[0,0,0,0,-1,-1], t:'Kill the thirds and it goes back to a drone.'},
+    {n:'Barre V', f:[5,5,5,5,5,5], t:'Fmaj7. Where Wildflower Soul goes.'},
+    {n:'Top step', f:[0,0,0,0,2,2], t:'C# on top over a C bass. The one sour move in this tuning.'}
+  ]
+},
+{
+  id:'ggcgcd', label:'GGCGCD', notes:['G2','G2','C3','G3','C4','D4'],
+  player:'Lee', era:'major', years:'1994 \u2013 1998', conf:'Reported',
+  albums:['Experimental Jet Set','A Thousand Leaves'],
+  songs:['Bull in the Heather','Starfield Road','Karen Koltrane','Female Mechanic Now on Duty'],
+  guitars:'Lee\u2019s near-default through the middle nineties.',
+  why:'Everywhere on Experimental Jet Set, and the tuning that gives Bull in the Heather its odd floating quality against Thurston\u2019s GGDDEbEb.',
+  theory:'G with a suspended fourth, doubled, then C and D on top. It reads as G sus4 add9, which is a genuinely ambiguous chord: it wants to resolve to C but never gets there. Against Thurston\u2019s Eb pair on Bull in the Heather you get a G against a C against an Eb, which is why that song is so hard to hum and so easy to remember.',
+  partner:'ggddebeb', partnerSong:'Bull in the Heather',
+  shapes:[
+    {n:'Open Gsus4', f:[0,0,0,0,0,0], t:'Floating. Never lands.'},
+    {n:'Barre V', f:[5,5,5,5,5,5], t:'Csus4. Still floating.'},
+    {n:'Bottom pedal', f:[0,0,0,0,2,2], t:'Top pair up a step over the open G.'},
+    {n:'Barre III', f:[3,3,3,3,3,3], t:'Bbsus4. The Starfield Road drop.'}
+  ]
+},
+{
+  id:'ggdaga', label:'GGDAGA', notes:['G2','G2','D3','A3','G3','A3'],
+  player:'Lee', era:'major', years:'1998', conf:'Transcribed',
+  albums:['A Thousand Leaves'],
+  songs:['Sunday'],
+  guitars:'The direct ancestor of GGDGGA, which he switches to permanently four years later.',
+  why:'A transitional tuning, and interesting mostly because of what it becomes. Lee eventually swaps one string and turns this into his signature.',
+  theory:'G with an added ninth, but with the A sitting <b>below</b> the G on the neck rather than above it. That inversion is what makes it awkward and what makes it interesting: the ninth is buried in the middle of the chord instead of decorating the top. In GGDGGA he moves it to the top and the whole thing opens up.',
+  shapes:[
+    {n:'Open G9', f:[0,0,0,0,0,0], t:'Ninth buried in the middle. Muddier than GGDGGA.'},
+    {n:'Barre V', f:[5,5,5,5,5,5], t:'C9. Same fold, up a fourth.'},
+    {n:'Clear it', f:[0,0,0,-1,0,-1], t:'Kill both As and you get a plain G5.'},
+    {n:'Barre VII', f:[7,7,7,7,7,7], t:'D9. The Sunday chorus.'}
+  ]
+},
+{
+  id:'dsharpgg', label:'D#D#A#D#GG', notes:['D#2','D#2','A#2','D#3','G3','G3'],
+  player:'Lee', era:'late', years:'2006', conf:'Confirmed',
+  albums:['Rather Ripped'],
+  songs:['Incinerate','Do You Believe in Rapture?','Pink Steam','Or'],
+  guitars:'Rather Ripped is a quartet record, so this tuning has more space than anything Lee had used in years.',
+  why:'The most openly beautiful tuning Lee ever used, and the reason Rather Ripped sounds like a pop record made by a noise band.',
+  theory:'A full <b>open Eb major</b>: root, root, fifth, root, third, third. Every open string is a chord tone. The low Eb unison drones, the doubled G on top gives you a bright major third, and the whole thing sustains without any of the beating dissonance the earlier tunings depend on. Incinerate is essentially this chord with a few fingers moving.',
+  shapes:[
+    {n:'Open Eb', f:[0,0,0,0,0,0], t:'Incinerate in one strum.'},
+    {n:'Minor', f:[0,0,0,0,-1,-1], t:'Kill the thirds. Instant menace.'},
+    {n:'Barre V', f:[5,5,5,5,5,5], t:'Ab. The Pink Steam turnaround.'},
+    {n:'Sus', f:[0,0,0,0,1,1], t:'Push the thirds up a fret and it hangs.'},
+    {n:'Barre VII', f:[7,7,7,7,7,7], t:'Bb. The chorus lift.'}
+  ]
+},
+{
+  id:'dsharpjams', label:'D#A#D#BC#F#', notes:['D#2','A#2','D#3','B3','C#4','F#4'],
+  player:'Lee', era:'late', years:'2006', conf:'Transcribed',
+  albums:['Rather Ripped'],
+  songs:['Jams Run Free','Rats'],
+  guitars:'Mark Ibold played a guitar in this tuning live on Rats while Thurston moved to bass.',
+  why:'The strangest tuning on Rather Ripped and the most playable one in this document. Almost every string is within two semitones of standard.',
+  theory:'Open Eb5 on the bottom three, then B, C# and F# on top, which spells a B major triad sitting over an Eb bass. Two different chords stacked on one guitar. The Eb against the B is an enharmonic major third from below, so it is not actually wrong, just extremely unusual, and it gives Jams Run Free its floating, weightless quality.',
+  shapes:[
+    {n:'Open stack', f:[0,0,0,0,0,0], t:'Eb5 underneath, B major on top.'},
+    {n:'Bottom three', f:[0,0,0,-1,-1,-1], t:'A plain Eb5. The riff.'},
+    {n:'Top three', f:[-1,-1,-1,0,0,0], t:'B major on its own. The chorus.'},
+    {n:'Barre IV', f:[4,4,4,4,4,4], t:'Everything up a major third.'}
+  ]
+},
+{
+  id:'ddafad', label:'DDAF#AD', notes:['D2','D2','A2','F#3','A3','D4'],
+  player:'Thurston', era:'late', years:'2009', conf:'Confirmed',
+  albums:['The Eternal'],
+  songs:['Sacred Trickster','Anti-Orgasm','Leaky Lifeboat','Antenna','Calming the Snake','Poison Arrow','No Way','Walkin Blue','Massage the History'],
+  guitars:'A green Jazzmaster, per the 2009 tour documentation, which is the most reliable tuning data the band ever produced.',
+  why:'The last one. Thurston\u2019s main tuning for the final record, and a return to weight after seven years of CGDGCD.',
+  theory:'<b>Open D with the bottom two doubled</b>: D, D, A, F#, A, D. Every open string is a chord tone, so it should sound sweet, and on Antenna it does. But the doubled low D gives it the same beating drone as F#F#F#F#EB twenty-three years earlier, and Anti-Orgasm proves it can still be violent. It is the whole career in one tuning: the drone underneath and a real chord on top.',
+  partner:'ddddaa', partnerSong:'Antenna',
+  shapes:[
+    {n:'Open D', f:[0,0,0,0,0,0], t:'The Antenna bed. Big and clean.'},
+    {n:'Minor', f:[0,0,0,-1,0,0], t:'Kill the F# and it turns cold.'},
+    {n:'Barre V', f:[5,5,5,5,5,5], t:'G. The Sacred Trickster lurch.'},
+    {n:'Drone the bottom', f:[0,0,0,4,4,4], t:'Open Ds under a fretted top half. Massage the History.'},
+    {n:'Barre VII', f:[7,7,7,7,7,7], t:'A. The one change most of these songs need.'}
+  ]
+},
+{
+  id:'dadabd', label:'DADABD', notes:['D2','A2','D3','A3','B3','D4'],
+  player:'Kim', era:'late', years:'2009', conf:'Confirmed',
+  albums:['The Eternal'],
+  songs:['Antenna','Leaky Lifeboat','Massage the History'],
+  guitars:'Kim played guitar on every track of The Eternal except Sacred Trickster, rotating three tunings.',
+  why:'Kim\u2019s most conventional tuning and by far the easiest one in this document to try. Every string is within two semitones of standard.',
+  theory:'DADGAD with the G raised to an A, so it becomes a <b>D5 with an added sixth</b>. The B is doing all the colour work: over a D5 it is a major sixth, which is warm and slightly nostalgic and completely unlike anything she played in the nineties. If you want one Kim Gordon tuning, this is the one.',
+  partner:'ddafad', partnerSong:'Antenna',
+  shapes:[
+    {n:'Open D6', f:[0,0,0,0,0,0], t:'Warm and open. Almost folk.'},
+    {n:'Neutral', f:[0,0,0,0,-1,0], t:'Kill the B and it is a plain D5.'},
+    {n:'Barre V', f:[5,5,5,5,5,5], t:'G6. The Leaky Lifeboat turn.'},
+    {n:'Barre III', f:[3,3,3,3,3,3], t:'F6. Massage the History territory.'}
+  ]
+},
+{
+  id:'cgdacd', label:'CGDACD', notes:['C2','G2','D3','A3','C4','D4'],
+  player:'Kim', era:'late', years:'2009', conf:'Confirmed',
+  albums:['The Eternal'],
+  songs:['What We Know','Thunderclap'],
+  guitars:'Kim\u2019s third Eternal tuning, sitting directly against Thurston\u2019s CGDGCD on the same songs.',
+  why:'A one-string variation on Thurston\u2019s CGDGCD. Same bass, same top, but the third string is an A instead of a G.',
+  theory:'C, G, D, A: four stacked fifths, then C and D on top. That stack of fifths is the whole point, and it makes the chord read as enormous and rootless. Because it differs from Thurston\u2019s CGDGCD by exactly <b>one string</b>, the two guitars fuse into something that sounds like one very wide instrument. Play them together in the interlock section and listen for it.',
+  partner:'cgdgcd', partnerSong:'What We Know',
+  shapes:[
+    {n:'Open stack', f:[0,0,0,0,0,0], t:'Four fifths and a whole tone. Enormous.'},
+    {n:'Barre V', f:[5,5,5,5,5,5], t:'The same stack up a fourth.'},
+    {n:'Bottom three', f:[0,0,0,-1,-1,-1], t:'C, G, D. The Thunderclap riff.'},
+    {n:'Barre II', f:[2,2,2,2,2,2], t:'Up a step. The What We Know push.'}
+  ]
+},
+{
+  id:'ggdegb', label:'GGDEGB', notes:['G2','G2','D3','E3','G3','B3'],
+  player:'Jim', era:'late', years:'2002 \u2013 2005', conf:'Reported',
+  albums:['Murray Street','Sonic Nurse'],
+  songs:['Rain on Tin','Unmade Bed','I Love You Golden Blue','Peace Attack'],
+  guitars:'O\u2019Rourke\u2019s guitar, and on I Love You Golden Blue it is capoed at the eleventh fret.',
+  why:'The fifth voice. O\u2019Rourke joined in 1999 and left in 2005, and his tuning is the one that makes Murray Street sound like a band rather than two guitars arguing.',
+  theory:'A full <b>G major sixth</b>: G, G, D, E, G, B. It is the only tuning in the late-period stack that contains a real major third, so it is the piece that resolves what Thurston and Lee leave hanging. Put it against CGDGCD and GGDGGA and the three tunings together spell an enormous, complete chord. That is the sound of Rain on Tin.',
+  partner:'cgdgcd', partnerSong:'Rain on Tin',
+  shapes:[
+    {n:'Open G6', f:[0,0,0,0,0,0], t:'Complete, resolved, warm. Rare in this band.'},
+    {n:'Capo XI', f:[11,11,11,11,11,11], t:'The I Love You Golden Blue voicing. Tiny and bell-like.'},
+    {n:'Barre V', f:[5,5,5,5,5,5], t:'C6. Where the Murray Street instrumentals go.'},
+    {n:'Neutral', f:[0,0,0,-1,0,-1], t:'Kill the E and B and it becomes a plain G5.'}
+  ]
+}
+];
+const byId = id => TUNINGS.find(t=>t.id===id);
+
+/* ---------- albums ---------- */
+const ALBUMS = [
+  {y:'1986', t:'EVOL', n:'The system starts here. Moore\u2019s F#F#F#F#EB is already in place from the Bad Moon Rising period, and Expressway to Yr Skull ends the record with both guitars in the same chiming EG#EG#EG# and five minutes of it falling apart.', ids:['fsharp','fgga','ggddebeb','egsharp']},
+  {y:'1987', t:'Sister', n:'The first record where the two guitarists are clearly running different systems on purpose. Thurston in F#F#GGAA on Schizophrenia, Lee cutting across in DDDDAA. Xerox artwork, hardcore tempos, and a tuning arsenal that now travels with them.', ids:['fgga','ddddaa','fsharp','ggddebeb','egsharp']},
+  {y:'1988', t:'Daydream Nation', n:'The peak of the two-guitar architecture. Dozens of tuned instruments on the road, and a double album built on pairs: Lee\u2019s clean AAEEAA against Thurston\u2019s grinding ACCGG#C, and Teen Age Riot with its one-off unison-free pentatonic tuning.', ids:['gabdeg','ggddgg','aaeeaa','accgg','ccebgd','ebeeab','ggddebeb']},
+  {y:'1990', t:'Goo', n:'Major label, bigger studio, same guitars. EGDGED arrives and becomes the warm backbone of the next five years. Kool Thing is still straight F#F#F#F#EB, which tells you they changed almost nothing.', ids:['egdged','fsharp','ggddebeb','ggddgg','eebbef']},
+  {y:'1992', t:'Dirty', n:'The loudest record and the last one built primarily on the eighties tunings. 100% and Sugar Kane sit on the old drones, Theresa\u2019s Sound-World revives the Daydream Nation pairing wholesale.', ids:['fsharp','ggddebeb','accgg','aaeeaa','egdged','eebbef','ggddgg']},
+  {y:'1994', t:'Experimental Jet Set, Trash and No Star', n:'Quieter, stranger, and the record where Kim\u2019s guitar becomes structural rather than decorative. Lee settles into GGCGCD, which he uses almost everywhere for the next four years.', ids:['ggddebeb','ggcgcd','egdged','beddbb','fsharp']},
+  {y:'1995', t:'Washing Machine', n:'Long songs, patient playing, and The Diamond Sea, which is nineteen minutes of EGDGED against Lee\u2019s high EEBBEF#. Kim\u2019s BEDDBB runs under most of the record.', ids:['egdged','eebbef','fsharp','beddbb']},
+  {y:'1998', t:'A Thousand Leaves', n:'Recorded in their own studio with nobody watching. Thurston\u2019s CGDGBB is the first genuinely pretty tuning he commits to, and you can hear the late period assembling itself four years early.', ids:['cgdgbb','ggddgg','ggcgcd','ggdaga','egdged']},
+  {theft:true},
+  {y:'2000', t:'NYC Ghosts & Flowers', n:'Written on replacement guitars, in tunings found on unfamiliar instruments, with prepared-guitar techniques dragged back out of the early eighties: a metal file under the strings on Small Flowers Crack Concrete, a bike horn on Lightnin\u2019. The coldest record they made, for obvious reasons.', ids:['fgcfaf','ggddgg','dgddbb']},
+  {y:'2002', t:'Murray Street', n:'Jim O\u2019Rourke becomes a full member and the whole harmonic picture changes. CGDGCD and GGDGGA arrive together and stay for the rest of the band\u2019s life. Rain on Tin is three tunings stacked into one chord.', ids:['cgdgcd','ggdgga','ggdegb','ggddebeb']},
+  {y:'2004', t:'Sonic Nurse', n:'Roughly half the record in Thurston\u2019s CGDGCD, half of it reviving GGDDEbEb from eighteen years earlier. Kim uses that old tuning herself for the first time on Pattern Recognition.', ids:['cgdgcd','ggdgga','ggddebeb','ggdegb','egsharp']},
+  {y:'2006', t:'Rather Ripped', n:'Back to a quartet, and the songs get shorter and clearer. Lee\u2019s open Eb tuning on Incinerate is the prettiest thing in the catalogue, and Jams Run Free is the most playable tuning here.', ids:['dsharpgg','dsharpjams','cgdgcd']},
+  {y:'2009', t:'The Eternal', n:'Mark Ibold on bass, Kim on guitar for all but one track, and the tunings get heavy again. Thurston\u2019s DDAF#AD and Lee returning to DDDDAA, the same tuning he used on Sister twenty-two years earlier. The 2009 tour documentation makes this the best-evidenced record in the whole catalogue.', ids:['ddafad','ddddaa','dadabd','cgdacd','cgdgcd']}
+];
+
+/* ---------- interlock pairs ---------- */
+const INTERLOCK = [
+  {song:'(I Got A) Catholic Block', a:'fsharp', b:'ddddaa', yr:'1987'},
+  {song:'Teen Age Riot', a:'gabdeg', b:'ggddgg', yr:'1988'},
+  {song:'Silver Rocket', a:'accgg', b:'aaeeaa', yr:'1988'},
+  {song:'The Diamond Sea', a:'egdged', b:'eebbef', yr:'1995'},
+  {song:'Bull in the Heather', a:'ggddebeb', b:'ggcgcd', yr:'1994'},
+  {song:'Rain on Tin', a:'cgdgcd', b:'ggdgga', yr:'2002'},
+  {song:'Antenna', a:'ddafad', b:'ddddaa', yr:'2009'}
+];
+
+/* ============================================================
+   STRING TENSION
+   T (lb) = UW * (2 * L * f)^2 / 386.4
+   UW derived: plain steel ~0.2199*d^2, nickel roundwound ~0.1835*d^2
+   ============================================================ */
+const K_PLAIN = 0.2199, K_WOUND = 0.1835;
+const PLAIN = [.007,.008,.009,.010,.011,.012,.013,.014,.015,.016,.017,.018,.019,.020,.022,.024,.026];
+const WOUND = [.018,.020,.022,.024,.026,.028,.030,.032,.034,.036,.038,.040,.042,.044,.046,.048,.049,.052,.054,.056,.059,.062,.064,.068,.072];
+
+function coef(f, L){ return Math.pow(2*L*f, 2) / 386.4; }
+function tension(d, wound, f, L, mat){
+  const uw = (wound ? K_WOUND*(mat||1) : K_PLAIN) * d * d;
+  return uw * coef(f, L);
+}
+function nearest(list, v){
+  return list.reduce((a,b)=> Math.abs(b-v) < Math.abs(a-v) ? b : a);
+}
+function autoGauge(f, L, target, mat){
+  const c = coef(f, L);
+  const dP = Math.sqrt(target/(c*K_PLAIN));
+  if(dP <= 0.0245) return {wound:false, d:nearest(PLAIN, dP)};
+  const dW = Math.sqrt(target/(c*K_WOUND*(mat||1)));
+  return {wound:true, d:nearest(WOUND, dW)};
+}
+function band(T, wound, d){
+  if(!wound){
+    const bt = breakT(d);
+    if(T >= bt) return {k:'snaps', c:'#FF2D6F'};
+    if(T >= bt*0.8) return {k:'break risk', c:'#FF2D6F'};
+  }
+  if(T < 10.5) return {k:'floppy', c:'#00A9C7'};
+  if(T < 13)   return {k:'slack', c:'#00A9C7'};
+  if(T <= 20)  return {k:'sweet', c:'#FFC300'};
+  if(T <= 24)  return {k:'tight', c:'#FF8A3D'};
+  return {k:'danger', c:'#FF2D6F'};
+}
+function gaugeLabel(d, wound){
+  return '.' + d.toFixed(3).slice(2) + (wound ? 'w' : '');
+}
+/* plain-steel breaking tension. music wire UTS rises as diameter falls. */
+function breakT(d){ return 0.7854 * d * d * (460000 - 6e6 * d); }
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+
+function freqsFor(t, frets){
+  return t.notes.map((n,i)=>{
+    const f = frets ? frets[i] : 0;
+    if(f === -1) return null;
+    return hz(n) * Math.pow(2, f/12);
+  });
+}
+
+/* ---- the signature element: the tuning strip ---- */
+function buildStrip(hostStrip, hostUni, t, onInk){
+  hostStrip.className = 'strip' + (onInk ? ' on-ink' : '');
+  hostStrip.innerHTML = t.notes.map((n,i)=>
+    '<button class="sbtn" data-i="'+i+'" aria-label="String '+(6-i)+', '+n+'">'+
+      '<span class="idx">'+(6-i)+'</span>'+
+      '<span class="n">'+pretty(letterOf(n))+'</span>'+
+      '<span class="o">'+octOf(n)+' &middot; '+deltaTxt(delta(n,i)).replace(' semitones','').replace(' semitone','')+'</span>'+
+    '</button>').join('');
+
+  hostStrip.querySelectorAll('.sbtn').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      const i = +b.dataset.i;
+      Kit.pluck(hz(t.notes[i]), Kit.now()+0.02, {gain:0.5, dur:3.6});
+      b.classList.add('lit'); setTimeout(()=>b.classList.remove('lit'), 260);
+      checkAudio();
+    });
+  });
+
+  if(hostUni){
+    let cells = new Array(6).fill('<span></span>');
+    for(let i=0;i<5;i++){
+      if(t.notes[i] === t.notes[i+1]){
+        cells[i] = '<span class="u l"></span>';
+        cells[i+1] = '<span class="u r"></span>';
+      }
+    }
+    hostUni.innerHTML = cells.join('');
+  }
+}
+
+/* ---- fretboard diagram ---- */
+function fretSVG(frets, accent){
+  const played = frets.filter(f=>f>0);
+  const min = played.length ? Math.min.apply(null,played) : 1;
+  const max = played.length ? Math.max.apply(null,played) : 1;
+  const nF = 5;
+  let base = 1;
+  if(max > 4) base = Math.max(1, min);
+  const padL=18, padR=10, padT=21, padB=6, sx=16, fh=17;
+  const w = sx*5, h = fh*nF;
+  const W = w+padL+padR, H = h+padT+padB;
+  let s = '<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">';
+  for(let f=0; f<=nF; f++){
+    const y = padT + f*fh;
+    const thick = (f===0 && base===1) ? 3 : 1;
+    s += '<line x1="'+padL+'" y1="'+y+'" x2="'+(padL+w)+'" y2="'+y+'" stroke="#5A5766" stroke-width="'+thick+'"/>';
+  }
+  for(let i=0;i<6;i++){
+    const x = padL + i*sx;
+    s += '<line x1="'+x+'" y1="'+padT+'" x2="'+x+'" y2="'+(padT+h)+'" stroke="#5A5766" stroke-width="1"/>';
+  }
+  frets.forEach((f,i)=>{
+    const x = padL + i*sx;
+    if(f === -1){
+      s += '<text x="'+x+'" y="'+(padT-6)+'" font-size="10" text-anchor="middle" fill="#8A8798" font-family="monospace">x</text>';
+    } else if(f === 0){
+      s += '<circle cx="'+x+'" cy="'+(padT-9)+'" r="3.3" fill="none" stroke="#CFCBC2" stroke-width="1.4"/>';
+    } else {
+      const rel = f - base + 1;
+      if(rel>=1 && rel<=nF){
+        const y = padT + (rel-0.5)*fh;
+        s += '<circle cx="'+x+'" cy="'+y+'" r="5.3" fill="'+accent+'"/>';
+      }
+    }
+  });
+  if(base > 1){
+    s += '<text x="'+(padL-5)+'" y="'+(padT+fh*0.75)+'" font-size="9" text-anchor="end" fill="#8A8798" font-family="monospace">'+base+'</text>';
+  }
+  s += '</svg>';
+  return s;
+}
+
+/* ---- gauge suggestion block for the detail panel ---- */
+function gaugeRows(t, L, target){
+  return t.notes.map((n,i)=>{
+    const f = hz(n);
+    const g = autoGauge(f, L, target, 1);
+    const T = tension(g.d, g.wound, f, L, 1);
+    const b = band(T, g.wound, g.d);
+    return {n, i, g, T, b};
+  });
+}
+function miniGaugeTable(t, L){
+  const rows = gaugeRows(t, L, 16);
+  let html = '<table class="gtable"><thead><tr><th>Str</th><th>Note</th><th>Gauge</th><th>lb</th><th style="width:38%">Load</th></tr></thead><tbody>';
+  rows.forEach(r=>{
+    html += '<tr><td style="opacity:.5">'+(6-r.i)+'</td><td>'+pretty(r.n)+'</td><td><b>'+gaugeLabel(r.g.d, r.g.wound)+'</b></td>'+
+      '<td>'+r.T.toFixed(1)+'</td>'+
+      '<td><div class="meter"><i style="width:'+Math.min(100, r.T/26*100).toFixed(0)+'%;background:'+r.b.c+'"></i></div></td></tr>';
+  });
+  html += '</tbody></table>';
+  const total = rows.reduce((a,r)=>a+r.T,0);
+  html += '<div style="font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--K);margin-top:12px">'+
+    'Set: <b style="color:var(--bone)">'+rows.map(r=>gaugeLabel(r.g.d,r.g.wound)).join(' ')+'</b><br>'+
+    'Total load '+total.toFixed(0)+' lb on a '+L+'&quot; scale, targeting 16 lb per string.</div>';
+  return html;
+}
+
+/* ---- the rack ---- */
+let filterState = {player:'all', era:'all'};
+let openId = null;
+
+function renderRack(){
+  const grid = $('#rackGrid');
+  const list = TUNINGS.filter(t =>
+    (filterState.player === 'all' || t.player === filterState.player) &&
+    (filterState.era === 'all' || t.era === filterState.era)
+  );
+  if(!list.length){
+    grid.innerHTML = '<p style="font-family:var(--mono);font-size:13px;color:var(--K);grid-column:1/-1">Nothing in the rack matches that. Try another filter.</p>';
+    return;
+  }
+  grid.innerHTML = list.map(t=>{
+    const col = CHCOL[CH[t.player]];
+    return '<button class="tape" data-id="'+t.id+'" aria-pressed="'+(openId===t.id)+'">'+
+      '<span class="who" style="background:'+col+'"></span>'+
+      '<span class="tn">'+pretty(t.label)+'</span>'+
+      '<span class="tmeta">'+t.player+' &middot; '+t.years+'</span>'+
+      '<span class="tsong">'+t.songs.slice(0,3).join(' &middot; ')+(t.songs.length>3?' &middot; +'+(t.songs.length-3):'')+'</span>'+
+      '<span class="conf">'+t.conf+'</span>'+
+    '</button>';
+  }).join('');
+  grid.querySelectorAll('.tape').forEach(b=>{
+    b.addEventListener('click', ()=> openTuning(b.dataset.id, true));
+  });
+}
+
+function openTuning(id, scroll){
+  const t = byId(id);
+  if(!t) return;
+  openId = id;
+  const col = CHCOL[CH[t.player]];
+  const d = $('#detail');
+  d.hidden = false;
+  d.style.borderColor = col;
+
+  const partner = t.partner ? byId(t.partner) : null;
+
+  d.innerHTML =
+  '<div class="d-head">'+
+    '<div>'+
+      '<div class="d-title">'+pretty(t.label)+'</div>'+
+      '<div class="d-who" style="color:'+col+'">'+t.player+' &middot; '+t.years+' &middot; '+t.conf+'</div>'+
+    '</div>'+
+    '<button class="btn ghost" id="dClose">Close</button>'+
+  '</div>'+
+
+  '<div class="strip on-ink" id="dStrip"></div>'+
+  '<div class="uni" id="dUni" style="color:'+col+'"></div>'+
+  '<div class="transport">'+
+    '<button class="btn" id="dStrum"><span class="k">&#9654;</span> Strum</button>'+
+    '<button class="btn ghost" id="dArp">Arpeggiate</button>'+
+    '<button class="btn ghost" id="dSlow">One string at a time</button>'+
+    (partner ? '<button class="btn ghost" id="dPair">Play against '+partner.player+' &mdash; '+t.partnerSong+'</button>' : '')+
+    '<label class="dirt-toggle" style="margin-left:6px"><input type="checkbox" id="dDirt"'+(Kit.getDirt()?' checked':'')+'> Dirt</label>'+
+  '</div>'+
+
+  '<div class="d-grid" style="margin-top:30px">'+
+    '<div>'+
+      '<div class="d-block"><div class="d-lab">Why this one</div><div class="d-text">'+t.why+'</div></div>'+
+      '<div class="d-block"><div class="d-lab">What makes it sound like that</div><div class="d-text">'+t.theory+'</div></div>'+
+      (t.voicing ? '<div class="d-block"><div class="d-lab">Octave caveat</div><div class="d-text">'+t.voicing+'</div></div>' : '')+
+      '</div>'+
+    '<div>'+
+      '<div class="d-block"><div class="d-lab">Positions &mdash; tap to hear</div>'+
+        '<div class="shapes" id="dShapes">'+
+          t.shapes.map((s,i)=>'<button class="shape" data-s="'+i+'">'+fretSVG(s.f, col)+'<div class="sname">'+s.n+'</div><div class="snote">'+s.t+'</div></button>').join('')+
+        '</div>'+
+      '</div>'+
+      '<div class="d-block"><div class="d-lab">The guitar</div><div class="d-text">'+t.guitars+'</div></div>'+
+      '<div class="d-block"><div class="d-lab">Heard on</div><div class="songlist">'+t.songs.map(s=>'<span>'+s+'</span>').join('')+'</div></div>'+
+    '</div>'+
+  '</div>'+
+  '<div class="d-grid" style="margin-top:6px">'+
+    '<div class="d-block"><div class="d-lab">Build it &mdash; Sire Strat, 25.5"</div>'+miniGaugeTable(t, 25.5)+'</div>'+
+    '<div class="d-block"><div class="d-lab">Build it &mdash; Epiphone Special, 24.75"</div>'+miniGaugeTable(t, 24.75)+'</div>'+
+  '</div>';
+
+  buildStrip($('#dStrip'), $('#dUni'), t, true);
+
+  $('#dStrum').addEventListener('click', ()=>{ Kit.strum(freqsFor(t)); checkAudio(); });
+  $('#dArp').addEventListener('click', ()=>{ Kit.arp(freqsFor(t)); checkAudio(); });
+  $('#dSlow').addEventListener('click', ()=>{ Kit.strum(freqsFor(t), {spread:0.42, dur:4.2}); checkAudio(); });
+  $('#dClose').addEventListener('click', ()=>{ d.hidden = true; openId=null; renderRack(); });
+  $('#dDirt').addEventListener('change', e=> Kit.setDirt(e.target.checked));
+  if(partner){
+    $('#dPair').addEventListener('click', ()=>{
+      Kit.sequence([
+        {freqs: freqsFor(t), at:0, gain:0.36},
+        {freqs: freqsFor(partner), at:1.5, gain:0.36},
+        {freqs: freqsFor(t), at:3.2, gain:0.3},
+        {freqs: freqsFor(partner), at:3.28, gain:0.3, spread:0.035}
+      ]);
+      checkAudio();
+    });
+  }
+  $$('#dShapes .shape').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      const s = t.shapes[+b.dataset.s];
+      Kit.strum(freqsFor(t, s.f), {gain:0.42});
+      checkAudio();
+    });
+  });
+
+  renderRack();
+  if(scroll){
+    const y = d.getBoundingClientRect().top + window.scrollY - 24;
+    window.scrollTo({top:y, behavior:'smooth'});
+  }
+  const sel = $('#labTuning');
+  if(sel){ sel.value = t.id; renderLab(); }
+}
+
+/* filters */
+$$('#filters .chip').forEach(c=>{
+  c.addEventListener('click', ()=>{
+    const f = c.dataset.f;
+    $$('#filters .chip[data-f="'+f+'"]').forEach(o=>o.setAttribute('aria-pressed','false'));
+    c.setAttribute('aria-pressed','true');
+    filterState[f] = c.dataset.v;
+    renderRack();
+  });
+});
+
+/* ---- timeline ---- */
+function renderTimeline(){
+  const el = $('#timeline');
+  el.innerHTML = ALBUMS.map(a=>{
+    if(a.theft){
+      return '<div class="theft">'+
+        '<div class="eyebrow" style="color:var(--M)">4 July 1999 &middot; Orange County, California</div>'+
+        '<h3 class="h-sub" style="margin-top:10px">The truck</h3>'+
+        '<p style="margin-top:12px">Overnight, between roughly one and seven in the morning, a rented equipment truck disappeared from a hotel car park. Inside was effectively the entire arsenal: around two dozen customised guitars by contemporary accounts, more by the band\u2019s own later count, along with a bass, a drum kit and a synthesiser. Each of those instruments had been modified, restrung and dedicated to a specific tuning over more than a decade. The truck turned up empty in downtown Los Angeles a few days later.</p>'+
+        '<p>The next record, NYC Ghosts &amp; Flowers, was written on replacements. You can hear it. The tunings are unfamiliar to the players, the prepared-guitar techniques from 1982 come back out, and the whole thing sounds like a band feeling around in the dark. Guitars kept surfacing for years afterwards. In 2012 two more came back within a week of each other, one spotted on eBay by a fan in Belgium, one found in a pawn shop through an online guitar forum.</p>'+
+        '<div class="theft-strip">'+
+          ['Jazzmaster \u2014 F#F#F#F#EB','Jazzmaster \u2014 GGDDGG','Jaguar \u2014 EGDGED','Travis Bean','Drifter \u2014 low F#','Jazzblaster','Telecaster Deluxe','+20 more'].map(x=>'<span>'+x+'</span>').join('')+
+        '</div>'+
+      '</div>';
+    }
+    return '<div class="tl-row">'+
+      '<div class="tl-yr">'+a.y+'</div>'+
+      '<div>'+
+        '<div class="tl-alb">'+a.t+'</div>'+
+        '<div class="tl-note">'+a.n+'</div>'+
+        '<div class="tl-tunes">'+a.ids.map(id=>{
+          const t = byId(id); if(!t) return '';
+          return '<button data-id="'+id+'"><i style="background:'+CHCOL[CH[t.player]]+'"></i>'+pretty(t.label)+'</button>';
+        }).join('')+'</div>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+  el.querySelectorAll('.tl-tunes button').forEach(b=>{
+    b.addEventListener('click', ()=> openTuning(b.dataset.id, true));
+  });
+}
+
+/* ---- interlock ---- */
+function renderInterlock(){
+  const el = $('#interlock');
+  el.innerHTML = INTERLOCK.map((p,i)=>{
+    const a = byId(p.a), b = byId(p.b);
+    return '<div class="ilock">'+
+      '<div class="sg">'+p.song+' <span style="font-family:var(--mono);font-size:11px;opacity:.5">'+p.yr+'</span></div>'+
+      '<div class="tm">'+pretty(a.label)+'</div>'+
+      '<div class="lr">'+pretty(b.label)+'</div>'+
+      '<div style="display:flex;gap:6px;flex-wrap:wrap">'+
+        '<button class="btn ghost" style="padding:7px 11px;font-size:10px;color:var(--M);border-color:var(--M)" data-p="'+i+'" data-m="a" title="Thurston\u2019s part only">T</button>'+
+        '<button class="btn ghost" style="padding:7px 11px;font-size:10px;color:var(--C);border-color:var(--C)" data-p="'+i+'" data-m="b" title="Lee\u2019s part only">L</button>'+
+        '<button class="btn" style="padding:7px 12px;font-size:10px" data-p="'+i+'" data-m="both">Both</button>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+  el.querySelectorAll('button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const p = INTERLOCK[+btn.dataset.p];
+      const a = byId(p.a), b = byId(p.b);
+      if(btn.dataset.m === 'a') Kit.strum(freqsFor(a), {gain:0.42});
+      else if(btn.dataset.m === 'b') Kit.strum(freqsFor(b), {gain:0.42});
+      else Kit.sequence([
+        {freqs:freqsFor(a), at:0, gain:0.33, spread:0.032},
+        {freqs:freqsFor(b), at:0.055, gain:0.33, spread:0.032}
+      ]);
+      checkAudio();
+    });
+  });
+}
+
+/* ---- the string lab ---- */
+let labOverride = {};
+function renderLabSelect(){
+  const sel = $('#labTuning');
+  sel.innerHTML = TUNINGS.map(t=>'<option value="'+t.id+'">'+pretty(t.label)+' \u2014 '+t.player+'</option>').join('');
+  sel.value = 'cgdgcd';
+}
+function labParams(){
+  return {
+    t: byId($('#labTuning').value),
+    L: parseFloat($('#labScale').value),
+    mat: parseFloat($('#labMat').value),
+    target: Math.max(9, Math.min(26, parseFloat($('#labTarget').value) || 16))
+  };
+}
+function gaugeOptions(sel){
+  let o = '<optgroup label="Plain">';
+  PLAIN.forEach(d=>{ o += '<option value="p'+d+'"'+(sel==='p'+d?' selected':'')+'>'+gaugeLabel(d,false)+'</option>'; });
+  o += '</optgroup><optgroup label="Wound">';
+  WOUND.forEach(d=>{ o += '<option value="w'+d+'"'+(sel==='w'+d?' selected':'')+'>'+gaugeLabel(d,true)+'</option>'; });
+  return o + '</optgroup>';
+}
+function renderLab(){
+  const {t, L, mat, target} = labParams();
+  if(!t) return;
+  const rows = t.notes.map((n,i)=>{
+    const f = hz(n);
+    const key = t.id+'|'+i;
+    let g;
+    if(labOverride[key]){
+      const v = labOverride[key];
+      g = {wound: v[0]==='w', d: parseFloat(v.slice(1))};
+    } else {
+      g = autoGauge(f, L, target, mat);
+    }
+    const T = tension(g.d, g.wound, f, L, mat);
+    return {n, i, f, g, T, b: band(T, g.wound, g.d), key};
+  });
+
+  $('#labTable').innerHTML =
+    '<thead><tr><th>Str</th><th>Note</th><th>vs standard</th><th>Gauge</th><th>Tension</th><th style="width:26%">Load</th><th></th></tr></thead><tbody>'+
+    rows.map(r=>
+      '<tr>'+
+        '<td style="color:var(--K)">'+(6-r.i)+'</td>'+
+        '<td style="font-weight:600">'+pretty(r.n)+'</td>'+
+        '<td style="color:var(--K);font-size:11.5px">'+deltaTxt(delta(r.n, r.i))+'</td>'+
+        '<td><select data-k="'+r.key+'">'+gaugeOptions((r.g.wound?'w':'p')+r.g.d)+'</select></td>'+
+        '<td class="lbs" style="color:'+r.b.c+'">'+r.T.toFixed(1)+' <span style="font-size:10px;opacity:.6">lb</span></td>'+
+        '<td data-w="full"><div class="meter"><i style="width:'+Math.min(100, r.T/28*100).toFixed(0)+'%;background:'+r.b.c+'"></i></div></td>'+
+        '<td class="tag" style="color:'+r.b.c+'">'+r.b.k+'</td>'+
+      '</tr>').join('')+
+    '</tbody>';
+
+  $('#labTable').querySelectorAll('select').forEach(s=>{
+    s.addEventListener('change', ()=>{ labOverride[s.dataset.k] = s.value; renderLab(); });
+  });
+
+  const total = rows.reduce((a,r)=>a+r.T,0);
+  const stdTotal = [[.046,1],[.036,1],[.026,1],[.017,0],[.013,0],[.010,0]]
+    .reduce((a,g,i)=> a + tension(g[0], !!g[1], hz(STANDARD[i]), L, mat), 0);
+  const setTxt = rows.map(r=>gaugeLabel(r.g.d, r.g.wound)).join('  ');
+
+  $('#labTotals').innerHTML =
+    '<span>Set &nbsp;<b>'+setTxt+'</b></span>'+
+    '<span>Total load &nbsp;<b>'+total.toFixed(0)+' lb</b></span>'+
+    '<span>Standard 10&ndash;46 on this scale &nbsp;<b>'+stdTotal.toFixed(0)+' lb</b></span>'+
+    '<span>Difference &nbsp;<b style="color:'+(Math.abs(total-stdTotal)>12?'#FF8A3D':'#FFC300')+'">'+(total>stdTotal?'+':'')+(total-stdTotal).toFixed(0)+' lb</b></span>';
+
+  /* verdict */
+  const hot = rows.filter(r=>r.b.k==='danger'||r.b.k==='break risk');
+  const soft = rows.filter(r=>r.b.k==='floppy');
+  const up = rows.filter(r=>delta(r.n,r.i) > 0);
+  const bigUp = rows.filter(r=>delta(r.n,r.i) >= 4);
+  const lowG = rows[0].g.d;
+  let v = [];
+
+  if(hot.length){
+    v.push('<b>'+hot.length+' string'+(hot.length>1?'s are':' is')+' over the line.</b> Drop a gauge on string '+hot.map(r=>6-r.i).join(' and ')+', or voice that pitch an octave lower. A plain string above about 22 pounds will break at the nut sooner rather than later.');
+  }
+  if(soft.length){
+    v.push('<b>String '+soft.map(r=>6-r.i).join(' and ')+' will flop.</b> Go up a gauge or two, or accept the buzz as part of the sound. Below about 10 pounds the intonation drifts as soon as you fret hard.');
+  }
+  if(bigUp.length){
+    v.push('<b>'+bigUp.length+' string'+(bigUp.length>1?'s go':' goes')+' four or more semitones above standard pitch.</b> This tuning belongs on the 24.75&quot; Epiphone, where every string carries about eleven percent less tension than it would on the Sire. Lubricate the nut slots with graphite before you tune up.');
+  } else if(!up.length){
+    v.push('<b>Everything is tuned down.</b> Easy on the guitar and easy on your hands. This one is safe to leave on the Sire with a blocked trem and a small truss rod tweak.');
+  }
+  if(Math.abs(total - stdTotal) > 14){
+    v.push('<b>Total load moves by '+Math.abs(total-stdTotal).toFixed(0)+' pounds against a standard set.</b> Re-check neck relief after a couple of days, and if this is going on the Sire, rebalance the trem claw or block the bridge outright.');
+  }
+  if(Math.abs(lowG - 0.046) > 0.006){
+    v.push('<b>The sixth string is '+gaugeLabel(lowG, rows[0].g.wound)+'.</b> That will not sit correctly in a nut slot cut for a .046. Get it filed, or it will bind and ping sharp every time you bend.');
+  }
+  const unis = t.notes.filter((n,i)=> i<5 && n===t.notes[i+1]).length;
+  if(unis){
+    v.push('<b>There '+(unis>1?'are '+unis+' unison pairs':'is a unison pair')+' here.</b> Intonate them together at the bridge. Two strings on the same pitch with different intonation do not shimmer, they beat against themselves and sound broken.');
+  }
+  if(!v.length) v.push('Balanced set, nothing alarming. Build it and go.');
+  $('#labVerdict').innerHTML = v.join('<br><br>');
+}
+
+['labTuning','labScale','labMat','labTarget'].forEach(id=>{
+  const el = document.getElementById(id);
+  el.addEventListener('change', ()=>{ if(id==='labTuning'||id==='labScale'||id==='labMat') labOverride = {}; renderLab(); });
+  el.addEventListener('input', ()=>{ if(id==='labTarget'){ labOverride={}; renderLab(); } });
+});
+$('#labAuto').addEventListener('click', ()=>{ labOverride = {}; renderLab(); });
+
+/* ---- hero ---- */
+const HERO_ORDER = ['fsharp','ggddgg','gabdeg','accgg','egdged','cgdgcd','dsharpgg','ddafad','beddbb','ggdgga'];
+let heroI = 0;
+function setHero(i){
+  heroI = (i + HERO_ORDER.length) % HERO_ORDER.length;
+  const t = byId(HERO_ORDER[heroI]);
+  const strip = $('#heroStrip');
+  strip.classList.remove('tune-in'); void strip.offsetWidth; strip.classList.add('tune-in');
+  buildStrip(strip, $('#heroUni'), t, true);
+  strip.querySelectorAll('.sbtn').forEach((b,n)=> b.style.animationDelay = (n*0.055)+'s');
+  $('#heroUni').style.color = CHCOL[CH[t.player]];
+  $('#heroLabel').innerHTML = pretty(t.label) + ' &mdash; ' + t.player + ', ' + t.years;
+}
+$('#heroStrum').addEventListener('click', ()=>{ Kit.strum(freqsFor(byId(HERO_ORDER[heroI]))); checkAudio(); });
+$('#heroArp').addEventListener('click', ()=>{ Kit.arp(freqsFor(byId(HERO_ORDER[heroI]))); checkAudio(); });
+$('#heroNext').addEventListener('click', ()=>{ setHero(heroI+1); Kit.strum(freqsFor(byId(HERO_ORDER[heroI])), {gain:0.34}); checkAudio(); });
+
+/* ---- boot ---- */
+setHero(0);
+renderRack();
+renderTimeline();
+renderInterlock();
+renderLabSelect();
+renderLab();
+
+/* deep link */
+if(location.hash && byId(location.hash.slice(1))) openTuning(location.hash.slice(1), false);
+
+</script>
+</body>
+</html>
