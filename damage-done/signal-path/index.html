@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Signal Path — Studio Operations Manual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;700;900&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#151310;
+  --panel:#1E1B17;
+  --panel-2:#262119;
+  --rule:#3A332A;
+  --silk:#E9E2D3;
+  --silk-dim:#9A9184;
+  --oxide:#B4552D;
+  --oxide-lit:#D96C3C;
+  --lamp:#E0A548;
+  --meter:#8FAE72;
+  --tape:#EDE4D0;
+  --tape-ink:#2A241C;
+  --tape-rule:#CFC3AA;
+  --disp:"Saira Condensed", "Arial Narrow", sans-serif;
+  --body:"Newsreader", Georgia, serif;
+  --mono:"IBM Plex Mono", ui-monospace, "Courier New", monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--ink); color:var(--silk);
+  font-family:var(--body); font-size:17px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.5;
+  background:
+    radial-gradient(900px 500px at 15% -10%, rgba(180,85,45,.13), transparent 65%),
+    radial-gradient(700px 400px at 95% 8%, rgba(224,165,72,.07), transparent 60%);
+}
+.wrap{position:relative; z-index:1; display:grid; grid-template-columns:190px minmax(0,1fr); gap:0; max-width:1440px; margin:0 auto}
+
+/* ---------- rack rail nav ---------- */
+.rail{
+  position:sticky; top:0; align-self:start; height:100vh; padding:26px 0 26px 22px;
+  border-right:1px solid var(--rule); display:flex; flex-direction:column; gap:2px;
+}
+.rail-mark{font-family:var(--disp); font-weight:900; font-size:19px; letter-spacing:.16em; text-transform:uppercase; line-height:1.05; margin-bottom:4px}
+.rail-mark span{display:block; color:var(--oxide-lit)}
+.rail-sub{font-family:var(--mono); font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--silk-dim); margin-bottom:26px}
+.rail a{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--silk-dim); text-decoration:none; padding:8px 12px 8px 0; border-bottom:1px solid transparent;
+  display:flex; align-items:baseline; gap:9px; transition:color .18s, border-color .18s;
+}
+.rail a b{font-weight:500; color:var(--rule); font-size:9px; transition:color .18s}
+.rail a:hover,.rail a:focus-visible{color:var(--silk)}
+.rail a:hover b,.rail a:focus-visible b{color:var(--oxide)}
+.rail a.on{color:var(--lamp)}
+.rail a.on b{color:var(--oxide-lit)}
+.rail-foot{margin-top:auto; font-family:var(--mono); font-size:9px; letter-spacing:.14em; color:var(--rule); text-transform:uppercase}
+
+/* ---------- generic blocks ---------- */
+main{padding:0 clamp(20px,4vw,64px) 120px; min-width:0}
+.block{padding:72px 0 8px; border-bottom:1px solid var(--rule)}
+.block:last-of-type{border-bottom:none}
+.eyebrow{font-family:var(--mono); font-size:10px; letter-spacing:.24em; text-transform:uppercase; color:var(--oxide-lit); margin:0 0 10px}
+h1,h2,h3{font-family:var(--disp); font-weight:900; text-transform:uppercase; letter-spacing:.01em; margin:0}
+h1{font-size:clamp(44px,7vw,86px); line-height:.92}
+h2{font-size:clamp(28px,4vw,44px); line-height:1; margin-bottom:12px}
+h3{font-size:19px; letter-spacing:.06em; font-weight:700}
+.lede{font-size:19px; color:var(--silk-dim); max-width:62ch; margin:14px 0 0}
+.note{font-family:var(--mono); font-size:11.5px; line-height:1.7; color:var(--silk-dim); letter-spacing:.02em}
+
+/* ---------- hero ---------- */
+.hero{padding:56px 0 30px}
+.hero-top{display:flex; flex-wrap:wrap; align-items:flex-end; gap:20px 40px; justify-content:space-between}
+.hero h1 em{font-style:normal; color:var(--oxide-lit); display:block}
+.hero-meta{font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--silk-dim); text-align:right; line-height:2}
+.hero-meta i{font-style:normal; color:var(--lamp)}
+
+/* ---------- patch bay ---------- */
+.bay{margin-top:34px; border:1px solid var(--rule); background:linear-gradient(180deg,var(--panel),#191612); border-radius:3px; overflow:hidden}
+.bay-head{display:flex; justify-content:space-between; align-items:center; gap:16px; padding:11px 16px; border-bottom:1px solid var(--rule); background:var(--panel-2)}
+.bay-head p{margin:0; font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--silk-dim)}
+.bay-reset{font-family:var(--mono); font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; background:none; border:1px solid var(--rule); color:var(--silk-dim); padding:5px 11px; border-radius:2px; cursor:pointer; transition:.18s}
+.bay-reset:hover{border-color:var(--oxide); color:var(--oxide-lit)}
+.bay-scroll{overflow-x:auto; overflow-y:hidden}
+.bay svg{display:block; width:100%; min-width:820px; height:auto}
+.edge{fill:none; stroke:var(--rule); stroke-width:1.4; transition:stroke .25s, stroke-width .25s, opacity .25s}
+.edge.lit{stroke:var(--oxide-lit); stroke-width:2.2}
+.bay.filtering .edge{opacity:.16}
+.bay.filtering .edge.lit{opacity:1}
+.node{cursor:pointer}
+.node rect{fill:var(--panel-2); stroke:var(--rule); stroke-width:1.2; transition:.22s}
+.node text{font-family:var(--mono); font-size:10.5px; fill:var(--silk); letter-spacing:.03em; pointer-events:none}
+.node tspan.k{fill:var(--silk-dim); font-size:8.5px; letter-spacing:.14em}
+.node:hover rect{stroke:var(--lamp)}
+.node.on rect{fill:#33261B; stroke:var(--oxide-lit)}
+.node.on text{fill:#FFF3E2}
+.bay.filtering .node:not(.on):not(.near) rect{opacity:.4}
+.bay.filtering .node:not(.on):not(.near) text{opacity:.4}
+.col-label{font-family:var(--mono); font-size:9px; fill:var(--silk-dim); letter-spacing:.24em}
+.bay-read{border-top:1px solid var(--rule); padding:18px 20px; min-height:96px; background:#191612}
+.bay-read h3{color:var(--lamp); margin-bottom:6px}
+.bay-read p{margin:0 0 8px; max-width:70ch; font-size:16px}
+.bay-read .tagrow{display:flex; flex-wrap:wrap; gap:6px}
+.mini{font-family:var(--mono); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--silk-dim); border:1px solid var(--rule); padding:3px 8px; border-radius:2px}
+
+/* ---------- tonight router ---------- */
+.chips{display:flex; flex-wrap:wrap; gap:8px; margin:22px 0 0}
+.chip{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
+  background:var(--panel); color:var(--silk-dim); border:1px solid var(--rule); padding:9px 14px;
+  border-radius:2px; cursor:pointer; transition:.18s;
+}
+.chip:hover{color:var(--silk); border-color:var(--silk-dim)}
+.chip.on{background:var(--oxide); border-color:var(--oxide); color:#1A1109; font-weight:600}
+.route{margin-top:22px; border:1px solid var(--rule); border-left:3px solid var(--oxide); background:var(--panel); padding:22px 24px; border-radius:2px}
+.route h3{margin-bottom:14px; color:var(--silk)}
+.route-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:18px; margin-bottom:18px}
+.route-grid dt{font-family:var(--mono); font-size:9.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--oxide-lit); margin-bottom:5px}
+.route-grid dd{margin:0; font-size:16px; line-height:1.5}
+.route ol{margin:0; padding-left:0; list-style:none; counter-reset:s}
+.route ol li{counter-increment:s; padding:9px 0 9px 40px; border-top:1px solid var(--rule); position:relative; font-size:16px}
+.route ol li::before{content:counter(s,decimal-leading-zero); position:absolute; left:0; top:10px; font-family:var(--mono); font-size:10px; color:var(--oxide); letter-spacing:.1em}
+
+/* ---------- projects ---------- */
+.tabs{display:flex; flex-wrap:wrap; gap:0; margin:26px 0 0; border-bottom:1px solid var(--rule)}
+.tab{
+  background:none; border:none; border-bottom:2px solid transparent; cursor:pointer;
+  font-family:var(--disp); font-weight:700; text-transform:uppercase; letter-spacing:.07em;
+  font-size:16px; color:var(--silk-dim); padding:10px 18px 12px; transition:.18s; margin-bottom:-1px;
+}
+.tab:hover{color:var(--silk)}
+.tab.on{color:var(--lamp); border-bottom-color:var(--oxide)}
+.tab small{display:block; font-family:var(--mono); font-size:8.5px; letter-spacing:.16em; color:var(--rule); font-weight:400; margin-top:3px}
+.tab.on small{color:var(--oxide)}
+.proj{padding:26px 0 8px}
+.proj-top{display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:34px; align-items:start}
+.proj-top p{margin:0 0 14px; font-size:17px}
+.status{border:1px solid var(--rule); background:var(--panel); padding:16px 18px; border-radius:2px}
+.status dl{margin:0; display:grid; grid-template-columns:auto 1fr; gap:7px 14px; align-items:baseline}
+.status dt{font-family:var(--mono); font-size:9px; letter-spacing:.16em; text-transform:uppercase; color:var(--silk-dim)}
+.status dd{margin:0; font-family:var(--mono); font-size:11.5px; color:var(--silk)}
+.status dd.hot{color:var(--oxide-lit)}
+.kit{margin-top:26px}
+.kit h4,.moves h4{font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--oxide-lit); margin:0 0 12px; font-weight:500}
+.kitgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:1px; background:var(--rule); border:1px solid var(--rule)}
+.kitgrid div{background:var(--panel); padding:11px 13px}
+.kitgrid b{display:block; font-family:var(--mono); font-size:11px; letter-spacing:.04em; color:var(--silk); font-weight:500}
+.kitgrid span{font-size:14px; color:var(--silk-dim); line-height:1.45}
+.moves{margin-top:28px}
+.moves ul{margin:0; padding:0; list-style:none}
+.moves li{border-top:1px solid var(--rule); padding:13px 0 13px 26px; position:relative; max-width:74ch}
+.moves li::before{content:"▸"; position:absolute; left:2px; top:13px; color:var(--oxide); font-size:12px}
+.moves li b{color:var(--lamp); font-weight:600}
+
+/* ---------- tape-box recipe cards ---------- */
+.recipes{display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:18px; margin-top:24px}
+.card{
+  background:var(--tape); color:var(--tape-ink); border-radius:2px; overflow:hidden;
+  box-shadow:0 1px 0 #fff inset, 0 10px 24px rgba(0,0,0,.34);
+  display:flex; flex-direction:column;
+}
+.card-head{padding:14px 16px 12px; border-bottom:1px solid var(--tape-rule); background:repeating-linear-gradient(180deg,transparent 0 25px,rgba(42,36,28,.05) 25px 26px)}
+.card-key{font-family:var(--mono); font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:#8A7A5F; display:flex; justify-content:space-between; gap:10px}
+.card-key i{font-style:normal; color:var(--oxide)}
+.card h3{font-family:var(--disp); font-size:22px; letter-spacing:.03em; color:var(--tape-ink); margin:7px 0 6px; line-height:1.02}
+.card p{margin:0; font-size:15px; line-height:1.5; color:#4A4034}
+.steps{list-style:none; margin:0; padding:6px 16px 14px}
+.steps li{border-bottom:1px solid var(--tape-rule)}
+.steps li:last-child{border-bottom:none}
+.steps button{
+  width:100%; text-align:left; background:none; border:none; cursor:pointer; padding:11px 22px 11px 0;
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.02em; color:var(--tape-ink); position:relative; line-height:1.45;
+}
+.steps button::after{content:"+"; position:absolute; right:2px; top:10px; color:var(--oxide); font-size:14px}
+.steps li.open button::after{content:"–"}
+.steps button:hover{color:var(--oxide)}
+.steps .detail{max-height:0; overflow:hidden; transition:max-height .3s ease}
+.steps li.open .detail{max-height:420px}
+.steps .detail div{padding:0 0 13px; font-size:14.5px; line-height:1.55; color:#4A4034}
+.steps .detail code{font-family:var(--mono); font-size:12px; background:rgba(180,85,45,.12); padding:1px 5px; border-radius:2px; color:#7A3A1C}
+
+/* ---------- arsenal ---------- */
+.filters{display:flex; flex-wrap:wrap; gap:8px; margin:22px 0 20px}
+.tools{display:grid; grid-template-columns:repeat(auto-fill,minmax(255px,1fr)); gap:1px; background:var(--rule); border:1px solid var(--rule)}
+.tool{background:var(--panel); padding:15px 16px; display:flex; flex-direction:column; gap:6px}
+.tool.hide{display:none}
+.tool-key{display:flex; justify-content:space-between; align-items:baseline; gap:10px}
+.tool-key b{font-family:var(--disp); font-size:17px; letter-spacing:.04em; text-transform:uppercase; font-weight:700}
+.dot{font-family:var(--mono); font-size:8.5px; letter-spacing:.14em; text-transform:uppercase; padding:2px 7px; border-radius:2px; white-space:nowrap}
+.dot.gold{background:rgba(224,165,72,.16); color:var(--lamp)}
+.dot.work{background:rgba(143,174,114,.14); color:var(--meter)}
+.dot.sit{background:rgba(154,145,132,.14); color:var(--silk-dim)}
+.dot.skip{background:rgba(180,85,45,.14); color:var(--oxide-lit)}
+.tool small{font-family:var(--mono); font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--silk-dim)}
+.tool p{margin:0; font-size:15px; line-height:1.5; color:var(--silk-dim)}
+.tool p b{color:var(--silk); font-weight:600}
+
+/* ---------- timeline ---------- */
+.stages{margin-top:26px; border-left:1px solid var(--rule); padding-left:0}
+.stage{position:relative; padding:0 0 30px 34px}
+.stage::before{content:""; position:absolute; left:-5px; top:6px; width:9px; height:9px; background:var(--oxide); border-radius:50%}
+.stage.gate::before{background:var(--lamp); box-shadow:0 0 0 4px rgba(224,165,72,.16)}
+.stage-key{font-family:var(--mono); font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--oxide-lit)}
+.stage h3{font-size:20px; margin:5px 0 7px}
+.stage p{margin:0; max-width:72ch; color:var(--silk-dim)}
+.stage.gate h3{color:var(--lamp)}
+
+/* ---------- watch list ---------- */
+.watch{display:grid; grid-template-columns:repeat(auto-fill,minmax(285px,1fr)); gap:16px; margin-top:24px}
+.watch article{border:1px solid var(--rule); border-top:2px solid var(--oxide); background:var(--panel); padding:16px 17px}
+.watch h3{font-size:15px; letter-spacing:.05em; margin-bottom:7px}
+.watch p{margin:0; font-size:15px; color:var(--silk-dim); line-height:1.5}
+footer{padding:44px 0 0; font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--rule)}
+
+/* ---------- responsive ---------- */
+@media (max-width:900px){
+  .wrap{grid-template-columns:1fr}
+  .rail{position:static; height:auto; flex-direction:row; flex-wrap:wrap; align-items:center; gap:0 4px;
+        border-right:none; border-bottom:1px solid var(--rule); padding:16px 20px}
+  .rail-mark{font-size:16px; margin:0 16px 0 0}
+  .rail-mark span{display:inline}
+  .rail-sub,.rail-foot{display:none}
+  .rail a{padding:6px 10px; font-size:9.5px}
+  .rail a b{display:none}
+  .proj-top{grid-template-columns:1fr; gap:20px}
+  .hero-meta{text-align:left}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none !important; transition:none !important}
+  html{scroll-behavior:auto}
+}
+:focus-visible{outline:2px solid var(--lamp); outline-offset:2px}
+@keyframes draw{to{stroke-dashoffset:0}}
+.edge{stroke-dasharray:420; stroke-dashoffset:420; animation:draw 1.1s ease forwards}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="rail" aria-label="Sections">
+  <div class="rail-mark">Signal<span>Path</span></div>
+  <div class="rail-sub">Ops manual · rev 08.26</div>
+  <a href="#bay"><b>01</b>The rig</a>
+  <a href="#tonight"><b>02</b>Tonight</a>
+  <a href="#projects"><b>03</b>Projects</a>
+  <a href="#recipes"><b>04</b>Chains</a>
+  <a href="#arsenal"><b>05</b>Arsenal</a>
+  <a href="#rabbit"><b>06</b>Rabbit Hold</a>
+  <a href="#watch"><b>07</b>Watch out</a>
+  <div class="rail-foot">Four projects<br>One room</div>
+</nav>
+
+<main>
+
+  <header class="hero" id="bay">
+    <div class="hero-top">
+      <h1>Everything<br>plugs into<em>something</em></h1>
+      <div class="hero-meta">
+        4 projects live<br>
+        <i>72</i> songs in the archive<br>
+        <i>22</i> songs written, unrecorded<br>
+        WaveLab trial ends <i>07 Oct</i>
+      </div>
+    </div>
+    <p class="lede">You own more than you use. This maps what feeds what, what each thing is actually good at, and the exact steps for the work in front of you. Tap any box below to trace its path.</p>
+
+    <div class="bay" id="patchbay">
+      <div class="bay-head">
+        <p>Patch bay · click a node to trace signal</p>
+        <button class="bay-reset" id="bayReset">Clear</button>
+      </div>
+      <div class="bay-scroll">
+        <svg viewBox="0 0 1000 600" role="img" aria-label="Signal flow diagram of the studio rig">
+          <text class="col-label" x="30" y="30">SOURCES</text>
+          <text class="col-label" x="330" y="30">FRONT END</text>
+          <text class="col-label" x="600" y="30">MACHINES</text>
+          <text class="col-label" x="850" y="30">SOFTWARE</text>
+          <g id="edges"></g>
+          <g id="nodes"></g>
+        </svg>
+      </div>
+      <div class="bay-read" id="bayRead">
+        <h3>Nothing selected</h3>
+        <p>Pick a piece of gear to see where it goes and what it's for.</p>
+      </div>
+    </div>
+  </header>
+
+  <section class="block" id="tonight">
+    <p class="eyebrow">02 · Router</p>
+    <h2>What are you doing tonight?</h2>
+    <p class="lede">Pick the job. Get the shortest path from where you're sitting to sound coming out.</p>
+    <div class="chips" id="jobChips" role="tablist" aria-label="Tonight's job"></div>
+    <div class="route" id="routeOut"></div>
+  </section>
+
+  <section class="block" id="projects">
+    <p class="eyebrow">03 · Four fronts</p>
+    <h2>The projects</h2>
+    <p class="lede">Each one wants a different room, a different set of tools, and a different definition of done.</p>
+    <div class="tabs" id="projTabs" role="tablist" aria-label="Projects"></div>
+    <div id="projOut"></div>
+  </section>
+
+  <section class="block" id="recipes">
+    <p class="eyebrow">04 · Signal chains</p>
+    <h2>Chains that work</h2>
+    <p class="lede">Real starting points with real numbers. Tap a step to open it. Tune by ear from there.</p>
+    <div class="filters" id="recFilters"></div>
+    <div class="recipes" id="recOut"></div>
+  </section>
+
+  <section class="block" id="arsenal">
+    <p class="eyebrow">05 · Inventory</p>
+    <h2>The arsenal, ranked</h2>
+    <p class="lede">Gold means it beats things people pay for. Skip means stop opening it. Honesty saves more time than any plugin.</p>
+    <div class="filters" id="toolFilters"></div>
+    <div class="tools" id="toolOut"></div>
+  </section>
+
+  <section class="block" id="rabbit">
+    <p class="eyebrow">06 · Sequence</p>
+    <h2>Rabbit Hold, in order</h2>
+    <p class="lede">72 songs, mixed sources, one clock. The order matters more than the tools. Do not activate WaveLab until stage 4.</p>
+    <div class="stages" id="stageOut"></div>
+  </section>
+
+  <section class="block" id="watch">
+    <p class="eyebrow">07 · Known traps</p>
+    <h2>Things that will bite you</h2>
+    <div class="watch" id="watchOut"></div>
+    <footer>End of manual · verify licences before you plan around them</footer>
+  </section>
+
+</main>
+</div>
+
+<script>
+/* ============ PATCH BAY DATA ============ */
+const NODES = [
+  {id:"gtr",  x:30,  y:60,  w:160,h:34, k:"STRINGS", t:"Sire S3 Strat",
+   d:"Main electric. Goes straight into the Stomp, never into an amp first. Neck pickup plus a dark reverb is your Honey Grips texture source before you touch a plugin.",
+   tags:["Phantom Threads","Jasper","Honey Grips"]},
+  {id:"bass", x:30,  y:110, w:160,h:34, k:"STRINGS", t:"Bass guitar",
+   d:"Two ways in: through the Stomp for grit and compression, or clean DI into the OCTA-CAPTURE and shape it in the box. Track both at once and decide later.",
+   tags:["Phantom Threads","Jasper"]},
+  {id:"drum", x:30,  y:160, w:160,h:34, k:"ACOUSTIC", t:"Taye kit",
+   d:"Needs heads before it's worth micing. Until then it's a rehearsal and writing tool, and EZdrummer covers recorded parts. Two mics into the OCTA gets you 80% of a usable sound.",
+   tags:["Phantom Threads"]},
+  {id:"nord", x:30,  y:210, w:160,h:34, k:"KEYS", t:"Nord piano",
+   d:"Audio into the OCTA, MIDI into whichever machine is running. It is also the best raw material you own for granular work: play something simple, then destroy it.",
+   tags:["Phantom Threads","Jasper","Honey Grips"]},
+  {id:"spd",  x:30,  y:260, w:160,h:34, k:"PADS", t:"Roland SPD-SX Pro",
+   d:"Standalone for live sample firing. Over USB it is also a MIDI controller for Ableton, Logic, or Loopy Pro, which is how it earns its keep on the couch.",
+   tags:["Phantom Threads","Honey Grips"]},
+  {id:"mf",   x:30,  y:310, w:160,h:34, k:"SYNTH", t:"Arturia MiniFreak",
+   d:"Digital oscillators plus analog filter. Best used as a texture generator rather than a lead machine. Record long takes and cut later.",
+   tags:["Jasper","Honey Grips"]},
+  {id:"lk",   x:30,  y:360, w:160,h:34, k:"CONTROL", t:"Launchkey MK4 37",
+   d:"Note entry and arp duty. The arpeggiator and chord modes are worth learning properly, they write parts you would not have played.",
+   tags:["Jasper","Honey Grips"]},
+  {id:"mic",  x:30,  y:410, w:160,h:34, k:"VOICE", t:"RODE NT-USB+",
+   d:"USB straight to a laptop for scratch vocals and notes. For keeper vocals, use a proper mic into the OCTA instead so you can compress on the way in.",
+   tags:["Jasper","Phantom Threads"]},
+
+  {id:"hx",   x:320, y:110, w:170,h:38, k:"PROCESSOR / IFACE", t:"HX Stomp XL",
+   d:"Effects and amp sims, and a USB interface in its own right. Key trick: it sends the processed tone and the dry DI on separate USB channels, so every take is reampable forever.",
+   tags:["Phantom Threads","Jasper","Honey Grips"]},
+  {id:"octa", x:320, y:235, w:170,h:38, k:"INTERFACE", t:"OCTA-CAPTURE",
+   d:"The hub. Eight preamps means the whole band, or the kit plus a scratch guitar, in one pass. This is what makes the Phantom Threads EP possible at home.",
+   tags:["Phantom Threads","Jasper","Rabbit Hold"]},
+  {id:"ur22", x:320, y:360, w:170,h:38, k:"INTERFACE", t:"UR22 MK2",
+   d:"The travel rig. Two inputs, lives with the Lenovo. Fine for writing sessions away from the desk, not for tracking anything you intend to keep.",
+   tags:["Jasper"]},
+
+  {id:"ipad", x:600, y:110, w:160,h:38, k:"MACHINE", t:"iPad Air M4",
+   d:"The couch studio. Stomp connects as its interface with no latency problems, SPD-SX Pro connects as a controller. This is where Honey Grips ideas should start.",
+   tags:["Honey Grips","Jasper"]},
+  {id:"pc",   x:600, y:235, w:160,h:38, k:"MACHINE", t:"Windows desktop",
+   d:"Ryzen 7 5800X, 32GB, the OCTA, the JBLs. Every plugin you own lives here. This is the mixing and mastering room, not the writing room.",
+   tags:["Rabbit Hold","Jasper","Phantom Threads"]},
+  {id:"mac",  x:600, y:360, w:160,h:38, k:"MACHINE", t:"MacBook Pro M1",
+   d:"Logic lives here. Useful as the second opinion room: a mix that survives both the JBLs and the laptop speakers is a mix that travels.",
+   tags:["Jasper","Rabbit Hold"]},
+
+  {id:"loop", x:840, y:110, w:140,h:38, k:"iOS", t:"Loopy Pro + AUM",
+   d:"Layer, loop, mangle, capture. Zero session setup, which is exactly why ideas survive here that would die waiting for a DAW to load.",
+   tags:["Honey Grips"]},
+  {id:"live", x:840, y:200, w:140,h:38, k:"DAW", t:"Ableton Live 12",
+   d:"Writing and production. Clip gain and Session view make it the best place to audition a sequence or loop an idea for an hour while you play over it.",
+   tags:["Jasper","Honey Grips","Rabbit Hold"]},
+  {id:"logic",x:840, y:290, w:140,h:38, k:"DAW", t:"Logic Pro",
+   d:"Tracking and comping. Bounce Regions in Place is your free batch renderer if the WaveLab trial runs out before you finish.",
+   tags:["Jasper","Rabbit Hold"]},
+  {id:"aud",  x:840, y:380, w:140,h:38, k:"EDITOR", t:"Adobe Audition",
+   d:"Your oldest muscle memory, since it is Cool Edit Pro grown up. Batch processing and loudness matching across many files is what it is for here, not mixing.",
+   tags:["Rabbit Hold"]},
+  {id:"wl",   x:840, y:470, w:140,h:38, k:"MASTERING", t:"WaveLab Pro 13",
+   d:"Trial, unactivated, expires 07 Oct. The Audio Montage is the correct home for a 72-song album: every song a clip, per-clip processing, one render for all of them.",
+   tags:["Rabbit Hold"]}
+];
+
+const EDGES = [
+  ["gtr","hx"],["bass","hx"],["bass","octa"],["drum","octa"],["nord","octa"],
+  ["spd","octa"],["spd","pc"],["spd","ipad"],["mf","octa"],["lk","pc"],["mic","pc"],
+  ["hx","ipad"],["hx","pc"],["hx","octa"],["octa","pc"],["ur22","mac"],
+  ["ipad","loop"],["pc","live"],["pc","aud"],["pc","wl"],["mac","logic"],["mac","live"]
+];
+
+/* ============ RENDER PATCH BAY ============ */
+const nodeById = Object.fromEntries(NODES.map(n=>[n.id,n]));
+const gN = document.getElementById("nodes"), gE = document.getElementById("edges");
+const bay = document.getElementById("patchbay"), read = document.getElementById("bayRead");
+const SVGNS="http://www.w3.org/2000/svg";
+
+EDGES.forEach(([a,b],i)=>{
+  const A=nodeById[a], B=nodeById[b];
+  const x1=A.x+A.w, y1=A.y+A.h/2, x2=B.x, y2=B.y+B.h/2, mid=(x1+x2)/2;
+  const p=document.createElementNS(SVGNS,"path");
+  p.setAttribute("class","edge");
+  p.setAttribute("d",`M${x1},${y1} C${mid},${y1} ${mid},${y2} ${x2},${y2}`);
+  p.dataset.a=a; p.dataset.b=b;
+  p.style.animationDelay=(i*0.035)+"s";
+  gE.appendChild(p);
+});
+
+NODES.forEach(n=>{
+  const g=document.createElementNS(SVGNS,"g");
+  g.setAttribute("class","node"); g.setAttribute("tabindex","0");
+  g.setAttribute("role","button"); g.setAttribute("aria-label",n.t);
+  g.dataset.id=n.id;
+  const r=document.createElementNS(SVGNS,"rect");
+  r.setAttribute("x",n.x); r.setAttribute("y",n.y);
+  r.setAttribute("width",n.w); r.setAttribute("height",n.h); r.setAttribute("rx","2");
+  const t=document.createElementNS(SVGNS,"text");
+  t.setAttribute("x",n.x+11); t.setAttribute("y",n.y+15);
+  const k=document.createElementNS(SVGNS,"tspan");
+  k.setAttribute("class","k"); k.textContent=n.k;
+  const nm=document.createElementNS(SVGNS,"tspan");
+  nm.setAttribute("x",n.x+11); nm.setAttribute("dy","15"); nm.textContent=n.t;
+  t.append(k,nm); g.append(r,t); gN.appendChild(g);
+  const fire=()=>selectNode(n.id);
+  g.addEventListener("click",fire);
+  g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();fire();}});
+});
+
+function selectNode(id){
+  const n=nodeById[id];
+  bay.classList.add("filtering");
+  const near=new Set([id]);
+  document.querySelectorAll(".edge").forEach(e=>{
+    const hit = e.dataset.a===id || e.dataset.b===id;
+    e.classList.toggle("lit",hit);
+    if(hit){near.add(e.dataset.a); near.add(e.dataset.b);}
+  });
+  document.querySelectorAll(".node").forEach(g=>{
+    g.classList.toggle("on",g.dataset.id===id);
+    g.classList.toggle("near",near.has(g.dataset.id)&&g.dataset.id!==id);
+  });
+  read.innerHTML=`<h3>${n.t}</h3><p>${n.d}</p>
+    <div class="tagrow">${n.tags.map(t=>`<span class="mini">${t}</span>`).join("")}</div>`;
+}
+document.getElementById("bayReset").addEventListener("click",()=>{
+  bay.classList.remove("filtering");
+  document.querySelectorAll(".edge").forEach(e=>e.classList.remove("lit"));
+  document.querySelectorAll(".node").forEach(g=>g.classList.remove("on","near"));
+  read.innerHTML=`<h3>Nothing selected</h3><p>Pick a piece of gear to see where it goes and what it's for.</p>`;
+});
+
+/* ============ TONIGHT ROUTER ============ */
+const JOBS=[
+  {n:"Write a riff", gear:"Guitar or bass → HX Stomp XL → iPad Air M4",
+   soft:"Loopy Pro, or Ableton if you already know it's a keeper",
+   steps:["Stomp into the iPad over USB. One cable, no session to open.",
+          "Loopy Pro, one loop layer, hit record before you have anything good. The bad take is the reference.",
+          "Name the loop with the date and one word. Future you will not remember 'idea 14'.",
+          "If it survives three listens, export the loop and drop it in the Phantom Threads or Jasper folder."]},
+  {n:"Program drums", gear:"Launchkey MK4 or SPD-SX Pro pads",
+   soft:"EZdrummer 3 with Alt-Rock EZX, inside Ableton",
+   steps:["EZdrummer 3 on a MIDI track. Set its mixer to multi-out before you do anything else.",
+          "Create audio tracks listening to EZD channels 1, 2, 3 and up. Skip this and everything arrives as kick only.",
+          "Build the groove with EZD's own browser, then drag the MIDI to the timeline and edit velocities by hand.",
+          "Group the whole routing and save it to the User Library so you never build it twice."]},
+  {n:"Track a vocal", gear:"Mic → OCTA-CAPTURE → Windows desktop",
+   soft:"Ableton or Logic, from your saved template",
+   steps:["Open the template, not a blank session. Chain already loaded, buffer already at 128.",
+          "Record three full passes before you listen back to any of them.",
+          "Comp on the fourth pass only. Judging while tracking kills more takes than bad singing.",
+          "Print the comp to a new track and archive the raw lanes rather than deleting them."]},
+  {n:"Build a texture", gear:"Nord piano or guitar → OCTA-CAPTURE",
+   soft:"Emergence, Caelum Tape Cassette, SP2016, TAPE-16",
+   steps:["Record 60 seconds of something simple. Two chords is plenty. Do not perform.",
+          "Emergence on the track, freeze the buffer, and move only the pitch and grain density.",
+          "Tape Cassette after it: low-pass down, wow and flutter up, noise around −45 dB.",
+          "SP2016 Vintage Plate last, long decay, and pull Position back until it sounds like another room."]},
+  {n:"Clean an old recording", gear:"Windows desktop, headphones and JBLs both",
+   soft:"Adobe Audition first, SpectraLayers for what Audition can't fix",
+   steps:["Audition: Diagnostics for clicks and clipping, then Noise Reduction from a captured noise print.",
+          "Anything left that's musical rather than mechanical goes to SpectraLayers, where layers still sum to the original.",
+          "Fix only what's distracting. Character is not damage, and 2004 cassette hiss is part of the record.",
+          "Save the cleaned file to the master folder with the sequence number in the filename."]},
+  {n:"Master something", gear:"Windows desktop, JBL 305P MkII, room quiet",
+   soft:"T-RackS 6 / Lurssen now, WaveLab Pro 13 Montage when the batch is ready",
+   steps:["Never master the day you mix. Ears reset overnight, not over coffee.",
+          "Get a loudness reading on every file first so you're solving level and tone separately.",
+          "One chain for the whole batch, per-song adjustments by clip gain rather than new plugins.",
+          "Render, sleep, listen on the phone and in the car, then decide."]},
+  {n:"Rehearse with the band", gear:"Full kit, bass, guitars, SPD-SX Pro, Nord",
+   soft:"Voice memo or a single room mic into the OCTA",
+   steps:["Record every rehearsal to a single stereo file. It costs nothing and it settles arguments.",
+          "Load the SPD-SX Pro with any samples the songs need before rehearsal, not during.",
+          "Mark the arrangement decisions on your phone as they happen. They will not survive the drive home.",
+          "Keep a running list of which songs are EP-ready. Nine ideas is not an EP, five finished songs is."]}
+];
+const chips=document.getElementById("jobChips"), routeOut=document.getElementById("routeOut");
+JOBS.forEach((j,i)=>{
+  const b=document.createElement("button");
+  b.className="chip"+(i===0?" on":""); b.textContent=j.n; b.type="button";
+  b.addEventListener("click",()=>{
+    document.querySelectorAll("#jobChips .chip").forEach(c=>c.classList.remove("on"));
+    b.classList.add("on"); drawRoute(j);
+  });
+  chips.appendChild(b);
+});
+function drawRoute(j){
+  routeOut.innerHTML=`<h3>${j.n}</h3>
+   <div class="route-grid">
+     <div><dt>Gear</dt><dd>${j.gear}</dd></div>
+     <div><dt>Software</dt><dd>${j.soft}</dd></div>
+   </div>
+   <ol>${j.steps.map(s=>`<li>${s}</li>`).join("")}</ol>`;
+}
+drawRoute(JOBS[0]);
+
+/* ============ PROJECTS ============ */
+const PROJECTS=[
+  {id:"pt", n:"Phantom Threads", sub:"Band · EP",
+   blurb:"Three pieces, playing live, recording at the end of the year. The enemy here is not gear, it's arriving at the tracking date with nine half-arrangements instead of five finished songs.",
+   why:"An EP recorded at home succeeds or fails in pre-production. Every decision you make before the mics go up is one you're not making at 11pm with two other people waiting.",
+   status:[["Stage","Writing and playing live"],["Target","EP, end of 2026",1],["Room","OCTA-CAPTURE, 8 inputs"],["Risk","Arrangements not locked",1]],
+   kit:[["OCTA-CAPTURE","Eight preamps. The whole band in one pass, or kit plus scratch guitar."],
+        ["HX Stomp XL","DI and wet at once, so guitar tones stay negotiable after the session."],
+        ["EZdrummer 3","Alt-Rock EZX for demos, and as a click reference the drummer plays against."],
+        ["SPD-SX Pro","Live sample firing. Load it before rehearsal, not during."],
+        ["Nord piano","Live keys and the layer that makes a three-piece sound bigger."],
+        ["Ableton Live 12","Pre-production and demos. Fast enough to keep up with a rehearsal."]],
+   moves:["<b>Demo everything roughly, now.</b> A phone recording of a rehearsal is worth more than a perfect demo of a song you might cut.",
+          "<b>Track DI and wet on every guitar and bass pass.</b> Reamping later costs nothing and saves the take where the performance was right and the tone was wrong.",
+          "<b>Decide the drum reality early.</b> New heads and a real micing plan, or EZdrummer with the drummer's own programmed parts. Both are legitimate. Deciding in November is not.",
+          "<b>Build the session template in advance,</b> including headphone sends. Setup time in front of your bandmates is morale spend.",
+          "<b>Five finished beats six unfinished.</b> Pick the songs by the end of September so October and November are execution."]},
+
+  {id:"jm", n:"Jasper McAdams", sub:"22 songs · unrecorded",
+   blurb:"Everything is written, nothing is recorded. This is the project most likely to die of scale, and the only defence is turning it into an assembly line before you fall in love with song one.",
+   why:"22 songs tracked one at a time to completion will drift in sound and stall around song seven. Batching by task keeps them coherent and keeps you moving.",
+   status:[["Stage","Written, awaiting tracking"],["Count","22 songs"],["Main risk","Decision fatigue",1],["Coherence tool","One template, one reference"]],
+   kit:[["Ableton or Logic","Pick one and do not switch mid-album. Consistency beats features here."],
+        ["OCTA-CAPTURE","Guitars, bass, Nord, vocals. Track more inputs at once than feels necessary."],
+        ["HX Stomp XL","Three or four saved tones for the whole record, not a new tone per song."],
+        ["Nord piano","Carries the songs that don't want guitars, and keeps the record from flattening out."],
+        ["T-RackS 6 / Lurssen","One mastering chain for all 22 so the album sounds like one place."],
+        ["Audiolens","Capture a tonal target once, reference every mix against the same curve."]],
+   moves:["<b>Build one template and never rebuild it.</b> Vocal chain, guitar DI plus wet, drum rack, bass DI, master chain. Song 22 should open the same as song one.",
+          "<b>Batch by task, not by song.</b> All scratch tracks, then all real guitars, then all vocals, then all edits. It sounds mechanical because it works.",
+          "<b>Pick one reference song of your own</b> once three or four mixes are solid, and match everything else to it. External references drag the record toward someone else's album.",
+          "<b>Cap the arrangement.</b> Decide in advance that most songs get five or six tracks. 22 songs of unlimited layering is how albums die.",
+          "<b>Keep a done list on the wall.</b> Visible progress on a project this size is a real tool, not a motivational poster."]},
+
+  {id:"hg", n:"Honey Grips", sub:"Experimental · no deadline",
+   blurb:"Write as you record. No deadline, no format, no obligation to be listenable. This is where the gear you never open should live, and the one project where the tools lead instead of following.",
+   why:"The Caretaker method is not a plugin chain, it's a discipline: find degraded source material, loop a short phrase, slow it down, drown it in a room, and let the texture carry the meaning.",
+   status:[["Stage","Ongoing, open-ended"],["Method","Record and write together"],["Source","Piano, guitar, found audio"],["Rule","No deadline, no format"]],
+   kit:[["Emergence","Free granular. 600 grains across four streams, buffer freeze, ±24 semitone pitch."],
+        ["Caelum Tape Cassette","Cassette IRs, wow and flutter, noise floor. Saturation ±24 dB, LPF down to 5 Hz."],
+        ["TAPE-16","Machine profiles across Ampex, Revox, TEAC, Tascam. Pick one per piece and commit."],
+        ["Eventide SP2016","Vintage algorithms at lower bit depth, plus a Position control that moves sources away from you."],
+        ["Arturia Pigments","Granular on your own samples, nine simultaneous effects, deep modulation."],
+        ["iPad + Loopy Pro","Where ideas actually start. No session to open means no idea gets lost to setup."]],
+   moves:["<b>Play badly on purpose.</b> Two chords on the Nord, recorded flat, is better raw material than something you performed well.",
+          "<b>Loop short.</b> Four to eight seconds. Long loops sound like music, short loops start sounding like memory.",
+          "<b>Slow it down two to four semitones</b> and use a cheap time-stretch algorithm. The artifacts are the point.",
+          "<b>Add crackle as a separate layer,</b> high-passed around 500 Hz so it sits on top rather than muddying the low end.",
+          "<b>Never fix a happy accident.</b> Save the version before you cleaned it up. You will want it back."]},
+
+  {id:"rh", n:"Rabbit Hold", sub:"72 songs · retrospective",
+   blurb:"The back catalogue, sequenced and released as one object. Cassette, phone recordings, Cool Edit Pro sessions, Logic bounces. Every song has something worth keeping and none of them agree on level or tone.",
+   why:"You already made the hard call: 72 tracks, sequenced by ear, opening on Blue Cage and closing on Hurricane Takes The Sail. What's left is restoration and consistency, and consistency is the whole job.",
+   status:[["Tracklist","72, locked and sequenced"],["Opens / closes","Blue Cage → Hurricane"],["Stage","Gathering and restoration"],["Trial deadline","07 Oct 2026",1]],
+   kit:[["Adobe Audition","Batch processing and loudness matching across all 72. Your oldest, fastest muscle memory."],
+        ["SpectraLayers","Spectral repair where layers still sum exactly to the original. Non-destructive by design."],
+        ["WaveLab Pro 13","The Audio Montage. 72 clips, per-clip inserts, one render. Do not activate until ready."],
+        ["Lurssen / T-RackS 6","The glue chain. Multi-file loading suits album work, and it matches your taste better than an assistant does."],
+        ["Ozone Imager 2","Free width metering. Finds the near-mono phone recordings before they surprise you in sequence."],
+        ["Reaper (optional, $60)","Region Render Matrix as the permanent batch renderer after the trial dies."]],
+   moves:["<b>Gather and normalise first.</b> One folder, one sample rate, 32-bit float, filenames numbered 01 to 72. Clips that sort themselves save an hour of dragging.",
+          "<b>Script the boring part.</b> ffmpeg in PowerShell converts, renames, and dumps integrated LUFS per file to a CSV. That CSV becomes your clip-gain map.",
+          "<b>Log the problems before you fix any.</b> One row per song: source, spec, and what's wrong in plain words. Then work the list instead of exploring.",
+          "<b>Corrective work belongs in the montage,</b> not before it. Song 41 only needs fixing relative to 40 and 42.",
+          "<b>Build the exit at day 50.</b> Render final masters and 32-bit float copies, and write down the chain, before the trial expires."]}
+];
+const tabWrap=document.getElementById("projTabs"), projOut=document.getElementById("projOut");
+PROJECTS.forEach((p,i)=>{
+  const b=document.createElement("button");
+  b.className="tab"+(i===0?" on":""); b.type="button";
+  b.innerHTML=`${p.n}<small>${p.sub}</small>`;
+  b.addEventListener("click",()=>{
+    document.querySelectorAll("#projTabs .tab").forEach(t=>t.classList.remove("on"));
+    b.classList.add("on"); drawProj(p);
+  });
+  tabWrap.appendChild(b);
+});
+function drawProj(p){
+  projOut.innerHTML=`<div class="proj">
+    <div class="proj-top">
+      <div><p>${p.blurb}</p><p class="note">${p.why}</p></div>
+      <div class="status"><dl>${p.status.map(s=>`<dt>${s[0]}</dt><dd class="${s[2]?"hot":""}">${s[1]}</dd>`).join("")}</dl></div>
+    </div>
+    <div class="kit"><h4>What it runs on</h4>
+      <div class="kitgrid">${p.kit.map(k=>`<div><b>${k[0]}</b><span>${k[1]}</span></div>`).join("")}</div>
+    </div>
+    <div class="moves"><h4>The moves that matter</h4>
+      <ul>${p.moves.map(m=>`<li>${m}</li>`).join("")}</ul>
+    </div>
+  </div>`;
+}
+drawProj(PROJECTS[0]);
+
+/* ============ RECIPES ============ */
+const RECIPES=[
+  {n:"Hauntology loop", tag:"Honey Grips", key:"CHAIN 01",
+   p:"The documented Caretaker method, mapped onto what you own. Kirby's own description: slow the source, loop it, drown it in cavernous reverb, add extra crackle, get the texture right.",
+   s:[["Record the source flat","Two chords on the Nord, or a single guitar figure. 60 seconds, no performance, no click. Found audio and old 78s work identically."],
+      ["Pitch it down 2 to 4 semitones","Further for pure drone. Use a low-quality stretch algorithm deliberately, since the artifacts are half the aesthetic."],
+      ["Loop 4 to 8 seconds","Layer two or three slightly detuned copies and let them drift out of phase with each other. Do not quantize them back into alignment."],
+      ["Caelum Tape Cassette","Type-1 cassette IR, low-pass rolled well down, wow and flutter high, noise around <code>−45 to −50 dB RMS</code>. The plugin allows saturation up to ±24 dB, so it is easy to overdo."],
+      ["Low-pass again for distance","High frequencies disappear with distance. This single move does more for 'old and far away' than any reverb setting."],
+      ["Baby Audio Pitch Drift","Small depth, slow speed. It is the drift algorithm from Super VHS and it works best when you can barely hear it."],
+      ["SP2016 Vintage Plate or Room","Pre-delay around <code>100 ms</code>, long decay, high-frequency damping up. Pull the Position control back to push the source toward the rear of the room."],
+      ["Crackle as its own layer","Around <code>−20 to −24 dB</code>, high-passed near <code>500 Hz</code> so it adds texture rather than rumble. Emergence on a send adds granular clouds and freezes."]]},
+
+  {n:"Reamp with no regrets", tag:"Phantom Threads", key:"CHAIN 02",
+   p:"The HX Stomp XL sends processed tone and dry DI on separate USB channels. Capture both and the tone stays negotiable long after the performance is committed.",
+   s:[["Record two tracks at once","Mono DI from <code>USB 5</code>, wet stereo from <code>USB 1/2</code>. Same take, two futures."],
+      ["Play to the wet","Never track to the DI. The performance follows the tone you hear, so give yourself the real one."],
+      ["To reamp later","Set the DI track's output to <code>USB 5/6</code>, set the Stomp's Input block to USB 5/6, and record the result back from <code>USB 1/2</code>."],
+      ["To involve a real amp","Use the 4-Cable Method. Presets prefixed 4CM only behave correctly when the rig is wired that way."],
+      ["Cap your tones","Three or four saved tones for a whole project. Tone hunting mid-session is how a tracking day becomes a tone-hunting day."]]},
+
+  {n:"EZdrummer into Ableton", tag:"Phantom Threads", key:"CHAIN 03",
+   p:"Set up once, save forever. The default routing sends everything out one stereo pair, which is why most people's first attempt is all kick.",
+   s:[["Multi-out first","Load EZdrummer 3 on a MIDI track and switch its internal mixer to multitrack output before you place a single note."],
+      ["Assign each drum its own out","In EZD's mixer, give kick, snare, toms, overheads and room their own channels. Skip this and every audio track receives the same signal."],
+      ["Create listening tracks","Audio tracks in Live with Audio From set to the EZdrummer instance, channels 1, 2, 3 and upward."],
+      ["Build the groove in EZD, edit in Live","Use EZD's browser to find the feel, then drag the MIDI out and fix velocities by hand. Programmed drums live or die on velocity."],
+      ["Save the whole thing","Group the routing and save it to the User Library. You should never build this twice."]]},
+
+  {n:"Restore a cassette transfer", tag:"Rabbit Hold", key:"CHAIN 04",
+   p:"Audition handles the mechanical damage fast because you already know where everything is. SpectraLayers handles what Audition can't, without destroying anything.",
+   s:[["Transfer at 32-bit float","Headroom is free at this stage and clipping the transfer is unrecoverable."],
+      ["Audition Diagnostics","DeClicker for pops, DeClipper for the loud passages that were already smashed in 2004. Run these before any noise work."],
+      ["Capture a noise print","Find two seconds of 'silence' that is really hiss, capture it, then apply noise reduction conservatively. Over-reduction produces the underwater sound that ruins archival releases."],
+      ["Hand off to SpectraLayers","Anything musical rather than mechanical goes here. Layer editing is non-destructive by design: played together, the layers equal the original exactly."],
+      ["Stop early","Fix what distracts. Hiss on a 2004 cassette is part of the record, and 72 over-restored songs sound worse than 72 honest ones."]]},
+
+  {n:"The 72-song loudness map", tag:"Rabbit Hold", key:"CHAIN 05",
+   p:"You cannot balance an album by ear one song at a time. Measure everything first, then solve level and tone as separate problems.",
+   s:[["Script the measurement","ffmpeg's ebur128 filter in a PowerShell loop dumps integrated LUFS and true peak for every file. Same loop converts sample rate and renames to <code>01_Title.wav</code>."],
+      ["Or use Audition's Match Loudness panel","Add all 72, let it analyse, and read the table. Slower than scripting but it needs no code and shows the outliers immediately."],
+      ["Build the CSV","One row per song: filename, LUFS, true peak, source type, known problems. This document is the actual project plan."],
+      ["Find the outliers, not the average","The three songs that are 6 LU quieter than everything else are the whole job. The middle 60 will mostly behave."],
+      ["Fix with clip gain, not plugins","In the montage, per-song differences are gain moves. Adding a plugin instance per song is how a consistent record becomes 72 different records."]]},
+
+  {n:"Montage mastering", tag:"Rabbit Hold", key:"CHAIN 06",
+   p:"WaveLab's Audio Montage is the reason to bother with the trial. Each song is a clip carrying its own processing, on a timeline carrying the shared processing.",
+   s:[["Import in sequence","Numbered filenames sort themselves. Confirm Blue Cage opens and Hurricane Takes The Sail closes before you process anything."],
+      ["Per-clip inserts for corrective work","Song 41's midrange problem lives on song 41's clip. You are hearing it against 40 and 42, which is the only context that matters."],
+      ["Montage output for the glue","Lurssen or your T-RackS chain, one instance, hitting all 72. Version 13 also lets you apply plugins to multiple clips at once."],
+      ["Level with clip gain","Run loudness analysis across the montage and flatten the column. This is where the 'listener never touches the volume knob' goal is actually achieved."],
+      ["Render everything at once","Choose all clips as the render source. Version 13 added full multi-core montage rendering, so 72 songs is a coffee break, not an evening."],
+      ["Build the exit before day 60","Final masters, plus 32-bit float copies, plus written notes on the chain. When the trial ends the montage file will not open."]]},
+
+  {n:"Couch capture", tag:"Honey Grips", key:"CHAIN 07",
+   p:"The rig that produces the most usable material per hour, because nothing has to boot. Guitar to iPad to loop in under a minute.",
+   s:[["Stomp as the interface","HX Stomp XL over USB to the iPad Air M4. No latency problems, no driver, no session."],
+      ["SPD-SX Pro as controller","Second USB connection sends MIDI. Map pads to Loopy Pro actions so your hands never leave the instruments."],
+      ["Record before it's good","The first loop is a reference, not a keeper. Recording early stops you from performing at yourself."],
+      ["Bounce out nightly","Export anything worth keeping to the shared folder the same night. Ideas trapped on an iPad are ideas you will lose."],
+      ["Feed the desktop","Couch loops become source material for Emergence, Pigments granular and TAPE-16 on the Windows machine."]]},
+
+  {n:"Nord to nowhere", tag:"Honey Grips", key:"CHAIN 08",
+   p:"The piano is your best raw material because it is the least degraded thing you own. Everything interesting happens after you wreck it.",
+   s:[["Play something simple","Two chords, no dynamics, sustain pedal down. Record two minutes into the OCTA-CAPTURE."],
+      ["Emergence on the whole take","Freeze the buffer at a moment you like. Move only grain density and pitch at first, and leave the rest alone."],
+      ["Pigments granular for the second layer","Import the same recording, granulate it differently, and detune it slightly against the first layer."],
+      ["TAPE-16 across both","Pick one machine profile and commit. Switching machines mid-piece is a decision you will keep re-making forever."],
+      ["SP2016 last","Long decay, Position pulled back. If it still sounds like a piano, you have not gone far enough."]]}
+];
+const recFilters=document.getElementById("recFilters"), recOut=document.getElementById("recOut");
+const recTags=["All",...new Set(RECIPES.map(r=>r.tag))];
+recTags.forEach((t,i)=>{
+  const b=document.createElement("button");
+  b.className="chip"+(i===0?" on":""); b.textContent=t; b.type="button";
+  b.addEventListener("click",()=>{
+    document.querySelectorAll("#recFilters .chip").forEach(c=>c.classList.remove("on"));
+    b.classList.add("on"); drawRecipes(t);
+  });
+  recFilters.appendChild(b);
+});
+function drawRecipes(tag){
+  const list = tag==="All"?RECIPES:RECIPES.filter(r=>r.tag===tag);
+  recOut.innerHTML=list.map(r=>`
+    <article class="card">
+      <div class="card-head">
+        <div class="card-key"><span>${r.key}</span><i>${r.tag}</i></div>
+        <h3>${r.n}</h3><p>${r.p}</p>
+      </div>
+      <ul class="steps">
+        ${r.s.map(s=>`<li><button type="button">${s[0]}</button>
+          <div class="detail"><div>${s[1]}</div></div></li>`).join("")}
+      </ul>
+    </article>`).join("");
+  recOut.querySelectorAll(".steps button").forEach(b=>{
+    b.addEventListener("click",()=>b.parentElement.classList.toggle("open"));
+  });
+}
+drawRecipes("All");
+
+/* ============ ARSENAL ============ */
+const TOOLS=[
+  {n:"Eventide SP2016",c:"Reverb",t:"gold",d:"The real Eventide plugin, not a giveaway. Vintage algorithms keep the original hardware's lower bit depth; the <b>Position</b> control moves a source from the back of the room to the stage without touching anything else. Free iLok account, no dongle."},
+  {n:"Emergence",c:"Granular",t:"gold",d:"Free, and better than most paid granulators. <b>Up to 600 grains across four streams</b>, quantized pitch to ±24 semitones, buffer freeze. Your single most important Honey Grips tool."},
+  {n:"Arturia Pigments",c:"Synth",t:"gold",d:"Virtual analog, wavetable, sample and granular, harmonic. <b>Up to nine simultaneous effects</b> and a modulation system you can actually see. Also the best synthesis teacher you own."},
+  {n:"SpectraLayers",c:"Repair",t:"gold",d:"Spectral unmixing where <b>the layers always sum to the original</b>, so aggressive edits carry no risk. The restoration backbone for Rabbit Hold."},
+  {n:"Adobe Audition",c:"Editor",t:"gold",d:"Cool Edit Pro grown up, which means you already know it. <b>Batch processing and Match Loudness across 72 files</b> is what it's for here. Not a mixing tool."},
+  {n:"Lurssen Console + EQ",c:"Mastering",t:"gold",d:"Around 40 genre templates and multi-file loading, which suits album work. The separate <b>Mastering EQ models the EAR 825Q tube EQ</b> with a Color saturation knob, and unlike the Console its bands are adjustable."},
+  {n:"WaveLab Pro 13",c:"Mastering",t:"gold",d:"Trial only, expires 07 Oct. <b>The Audio Montage</b> is the correct tool for a 72-song album: per-clip processing, reference sync, multi-core render of every clip at once."},
+  {n:"u-he free set",c:"Synth",t:"gold",d:"Zebralette for evolving pads, Podolski for CPU-light movement, Tyrell N6 for Juno-ish warmth, Triple Cheese for tuned oddities. <b>Free and genuinely professional.</b>"},
+  {n:"Caelum Tape Cassette",c:"Texture",t:"gold",d:"Cassette IRs with saturation to ±24 dB, low-pass from 5 Hz, noise floor to −80 dB and wow/flutter to 100%. <b>The core degradation engine</b> for Honey Grips."},
+  {n:"TAPE-16",c:"Texture",t:"gold",d:"Machine profiles across Ampex 499, BASF, Maxell, Revox, TEAC and Tascam. <b>Pick one per piece and commit</b> rather than auditioning machines forever."},
+  {n:"Clearmountain's Phases",c:"Texture",t:"gold",d:"Delay-compensated <b>tape flanging</b> that sounds like the real thing. Extraordinary on reverb and delay tails rather than on dry sources."},
+  {n:"EZdrummer 3 + Alt-Rock",c:"Drums",t:"gold",d:"Fast, musical, and the Alt-Rock EZX suits Phantom Threads. <b>Set multi-out before anything else</b> or every track arrives as kick."},
+  {n:"HX Stomp XL",c:"Guitar",t:"gold",d:"Effects, amps and a USB interface. <b>Processed tone and dry DI on separate USB channels</b> means every take stays reampable."},
+  {n:"T-RackS 6 MAX",c:"Mastering",t:"gold",d:"Your full mastering shelf, and it matches your taste better than any assistant algorithm. Runs inside the WaveLab montage as the per-clip or output processor."},
+  {n:"Pendulate",c:"Synth",t:"gold",d:"Free chaotic monosynth. <b>Dark drones and controlled instability</b>, which is exactly the Honey Grips register. Authorizes on a free iLok account."},
+  {n:"Ableton Live 12 Suite",c:"DAW",t:"work",d:"Writing, production and sequence auditioning. Clip gain and Session view make it the best room for looping an idea while you play over it."},
+  {n:"Logic Pro",c:"DAW",t:"work",d:"Tracking and comping on the Mac and iPad. <b>Bounce Regions in Place is a free batch renderer</b> if the WaveLab trial runs out."},
+  {n:"Reaper",c:"DAW",t:"work",d:"Not owned yet, about $60. Worth it for the <b>Region Render Matrix</b> alone as your permanent batch renderer once the trial dies."},
+  {n:"Replika XT + Raum",c:"Reverb",t:"work",d:"Degraded delay and shimmering space. Replika's diffusion mode into Raum lands close to Caretaker territory without buying anything."},
+  {n:"Baby Audio freebies",c:"Texture",t:"work",d:"Pitch Drift is the useful one, carrying the drift algorithm from Super VHS. Magic Switch, Warp and Parallel Aggressor are worth a slot each."},
+  {n:"Kilohearts",c:"Utility",t:"work",d:"Snap Heap and Multipass turn small modules into custom degradation chains. Best used to build one signature chain rather than browsing endlessly."},
+  {n:"Surge XT / Vital",c:"Synth",t:"work",d:"Two free synths that outclass most paid ones. Surge for depth and oddity, Vital for visual wavetable work."},
+  {n:"Ozone Imager 2",c:"Metering",t:"work",d:"Free stereo width metering. <b>Finds the near-mono phone recordings</b> in Rabbit Hold before they surprise you next to a wide neighbour."},
+  {n:"Analog Lab V",c:"Keys",t:"work",d:"Fast access to good keyboard sounds when you want a part, not a patch. Pairs with the Launchkey for note entry."},
+  {n:"Groove Agent SE / HALion",c:"Instrument",t:"sit",d:"Came with Steinberg content. Fine, but EZdrummer and Kontakt cover the same jobs faster for you."},
+  {n:"Audiolens",c:"Metering",t:"sit",d:"Captures a tonal target from any source, including streaming. <b>Integration is documented for the Ozone 10 and Neutron 4 generation</b>, so confirm your Ozone 12 sees the target library before planning around it."},
+  {n:"Cubase LE 15",c:"DAW",t:"sit",d:"16 audio tracks and no batch export. Fine for a quick idea on the Lenovo, wrong for anything in these four projects."},
+  {n:"Guitar Rig 7 Player",c:"Guitar",t:"sit",d:"You settled on the Stomp and AmpliTube. Keep it installed for its effects, ignore the amps."},
+  {n:"Ozone 12 Elements",c:"Mastering",t:"skip",d:"<b>The individual modules cannot be opened as editable processors.</b> Useful only as a second-opinion measurement. Do not build the Rabbit Hold master around it."},
+  {n:"Trash Lite / iZotope Vinyl",c:"Texture",t:"skip",d:"Superseded for your purposes by Tape Cassette and TAPE-16. Vinyl is still fine as a crackle layer source and nothing more."},
+  {n:"TONEX CS free tier",c:"Guitar",t:"skip",d:"<b>The free tier cannot create captures.</b> It plays 20 built-ins plus downloaded models only. Capturing your own amps requires SE or higher."},
+  {n:"Legacy freeware synths",c:"Synth",t:"skip",d:"MinimogueVA, Arppe2600VA, GTG, Surrealistic MG-1, Hi-NRG Zone. Historical curiosities. Surge, Vital, Pigments and u-he do all of it better."},
+  {n:"Freelodica",c:"Instrument",t:"skip",d:"Not an effect. It's a <b>sampled melodica requiring full Kontakt</b>, and it runs demo-only in Kontakt Player. Delete it from your mental inventory."}
+];
+const toolFilters=document.getElementById("toolFilters"), toolOut=document.getElementById("toolOut");
+const TAGNAMES={gold:"Gold",work:"Workhorse",sit:"Situational",skip:"Skip"};
+["All","gold","work","sit","skip"].forEach((t,i)=>{
+  const b=document.createElement("button");
+  b.className="chip"+(i===0?" on":""); b.type="button";
+  b.textContent = t==="All"?"Everything":TAGNAMES[t];
+  b.addEventListener("click",()=>{
+    document.querySelectorAll("#toolFilters .chip").forEach(c=>c.classList.remove("on"));
+    b.classList.add("on");
+    toolOut.querySelectorAll(".tool").forEach(el=>{
+      el.classList.toggle("hide", t!=="All" && el.dataset.t!==t);
+    });
+  });
+  toolFilters.appendChild(b);
+});
+toolOut.innerHTML=TOOLS.map(t=>`
+  <div class="tool" data-t="${t.t}">
+    <div class="tool-key"><b>${t.n}</b><span class="dot ${t.t}">${TAGNAMES[t.t]}</span></div>
+    <small>${t.c}</small><p>${t.d}</p>
+  </div>`).join("");
+
+/* ============ RABBIT HOLD STAGES ============ */
+const STAGES=[
+  {k:"Stage 01 · now",n:"Gather and normalise",g:0,
+   d:"Every file into one folder at one sample rate and 32-bit float, renamed 01 to 72 in sequence order. Script it with ffmpeg in PowerShell and have the same loop dump integrated LUFS to a CSV. This costs no trial days and it is the foundation for everything after."},
+  {k:"Stage 02",n:"Log the damage",g:0,
+   d:"One spreadsheet row per song: source type, original spec, and what's wrong in plain language. Hiss, hum, clipping, one channel hotter, dropout at 2:14. You will be listening through everything during the transfer anyway, so write it down while you are."},
+  {k:"Stage 03",n:"Restore what's context-free",g:0,
+   d:"Clicks, hum, hiss and dropouts need fixing regardless of what plays before or after, so it is safe to bake them now. Audition Diagnostics first because it's fast and familiar, SpectraLayers for anything musical. Stop before it sounds processed."},
+  {k:"Gate · before 07 Oct",n:"Activate the trial",g:1,
+   d:"Only when stages 01 to 03 are finished. Confirm the exact expiry in Activation Manager, because the date shown is precisely 60 days out and may be a hard deadline rather than a start-by date. Assume the pessimistic reading and work backward."},
+  {k:"Stage 04",n:"Build the montage",g:0,
+   d:"All 72 as clips in sequence. Corrective work on per-clip inserts, the glue chain on the montage output, level differences as clip gain. Run loudness analysis across the whole montage and flatten the column rather than mixing song by song."},
+  {k:"Stage 05 · by day 50",n:"Build the exit",g:0,
+   d:"Render the final masters, render 32-bit float copies for any future revisit, and write down the output chain and every significant per-clip move. When the trial dies the montage file will not open, so the notes are the project."},
+  {k:"Stage 06",n:"Decide on $269",g:0,
+   d:"Keep a running list during the trial of every Pro-only feature you actually used. Three real entries justifies the educator price; one entry means WaveLab Elements at around $60 was your product. Check the EDU terms on commercial use before releasing anything made under it."}
+];
+document.getElementById("stageOut").innerHTML=STAGES.map(s=>`
+  <div class="stage ${s.g?"gate":""}">
+    <div class="stage-key">${s.k}</div><h3>${s.n}</h3><p>${s.d}</p>
+  </div>`).join("");
+
+/* ============ WATCH OUT ============ */
+const WATCH=[
+  ["Claim UVI Tape Suite now","Free to registered Focusrite and Novation customers, and these offers run on time limits. Four tape effects including Color, which is another flavour of saturation for Honey Grips."],
+  ["The trial date is ambiguous","Activation Manager shows 07 Oct, exactly 60 days out. That may be an activate-by date or a hard end date. Plan for the hard end date."],
+  ["Cassette Transport is Wavesfactory","Not Ursa DSP. It's a free tape start and stop varispeed effect with independent play and stop times up to eight seconds."],
+  ["Tape Fiasco is by Jonas Eriksson","A free granular, varispeed and stutter multi-effect. Unnotarized on macOS, so it needs a Gatekeeper override on the MacBook. Irrelevant on Windows."],
+  ["Prefer VST3 on Windows 11","Keep VST2 only where no VST3 build exists. Mixed formats are the most common cause of phantom scanning problems in Live 12."],
+  ["Don't deactivate WaveLab Go","It's your fallback after the trial, your ARA loudness and spectral tool, and possibly what qualifies you for a discounted upgrade path later."],
+  ["Granular scales with grain count","Emergence and Pigments will happily eat the 5800X if you run dense patches on many tracks. Freeze or render texture tracks once they sound right."],
+  ["The exact Caretaker settings don't exist","Kirby described the method, not the presets. Every number in these chains is a starting point drawn from documented lo-fi practice, not his patch sheet."]
+];
+document.getElementById("watchOut").innerHTML=WATCH.map(w=>`
+  <article><h3>${w[0]}</h3><p>${w[1]}</p></article>`).join("");
+
+/* ============ RAIL SCROLLSPY ============ */
+const links=[...document.querySelectorAll(".rail a")];
+const targets=links.map(a=>document.querySelector(a.getAttribute("href"))).filter(Boolean);
+const spy=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      links.forEach(l=>l.classList.toggle("on", l.getAttribute("href")==="#"+e.target.id));
+    }
+  });
+},{rootMargin:"-25% 0px -65% 0px"});
+targets.forEach(t=>spy.observe(t));
+</script>
+</body>
+</html>

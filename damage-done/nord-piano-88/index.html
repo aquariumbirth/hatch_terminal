@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nord Piano 88, opened up</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&family=IBM+Plex+Mono:wght@400;500;600&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS
+   Palette pulled off the instruments themselves: Wurlitzer 200A
+   case beige, black keybed and tolex, Clavia panel red, Rhodes
+   tine brass.
+   ============================================================ */
+:root{
+  --ivory:#E6DECB;
+  --ivory-hi:#F2ECDE;
+  --rule:#CBC0A8;
+  --rule-soft:#D8CFBA;
+  --graphite:#191614;
+  --graphite-2:#241F1B;
+  --graphite-3:#332C26;
+  --nord:#CE2029;
+  --nord-lit:#F0483F;
+  --tine:#B58A3C;
+  --tine-lit:#D9AC55;
+  --grey:#756E62;
+  --grey-dk:#8E8577;
+
+  --display:"Familjen Grotesk","Helvetica Neue",Arial,sans-serif;
+  --body:"Spectral",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+
+  --lbl:0.6875rem;
+  --gut:clamp(20px,5vw,56px);
+}
+:root{--nord-lit:#F0483F;}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--ivory);
+  color:var(--graphite);
+  font-family:var(--body);
+  font-size:17px;
+  line-height:1.68;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%}
+a{color:inherit;text-decoration-color:var(--nord);text-underline-offset:3px}
+a:hover{color:var(--nord)}
+:focus-visible{outline:2px solid var(--nord);outline-offset:3px}
+.wrap{max-width:1220px;margin:0 auto;padding:0 var(--gut)}
+
+/* silkscreen label, the small uppercase panel text */
+.lbl{
+  font-family:var(--mono);
+  font-size:var(--lbl);
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  font-weight:500;
+  color:var(--grey);
+}
+.lbl--red{color:var(--nord)}
+.lbl--tine{color:var(--tine)}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  background:var(--graphite);
+  color:var(--ivory-hi);
+  padding:clamp(28px,5vw,44px) 0 clamp(48px,7vw,80px);
+  border-bottom:3px solid var(--nord);
+}
+.hero__bar{
+  display:flex;flex-wrap:wrap;gap:14px 26px;align-items:baseline;
+  padding-bottom:clamp(38px,7vw,74px);
+  border-bottom:1px solid var(--graphite-3);
+}
+.hero__bar .lbl{color:var(--grey-dk)}
+.hero__bar .lbl b{color:var(--ivory-hi);font-weight:500}
+.hero__grid{
+  display:grid;gap:clamp(38px,5vw,60px);
+  grid-template-columns:1fr;
+  padding-top:clamp(38px,6vw,64px);
+  align-items:start;
+}
+@media(min-width:960px){
+  .hero__grid{grid-template-columns:minmax(0,1.08fr) minmax(380px,.92fr)}
+}
+h1{
+  font-family:var(--display);
+  font-weight:700;
+  font-size:clamp(2.9rem,7.6vw,5.6rem);
+  line-height:.92;
+  letter-spacing:-.035em;
+  margin:.28em 0 0;
+  text-wrap:balance;
+}
+h1 em{font-style:normal;color:var(--nord-lit)}
+.hero__deck{
+  font-size:clamp(1.06rem,1.7vw,1.26rem);
+  line-height:1.55;
+  color:#CFC5B2;
+  max-width:36ch;
+  margin:1.5em 0 0;
+  font-weight:300;
+}
+.hero__deck strong{color:var(--ivory-hi);font-weight:600}
+
+/* spec strip */
+.spec{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:1px;background:var(--graphite-3);
+  border:1px solid var(--graphite-3);
+  margin-top:clamp(30px,4vw,44px);
+}
+@media(min-width:620px){.spec{grid-template-columns:repeat(4,1fr)}}
+.spec div{background:var(--graphite);padding:14px 16px 16px}
+.spec dt{font-family:var(--mono);font-size:.625rem;letter-spacing:.18em;text-transform:uppercase;color:var(--grey-dk);margin:0 0 7px}
+.spec dd{margin:0;font-family:var(--display);font-size:1.02rem;font-weight:600;letter-spacing:-.01em;line-height:1.2}
+.spec dd span{display:block;font-family:var(--mono);font-size:.6875rem;font-weight:400;letter-spacing:.04em;color:var(--tine);margin-top:5px}
+
+/* ============================================================
+   SIGNATURE: KEY TRAVEL SIMULATOR
+   ============================================================ */
+.rig{
+  background:var(--graphite-2);
+  border:1px solid var(--graphite-3);
+  border-top:3px solid var(--nord);
+}
+.rig__head{
+  display:flex;justify-content:space-between;align-items:center;gap:16px;
+  padding:13px 16px;border-bottom:1px solid var(--graphite-3);flex-wrap:wrap;
+}
+.rig__head .lbl{color:var(--ivory-hi)}
+.seg{display:flex;border:1px solid var(--graphite-3)}
+.seg__btn{
+  font-family:var(--mono);font-size:.625rem;letter-spacing:.14em;text-transform:uppercase;
+  background:transparent;color:var(--grey-dk);border:0;padding:7px 11px;cursor:pointer;
+}
+.seg__btn + .seg__btn{border-left:1px solid var(--graphite-3)}
+.seg__btn.is-on{background:var(--nord);color:#fff}
+.rig__body{display:grid;grid-template-columns:1fr;gap:0}
+@media(min-width:420px){.rig__body{grid-template-columns:1fr 168px}}
+
+/* travel track */
+.track{
+  position:relative;height:326px;margin:26px 0 26px 22px;
+  cursor:grab;touch-action:none;
+}
+.track:active{cursor:grabbing}
+.track__rail{
+  position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--graphite-3);
+}
+.mark{position:absolute;left:0;right:96px;height:0;border-top:1px dashed #4A413A;z-index:2}
+.mark span{
+  position:absolute;left:calc(100% + 10px);top:0;transform:translateY(-50%);width:86px;
+  font-family:var(--mono);font-size:.5625rem;line-height:1.35;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--grey-dk);
+}
+.mark--fire{border-top-color:var(--nord);border-top-style:solid}
+.mark--fire span{color:var(--nord-lit)}
+.mark--rearm{border-top-color:var(--tine)}
+.mark--rearm span{color:var(--tine-lit)}
+.mark--rearm{transition:top .35s cubic-bezier(.2,.7,.3,1)}
+/* the key itself */
+.key{
+  position:absolute;left:0;right:112px;height:26px;top:0;z-index:1;
+  background:linear-gradient(180deg,#F3EDE0,#D8CFBC);
+  border:1px solid #A79C86;border-left:3px solid var(--nord);
+  box-shadow:0 6px 0 -2px rgba(0,0,0,.45);
+  will-change:transform;
+}
+.key::after{
+  content:"";position:absolute;right:9px;top:50%;width:22px;height:1px;background:#A79C86;
+}
+.track.is-fired .key{border-left-color:var(--nord-lit)}
+
+/* readout column */
+.readout{border-left:1px solid var(--graphite-3);padding:18px 16px;display:flex;flex-direction:column;gap:16px}
+@media(max-width:419px){.readout{border-left:0;border-top:1px solid var(--graphite-3)}}
+.lamp{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:.625rem;letter-spacing:.15em;text-transform:uppercase;color:var(--grey-dk)}
+.lamp i{width:9px;height:9px;border-radius:50%;background:#3A322C;border:1px solid #4A413A;flex:none}
+.lamp.is-on{color:var(--ivory-hi)}
+.lamp.is-on i{background:var(--nord-lit);border-color:var(--nord-lit);box-shadow:0 0 11px rgba(240,72,63,.75)}
+.lamp.is-on.lamp--arm i{background:var(--tine-lit);border-color:var(--tine-lit);box-shadow:0 0 11px rgba(217,172,85,.6)}
+.stats{margin:0;display:flex;flex-direction:column;gap:13px}
+.stats dt{font-family:var(--mono);font-size:.5625rem;letter-spacing:.15em;text-transform:uppercase;color:var(--grey-dk)}
+.stats dd{margin:2px 0 0;font-family:var(--display);font-size:1.7rem;font-weight:600;line-height:1;color:var(--ivory-hi);letter-spacing:-.02em}
+.stats dd small{font-family:var(--mono);font-size:.75rem;font-weight:400;color:var(--grey-dk);letter-spacing:.04em}
+.rig__foot{border-top:1px solid var(--graphite-3);padding:14px 16px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.btn{
+  font-family:var(--mono);font-size:.6875rem;letter-spacing:.13em;text-transform:uppercase;
+  background:var(--nord);color:#fff;border:0;padding:11px 15px;cursor:pointer;
+}
+.btn:hover{background:var(--nord-lit)}
+.btn[disabled]{background:var(--graphite-3);color:var(--grey);cursor:default}
+.fine{margin:0;font-family:var(--mono);font-size:.625rem;letter-spacing:.05em;color:var(--grey-dk);line-height:1.5}
+.verdict{
+  padding:13px 16px;border-top:1px solid var(--graphite-3);
+  font-family:var(--mono);font-size:.6875rem;line-height:1.6;letter-spacing:.02em;color:#C3B9A6;
+}
+.verdict b{color:var(--nord-lit);font-weight:500}
+
+/* ============================================================
+   SHELL + RAIL
+   ============================================================ */
+.shell{display:grid;grid-template-columns:1fr;gap:0}
+@media(min-width:1080px){
+  .shell{grid-template-columns:190px minmax(0,1fr);gap:clamp(40px,5vw,72px)}
+}
+.rail{display:none}
+@media(min-width:1080px){
+  .rail{display:block;position:sticky;top:0;align-self:start;padding:64px 0 40px}
+}
+.rail ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--rule)}
+.rail li a{
+  display:flex;gap:10px;padding:7px 0 7px 14px;margin-left:-1px;
+  border-left:1px solid transparent;
+  font-family:var(--mono);font-size:.6875rem;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--grey);text-decoration:none;line-height:1.35;
+}
+.rail li a b{color:var(--rule);font-weight:500;flex:none}
+.rail li a:hover{color:var(--graphite)}
+.rail li a.is-here{color:var(--nord);border-left-color:var(--nord)}
+.rail li a.is-here b{color:var(--nord)}
+
+/* ============================================================
+   DOCUMENT BODY
+   ============================================================ */
+.doc{padding:clamp(48px,7vw,84px) 0 0}
+section{scroll-margin-top:24px}
+.sec{padding-bottom:clamp(52px,7vw,88px)}
+.sec__head{border-top:2px solid var(--graphite);padding-top:12px;margin-bottom:clamp(26px,3vw,38px)}
+.sec__head .lbl{display:block;margin-bottom:10px}
+h2{
+  font-family:var(--display);font-weight:700;
+  font-size:clamp(1.85rem,3.7vw,2.75rem);line-height:1.02;letter-spacing:-.03em;
+  margin:0;max-width:22ch;text-wrap:balance;
+}
+h3{
+  font-family:var(--display);font-weight:600;
+  font-size:1.22rem;letter-spacing:-.01em;line-height:1.25;
+  margin:2.3em 0 .55em;
+}
+h4{
+  font-family:var(--mono);font-weight:600;font-size:.6875rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--nord);margin:2em 0 .5em;
+}
+.col{max-width:66ch}
+p{margin:0 0 1.15em}
+.col > p:last-child{margin-bottom:0}
+strong{font-weight:600}
+em{font-style:italic}
+ul,ol{max-width:66ch;padding-left:1.15em;margin:0 0 1.35em}
+li{margin-bottom:.5em}
+li::marker{color:var(--nord)}
+code,.num{font-family:var(--mono);font-size:.86em;background:rgba(25,22,20,.06);padding:1px 5px;letter-spacing:-.01em}
+
+/* lede paragraph */
+.lede{font-size:1.16rem;line-height:1.6;font-weight:300;max-width:60ch}
+.lede strong{font-weight:600}
+
+/* badges: does the problem have a fix */
+.badge{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:var(--mono);font-size:.5625rem;letter-spacing:.16em;text-transform:uppercase;
+  padding:5px 9px;border:1px solid;white-space:nowrap;
+}
+.badge--hard{color:var(--nord);border-color:var(--nord)}
+.badge--part{color:#8A6A26;border-color:var(--tine)}
+.badge--soft{color:var(--grey);border-color:var(--rule)}
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 1.5em}
+
+/* callout panel */
+.panel{
+  background:var(--graphite);color:var(--ivory-hi);
+  padding:clamp(22px,3vw,32px);margin:2.2em 0;
+  border-left:3px solid var(--nord);
+}
+.panel .lbl{color:var(--tine-lit);display:block;margin-bottom:12px}
+.panel p{margin-bottom:.9em}
+.panel p:last-child{margin-bottom:0}
+.panel strong{color:#fff}
+.panel code{background:rgba(255,255,255,.09);color:var(--ivory-hi)}
+.panel a{color:var(--tine-lit)}
+
+/* pull quote / key number */
+.figure{
+  display:flex;gap:20px;align-items:baseline;
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  padding:20px 0;margin:2em 0;max-width:66ch;
+}
+.figure b{
+  font-family:var(--display);font-size:clamp(2.3rem,5vw,3.4rem);font-weight:700;
+  letter-spacing:-.04em;line-height:.9;color:var(--nord);flex:none;
+}
+.figure span{font-family:var(--mono);font-size:.75rem;line-height:1.6;letter-spacing:.02em;color:var(--grey)}
+
+/* tables */
+.tblwrap{overflow-x:auto;margin:1.8em 0 2em;border-top:2px solid var(--graphite)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:.9375rem}
+th,td{text-align:left;vertical-align:top;padding:12px 16px 12px 0;border-bottom:1px solid var(--rule-soft)}
+th{
+  font-family:var(--mono);font-size:.5625rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--grey);font-weight:500;padding-top:11px;padding-bottom:11px;
+}
+td:first-child{font-family:var(--display);font-weight:600;letter-spacing:-.01em;padding-right:22px}
+td .k{font-family:var(--mono);font-size:.75rem;color:var(--tine);display:block;font-weight:400;letter-spacing:.02em;margin-top:3px}
+tbody tr:hover{background:rgba(206,32,41,.045)}
+
+/* budget tiers */
+.tiers{
+  display:grid;grid-template-columns:1fr;gap:1px;background:var(--graphite-3);
+  border:1px solid var(--graphite-3);margin:2em 0 1em;
+}
+@media(min-width:760px){.tiers{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1180px){.tiers{grid-template-columns:repeat(4,1fr)}}
+.tier{background:var(--graphite);color:var(--ivory-hi);padding:22px 20px 24px;display:flex;flex-direction:column}
+.tier h3{margin:0 0 4px;font-size:1.32rem;color:#fff}
+.tier .cap{font-family:var(--mono);font-size:.625rem;letter-spacing:.16em;text-transform:uppercase;color:var(--tine);margin-bottom:16px;display:block}
+.tier ol{padding-left:1.05em;margin:0 0 16px;font-size:.9375rem;line-height:1.55;color:#C7BDAB}
+.tier ol li{margin-bottom:.65em}
+.tier ol li strong{color:#fff}
+.tier .next{
+  margin-top:auto;padding-top:14px;border-top:1px solid var(--graphite-3);
+  font-family:var(--mono);font-size:.625rem;line-height:1.65;letter-spacing:.02em;color:var(--grey-dk);
+}
+.tier .next b{color:var(--tine-lit);font-weight:500;display:block;letter-spacing:.14em;text-transform:uppercase;margin-bottom:5px}
+
+/* checklist */
+.steps{list-style:none;padding:0;counter-reset:s;max-width:66ch}
+.steps li{
+  counter-increment:s;position:relative;padding-left:44px;margin-bottom:1.05em;
+  border-bottom:1px solid var(--rule-soft);padding-bottom:1.05em;
+}
+.steps li:last-child{border-bottom:0}
+.steps li::before{
+  content:counter(s,decimal-leading-zero);position:absolute;left:0;top:2px;
+  font-family:var(--mono);font-size:.6875rem;color:var(--nord);letter-spacing:.08em;
+}
+
+@media(min-width:1240px){.col .tblwrap{width:calc(100% + 120px);max-width:none}}
+
+/* caveats */
+.caveats{background:var(--ivory-hi);border:1px solid var(--rule);padding:clamp(22px,3vw,30px);margin-top:1em}
+.caveats ul{margin:0;max-width:none}
+.caveats li{font-size:.9375rem;color:#4A443B}
+
+/* footer */
+footer{
+  background:var(--graphite);color:var(--grey-dk);margin-top:clamp(50px,7vw,80px);
+  padding:clamp(34px,5vw,52px) 0;border-top:3px solid var(--nord);
+}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:baseline}
+footer p{margin:0;font-family:var(--mono);font-size:.6875rem;letter-spacing:.05em;line-height:1.7;max-width:52ch}
+footer b{color:var(--ivory-hi);font-weight:500}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms !important;transition-duration:.001ms !important}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================ HERO ============================ -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero__bar">
+      <span class="lbl lbl--red">Clavia Nord Piano 88</span>
+      <span class="lbl"><b>2010 to 2012</b> production</span>
+      <span class="lbl"><b>OS 1.50</b> final firmware</span>
+      <span class="lbl">Studio rig report</span>
+    </div>
+
+    <div class="hero__grid">
+      <div>
+        <span class="lbl lbl--tine">Field report</span>
+        <h1>Nord Piano 88, <em>opened up</em></h1>
+        <p class="hero__deck">What the first-generation Clavia stage piano still does better than anything on your desk, what its <strong>two-sensor keybed will never do</strong>, and how to build the Rhodes and Wurlitzer rig around it.</p>
+
+        <dl class="spec">
+          <div><dt>Keybed</dt><dd>Fatar TP/40<span>2 sensors, no aftertouch</span></dd></div>
+          <div><dt>Sample memory</dt><dd>~500 MB<span>library v5.x ceiling</span></dd></div>
+          <div><dt>Polyphony</dt><dd>40 / 60<span>stereo / mono voices</span></dd></div>
+          <div><dt>Weight</dt><dd>18 kg<span>1284 x 340 x 121 mm</span></dd></div>
+        </dl>
+      </div>
+
+      <!-- SIGNATURE ELEMENT -->
+      <div class="rig" id="rig">
+        <div class="rig__head">
+          <span class="lbl">Key travel simulator</span>
+          <div class="seg" role="group" aria-label="Sensor count">
+            <button type="button" class="seg__btn is-on" data-mode="2">2 sensors</button>
+            <button type="button" class="seg__btn" data-mode="3">3 sensors</button>
+          </div>
+        </div>
+
+        <div class="rig__body">
+          <div class="track" id="track" tabindex="0" role="slider"
+               aria-label="Key position, drag or use arrow keys, press space to strike"
+               aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="key at rest">
+            <div class="track__rail"></div>
+            <div class="mark mark--rearm" id="mRearm" style="top:18%"><span>re-arm point</span></div>
+            <div class="mark" style="top:35%"><span>contact A</span></div>
+            <div class="mark mark--fire" style="top:75%"><span>contact B / fires</span></div>
+            <div class="key" id="key"></div>
+          </div>
+
+          <div class="readout">
+            <div class="lamp" id="lampNote"><i></i> note on</div>
+            <div class="lamp lamp--arm is-on" id="lampArm"><i></i> armed</div>
+            <dl class="stats">
+              <div><dt>Velocity</dt><dd id="oVel">0</dd></div>
+              <div><dt>Notes fired</dt><dd id="oHits">0<small> / 0 strikes</small></dd></div>
+            </dl>
+          </div>
+        </div>
+
+        <div class="rig__foot">
+          <button type="button" class="btn" id="trill">Run a trill</button>
+          <p class="fine">12 strikes, key returns to half travel only.</p>
+        </div>
+        <p class="verdict" id="verdict"><b>Two sensors.</b> The key must rise almost to rest before the contacts re-arm, so a half-return trill produces one note and eleven silences. This is the thing you are hearing.</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+<div class="shell">
+
+  <!-- ============================ RAIL ============================ -->
+  <nav class="rail" aria-label="Sections">
+    <ol>
+      <li><a href="#s00"><b>00</b> Summary</a></li>
+      <li><a href="#s01"><b>01</b> The instrument</a></li>
+      <li><a href="#s02"><b>02</b> Two sensors</a></li>
+      <li><a href="#s03"><b>03</b> Nord library</a></li>
+      <li><a href="#s04"><b>04</b> Acoustic plugins</a></li>
+      <li><a href="#s05"><b>05</b> Rhodes and Wurli</a></li>
+      <li><a href="#s06"><b>06</b> The computer</a></li>
+      <li><a href="#s07"><b>07</b> Pedals over MIDI</a></li>
+      <li><a href="#s08"><b>08</b> Drawbars</a></li>
+      <li><a href="#s09"><b>09</b> Buy list</a></li>
+      <li><a href="#s10"><b>10</b> Confidence</a></li>
+    </ol>
+  </nav>
+
+  <!-- ============================ DOC ============================ -->
+  <main class="doc">
+
+  <!-- 00 -->
+  <section id="s00" class="sec">
+    <div class="sec__head">
+      <span class="lbl lbl--red">00 / Summary</span>
+      <h2>Three things decide how far this instrument goes</h2>
+    </div>
+    <div class="col">
+      <p class="lede">The first-generation Nord Piano is a well-built, superb-sounding stage piano with three specific ceilings: a two-sensor keybed, a sample memory frozen at library v5.x, and a triple pedal that talks to its own engine far better than it talks to yours. Every worthwhile upgrade path runs through one of those three.</p>
+
+      <h4>The short version</h4>
+      <ul>
+        <li><strong>Use it as a controller.</strong> The single biggest jump in usefulness is running it into a plugin host. Pianoteq is the standout partner because physical modeling handles repedaling, half-pedal, sympathetic resonance, and Rhodes bark as continuous behavior rather than crossfaded snapshots.</li>
+        <li><strong>Fix the pedal before you fix anything else.</strong> The generation-one Nord Triple Pedal sends stepped CC64, not a smooth sweep. A separate continuous sustain pedal into a USB MIDI pedal interface gives you real half-pedaling in plugins for well under a hundred dollars.</li>
+        <li><strong>For instant-on Rhodes, the answer is a Raspberry Pi.</strong> Pianoteq runs natively on ARM Linux with no samples to stream. Documented builds boot to a loaded patch in roughly 23 seconds at around 1.33 ms of latency. Your Lenovo remains the right tool for anything Kontakt-based.</li>
+        <li><strong>The retrigger problem is hardware.</strong> Software can mask it, script around its edges, and stop plugins choking on it. Nothing can make the keybed emit a note-on it never generated.</li>
+      </ul>
+
+      <div class="figure">
+        <b>500 MB</b>
+        <span>Total sample memory on the first-generation Nord Piano. Enough for a handful of large grands plus the electrics. The Grand Lady D alone is 78.6 MB with full resonance samples.</span>
+      </div>
+
+      <h4>What is genuinely fixable</h4>
+      <div class="badge-row">
+        <span class="badge badge--hard">Hard limit: fast repetition</span>
+        <span class="badge badge--hard">Hard limit: no aftertouch</span>
+        <span class="badge badge--hard">Hard limit: library v6 sounds</span>
+        <span class="badge badge--part">Partial: pedal resolution</span>
+        <span class="badge badge--part">Partial: organ ergonomics</span>
+        <span class="badge badge--soft">Solved: piano and EP realism</span>
+        <span class="badge badge--soft">Solved: instant-on operation</span>
+        <span class="badge badge--soft">Solved: sliders and drawbars</span>
+      </div>
+      <p>Those three hard limits are worth internalising early, because a lot of forum advice quietly promises to solve them and cannot. Everything else on that list responds well to a few hundred dollars and an afternoon of setup.</p>
+    </div>
+  </section>
+
+  <!-- 01 -->
+  <section id="s01" class="sec">
+    <div class="sec__head">
+      <span class="lbl lbl--red">01 / The instrument</span>
+      <h2>Build, keybed, and where it ranks in 2026</h2>
+    </div>
+    <div class="col">
+      <h3>Model history and firmware</h3>
+      <p>Clavia launched the Nord Piano in 2010; Sound On Sound reviewed it that August, and Nord's legacy pages put production at 2010 to 2012, when the Nord Piano 2 replaced it. It shares the sampled piano library of the Electro 3 and Stage EX of the same era.</p>
+      <p>The final OS is <code>v1.50</code>, released 2019-03-11, documented by Nord as a spare-part compatibility update. The last functional changes were earlier: <code>v1.48</code> (2015-08-13) improved USB MIDI reliability, <code>v1.46</code> (2012-11-21) fixed a pedaling performance issue, and <code>v1.30</code> (2011-06-16) made the sustain pedal send CC64 value 0 when fully lifted, which the 2010 firmware did not do.</p>
+
+      <div class="panel">
+        <span class="lbl">Do this first</span>
+        <p>Open Nord Sound Manager and confirm you are on <strong>OS 1.50</strong>. The v1.48 USB MIDI reliability fix and the v1.30 CC64 zero-on-release fix both matter directly to a plugin rig. If the unit has sat unused since 2013, it may still be on an OS that never sends a clean pedal-up message.</p>
+      </div>
+
+      <h3>Build quality</h3>
+      <p>Metal panelling, real wooden end cheeks, hand assembled. Sound On Sound recorded the dimensions as 1284 mm long, 340 mm deep, 121 mm high, at 18 kg. The rear panel gives you 5-pin MIDI in and out, USB type B for MIDI, sound transfer and firmware, one quarter-inch piano pedal input, stereo quarter-inch outputs, headphones, and a mini-jack monitor input.</p>
+      <p>What it does not give you: no pitch bend, no modulation wheel, and no expression or volume pedal input. For synth and organ work that omission bites harder than the keybed does, and it is the reason section 08 exists.</p>
+
+      <h3>The keybed</h3>
+      <p>A <strong>Fatar TP/40</strong> hammer action, modified by Nord with a slightly deeper trigger point than the Stage EX of the same period. Two sensors per key, no escapement, untextured keytops, no aftertouch. Sound On Sound described it as just on the weighty side of average, fast and smooth, with three selectable velocity curves, all of them lighter than default. There is no heavier curve and no fixed-velocity option.</p>
+      <p>Triple-sensor Virtual Hammer Action Technology arrived on the Nord Piano 3 in 2015. There is no firmware path that adds a sensor to hardware that does not have one.</p>
+
+      <h3>Reliability after fifteen years</h3>
+      <p>The action is the weak link on every long-lived Fatar-equipped board. Expect, eventually, one of: an intermittent dead key, a single key that always plays at full velocity, or a double trigger. The usual cause is debris in the rubber-dome carbon contacts, or a failing upper sensor on a two-sensor bed, which is exactly what produces the always-loud key. Contacts clean up well. Parts and service still exist in 2026; Equipboard's listing notes key or screen repairs running in the 200 to 300 dollar range. Use a dust cover and you will likely never see any of it.</p>
+
+      <h3>Ranking it honestly</h3>
+      <p>As a pure MIDI controller in 2026 it is outclassed. The Kawai VPC1 exists specifically to drive piano plugins, with a wooden triple-sensor RM3 Grand action. The Studiologic SL88 Grand and Numa X Piano give you TP/40 Wood with three sensors and aftertouch. The Roland A-88MKII and current Nord and Kawai grand actions all read as more refined instruments.</p>
+      <p>Where the Nord still wins: the onboard sounds, the no-menu workflow, an unusually good pedal-noise and string-resonance implementation for its generation, and 18 kg. It is a better <em>instrument</em> than most of the controllers that beat it as a <em>controller</em>. That distinction shapes the whole plan: keep playing the Nord sounds, and add a plugin layer for what the Nord cannot reach.</p>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section id="s02" class="sec">
+    <div class="sec__head">
+      <span class="lbl lbl--red">02 / Two sensors</span>
+      <h2>The retrigger problem, and what software can honestly do</h2>
+    </div>
+    <div class="col">
+      <p class="lede">You described it precisely: press down, get a note, let up slightly, press again, get nothing until the key comes all the way back. That is not a fault. That is a two-contact keybed working as designed.</p>
+
+      <h3>What is actually happening</h3>
+      <p>The Nord derives velocity by timing the interval between two contacts closing as the key travels down. Because there are only two, the electronics can only register a fresh note-on once the key has risen far enough for the upper contact to open and reset. In practice that means near-full return. Trills, repeated notes at speed, and half-key retriggering all fail at the same point.</p>
+      <p>A third sensor sits higher in the travel. The note-on still fires from the lower contact, so velocity is unchanged, but the extra sensor lets the board detect that the key has risen just enough to re-arm without a full return. As a Piano World technical thread put it: with three sensors you can retrigger faster because the key does not have to be released as high, and releasing halfway does not shut the note off. Three sensors are how a digital action models the double escapement of a grand.</p>
+      <p>Drag the key in the simulator above and toggle between the two modes. The re-arm line is the entire story.</p>
+
+      <div class="badge-row">
+        <span class="badge badge--hard">Cannot be fixed in software</span>
+      </div>
+      <p>No MIDI tool can invent a note-on the hardware never generated. Any advice that claims otherwise is describing a workaround for a different problem. That said, four things genuinely help.</p>
+
+      <h4>1. Pedal-down sustain masks it</h4>
+      <p>With CC64 held, the note keeps ringing regardless of key return, so repeated notes overlap and the gap stops being audible. For ballad and pad playing this alone removes most of the complaint.</p>
+
+      <h4>2. Plugin retrigger and release behaviour</h4>
+      <p>In Pianoteq the physical model means a retriggered note blends into a string that is still resonating rather than hard-cutting a sample voice, which softens the artifact considerably. In Kontakt libraries, Noire, Alicia's Keys, and the Scarbee electrics all expose release and retrigger scripting. Reducing hard voice-cut on note-off is the setting to look for.</p>
+
+      <h4>3. MIDI note-off scripting</h4>
+      <p>Bome MIDI Translator Pro, a Reaper JSFX, Max/MSP, or a Kontakt script can inject an artificial early note-off so the plugin re-arms sooner. Working retrigger scripts circulate on the Bome and VI-Control forums; they store the last note and send a note-off ahead of the next note-on. This stops plugins behaving in an over-legato or stuck way. It does not restore fast repetition, because the missing event is upstream of the script.</p>
+
+      <h4>4. Velocity curve work</h4>
+      <p>Curve tuning does not touch the retrigger physics, but it does mean you stop compensating for the keybed by hammering it, which is where a lot of perceived unresponsiveness actually comes from.</p>
+
+      <div class="panel">
+        <span class="lbl">What the Nord does send</span>
+        <p>The first-generation manual's MIDI implementation chart, dated 2010-04-02, confirms the instrument transmits and receives note-on velocity <code>1 to 127</code> and <strong>release velocity</strong>, which is more than many boards of its era offer and is usable by better piano plugins. Sustain goes out as <code>CC64</code>, sostenuto as <code>CC66</code>, soft and una corda as <code>CC67</code>. Aftertouch is absent in both directions.</p>
+        <p>The catch is resolution, not presence. See section 07.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section id="s03" class="sec">
+    <div class="sec__head">
+      <span class="lbl lbl--red">03 / Nord library</span>
+      <h2>What the onboard sounds can and cannot become</h2>
+    </div>
+    <div class="col">
+      <h3>Memory and format</h3>
+      <p>Nord's specification page gives the first-generation Nord Piano approximately <strong>500 MB dedicated to the Nord Piano Library</strong>. It shipped with library v5 on DVD-ROM and is managed over USB with the free Nord Sound Manager, at roughly two minutes for a 50 MB piano. Polyphony is 40 voices for stereo pianos, 60 for mono.</p>
+      <p>Sizes matter at 500 MB. The flagship Grand Lady D is 39.2 MB without resonance samples and 78.6 MB with the full complement. Nord also publishes medium versions that restrict resonance to the mid range, saving 10 to 12 MB each. You can comfortably hold a few large grands plus the full electric piano set, not much more.</p>
+
+      <div class="figure">
+        <b>v5.x</b>
+        <span>The ceiling. Nord Piano Library v6 content, including the White Grand and the Enhanced Electric Pianos, is not compatible with the first-generation Nord Piano. Nord's own v6 compatibility list begins at Nord Piano 3.</span>
+      </div>
+
+      <h3>The compatibility wall</h3>
+      <p>For years every Nord could load the newest samples. That ended with library v6. Newer instruments transcode older nsmp files forward through Sound Manager, but there is no path backward, so a first-generation unit cannot receive the v6 White Grand or the Dyno-filtered Enhanced Rhodes. This is worth knowing before you spend an evening hunting for a download that will not install.</p>
+      <p>Everything in the v5 era remains available to you, and it is a deep catalogue.</p>
+
+      <h3>Which onboard sounds still earn their space</h3>
+      <p>The electrics are the reason to keep playing this thing directly. Nord's own library notes call out the range: the 1967 Sparkletop with felt hammers, the Mk I family, the Mk II, a custom modified Mk I Suitcase, the rare Mk V, the Wurlitzer A200, the CP80, and the Clavinet D6 across four pickup positions. The Mk I is genuinely flexible, bell-like when played softly and biting when pushed.</p>
+      <p>Among acoustics, the uprights are more useful than the grands for most pop and rock work: the Petrof, the Bosendorfer, the Schimmel, and the detuned Baumgardt saloon piano all have character the grands deliberately lack. String resonance and pedal noise on this generation were, per Sound On Sound, in a different league to the shimmer of contemporary Japanese stage pianos. Note that this is the earlier String Resonance implementation with selectable pedal noise, not the Advanced String Resonance and Dynamic Pedal Noise of the Nord Piano 3 onward.</p>
+
+      <h4>Where plugins clearly win</h4>
+      <p>Deeper velocity layering, true continuous half-pedal, repedaling, una corda modeling, unlimited library size, and for Rhodes and Wurlitzer, modeled bark and tine behaviour that responds continuously rather than in steps.</p>
+      <h4>Where the Nord still wins</h4>
+      <p>Instant recall, no computer, no latency, no driver, and characterful electrics and uprights that sit in a mix without a single edit. Do not throw that away chasing realism you may not need on every take.</p>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section id="s04" class="sec">
+    <div class="sec__head">
+      <span class="lbl lbl--red">04 / Acoustic plugins</span>
+      <h2>Detail you asked for: pedal release, resonance, uprights</h2>
+    </div>
+    <div class="col">
+      <p class="lede">The specific things you described, the sound when you let off the pedal, the harmonics that bloom under a held chord, repedaling into a decaying note, are exactly the things samples struggle with and models handle natively.</p>
+
+      <h3>Why modeling suits this rig</h3>
+      <p>Pianoteq is a physical model rather than a sample player. Modartt cite a system footprint of about 40 MB that installs and loads in seconds. Sympathetic and duplex scale resonance, una corda, continuous half-pedal, repedaling, and the sound of the dampers returning to the strings are all computed continuously, not crossfaded between recordings. It also ships a velocity calibration tool that maps your specific controller, which matters more on a fifteen-year-old TP/40 than on a new keybed.</p>
+      <p>Pianoteq 8 and 9 packs cover Steinway D and B, Blüthner, Bechstein, Grotrian, Petrof, a set of upright models, and free historical instruments.</p>
+
+      <h3>The sampled heavyweights</h3>
+      <div class="tblwrap">
+        <table>
+          <thead><tr><th>Instrument</th><th>Character</th><th>Why it might be the one</th></tr></thead>
+          <tbody>
+            <tr><td>Synthogy Ivory III<span class="k">sampled</span></td><td>American Concert D and Steinways</td><td>Deep sampling with strong half-pedal and resonance handling. The traditional studio default.</td></tr>
+            <tr><td>Garritan CFX<span class="k">sampled</span></td><td>Yamaha CFX concert grand</td><td>Bright and powerful, and the best value of the true concert grands.</td></tr>
+            <tr><td>VI Labs Ravenscroft 275<span class="k">sampled, ~$149</span></td><td>Modern high-end grand</td><td>Widely praised for a natural mid register at moderate velocity, which is where most playing lives.</td></tr>
+            <tr><td>NI Noire<span class="k">sampled</span></td><td>Nils Frahm's grand, pure and felt</td><td>The modern and cinematic pick, plus the Particles engine for ambient treatments.</td></tr>
+            <tr><td>NI Alicia's Keys<span class="k">sampled</span></td><td>Yamaha C3, intimate</td><td>Pop and R&amp;B in one preset. Sits in a track with no work.</td></tr>
+            <tr><td>Spectrasonics Keyscape<span class="k">sampled, ~$399</span></td><td>36 instruments</td><td>LA Custom C7, Wing Upright, Double Felt Grand, tines, clavs, oddities. The covers-everything option.</td></tr>
+            <tr><td>XLN Addictive Keys<span class="k">sampled, budget</span></td><td>Studio Grand, Modern Upright</td><td>Fast, light, and genuinely good. The one to own if budget is tight.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Uprights in depth</h3>
+      <p>You named uprights specifically, so here is the useful subdivision.</p>
+      <ul>
+        <li><strong>Felt and mellow:</strong> NI Noire in felt mode, NI Una Corda (the Klavins and Frahm soft-pedal instrument), Spitfire's Olafur Arnalds felt material, VI Labs Modern U, XLN Modern Upright, and Keyscape's Wing Upright with its Dark Indie, Honky Tonk, Lonely Basement and Sixties Mute variants.</li>
+        <li><strong>Free and excellent:</strong> Spitfire LABS Soft Piano is the defining free felt sound and costs nothing. Start there before spending.</li>
+        <li><strong>Character and tack:</strong> AcousticSamples and Sampletekk detuned and tack uprights, plus the Nord's own onboard saloon and tack pianos, which you already have.</li>
+        <li><strong>Modeled:</strong> Pianoteq's upright models can be detuned, prepared, and voiced further than any sample library, which is the route if you want something nobody else has.</li>
+      </ul>
+
+      <div class="panel">
+        <span class="lbl">Settings that compensate for this keybed</span>
+        <p><strong>Velocity.</strong> Use the plugin's calibration or curve editor so you reach full fortissimo without slamming and still control pianissimo. Start from the Nord curve you actually play and adjust from there, not from the plugin default.</p>
+        <p><strong>Half-pedal.</strong> Enable continuous or partial pedal support, then read section 07, because the Triple Pedal will not feed it properly over MIDI.</p>
+        <p><strong>Release.</strong> Set moderate note-off and release behaviour so repeated notes do not choke. In sampled libraries, reduce hard voice-cut on note-off.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section id="s05" class="sec">
+    <div class="sec__head">
+      <span class="lbl lbl--red">05 / Rhodes and Wurli</span>
+      <h2>The part you actually care about</h2>
+    </div>
+    <div class="col">
+      <p class="lede">On a heavy hammer action, modeled electric pianos generally beat sampled ones, for one reason: bark, growl, tine noise and bell tone change continuously with velocity instead of switching between recorded layers. On a keybed that is fighting you slightly, continuous is what you want.</p>
+
+      <h3>The field in 2026</h3>
+      <div class="tblwrap">
+        <table>
+          <thead><tr><th>Option</th><th>Type</th><th>The case for it</th></tr></thead>
+          <tbody>
+            <tr><td>Pianoteq Electric Pianos<span class="k">49 EUR add-on</span></td><td>Modeled</td><td>Vintage Tines MkI and MkII, Vintage Reeds W1 and W2 for the Wurlitzer 200A, plus Clavinet D6, Pianet T and N, and Electra. Tine noise, hammer and damper behaviour, blooming and sympathetic resonance are all editable. The W1 Wurlitzer is widely called spot on. Tiny footprint, and it runs on a Raspberry Pi. Stock presets underwhelm; the models underneath do not.</td></tr>
+            <tr><td>AAS Lounge Lizard EP-5<span class="k">modeled</span></td><td>Modeled</td><td>Dual engine, tine and reed. Consistently top-rated for expressiveness and dynamic response, which is exactly the axis a weighted action stresses.</td></tr>
+            <tr><td>Arturia Stage-73 V and Wurli V<span class="k">V Collection</span></td><td>Modeled</td><td>Models the tines, reeds, pickups and circuit, with Suitcase and Stage amps and a stompbox chain built in. Very playable once the curve is right.</td></tr>
+            <tr><td>Spectrasonics Keyscape<span class="k">~$399</span></td><td>Sampled</td><td>Reference-grade Rhodes, Wurlitzer and CP-70 with all the mechanical and release detail. The pick when you want it to sound like the record.</td></tr>
+            <tr><td>AcousticSamples VTines and VReeds<span class="k">hybrid</span></td><td>Modeled plus sampled</td><td>Praised for authenticity with fast loading. A strong middle path.</td></tr>
+            <tr><td>NI Scarbee Mark I and A-200<span class="k">sampled</span></td><td>Sampled</td><td>Long-standing favourites, plus the Clavinet. Still the sound in a lot of records.</td></tr>
+            <tr><td>Gospel Musicians Neo-Soul Keys<span class="k">sampled</span></td><td>Sampled</td><td>The neo-soul and gospel Rhodes grit, if that is the register you play in.</td></tr>
+            <tr><td>Also worth auditioning</td><td>Mixed</td><td>Waves Electric 88 and 200, AIR Velvet 2, UVI Key Suite Electric, XLN Addictive Keys Electric Grand, GSi, and the official Rhodes V8 Pro from the Rhodes Music Company. GG Audio's Blue3 and Spin are now under Cherry Audio.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Playing a Rhodes on the wrong action</h3>
+      <p>Rhodes and Wurlitzer keybeds were light and semi-weighted. Yours is a hammer action designed to move a grand piano's worth of imaginary mass. The instruments were never meant to be played this way, and no plugin fully fixes that. What does help:</p>
+      <ol>
+        <li>Set the velocity curve in the plugin, not on the Nord, so the top layer arrives before you are hitting the keys hard. If you have to slam to get bark, the curve is wrong.</li>
+        <li>Choose modeled over sampled where you can. A model degrades gracefully when your velocity distribution is compressed into the middle. A layered sample library exposes the seams.</li>
+        <li>Check the low end specifically. Heavy actions push low velocities harder than you expect, and Rhodes bass turns muddy fast.</li>
+      </ol>
+
+      <h3>The signal chain, which is half the sound</h3>
+      <p>Get the tremolo type right, because this is the most common mistake. A Rhodes has a <strong>stereo pan tremolo</strong>: the sound moves left and right. A Wurlitzer has a <strong>true amplitude tremolo</strong>: the volume pulses, in mono. Using the wrong one is instantly wrong to anyone who knows the instruments.</p>
+      <p>From there: preamp and drive, then tremolo or vibrato, then phaser (Small Stone or Phase 90 voicing) or chorus, then tape echo, spring reverb, and amp simulation. Fender Twin Reverb for a stage Rhodes, the Suitcase amp for a suitcase. Lounge Lizard, Stage-73 V and Wurli V all include usable versions of this chain, so third-party effects are optional rather than required.</p>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section id="s06" class="sec">
+    <div class="sec__head">
+      <span class="lbl lbl--red">06 / The computer</span>
+      <h2>Headless instant-on, or just use the Lenovo</h2>
+    </div>
+    <div class="col">
+      <p class="lede">Your instinct about a dedicated box that turns on and is ready is right, and there is a well-documented answer for it. It is also narrower than a laptop, so the honest recommendation is both, for different jobs.</p>
+
+      <h3>Raspberry Pi plus Pianoteq, the instant-on box</h3>
+      <p>Pianoteq ships a native Linux ARM build and streams no samples, which makes it uniquely suited to a Pi. Documented builds in the wild:</p>
+      <ul>
+        <li>A Pi 400 with a PreSonus Studio 24c at 44.1 kHz and a 64-sample buffer, roughly 1.5 ms, 256-voice polyphony, cold boot to fully playable in about 23 seconds.</li>
+        <li>A Pi 5 with a Pisound board, the community "Pianoberry" image from Blokas, tuned to around 1.33 ms.</li>
+      </ul>
+      <p>Community scripts such as youfou/pianoteq-pi and Patchbox OS auto-launch Pianoteq headless as a systemd service, pin the CPU governor to performance, and can start it from a udev rule when the USB keyboard powers on. Configure once over HDMI or VNC, then run it blind. For a Rhodes and piano box that lives under the Nord and comes on with it, nothing else is this clean.</p>
+      <p>The tradeoff is real: it is a Pianoteq machine. No Kontakt, no Keyscape, no Ivory.</p>
+
+      <h3>The alternatives</h3>
+      <div class="tblwrap">
+        <table>
+          <thead><tr><th>Host</th><th>Platform</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>MainStage<span class="k">~$39.99</span></td><td>Mac</td><td>Purpose-built live host, AU only. On an Apple Silicon Mac mini it loads big libraries fast and wakes quickly. Control it from an iPad with Logic Remote. Best flexible option.</td></tr>
+            <tr><td>Cantabile Performer</td><td>Windows</td><td>The Windows live-host standard. Very stable, low latency, fast patch switching. Free Lite tier to try.</td></tr>
+            <tr><td>Gig Performer</td><td>Mac and Windows</td><td>Rack-based and intuitive, low CPU, instant patch switching, strong MIDI processing.</td></tr>
+            <tr><td>Camelot Pro<span class="k">~$19.99 on iPad</span></td><td>Mac, Windows, iOS</td><td>Also does velocity curve remapping and MIDI transforms, which is directly useful here.</td></tr>
+            <tr><td>Reaper or Ableton</td><td>Any</td><td>DAWs pressed into live duty with a saved template. Fine, just not optimised for boot-to-patch.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Making a Windows box behave like an appliance</h3>
+      <p>If you go mini-PC rather than Pi, aim for a recent quad-core, 16 GB of RAM, and a fast NVMe SSD of 500 GB or more. Make it 32 GB if Keyscape, Ivory and Kontakt are all going to be loaded at once. Then:</p>
+      <ul>
+        <li>Enable auto-login and put the host in the Startup folder, or schedule it with Task Scheduler.</li>
+        <li>Fit an <strong>HDMI dummy plug</strong> so the GPU initialises with no monitor attached.</li>
+        <li>Run VNC for the occasional configuration session.</li>
+        <li>Set the power plan to high performance, never sleep, and disable USB selective suspend so the interface and the Nord stay connected.</li>
+        <li>Defer Windows Update and cut background telemetry. Nothing ruins a take like a reboot prompt.</li>
+      </ul>
+
+      <h3>iPad, and the no-computer route</h3>
+      <p>An iPad with Camelot Pro or AUM will host AUv3 instruments including B-3X and the iOS Rhodes and Wurlitzer apps. Connect the Nord by USB through a camera adapter and a powered hub. Nord forum users consistently report that a small USB interface such as a Tascam gives better latency and audio than going through Bluetooth, and Bluetooth MIDI should be avoided for playing entirely.</p>
+      <p>If you would rather skip computers: a second Nord (Electro or Stage), Dexibell, Viscount Legend '70s, Crumar Seven or Mojo, GSi Gemini or Burn, Korg SV-2, or Yamaha CP73 and CP88. More reliable on stage, less deep than Pianoteq or Keyscape, and considerably more expensive per sound.</p>
+
+      <h3>Latency targets</h3>
+      <p>Use a class-compliant interface with good drivers: PreSonus Studio, Focusrite Scarlett, MOTU M series, or RME if latency is the priority. Aim for round-trip under about 10 ms to feel comfortable, ideally 5 ms or lower. A 64 to 128 sample buffer at 44.1 or 48 kHz is the sweet spot. The Pi builds above sit near 1.33 to 1.5 ms, which is better than most laptop rigs will manage.</p>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section id="s07" class="sec">
+    <div class="sec__head">
+      <span class="lbl lbl--red">07 / Pedals over MIDI</span>
+      <h2>Your triple pedal is better than what it transmits</h2>
+    </div>
+    <div class="col">
+      <p>On the instrument itself, the Nord Triple Pedal is excellent. Sustain on the right, sostenuto in the middle sending CC66, soft and una corda on the left sending CC67. The sustain pedal carries multiple sensors, so the Nord varies the amount and type of pedal noise on both the down and the up stroke, and supports half-pedaling on compatible pianos.</p>
+
+      <div class="badge-row">
+        <span class="badge badge--part">Partial fix, cheap</span>
+      </div>
+
+      <p>Over MIDI it is a different story. The generation-one Triple Pedal is a customised Fatar VFP3 built on a two-switch resistor network, so the CC64 it produces leaves the instrument as <strong>a small number of discrete stepped values rather than a smooth 0 to 127 sweep</strong>. The Nord's own engine reads those steps and synthesises pedal position and dynamic pedal noise internally, which is why it sounds so good on the board and so coarse in a plugin. Sostenuto and soft transmit effectively as on and off.</p>
+
+      <div class="panel">
+        <span class="lbl">The fix</span>
+        <p>Feed the plugin from a <strong>separate continuous sustain pedal</strong>, a Roland DP-10, Yamaha FC3A, or Korg DS-1H, through a <strong>USB MIDI pedal interface</strong> such as an Audiofront MIDI Expression adapter. That outputs a genuine continuous CC64 straight to the host, bypassing the Nord entirely.</p>
+        <p>Keep the Triple Pedal plugged into the Nord for onboard sounds, where its stepped data and dynamic pedal noise are designed to work together. You end up with two pedals under the instrument and both of them doing what they are good at.</p>
+      </div>
+
+      <p>The alternative, if you already own a controller or interface that outputs continuous CC64, is to run the pedal into that and merge it with the Nord's note data in the host. Same result, no new purchase.</p>
+    </div>
+  </section>
+
+  <!-- 08 -->
+  <section id="s08" class="sec">
+    <div class="sec__head">
+      <span class="lbl lbl--red">08 / Drawbars</span>
+      <h2>Sliders, organs, and an uncomfortable truth</h2>
+    </div>
+    <div class="col">
+      <p class="lede">Adding drawbars to this rig will make the organ sound authentic. It will not make it feel authentic, and it is worth deciding which of those you are actually chasing.</p>
+
+      <h3>Controllers</h3>
+      <div class="tblwrap">
+        <table>
+          <thead><tr><th>Controller</th><th>Price band</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Korg nanoKONTROL2<span class="k">~$59</span></td><td>Budget</td><td>Nine faders and eight knobs. The classic cheap drawbar surface. Faders are narrow but it works and it is tiny.</td></tr>
+            <tr><td>Behringer X-Touch Mini<span class="k">budget</span></td><td>Budget</td><td>Encoders plus a fader, better build than the price suggests. Good general macro surface for synths too.</td></tr>
+            <tr><td>Novation Launch Control XL / Akai MIDIMix</td><td>Mid</td><td>More faders, better feel, mappable to drawbars or plugin macros.</td></tr>
+            <tr><td>Crumar D9-X</td><td>Serious</td><td>Dedicated nine-drawbar controller, praised for feel. This is the one that feels like an organ.</td></tr>
+            <tr><td>GSi DMC-122 and DMC-322</td><td>Serious</td><td>Purpose-built drawbar controllers. The 322 adds three drawbar sets and a second manual layer. The full commitment.</td></tr>
+            <tr><td>Ferrofish B4000+</td><td>Hardware module</td><td>Drawbar organ in a box, no computer involved.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Organ engines</h3>
+      <ul>
+        <li><strong>IK Multimedia Hammond B-3X.</strong> The most faithful console sound and the best Leslie and reverb. Maps to physical drawbars and Hammond XK hardware. Runs on Mac, Windows and iPad.</li>
+        <li><strong>GG Audio Blue3</strong> (now Cherry Audio). Best value, most configurable, tiny and very playable. The Pianoteq of organs.</li>
+        <li><strong>AcousticSamples B-5 v3.</strong> Deep A100 character with strong cabinet options.</li>
+        <li><strong>Arturia B-3 V, NI Vintage Organs, GSi VB3-II, Viscount.</strong> All credible, all cheaper than the top two, all worth a demo.</li>
+      </ul>
+
+      <div class="panel">
+        <span class="lbl">The uncomfortable part</span>
+        <p>An 88-note hammer action is a poor organ manual. No palm smears, no fast glisses, wrong bounce, wrong key resistance. Drawbars fix the tone and leave the touch exactly where it was.</p>
+        <p>The honest best answer, and what most players who care about organ end up doing, is <strong>a 61-key waterfall controller stacked above the Nord</strong>. Your drawbar controller then serves both manuals. If organ is a texture rather than a discipline for you, skip the second manual and buy the nanoKONTROL2; if you actually want to play organ, the second keyboard is the purchase that matters and the drawbars are secondary.</p>
+      </div>
+
+      <h3>Synths on a hammer action</h3>
+      <p>Same shape of problem, different missing pieces. The Nord sends no pitch bend, no modulation, and no aftertouch, so any expressive synth part is going to feel flat no matter which plugin you load. A small controller with wheels, an Arturia KeyLab or MiniLab, or an XY surface such as an Expressive E Touché, gets that expression back without displacing the Nord as your main keybed.</p>
+    </div>
+  </section>
+
+  <!-- 09 -->
+  <section id="s09" class="sec">
+    <div class="sec__head">
+      <span class="lbl lbl--red">09 / Buy list</span>
+      <h2>Four tiers, in the order they pay off</h2>
+    </div>
+
+    <div class="tiers">
+      <div class="tier">
+        <span class="cap">Tier 01</span>
+        <h3>Free</h3>
+        <ol>
+          <li><strong>Update to OS 1.50</strong> in Nord Sound Manager. Curate the best v5-era pianos and electrics into your 500 MB while you are in there.</li>
+          <li><strong>Run USB into the Lenovo.</strong> Install the Pianoteq trial, Spitfire LABS Soft Piano, Piano One, and a free Wurli. Calibrate the velocity curve properly.</li>
+          <li><strong>Repurpose a continuous sustain pedal</strong> if you already own one.</li>
+        </ol>
+        <p class="next"><b>Move up when</b> stepped pedal data or the plugin trial expiring is the thing stopping you.</p>
+      </div>
+
+      <div class="tier">
+        <span class="cap">Tier 02</span>
+        <h3>Under $300</h3>
+        <ol>
+          <li><strong>Pianoteq Standard (~$249) plus the Electric Pianos add-on (49 EUR).</strong> Highest impact single purchase on this whole page. World-class Rhodes, Wurlitzer, Clavinet, modeled grands and uprights, real half-pedal, and it runs on a Pi later.</li>
+          <li><strong>USB MIDI pedal interface plus a continuous pedal.</strong> Audiofront MIDI Expression with a Roland DP-10 or Yamaha FC3A.</li>
+          <li><strong>Korg nanoKONTROL2 (~$59)</strong> for faders and drawbars.</li>
+        </ol>
+        <p class="next"><b>Move up when</b> you want the sampled record sound, or a box that just turns on.</p>
+      </div>
+
+      <div class="tier">
+        <span class="cap">Tier 03</span>
+        <h3>Under $1000</h3>
+        <ol>
+          <li><strong>Raspberry Pi 5 plus Pisound running Pianoteq</strong> as the instant-on box. Roughly 20 to 25 seconds to a loaded patch, around 1.33 ms latency, headless with auto-start.</li>
+          <li><strong>Or</strong> a Windows mini-PC with Cantabile or Gig Performer if you want Kontakt libraries and B-3X on the same machine.</li>
+          <li><strong>Keyscape (~$399)</strong> or <strong>Ravenscroft 275 (~$149) plus Modern U</strong> for the sampled side.</li>
+          <li><strong>A 61-key waterfall controller</strong> and a GSi DMC-122 or Crumar D9-X if organ matters.</li>
+        </ol>
+        <p class="next"><b>Move up when</b> zero-fiddle reliability across many sounds becomes the priority.</p>
+      </div>
+
+      <div class="tier">
+        <span class="cap">Tier 04</span>
+        <h3>No limit</h3>
+        <ol>
+          <li><strong>Apple Silicon Mac mini with MainStage</strong> as the hub, running Pianoteq 9 with all packs, Keyscape, Ivory III, VI Labs, Noire and Una Corda, and B-3X. iPad with Logic Remote for control.</li>
+          <li><strong>RME interface</strong> for the lowest stable latency, targeting 5 ms round trip or better.</li>
+          <li><strong>Audiofront MIDI Expression</strong> with a high-quality continuous pedal, a GSi DMC-322, and a 61-key waterfall second manual.</li>
+          <li><strong>Preventative keybed service.</strong> Contact cleaning now beats a dead key in a session later.</li>
+        </ol>
+        <p class="next"><b>Note</b> Prices move constantly. Pianoteq, Keyscape, IK, Arturia and NI all run frequent sales.</p>
+      </div>
+    </div>
+
+    <div class="col">
+      <h3>Setup order, once the parts arrive</h3>
+      <ol class="steps">
+        <li><strong>Set Local Off on the Nord</strong> and assign a MIDI channel, so the internal engine and the plugin are not both sounding. This is the single most common cause of doubled notes and phantom velocity problems.</li>
+        <li><strong>Calibrate velocity in the plugin, not the board.</strong> Test that you can reach full fortissimo without slamming and still play genuinely quietly. Redo this per instrument; a Rhodes curve is not a grand piano curve.</li>
+        <li><strong>Route the continuous pedal through the USB MIDI interface</strong> for plugin work and leave the Triple Pedal on the Nord for onboard sounds.</li>
+        <li><strong>Enable continuous or partial pedal</strong> in each plugin, and turn on release samples and release velocity response wherever offered. The Nord does transmit release velocity, so use it.</li>
+        <li><strong>Lock the host down.</strong> Auto-login, host in Startup, HDMI dummy plug, high performance power plan, USB selective suspend off, updates deferred. On the Pi, systemd service, performance governor, and a udev rule to launch on keyboard power-up.</li>
+        <li><strong>Save a template</strong> with the Rhodes chain already built: preamp, correct tremolo type, phaser, tape echo, spring reverb, amp. Rebuilding that chain every session is how good ideas die.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="s10" class="sec">
+    <div class="sec__head">
+      <span class="lbl lbl--red">10 / Confidence</span>
+      <h2>Where this report is less certain</h2>
+    </div>
+    <div class="col">
+      <div class="caveats">
+        <ul>
+          <li><strong>The stepped CC64 claim.</strong> Nord has never published the exact number or values of the discrete steps the generation-one Triple Pedal produces. The description here rests on well-supported community analysis of the NTP1 hardware and first-hand MIDI monitor reports, not an official specification. Put a MIDI monitor on your own unit and watch the CC64 stream while you press slowly. It takes two minutes and settles the question for your specific board.</li>
+          <li><strong>Library v6 compatibility.</strong> Confirmed by Nord's own compatibility list, which starts at Nord Piano 3. If Nord ever backports, this changes. It has not so far.</li>
+          <li><strong>Keybed faults.</strong> Contact wear, occasional double triggers and a single loud key are the most commonly reported long-term issues on Fatar actions of this era. Parts and service exist in 2026 but availability is thinning.</li>
+          <li><strong>Prices.</strong> Approximate and volatile. Verify before buying, and never buy Arturia or IK at list.</li>
+          <li><strong>Modeling versus sampling.</strong> Partly taste. Modeling wins on playability, footprint and pedal behaviour. Top sample libraries can still win on recorded room character for an exposed solo part. Demo both before committing.</li>
+          <li><strong>The retrigger limit.</strong> Everything in section 02 mitigates and masks. Nothing eliminates it. If fast repetition is central to how you play, the honest answer is a triple-sensor keybed, and this instrument is not going to become one.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  </main>
+</div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p><b>Nord Piano 88, opened up.</b><br>Research report compiled August 2026. Figures drawn from Nord official documentation and firmware history, the Nord Piano user manual MIDI implementation chart dated 2010-04-02, Sound On Sound's 2010 review, Modartt documentation, and Nord, KVR, VI-Control and Piano World community sources.</p>
+    <p style="text-align:right">Verify pricing and firmware<br>before purchase.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- key travel simulator ---------- */
+  var track   = document.getElementById('track');
+  if(!track) return;
+  var keyEl   = document.getElementById('key');
+  var mRearm  = document.getElementById('mRearm');
+  var lampN   = document.getElementById('lampNote');
+  var lampA   = document.getElementById('lampArm');
+  var oVel    = document.getElementById('oVel');
+  var oHits   = document.getElementById('oHits');
+  var verdict = document.getElementById('verdict');
+  var trillBtn= document.getElementById('trill');
+  var segBtns = document.querySelectorAll('.seg__btn');
+
+  var A = 0.35;            // upper contact
+  var B = 0.75;            // lower contact, note fires here
+  var REARM = {2:0.18, 3:0.50};
+  var mode = 2;
+
+  var p = 0;               // key position, 0 rest, 1 fully down
+  var prev = 0;
+  var armed = true;
+  var noteOn = false;
+  var tA = 0;              // timestamp crossing contact A
+  var hits = 0, strikes = 0;
+
+  var COPY = {
+    2:'<b>Two sensors.</b> The key must rise almost to rest before the contacts re-arm, so a half-return trill produces one note and eleven silences. This is the thing you are hearing.',
+    3:'<b>Three sensors.</b> The extra contact re-arms the key at mid travel, so every strike fires. Velocity is unchanged, because the note still triggers from the lower contact.'
+  };
+
+  function travelPx(){ return track.clientHeight - keyEl.offsetHeight; }
+
+  function paint(){
+    keyEl.style.transform = 'translateY(' + (p * travelPx()).toFixed(1) + 'px)';
+    track.setAttribute('aria-valuenow', Math.round(p*100));
+    track.setAttribute('aria-valuetext',
+      p < 0.02 ? 'key at rest' : Math.round(p*100) + ' percent depressed, ' + (noteOn ? 'note sounding' : 'silent'));
+    lampN.classList.toggle('is-on', noteOn);
+    lampA.classList.toggle('is-on', armed);
+    track.classList.toggle('is-fired', noteOn);
+  }
+
+  function velocityFrom(dt){
+    // faster travel between the two contacts means higher velocity
+    var v = Math.round(127 * Math.pow(14 / Math.max(dt, 6), 0.55));
+    return Math.max(1, Math.min(127, v));
+  }
+
+  function setPos(next, counted){
+    prev = p;
+    p = Math.max(0, Math.min(1, next));
+    var now = performance.now();
+
+    // downward crossings
+    if(prev < A && p >= A) tA = now;
+    if(prev < B && p >= B){
+      if(counted !== false) strikes++;
+      if(armed){
+        hits++;
+        noteOn = true;
+        armed = false;
+        oVel.textContent = velocityFrom(now - (tA || now - 40));
+      }
+      oHits.innerHTML = hits + '<small> / ' + strikes + ' strikes</small>';
+    }
+    // upward crossings
+    if(prev > A && p <= A && noteOn) noteOn = false;   // damper returns
+    if(p <= REARM[mode]) armed = true;
+
+    paint();
+  }
+
+  /* pointer drag */
+  var dragging = false;
+  function fromEvent(e){
+    var r = track.getBoundingClientRect();
+    var y = (e.touches ? e.touches[0].clientY : e.clientY) - r.top - keyEl.offsetHeight/2;
+    return y / travelPx();
+  }
+  track.addEventListener('pointerdown', function(e){
+    if(playing) return;
+    dragging = true; track.setPointerCapture(e.pointerId); setPos(fromEvent(e)); e.preventDefault();
+  });
+  track.addEventListener('pointermove', function(e){ if(dragging) setPos(fromEvent(e)); });
+  ['pointerup','pointercancel'].forEach(function(t){
+    track.addEventListener(t, function(){ dragging = false; });
+  });
+
+  /* keyboard */
+  track.addEventListener('keydown', function(e){
+    if(playing) return;
+    if(e.key === 'ArrowDown' || e.key === 'ArrowRight'){ setPos(p + 0.08); e.preventDefault(); }
+    else if(e.key === 'ArrowUp' || e.key === 'ArrowLeft'){ setPos(p - 0.08); e.preventDefault(); }
+    else if(e.key === ' ' || e.key === 'Enter'){ strike(); e.preventDefault(); }
+  });
+
+  /* single strike, down then back to rest */
+  var playing = false;
+  function animate(seq, done){
+    playing = true;
+    var i = 0, t0 = performance.now();
+    (function step(now){
+      var leg = seq[i];
+      var k = Math.min(1, (now - t0) / leg.ms);
+      setPos(leg.from + (leg.to - leg.from) * k);
+      if(k >= 1){ i++; t0 = now;
+        if(i >= seq.length){ playing = false; if(done) done(); return; }
+      }
+      requestAnimationFrame(step);
+    })(performance.now());
+  }
+  function strike(){
+    if(playing) return;
+    animate([{from:p,to:0.98,ms:80},{from:0.98,to:0,ms:150}]);
+  }
+
+  /* trill demo: 12 strikes returning only to half travel */
+  trillBtn.addEventListener('click', function(){
+    if(playing) return;
+    hits = 0; strikes = 0; armed = true; noteOn = false;
+    oHits.innerHTML = '0<small> / 0 strikes</small>';
+    trillBtn.disabled = true; trillBtn.textContent = 'Running';
+    var seq = [{from:p,to:0.45,ms:90}];
+    for(var i=0;i<12;i++){
+      seq.push({from:0.45,to:0.95,ms:62});
+      seq.push({from:0.95,to:0.45,ms:62});
+    }
+    seq.push({from:0.45,to:0,ms:150});
+    animate(seq, function(){
+      trillBtn.disabled = false; trillBtn.textContent = 'Run a trill';
+    });
+  });
+
+  /* sensor mode toggle */
+  segBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      segBtns.forEach(function(b){ b.classList.remove('is-on'); });
+      btn.classList.add('is-on');
+      mode = parseInt(btn.dataset.mode, 10);
+      mRearm.style.top = (REARM[mode] * 100) + '%';
+      verdict.innerHTML = COPY[mode];
+      hits = 0; strikes = 0;
+      oHits.innerHTML = '0<small> / 0 strikes</small>';
+      if(p <= REARM[mode]) armed = true;
+      paint();
+    });
+  });
+
+  window.addEventListener('resize', paint);
+  paint();
+
+  /* ---------- scrollspy ---------- */
+  var links = [].slice.call(document.querySelectorAll('.rail a'));
+  var secs  = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(!en.isIntersecting) return;
+        var i = secs.indexOf(en.target);
+        links.forEach(function(l,j){ l.classList.toggle('is-here', i === j); });
+      });
+    }, {rootMargin:'-15% 0px -70% 0px'});
+    secs.forEach(function(s){ if(s) io.observe(s); });
+  }
+})();
+</script>
+
+</body>
+</html>

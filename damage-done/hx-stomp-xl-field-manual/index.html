@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HX Stomp XL Field Manual and Rebuild Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* chassis and surfaces, taken from the pedal itself */
+  --chassis:#14151A;
+  --chassis-deep:#0E0F13;
+  --panel:#1C1E25;
+  --panel-hi:#23262F;
+  --lcd:#0A1014;
+  --hair:#2C303A;
+  --hair-soft:#22252D;
+
+  /* silkscreen legend inks */
+  --ink:#EDEBE6;
+  --ink-dim:#9AA0AC;
+  --ink-faint:#6C727E;
+
+  /* LED ring colors, per the Helix block category code */
+  --amp:#E03A3A;
+  --cab:#FF5FA2;
+  --dist:#E8C020;
+  --dyn:#22C7C7;
+  --eq:#F08A2C;
+  --mod:#3B84E8;
+  --delay:#35C86A;
+  --verb:#E5761B;
+  --pitch:#9B5CF6;
+  --filter:#7B4BD8;
+  --util:#C3C8D2;
+
+  --display:"Saira Condensed","Arial Narrow",sans-serif;
+  --body:"IBM Plex Sans",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+
+  --rail:236px;
+  --measure:74ch;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+
+body{
+  margin:0;
+  background:var(--chassis-deep);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:16px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* faint machined texture on the page ground */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(1100px 620px at 15% -10%, rgba(59,132,232,.07), transparent 60%),
+    radial-gradient(900px 520px at 95% 8%, rgba(224,58,58,.05), transparent 60%);
+}
+
+.wrap{position:relative;z-index:1;display:grid;grid-template-columns:var(--rail) minmax(0,1fr);gap:0;max-width:1400px;margin:0 auto}
+
+/* ============ LEFT RAIL ============ */
+.rail{
+  position:sticky;top:0;align-self:start;height:100vh;
+  padding:28px 20px 28px 26px;
+  border-right:1px solid var(--hair-soft);
+  display:flex;flex-direction:column;gap:22px;
+  overflow-y:auto;
+}
+.rail-mark{font-family:var(--display);text-transform:uppercase;letter-spacing:.14em;font-size:12px;color:var(--ink-faint)}
+.rail-mark b{display:block;color:var(--ink);font-size:20px;letter-spacing:.06em;font-weight:800;line-height:1.1;margin-top:4px}
+.rail nav{display:flex;flex-direction:column;gap:1px}
+.rail a{
+  display:grid;grid-template-columns:16px 1fr;align-items:center;gap:11px;
+  text-decoration:none;color:var(--ink-dim);
+  font-family:var(--display);font-size:14.5px;letter-spacing:.04em;text-transform:uppercase;font-weight:600;
+  padding:7px 8px 7px 4px;border-radius:4px;transition:color .16s,background .16s;
+}
+.rail a:hover,.rail a:focus-visible{color:var(--ink);background:rgba(255,255,255,.04)}
+.rail a .dot{
+  width:11px;height:11px;border-radius:50%;
+  border:2px solid currentColor;color:var(--ink-faint);
+  transition:box-shadow .18s,color .18s;
+}
+.rail a:hover .dot{box-shadow:0 0 9px currentColor}
+.rail a[data-c="amp"] .dot{color:var(--amp)}
+.rail a[data-c="delay"] .dot{color:var(--delay)}
+.rail a[data-c="mod"] .dot{color:var(--mod)}
+.rail a[data-c="verb"] .dot{color:var(--verb)}
+.rail a[data-c="pitch"] .dot{color:var(--pitch)}
+.rail a[data-c="dist"] .dot{color:var(--dist)}
+.rail a[data-c="dyn"] .dot{color:var(--dyn)}
+.rail a[data-c="cab"] .dot{color:var(--cab)}
+.rail a[data-c="filter"] .dot{color:var(--filter)}
+.rail a[data-c="util"] .dot{color:var(--util)}
+.rail-foot{margin-top:auto;font-family:var(--mono);font-size:10.5px;line-height:1.7;color:var(--ink-faint);border-top:1px solid var(--hair-soft);padding-top:14px}
+
+/* ============ MAIN ============ */
+main{padding:0 0 120px;min-width:0}
+.pad{padding-left:clamp(20px,4vw,64px);padding-right:clamp(20px,4vw,64px)}
+
+/* masthead */
+.masthead{padding-top:56px;padding-bottom:38px;border-bottom:1px solid var(--hair)}
+.stamp{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-faint);border:1px solid var(--hair);border-radius:2px;padding:5px 10px;
+}
+.stamp i{width:5px;height:5px;border-radius:50%;background:var(--delay);box-shadow:0 0 7px var(--delay);font-style:normal}
+h1{
+  font-family:var(--display);font-weight:800;text-transform:uppercase;
+  font-size:clamp(40px,7.4vw,86px);line-height:.93;letter-spacing:-.005em;
+  margin:20px 0 0;
+}
+h1 span{display:block;color:var(--ink-faint);font-weight:600;font-size:clamp(19px,2.5vw,30px);letter-spacing:.02em;margin-top:10px}
+.deck{max-width:64ch;color:var(--ink-dim);font-size:17px;margin:22px 0 0}
+.deck strong{color:var(--ink);font-weight:600}
+.mast-meta{display:flex;flex-wrap:wrap;gap:26px;margin-top:30px;font-family:var(--mono);font-size:11.5px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.1em}
+.mast-meta b{display:block;color:var(--ink);letter-spacing:.04em;font-size:13px;text-transform:none;font-family:var(--body);font-weight:600;margin-top:3px}
+
+/* section scaffolding */
+section{padding-top:74px}
+.eyebrow{
+  display:flex;align-items:center;gap:12px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);
+  margin-bottom:14px;
+}
+.eyebrow::before{content:"";width:26px;height:1px;background:currentColor;flex:none}
+h2{
+  font-family:var(--display);font-weight:700;text-transform:uppercase;
+  font-size:clamp(28px,4vw,46px);line-height:1.02;letter-spacing:.005em;margin:0 0 16px;
+}
+h2 em{font-style:normal;color:var(--ink-faint)}
+h3{font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.05em;font-size:20px;margin:38px 0 12px}
+h4{font-family:var(--body);font-weight:600;font-size:15px;margin:24px 0 8px;color:var(--ink)}
+p{max-width:var(--measure);margin:0 0 14px}
+.lede{font-size:17.5px;color:var(--ink-dim);max-width:66ch}
+a{color:var(--mod)}
+strong{font-weight:600}
+hr.rule{border:0;border-top:1px solid var(--hair);margin:64px 0 0}
+
+/* accent bar per section */
+section>.eyebrow{color:var(--ink-faint)}
+section[data-c="amp"] .eyebrow{color:var(--amp)}
+section[data-c="delay"] .eyebrow{color:var(--delay)}
+section[data-c="mod"] .eyebrow{color:var(--mod)}
+section[data-c="verb"] .eyebrow{color:var(--verb)}
+section[data-c="pitch"] .eyebrow{color:var(--pitch)}
+section[data-c="dist"] .eyebrow{color:var(--dist)}
+section[data-c="dyn"] .eyebrow{color:var(--dyn)}
+section[data-c="cab"] .eyebrow{color:var(--cab)}
+section[data-c="filter"] .eyebrow{color:var(--filter)}
+section[data-c="util"] .eyebrow{color:var(--util)}
+
+/* ============ SIGNATURE: switch glyphs ============ */
+.sw{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:2.05em;height:2.05em;padding:0 .5em;
+  border-radius:999px;border:2px solid var(--util);
+  font-family:var(--mono);font-weight:600;font-size:11.5px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink);
+  background:radial-gradient(circle at 50% 34%, #262a33, #16181e 72%);
+  vertical-align:-.42em;margin:0 .12em;white-space:nowrap;
+  box-shadow:0 0 0 1px rgba(0,0,0,.6) inset;
+}
+.sw.mode{border-color:var(--util)}
+.sw.tap{border-color:var(--dist);color:#F4E7A8}
+.sw.up,.sw.dn{border-color:#5B6270}
+.sw.lit{box-shadow:0 0 10px -1px currentColor,0 0 0 1px rgba(0,0,0,.6) inset}
+/* rectangular panel buttons */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:2.4em;padding:.24em .55em;border-radius:3px;
+  border:1px solid #4A505C;background:linear-gradient(#292D36,#1B1E25);
+  font-family:var(--mono);font-weight:600;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink);vertical-align:.04em;margin:0 .1em;white-space:nowrap;
+}
+/* knobs */
+.knob{
+  display:inline-flex;align-items:center;justify-content:center;
+  height:1.85em;padding:0 .62em;border-radius:999px;
+  border:1px dashed #575E6B;color:var(--ink);
+  font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  vertical-align:-.32em;margin:0 .1em;white-space:nowrap;
+}
+/* menu path */
+code.path{
+  font-family:var(--mono);font-size:12.5px;
+  background:var(--lcd);border:1px solid var(--hair);border-radius:3px;
+  padding:.16em .45em;color:#BFE3D2;
+}
+kbd.plus{font-family:var(--mono);color:var(--ink-faint);font-size:12px;padding:0 .15em}
+
+/* ============ blocks ============ */
+.panel{
+  background:var(--panel);border:1px solid var(--hair);border-radius:6px;
+  padding:22px 24px;
+}
+.panel.lcdish{background:var(--lcd)}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:1080px){.g3,.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:720px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+/* layer cards */
+.layer{position:relative;display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--hair);border-radius:6px;padding:22px 22px 24px;overflow:hidden}
+.layer::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:currentColor}
+.layer[data-c="amp"]{color:var(--amp)}
+.layer[data-c="delay"]{color:var(--delay)}
+.layer[data-c="mod"]{color:var(--mod)}
+.layer[data-c="verb"]{color:var(--verb)}
+.layer[data-c="pitch"]{color:var(--pitch)}
+.layer h3{margin:6px 0 4px;color:var(--ink);font-size:22px}
+.layer .role{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:currentColor}
+.layer p,.layer ul{color:var(--ink-dim);font-size:14.5px}
+.layer .verdict{margin-top:auto;padding-top:16px;padding-top:14px;border-top:1px solid var(--hair);font-size:14px;color:var(--ink)}
+.layer .verdict b{color:currentColor;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;display:block;margin-bottom:5px}
+
+/* tables */
+table{width:100%;border-collapse:collapse;margin:18px 0 8px;font-size:14.5px}
+caption{text-align:left;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);padding-bottom:10px}
+th{
+  text-align:left;font-family:var(--display);text-transform:uppercase;letter-spacing:.09em;
+  font-size:13px;font-weight:700;color:var(--ink-faint);
+  border-bottom:1px solid var(--hair);padding:0 14px 9px 0;vertical-align:bottom;
+}
+td{border-bottom:1px solid var(--hair-soft);padding:13px 14px 13px 0;vertical-align:top;color:var(--ink-dim)}
+td:first-child{color:var(--ink);width:31%;font-weight:500}
+tr:hover td{background:rgba(255,255,255,.018)}
+td .sw,td .btn,td .knob{margin-bottom:2px}
+.t-do td:nth-child(2){color:var(--ink)}
+
+/* callouts */
+.call{
+  border-left:3px solid var(--dist);background:rgba(232,192,32,.05);
+  border-radius:0 5px 5px 0;padding:16px 20px;margin:22px 0;max-width:var(--measure);
+}
+.call.stop{border-color:var(--amp);background:rgba(224,58,58,.06)}
+.call.go{border-color:var(--delay);background:rgba(53,200,106,.055)}
+.call.info{border-color:var(--mod);background:rgba(59,132,232,.055)}
+.call .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--dist);display:block;margin-bottom:7px}
+.call.stop .tag{color:var(--amp)}
+.call.go .tag{color:var(--delay)}
+.call.info .tag{color:var(--mod)}
+.call p{margin:0 0 8px;font-size:14.5px}
+.call p:last-child{margin-bottom:0}
+
+/* lists */
+ul,ol{max-width:var(--measure);padding-left:20px}
+li{margin-bottom:7px}
+ul.tight li,ol.tight li{margin-bottom:4px}
+ul.plain{list-style:none;padding-left:0}
+ul.plain li{position:relative;padding-left:18px}
+ul.plain li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;border-radius:50%;border:1.5px solid var(--ink-faint)}
+
+/* spec rows */
+.spec{display:grid;grid-template-columns:minmax(0,148px) minmax(0,1fr);gap:0;border-top:1px solid var(--hair-soft)}
+.spec>dt{font-family:var(--mono);font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-faint);padding:12px 16px 12px 0}
+.spec>dd{margin:0;padding:12px 0;color:var(--ink-dim);font-size:14.5px;border-left:1px solid var(--hair-soft);padding-left:18px;max-width:80ch}
+.spec>dt,.spec>dd{border-bottom:1px solid var(--hair-soft)}
+
+/* stage cards for the rebuild */
+.stage{display:grid;grid-template-columns:64px minmax(0,1fr);gap:0;border-top:1px solid var(--hair)}
+.stage:last-of-type{border-bottom:1px solid var(--hair)}
+.stage .num{
+  font-family:var(--display);font-weight:800;font-size:34px;line-height:1;
+  color:var(--ink-faint);padding:26px 0 26px;
+}
+.stage .body{padding:26px 0 30px 4px}
+.stage h3{margin:0 0 8px;font-size:21px}
+.stage .body p:last-child{margin-bottom:0}
+.stage:hover .num{color:var(--ink)}
+
+/* figure / diagram frame */
+figure{margin:26px 0 8px}
+figure svg{display:block;width:100%;height:auto}
+figcaption{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin-top:12px;line-height:1.7}
+.diagram{background:var(--chassis);border:1px solid var(--hair);border-radius:8px;padding:24px}
+
+/* pill row */
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;padding:0;list-style:none}
+.pills li{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;
+  border:1px solid var(--hair);border-radius:999px;padding:5px 12px;color:var(--ink-dim);margin:0;
+}
+.pills li b{color:var(--ink);font-weight:600}
+
+/* bank map */
+.bank{border:1px solid var(--hair);border-radius:6px;overflow:hidden}
+.bank table{margin:0}
+.bank th{padding:14px 16px;background:var(--panel)}
+.bank td{padding:14px 16px}
+.bank td:first-child{width:14%;font-family:var(--mono);font-size:13px;color:var(--ink)}
+.bank tbody tr:last-child td{border-bottom:0}
+.swatch{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;vertical-align:.05em}
+
+/* footer */
+footer{margin-top:80px;padding-top:34px;border-top:1px solid var(--hair);color:var(--ink-faint);font-size:13.5px}
+footer p{max-width:var(--measure)}
+footer .src{font-family:var(--mono);font-size:12px;line-height:1.9}
+
+/* mobile */
+@media (max-width:980px){
+  .wrap{grid-template-columns:1fr}
+  .rail{position:static;height:auto;border-right:0;border-bottom:1px solid var(--hair);flex-direction:row;flex-wrap:wrap;align-items:center;gap:10px 14px;padding:18px 20px}
+  .rail nav{flex-direction:row;flex-wrap:wrap;gap:2px}
+  .rail a{font-size:12.5px;padding:5px 8px}
+  .rail-foot{display:none}
+  .rail-mark{width:100%}
+  .stage{grid-template-columns:44px minmax(0,1fr)}
+  .stage .num{font-size:26px;padding-top:24px}
+}
+
+/* print to PDF */
+@media print{
+  body{background:#fff;color:#111}
+  body::before{display:none}
+  .rail{display:none}
+  .wrap{display:block;max-width:none}
+  main{padding:0}
+  h1,h2,h3{color:#000}
+  p,td,li,.deck,.lede{color:#222}
+  .panel,.layer,.diagram{background:#fafafa;border-color:#ccc}
+  .sw,.btn,.knob{background:#fff;color:#000;border-color:#555}
+  code.path{background:#f0f0f0;color:#123}
+  section{page-break-inside:avoid;padding-top:34px}
+  a{color:#000;text-decoration:underline}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<aside class="rail">
+  <div class="rail-mark">Field manual<b>HX Stomp XL</b></div>
+  <nav>
+    <a href="#map" data-c="util"><span class="dot"></span>Control map</a>
+    <a href="#layers" data-c="amp"><span class="dot"></span>Three layers</a>
+    <a href="#atob" data-c="delay"><span class="dot"></span>A to B</a>
+    <a href="#snapshots" data-c="mod"><span class="dot"></span>Snapshots</a>
+    <a href="#modes" data-c="dist"><span class="dot"></span>Modes</a>
+    <a href="#params" data-c="dyn"><span class="dot"></span>Parameters</a>
+    <a href="#tempo" data-c="verb"><span class="dot"></span>Tempo, tuner</a>
+    <a href="#pedal" data-c="pitch"><span class="dot"></span>Pedal, switch</a>
+    <a href="#rebuild" data-c="amp"><span class="dot"></span>The rebuild</a>
+    <a href="#levels" data-c="dist"><span class="dot"></span>Level matching</a>
+    <a href="#taste" data-c="verb"><span class="dot"></span>Effects taste</a>
+    <a href="#architecture" data-c="cab"><span class="dot"></span>Bank map</a>
+    <a href="#studio" data-c="filter"><span class="dot"></span>Studio</a>
+    <a href="#disagree" data-c="util"><span class="dot"></span>Disputed</a>
+  </nav>
+  <div class="rail-foot">
+    Colors follow the Helix<br>block category code.<br>
+    Amp red, cab pink, delay<br>green, reverb orange,<br>mod blue, pitch violet.
+  </div>
+</aside>
+
+<main>
+<header class="masthead pad">
+  <span class="stamp"><i></i>Firmware 3.80 &nbsp;/&nbsp; 8 blocks &nbsp;/&nbsp; 4 snapshots &nbsp;/&nbsp; 8 switches</span>
+  <h1>Working the<br>Stomp XL
+    <span>A fluency guide and a plan to rebuild the whole unit</span>
+  </h1>
+  <p class="deck">The factory content is a demo reel, not a rig. This document has two halves. The first is how to move around the box without thinking about it. The second is how to strip it down to <strong>eight presets that actually belong to you</strong>, level matched, with the same switch meaning the same thing everywhere.</p>
+  <div class="mast-meta">
+    <div>Half one<b>Fluency under the feet</b></div>
+    <div>Half two<b>Teardown and rebuild</b></div>
+    <div>Design environment<b>HX Edit on the PC</b></div>
+    <div>Tuning environment<b>The pedal, by ear</b></div>
+  </div>
+</header>
+
+<section id="map" class="pad" data-c="util">
+  <div class="eyebrow">Orientation</div>
+  <h2>The control map</h2>
+  <p class="lede">Two rows of four switches. The outer columns are fixed function, the middle four are yours. Everything above the switches is hand control, and almost all of it is a shortcut you do not know yet.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 980 430" role="img" aria-label="Schematic control map of the HX Stomp XL top panel">
+      <defs>
+        <linearGradient id="chas" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#23262E"/><stop offset="1" stop-color="#171921"/>
+        </linearGradient>
+        <linearGradient id="scr" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#0D181E"/><stop offset="1" stop-color="#081014"/>
+        </linearGradient>
+      </defs>
+
+      <rect x="12" y="14" width="956" height="402" rx="12" fill="url(#chas)" stroke="#3A3F4B"/>
+      <rect x="24" y="26" width="932" height="378" rx="8" fill="none" stroke="#2A2E38"/>
+
+      <!-- screen -->
+      <rect x="330" y="46" width="330" height="108" rx="6" fill="url(#scr)" stroke="#39505C"/>
+      <text x="495" y="86" text-anchor="middle" fill="#7FE0B0" font-family="IBM Plex Mono, monospace" font-size="13" letter-spacing="1">01A  FX:STEREO SWIRL</text>
+      <g font-family="IBM Plex Mono, monospace" font-size="10">
+        <rect x="346" y="100" width="60" height="34" rx="3" fill="#1B2A33" stroke="#9B5CF6"/><text x="376" y="121" text-anchor="middle" fill="#C6A8FB">PITCH</text>
+        <rect x="412" y="100" width="60" height="34" rx="3" fill="#2A1B1E" stroke="#E03A3A"/><text x="442" y="121" text-anchor="middle" fill="#F09A9A">AMP</text>
+        <rect x="478" y="100" width="60" height="34" rx="3" fill="#221B2A" stroke="#3B84E8"/><text x="508" y="121" text-anchor="middle" fill="#9CC3F5">MOD</text>
+        <rect x="544" y="100" width="60" height="34" rx="3" fill="#182A21" stroke="#35C86A"/><text x="574" y="121" text-anchor="middle" fill="#8EE3AF">DELAY</text>
+      </g>
+
+      <!-- left panel buttons -->
+      <g font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="1">
+        <rect x="196" y="46" width="104" height="30" rx="3" fill="#262A33" stroke="#4A505C"/><text x="248" y="65" text-anchor="middle" fill="#EDEBE6">VIEW</text>
+        <rect x="196" y="82" width="104" height="30" rx="3" fill="#262A33" stroke="#4A505C"/><text x="248" y="101" text-anchor="middle" fill="#EDEBE6">ACTION</text>
+        <rect x="196" y="118" width="104" height="30" rx="3" fill="#262A33" stroke="#4A505C"/><text x="248" y="137" text-anchor="middle" fill="#EDEBE6">SAVE</text>
+        <rect x="76" y="82" width="48" height="30" rx="3" fill="#262A33" stroke="#4A505C"/><text x="100" y="101" text-anchor="middle" fill="#EDEBE6">&#8249;PG</text>
+        <rect x="130" y="82" width="48" height="30" rx="3" fill="#262A33" stroke="#4A505C"/><text x="154" y="101" text-anchor="middle" fill="#EDEBE6">PG&#8250;</text>
+      </g>
+      <text x="127" y="130" text-anchor="middle" fill="#6C727E" font-family="IBM Plex Mono, monospace" font-size="9" letter-spacing="1">BOTH = MENU</text>
+
+      <!-- right knobs -->
+      <g>
+        <circle cx="726" cy="72" r="26" fill="#20242C" stroke="#575E6B" stroke-dasharray="3 3"/>
+        <text x="726" y="76" text-anchor="middle" fill="#EDEBE6" font-family="IBM Plex Mono, monospace" font-size="9">UPPER</text>
+        <circle cx="726" cy="130" r="26" fill="#20242C" stroke="#575E6B" stroke-dasharray="3 3"/>
+        <text x="726" y="134" text-anchor="middle" fill="#EDEBE6" font-family="IBM Plex Mono, monospace" font-size="9">LOWER</text>
+        <circle cx="882" cy="100" r="38" fill="#1B1E25" stroke="#4A505C"/>
+        <text x="882" y="104" text-anchor="middle" fill="#9AA0AC" font-family="IBM Plex Mono, monospace" font-size="9">VOLUME</text>
+      </g>
+      <text x="726" y="176" text-anchor="middle" fill="#6C727E" font-family="IBM Plex Mono, monospace" font-size="9" letter-spacing="1">BLOCK / MODEL</text>
+
+      <!-- knobs 1-3 -->
+      <g font-family="IBM Plex Mono, monospace" font-size="10">
+        <circle cx="380" cy="196" r="19" fill="#20242C" stroke="#575E6B" stroke-dasharray="3 3"/><text x="380" y="200" text-anchor="middle" fill="#EDEBE6">1</text>
+        <circle cx="495" cy="196" r="19" fill="#20242C" stroke="#575E6B" stroke-dasharray="3 3"/><text x="495" y="200" text-anchor="middle" fill="#EDEBE6">2</text>
+        <circle cx="610" cy="196" r="19" fill="#20242C" stroke="#575E6B" stroke-dasharray="3 3"/><text x="610" y="200" text-anchor="middle" fill="#EDEBE6">3</text>
+      </g>
+      <text x="495" y="232" text-anchor="middle" fill="#6C727E" font-family="IBM Plex Mono, monospace" font-size="9" letter-spacing="1">THREE PARAMETERS PER PAGE</text>
+
+      <!-- footswitch grid: 4 columns x 2 rows -->
+      <g>
+        <!-- rear row -->
+        <circle cx="150" cy="290" r="27" fill="#181B21" stroke="#5B6270" stroke-width="2.5"/><text x="150" y="296" text-anchor="middle" fill="#EDEBE6" font-family="IBM Plex Mono, monospace" font-size="15">&#9650;</text>
+        <circle cx="330" cy="290" r="27" fill="#181B21" stroke="#C3C8D2" stroke-width="2.5"/><text x="330" y="295" text-anchor="middle" fill="#EDEBE6" font-family="IBM Plex Mono, monospace" font-size="12">FS</text>
+        <circle cx="510" cy="290" r="27" fill="#181B21" stroke="#C3C8D2" stroke-width="2.5"/><text x="510" y="295" text-anchor="middle" fill="#EDEBE6" font-family="IBM Plex Mono, monospace" font-size="12">FS</text>
+        <circle cx="690" cy="290" r="27" fill="#181B21" stroke="#E8C020" stroke-width="2.5"/><text x="690" y="295" text-anchor="middle" fill="#F4E7A8" font-family="IBM Plex Mono, monospace" font-size="11">TAP</text>
+        <!-- front row -->
+        <circle cx="150" cy="362" r="27" fill="#181B21" stroke="#5B6270" stroke-width="2.5"/><text x="150" y="369" text-anchor="middle" fill="#EDEBE6" font-family="IBM Plex Mono, monospace" font-size="15">&#9660;</text>
+        <circle cx="330" cy="362" r="27" fill="#181B21" stroke="#C3C8D2" stroke-width="2.5"/><text x="330" y="367" text-anchor="middle" fill="#EDEBE6" font-family="IBM Plex Mono, monospace" font-size="12">FS</text>
+        <circle cx="510" cy="362" r="27" fill="#181B21" stroke="#C3C8D2" stroke-width="2.5"/><text x="510" y="367" text-anchor="middle" fill="#EDEBE6" font-family="IBM Plex Mono, monospace" font-size="12">FS</text>
+        <circle cx="690" cy="362" r="27" fill="#181B21" stroke="#C3C8D2" stroke-width="2.5"/><text x="690" y="367" text-anchor="middle" fill="#EDEBE6" font-family="IBM Plex Mono, monospace" font-size="10">MODE</text>
+      </g>
+
+      <g font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#6C727E" letter-spacing="1">
+        <text x="150" y="410" text-anchor="middle">BANK / PRESET / SNAP</text>
+        <text x="420" y="410" text-anchor="middle">FOUR SWITCHES THAT ARE YOURS</text>
+        <text x="690" y="410" text-anchor="middle">TEMPO &#183; TUNER &#183; MODE</text>
+      </g>
+      <path d="M150 330 L150 336 M330 330 L330 336 M510 330 L510 336 M690 330 L690 336" stroke="#3A3F4B" stroke-width="1"/>
+      <text x="795" y="290" fill="#8EE3AF" font-family="IBM Plex Mono, monospace" font-size="9.5" letter-spacing="1">HOLD TAP = TUNER</text>
+      <text x="795" y="368" fill="#8EE3AF" font-family="IBM Plex Mono, monospace" font-size="9.5" letter-spacing="1">HOLD MODE = PEDAL EDIT</text>
+    </svg>
+    <figcaption>Schematic, not to scale. Positions of the four center switches follow the silkscreen on your unit. What matters is the column logic: outer left is navigation, outer right is tempo and mode, the middle four carry your sounds.</figcaption>
+  </figure>
+
+  <div class="call info">
+    <span class="tag">The one thing to internalize</span>
+    <p>The six switches are not fixed to a job. What they do depends entirely on which <strong>footswitch mode</strong> you are in, and the same physical switch means a preset in one mode, an effect in another, and a parameter in a third. Every navigation problem on this pedal is really a question of which mode you are standing in.</p>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section id="layers" class="pad" data-c="amp">
+  <div class="eyebrow">Architecture</div>
+  <h2>Three layers of control <em>and what each is actually for</em></h2>
+  <p class="lede">This is the only decision that matters. Get it right and the pedal disappears under your feet. Get it wrong and you spend gigs tap dancing.</p>
+
+  <div class="grid g3" style="margin-top:26px">
+    <div class="layer" data-c="amp">
+      <span class="role">Layer 1</span>
+      <h3>Presets</h3>
+      <p>128 slots, 32 banks of four. A whole rig: blocks, chain order, models, all four snapshots, every switch assignment.</p>
+      <p><b style="color:var(--ink)">Cost:</b> changing preset creates a small audible gap and <strong>kills delay and reverb trails</strong>. That gap is inherent to how much the box has to reallocate.</p>
+      <div class="verdict"><b>Use for</b>Between songs. Different amp character. Never mid phrase.</div>
+    </div>
+    <div class="layer" data-c="mod">
+      <span class="role">Layer 2</span>
+      <h3>Snapshots</h3>
+      <p>Four per preset. Recalls bypass states, up to 64 controller assigned parameter values, Command Center values, and tempo if you set tempo per snapshot.</p>
+      <p><b style="color:var(--ink)">Cannot</b> swap a model or reorder the chain. All four snapshots share the same blocks.</p>
+      <div class="verdict"><b>Use for</b>Song sections. Verse to chorus to solo. Seamless, trails intact, one tap.</div>
+    </div>
+    <div class="layer" data-c="delay">
+      <span class="role">Layer 3</span>
+      <h3>Stomps</h3>
+      <p>Individual on and off, like a pedalboard. Up to eight assignments per switch, and a switch can toggle a parameter between two values instead of bypassing a block.</p>
+      <p><b style="color:var(--ink)">Math:</b> five independent stomps give 32 combinations. Four snapshots give four states.</p>
+      <div class="verdict"><b>Use for</b>Spontaneity. The thing you did not plan. Anything you want to feel like a pedal.</div>
+    </div>
+  </div>
+
+  <h3>The argument, and who is on which side</h3>
+  <p>Joe Gore, who designs stompboxes and did sound design work on the Helix platform, makes the snapshot case on efficiency: a sound that needs four separate stomp taps to assemble is one snapshot tap instead. Alex Strabala, who sells presets professionally, goes the other way and says he uses all his stomps for the combinatorial range and just turns the top knob to change presets. Both are right about their own gigs.</p>
+  <p>What most working players actually do, and what you should do, is <strong>run both in one preset</strong>. Snapshots carry the planned section changes because they are gapless and preserve trails. Stomps carry the unplanned. The global setting that arranges which row is which is under <code class="path">Global Settings &gt; Footswitches</code>.</p>
+
+  <div class="call go">
+    <span class="tag">Recommended default for your rig</span>
+    <p>One preset per amp character. Four snapshots mapped to <strong>rhythm base, lifted, dirty, ambient lead</strong>. The remaining switches as stomps for a boost, a modulation, and a delay you can grab at will. Preset changes only between songs.</p>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section id="atob" class="pad" data-c="delay">
+  <div class="eyebrow">Reference</div>
+  <h2>Getting from point A to point B</h2>
+  <p class="lede">The workhorse table. Almost every one of these is a shortcut, not a menu dive. The shortcuts are the difference between this box feeling cramped and feeling fast.</p>
+
+  <table class="t-do">
+    <caption>By hand, in Edit view</caption>
+    <thead><tr><th>You want to</th><th>Do this</th></tr></thead>
+    <tbody>
+      <tr><td>Get un-lost</td><td>Press <span class="btn">VIEW</span>. Press it again to flip between Play view and Edit view.</td></tr>
+      <tr><td>Select a block to edit</td><td><strong>Touch, do not press,</strong> the footswitch it lives on. Or turn <span class="knob">Upper</span>. If several blocks share the switch, keep touching the top of it.</td></tr>
+      <tr><td>Change a model</td><td>Turn <span class="knob">Lower</span> to walk the list in place, or press <span class="knob">Lower</span> to open the full category browser.</td></tr>
+      <tr><td>Jump across model categories fast</td><td>Press and turn <span class="knob">Lower</span> to skip whole subcategories instead of scrolling every model.</td></tr>
+      <tr><td>See more parameters</td><td><span class="btn">&#8249;PG</span> <span class="btn">PG&#8250;</span>. The thin colored bar on the inspector line tells you which page you are on.</td></tr>
+      <tr><td>Reset one parameter</td><td>Press its knob. <span class="knob">1</span> <span class="knob">2</span> <span class="knob">3</span></td></tr>
+      <tr><td>Switch a delay time or LFO speed to note values</td><td>Press that parameter's knob to toggle between ms or Hz and note divisions.</td></tr>
+      <tr><td>Assign the selected block to a switch</td><td>Touch and hold that footswitch about two seconds. Choose merge or replace.</td></tr>
+      <tr><td>Move a whole switch's assignments elsewhere</td><td>Touch and hold two switches until the swap dialog appears, then confirm. Everything trades places, labels and colors included.</td></tr>
+      <tr><td>Make a parameter follow snapshots</td><td>Push and turn that parameter's knob. The value turns white and goes in brackets.</td></tr>
+      <tr><td>Put a parameter on a switch or pedal</td><td>Press and hold that parameter's knob. It drops you straight into Controller Assign for it.</td></tr>
+      <tr><td>Remove a controller assignment</td><td>Hold <span class="btn">BYPASS</span> and press the parameter knob.</td></tr>
+      <tr><td>Reach Global Settings, Command Center, Global EQ</td><td><span class="btn">&#8249;PG</span> <kbd class="plus">+</kbd> <span class="btn">PG&#8250;</span> together opens the Menu.</td></tr>
+      <tr><td>Save without renaming</td><td><span class="btn">SAVE</span> <kbd class="plus">+</kbd> <span class="btn">ACTION</span>, twice.</td></tr>
+      <tr><td>Kill everything, true bypass</td><td>Press <span class="knob">Upper</span> <kbd class="plus">+</kbd> <span class="knob">Lower</span> together. Any switch brings it back.</td></tr>
+      <tr><td>Tune when TAP is repurposed</td><td><span class="btn">ACTION</span> <kbd class="plus">+</kbd> <span class="btn">PG&#8250;</span></td></tr>
+    </tbody>
+  </table>
+
+  <table class="t-do">
+    <caption>By foot, in Play view</caption>
+    <thead><tr><th>You want to</th><th>Do this</th></tr></thead>
+    <tbody>
+      <tr><td>Change footswitch mode</td><td>Tap <span class="sw mode">MODE</span>. It cycles Stomp and Preset.</td></tr>
+      <tr><td>Pick a preset</td><td>In Preset mode, step on A, B, C or D. Use <span class="sw up">&#9650;</span> <span class="sw dn">&#9660;</span> for banks.</td></tr>
+      <tr><td>Get to snapshots</td><td>Press <span class="sw up">&#9650;</span> <kbd class="plus">+</kbd> <span class="sw dn">&#9660;</span> together, briefly.</td></tr>
+      <tr><td>Change what the arrows do</td><td>Press and <strong>hold</strong> <span class="sw up">&#9650;</span> <kbd class="plus">+</kbd> <span class="sw dn">&#9660;</span> to cycle them between Bank, Preset and Snapshot.</td></tr>
+      <tr><td>Set tempo</td><td>Tap <span class="sw tap">TAP</span> two or more times. One tap alone re-triggers tremolo and rotary phase.</td></tr>
+      <tr><td>Nudge tempo precisely</td><td>Touch <span class="sw tap">TAP</span> without pressing. The tempo panel appears for a moment and Knob 3 sets BPM.</td></tr>
+      <tr><td>Tune</td><td>Hold <span class="sw tap">TAP</span> one second. Any switch exits.</td></tr>
+      <tr><td>Edit a parameter with your feet</td><td>Hold <span class="sw mode">MODE</span> one second for Pedal Edit. See the ceiling on this below.</td></tr>
+      <tr><td>Leave Pedal Edit and keep the changes</td><td>Hold <span class="sw mode">MODE</span> two seconds. A brief tap exits <strong>without</strong> saving.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<hr class="rule">
+
+<section id="snapshots" class="pad" data-c="mod">
+  <div class="eyebrow">Deep dive</div>
+  <h2>Snapshots</h2>
+  <p class="lede">Think of them as four saved states of the same rig, recalled instantly and silently. Not four rigs.</p>
+
+  <div class="grid g2" style="margin-top:24px">
+    <div class="panel">
+      <h4 style="margin-top:0;color:var(--delay)">Stored and recalled</h4>
+      <ul class="plain tight" style="font-size:14.5px;color:var(--ink-dim)">
+        <li>On and off state of every block except the Looper</li>
+        <li>Values of any parameter assigned to a controller, up to 64 per preset</li>
+        <li>Command Center message values and toggle states</li>
+        <li>Tempo, but only if you set Tempo Select to Per Snapshot</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h4 style="margin-top:0;color:var(--amp)">Not stored, ever</h4>
+      <ul class="plain tight" style="font-size:14.5px;color:var(--ink-dim)">
+        <li>Which model sits in a block. All four snapshots share the same models.</li>
+        <li>Chain order or routing</li>
+        <li>Any parameter you have not assigned to a controller</li>
+      </ul>
+      <p style="font-size:14px;margin:12px 0 0;color:var(--ink-faint)">Workaround for the first one: load both models as separate blocks and let snapshots turn one on and the other off. Costs you a block and some DSP.</p>
+    </div>
+  </div>
+
+  <h3>Three global settings to change before you build anything</h3>
+  <dl class="spec">
+    <dt>Snapshot Edits</dt>
+    <dd><code class="path">Global Settings &gt; Preferences</code>. Default is <strong>Recall</strong>, which keeps accidental knob turns forever. Set it to <strong>Discard</strong> and your saved snapshots become bulletproof: anything you fiddle with reverts when you leave. The trap: with Discard on, you must save before changing snapshots or your real edits vanish too. The camera icon on the home screen shows which mode you are in, gray for Recall and red for Discard. Shortcut to flip it: hold <span class="btn">BYPASS</span> and press <span class="btn">SAVE</span>.</dd>
+    <dt>Snapshot Reselect</dt>
+    <dd>Set to <strong>Toggle</strong> instead of Reload. Now pressing the already active snapshot flips back to the previous one, so verse and chorus become one switch you rock between instead of two switches you hunt for.</dd>
+    <dt>Snapshot Mode return</dt>
+    <dd><code class="path">Global Settings &gt; Footswitches</code>. Set to <strong>Manual Return</strong> or Latch if you want to stay in Snapshot mode after picking one, rather than the switches vanishing on you.</dd>
+  </dl>
+
+  <h3>Housekeeping</h3>
+  <table>
+    <thead><tr><th>Task</th><th>Method</th></tr></thead>
+    <tbody>
+      <tr><td>Copy a snapshot onto another</td><td>In Snapshot mode, touch and hold the source switch, then briefly touch the destination switch, then confirm OK.</td></tr>
+      <tr><td>Swap two snapshots</td><td>Touch, do not press, both snapshot switches until the swap dialog appears.</td></tr>
+      <tr><td>Exclude a block from snapshot control</td><td>Select the block, <span class="btn">ACTION</span>, <span class="btn">PG&#8250;</span>, then set Knob 3 Snapshot Bypass to Off. That block is now yours to stomp manually and no snapshot will touch it. This is the correct home for a boost.</td></tr>
+      <tr><td>Save all four</td><td>Save the preset. All snapshots go with it. Whichever snapshot was active at save time is the one that loads.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="call">
+    <span class="tag">The four snapshot ceiling</span>
+    <p>Helix Floor gets eight. You get four. In practice four covers a song's sections when you pair them with stomps, which is why the hybrid layout matters more on the XL than on the big units. If you find yourself consistently needing five or more distinct seamless states inside one song, that is the honest signal to either go one preset per song or accept a gap between sections.</p>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section id="modes" class="pad" data-c="dist">
+  <div class="eyebrow">Hazard</div>
+  <h2>Modes, and the MODE switch problem</h2>
+  <p>Four footswitch modes live in Play view: Stomp, Preset, Snapshot and Pedal Edit. Plus Looper mode when a Looper block is engaged. <span class="sw mode">MODE</span> is the only door between them, which makes it the single highest traffic control on the pedal and also its biggest liability.</p>
+
+  <div class="call stop">
+    <span class="tag">Known failure, documented</span>
+    <p>There is a Line 6 forum thread from a player with fifty years of gigging who hit <span class="sw mode">MODE</span> mid set and lost his lead sound. The official answer from a Line 6 Expert was blunt: <strong>you cannot disable it in firmware.</strong> That is still true on 3.80.</p>
+    <p>The remedies that actually work, in order of how much they help:</p>
+    <ul class="tight" style="margin:8px 0 0">
+      <li><strong>Physical block.</strong> The original poster solved it with a snap on plastic collar around the switch. The cheaper version is the Grolsch washer trick, a rubber bottle cap washer that raises the switch height enough that a stray foot misses it.</li>
+      <li><strong>Make the press harmless.</strong> Put your snapshots into Stomp mode via Command Center, or set the row arrangement so your working switches stay visible in either mode. Then a mis-tap changes nothing you need.</li>
+      <li><strong>Footwear.</strong> Not a joke. Most mid gig phantom preset changes are actually the two arrow switches hit together by a wide boot.</li>
+    </ul>
+  </div>
+
+  <h3>Stomp mode, six switch versus four switch</h3>
+  <p>Under <code class="path">Global Settings &gt; Footswitches &gt; Stomp Mode</code> you choose whether all six switches are stomps, or four are stomps and the left pair shows Bank, Preset or Snapshot arrows. Four switch is the right call for a live rig because you get navigation without leaving Stomp mode. Six switch is right when a preset is genuinely a pedalboard and you change presets by hand.</p>
+</section>
+
+<hr class="rule">
+
+<section id="params" class="pad" data-c="dyn">
+  <div class="eyebrow">Editing</div>
+  <h2>Changing parameters</h2>
+
+  <h3>Pedal Edit mode and its hard ceiling</h3>
+  <p>Hold <span class="sw mode">MODE</span> one second. You land on a block select screen. Pick a block and the six switches become an editor. Here is the whole layout, and the thing nobody tells you is that FS4 does both directions:</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 230" role="img" aria-label="Pedal Edit mode footswitch layout">
+      <g font-family="IBM Plex Mono, monospace">
+        <text x="20" y="26" fill="#6C727E" font-size="10.5" letter-spacing="2">PEDAL EDIT, INSIDE A BLOCK</text>
+        <rect x="20" y="42" width="860" height="60" rx="5" fill="#0A1014" stroke="#39505C"/>
+        <text x="450" y="66" text-anchor="middle" fill="#7FE0B0" font-size="12" letter-spacing="1">MULTI PASS</text>
+        <text x="160" y="90" text-anchor="middle" fill="#EDEBE6" font-size="13">1200 ms</text>
+        <text x="450" y="90" text-anchor="middle" fill="#EDEBE6" font-size="13">37%</text>
+        <text x="740" y="90" text-anchor="middle" fill="#EDEBE6" font-size="13">4</text>
+
+        <circle cx="120" cy="160" r="26" fill="#181B21" stroke="#35C86A" stroke-width="2.5"/><text x="120" y="165" text-anchor="middle" fill="#8EE3AF" font-size="10">TIME</text>
+        <circle cx="270" cy="160" r="26" fill="#181B21" stroke="#35C86A" stroke-width="2.5"/><text x="270" y="165" text-anchor="middle" fill="#8EE3AF" font-size="9">FEEDBK</text>
+        <circle cx="420" cy="160" r="26" fill="#181B21" stroke="#35C86A" stroke-width="2.5"/><text x="420" y="165" text-anchor="middle" fill="#8EE3AF" font-size="9">PATTRN</text>
+        <circle cx="570" cy="160" r="26" fill="#181B21" stroke="#3B84E8" stroke-width="2.5"/><text x="570" y="165" text-anchor="middle" fill="#9CC3F5" font-size="10">PAGE</text>
+        <circle cx="700" cy="160" r="26" fill="#181B21" stroke="#C3C8D2" stroke-width="2.5"/><text x="700" y="166" text-anchor="middle" fill="#EDEBE6" font-size="14">&#8722;</text>
+        <circle cx="830" cy="160" r="26" fill="#181B21" stroke="#C3C8D2" stroke-width="2.5"/><text x="830" y="166" text-anchor="middle" fill="#EDEBE6" font-size="14">+</text>
+
+        <text x="270" y="212" text-anchor="middle" fill="#6C727E" font-size="9.5" letter-spacing="1">FS1 &#183; FS2 &#183; FS3  PICK A PARAMETER</text>
+        <text x="570" y="212" text-anchor="middle" fill="#9CC3F5" font-size="9.5" letter-spacing="1">TAP = FORWARD, HOLD = BACK</text>
+        <text x="765" y="212" text-anchor="middle" fill="#6C727E" font-size="9.5" letter-spacing="1">VALUE, HOLD FOR COARSE</text>
+      </g>
+    </svg>
+    <figcaption>Seven or more blocks in the preset and FS3 becomes MORE on the block select screen, paging through the rest. There is no back to the block list from inside a block. Exit and re-enter.</figcaption>
+  </figure>
+
+  <p>That is the ceiling. Pedal Edit is for adjusting <em>one</em> thing without bending over. It is not a performance tool and it is not a build tool, and the manual says as much.</p>
+
+  <h3>What to use instead for hands free control</h3>
+  <div class="grid g2">
+    <div class="panel">
+      <h4 style="margin-top:0">A switch that toggles a parameter</h4>
+      <p style="font-size:14.5px;color:var(--ink-dim)">Press and hold the parameter's knob to jump into Controller Assign, pick the footswitch, set Min and Max, choose Momentary or Latching. Swap Min and Max to reverse it.</p>
+      <p style="font-size:14.5px;color:var(--ink-dim);margin:0">The classic use: one switch that raises Drive and lowers Channel Volume at the same time. That is a channel switch, built from nothing.</p>
+    </div>
+    <div class="panel">
+      <h4 style="margin-top:0">Snapshots carrying the values</h4>
+      <p style="font-size:14.5px;color:var(--ink-dim)">Push and turn a knob to bind it to snapshots, then set a different value in each. One tap moves a dozen parameters at once with no zipper noise and no lost trails.</p>
+      <p style="font-size:14.5px;color:var(--ink-dim);margin:0">This is what working players actually use. Budget is 64 assignments per preset.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section id="tempo" class="pad" data-c="verb">
+  <div class="eyebrow">Timing</div>
+  <h2>Tempo and the tuner</h2>
+
+  <dl class="spec">
+    <dt>Tap floor</dt>
+    <dd>Tapped entry will not go below <strong>40 BPM</strong>, deliberately, so fast taps are not misread. You can still dial down to <strong>20 BPM</strong> by hand with the BPM parameter or in Global Settings.</dd>
+    <dt>One tap</dt>
+    <dd>A single press resets LFO phase. On a tremolo or a rotary that is how you land the wobble with the downbeat.</dd>
+    <dt>Tempo Select</dt>
+    <dd><code class="path">Global Settings &gt; MIDI/Tempo</code>. <strong>Per Preset</strong> is the default and correct when one song is one tempo. <strong>Per Snapshot</strong> when a single song changes feel between sections. <strong>Global</strong> when you run to a house click across the whole set.</dd>
+    <dt>Note values</dt>
+    <dd>Press a Time or Speed knob to swap between ms or Hz and note divisions. Note divisions follow tap tempo and incoming MIDI clock. Some Speed and Rate parameters cannot be note synced because they are non-linear.</dd>
+    <dt>Re-tapping artifacts</dt>
+    <dd>Set Tap Tempo Pitch to <strong>Transparent</strong> in Preferences so delays stop making that seasick pitch glide when you change tempo mid song.</dd>
+    <dt>Tuner types</dt>
+    <dd>Hold <span class="sw tap">TAP</span> one second. Fine is the default needle with a precision bar, Coarse drops the bar, Strobe is the third option. Accurate down to 21.83 Hz for five string bass. All tuner settings are global.</dd>
+    <dt>Tuner output</dt>
+    <dd>Knob 1 sets what you hear while tuning: <strong>Mute</strong> for silence, Main L/R to keep playing, or Send L/R to feed an outboard tuner. Reference pitch is adjustable 425 to 455 Hz. String offsets live on pages 2 through 4 and only apply if you enable Offsets on page 1.</dd>
+  </dl>
+
+  <div class="call info">
+    <span class="tag">Worth knowing for bass</span>
+    <p>The onboard tuner reads more sensitively than most clip on tuners. Fine for stage. For setting intonation on a bass, reach for a dedicated strobe rather than fighting this one.</p>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section id="pedal" class="pad" data-c="pitch">
+  <div class="eyebrow">Expansion</div>
+  <h2>Expression pedal and external switches</h2>
+  <p class="lede">One jack, four possible things plugged into it. This is where the two stage setup catches everyone.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 250" role="img" aria-label="Wiring options for the EXP and FS jack">
+      <g font-family="IBM Plex Mono, monospace" font-size="10.5">
+        <rect x="20" y="96" width="150" height="58" rx="5" fill="#1C1E25" stroke="#4A505C"/>
+        <text x="95" y="120" text-anchor="middle" fill="#EDEBE6" font-size="11">EXP 1/2</text>
+        <text x="95" y="138" text-anchor="middle" fill="#9AA0AC" font-size="10">FS 7/8 JACK</text>
+
+        <path d="M170 125 L250 125" stroke="#575E6B" stroke-width="2"/>
+        <circle cx="258" cy="125" r="7" fill="none" stroke="#9B5CF6" stroke-width="2"/>
+        <text x="272" y="112" fill="#C6A8FB" font-size="10" letter-spacing="1">TRS Y CABLE SPLITS TIP AND RING</text>
+
+        <path d="M266 125 L330 62 M266 125 L330 188" stroke="#575E6B" stroke-width="2"/>
+
+        <rect x="336" y="34" width="230" height="56" rx="5" fill="#1C1E25" stroke="#9B5CF6"/>
+        <text x="352" y="56" fill="#EDEBE6">TIP</text>
+        <text x="400" y="56" fill="#C6A8FB">EXP 1 or FS 7</text>
+        <text x="352" y="76" fill="#9AA0AC" font-size="9.5">Wah, Pitch Wham, Poly Wham</text>
+
+        <rect x="336" y="160" width="230" height="56" rx="5" fill="#1C1E25" stroke="#9B5CF6"/>
+        <text x="352" y="182" fill="#EDEBE6">RING</text>
+        <text x="400" y="182" fill="#C6A8FB">EXP 2 or FS 8</text>
+        <text x="352" y="202" fill="#9AA0AC" font-size="9.5">Volume, Pan</text>
+
+        <path d="M566 62 L640 125 M566 188 L640 125" stroke="#575E6B" stroke-width="2"/>
+        <rect x="646" y="70" width="230" height="112" rx="5" fill="#0A1014" stroke="#E8C020"/>
+        <text x="662" y="94" fill="#F4E7A8" font-size="10" letter-spacing="1">TWO PLACES TO SET, BOTH REQUIRED</text>
+        <text x="662" y="118" fill="#EDEBE6" font-size="9.5">1. Preferences page 2</text>
+        <text x="676" y="134" fill="#9AA0AC" font-size="9.5">EXP FS Tip &#8594; FS7</text>
+        <text x="676" y="148" fill="#9AA0AC" font-size="9.5">EXP FS Ring &#8594; FS8</text>
+        <text x="662" y="168" fill="#EDEBE6" font-size="9.5">2. Footswitches page 2, set function</text>
+      </g>
+    </svg>
+    <figcaption>Set only the first and the switches do nothing. Set only the second and the jack is still expecting a pedal. Momentary switches only, never latching. Plug in with the unit powered off so the tip and ring setting does not flip on you.</figcaption>
+  </figure>
+
+  <h3>What gets assigned automatically</h3>
+  <p>Add a Wah or Pitch Wham block and it binds itself to EXP 1. Add a Volume Pedal or Pan block and it binds to EXP 2. If you use the Mission SP1-L6H, its toe switch flips between the two.</p>
+
+  <h3>Placement, and why it changes the feel</h3>
+  <div class="grid g2">
+    <div class="panel">
+      <h4 style="margin-top:0;color:var(--pitch)">Volume before the amp</h4>
+      <p style="font-size:14.5px;color:var(--ink-dim);margin:0">Rolling back cleans up the breakup, exactly like your guitar's volume knob. This is the musical choice and what most players set. Many cap the toe down max around 92% so there is still travel to push into saturation.</p>
+    </div>
+    <div class="panel">
+      <h4 style="margin-top:0;color:var(--pitch)">Volume after the amp</h4>
+      <p style="font-size:14.5px;color:var(--ink-dim);margin:0">A clean master fader that does not touch tone at all. Correct for swells and for a stage volume control that will not change your sound.</p>
+    </div>
+  </div>
+  <p style="margin-top:16px">Wah goes early, before drive and amp, because it needs to interact with the raw signal. After distortion it turns harsh and loses expression.</p>
+
+  <h3>Beyond wah and volume</h3>
+  <ul class="plain">
+    <li>Auto engage a wah by pedal position. In Bypass Assign, set the block to engage past heel down and bypass on return. Different Position values per block means one pedal turns some things on and others off across its travel.</li>
+    <li>Crossfade parallel paths by putting the Split A/B Route To parameter on the pedal.</li>
+    <li>Put delay or reverb Mix or feedback on it for swells instead of another wah you never use.</li>
+    <li>Stack several parameters on one pedal for a graduated rhythm to lead move: volume up, mids up, delay feedback up, all in one sweep.</li>
+  </ul>
+
+  <div class="call go">
+    <span class="tag">Best use of two external switches</span>
+    <p>Put <strong>Snapshot up and down on FS7 and FS8</strong>. That frees all six onboard switches for blocks, which is the single biggest capacity gain available to the XL. Each switch can hold up to eight assignments if you need more.</p>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section id="rebuild" class="pad" data-c="amp">
+  <div class="eyebrow">Half two</div>
+  <h2>The rebuild</h2>
+  <p class="lede">Your instinct is right. 128 factory presets built to demo 300 models will never be a rig, and their volume scatter is not a bug you can EQ around. But there is a correct order of operations, and one step you cannot skip.</p>
+
+  <div class="call stop">
+    <span class="tag">Do this before you touch anything</span>
+    <p>Open HX Edit, <code class="path">File &gt; Create Backup</code>, save the .hxb somewhere you will find it in two years. Then separately drag any factory presets you might ever want onto your desktop as .hlx files.</p>
+    <p>Why both: restoring your backup later brings back the <strong>old</strong> factory presets, not the current ones. And HX Stomp XL does not support Bundle files, so preset by preset export is your only granular path. HX Edit can also pull individual items out of a backup without overwriting the unit, which is your escape hatch if you regret a wipe.</p>
+  </div>
+
+  <div class="stage">
+    <div class="num">01</div>
+    <div class="body">
+      <h3>Get current, then reset once</h3>
+      <p>Update to 3.80 or later through HX Edit. Then do one factory reset so you are starting from the improved factory presets and the newer cab engine rather than whatever shipped in the box. Firmware 3.50 rebuilt cabs and impulse responses to use roughly 66 to 80 percent less DSP than the old hybrid versions, which materially changes what fits in eight blocks.</p>
+      <p><strong>On the XL the reset combination is footswitches C and D held while powering on.</strong> Not 2 and 3, which is the smaller HX Stomp. People miss this constantly and conclude their unit will not reset.</p>
+      <div class="call stop" style="margin:14px 0 0">
+        <span class="tag">Verify before you hold anything down</span>
+        <p>Line 6 publishes several reset combinations and they do different things. Some keep your IRs, some erase them. Check the current Knowledge Base entry for your exact firmware before you commit, because there is no undo on the IR library.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="stage">
+    <div class="num">02</div>
+    <div class="body">
+      <h3>Set the globals before the first preset</h3>
+      <p>These are per unit, not per preset, so getting them right first means every preset you build inherits sane behavior.</p>
+      <ul class="tight">
+        <li><strong>Output level.</strong> Line for FRFR, monitors, or a DI to front of house. Instrument for the front of a real amp.</li>
+        <li><strong>Send and Return level.</strong> Instrument for stompboxes in the loop. Line only if your amp's loop actually runs at line level.</li>
+        <li><strong>Guitar In Pad.</strong> On if you have hot pickups. Without it you hit the amp models harder than they were voiced to be hit, and everything breaks up early.</li>
+        <li><strong>Input impedance.</strong> Leave on Auto so it mirrors whatever block is first, the way a real pedal loads your pickups.</li>
+        <li><strong>Snapshot Edits to Discard, Snapshot Reselect to Toggle, Tap Tempo Pitch to Transparent.</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="stage">
+    <div class="num">03</div>
+    <div class="body">
+      <h3>Build one template and never build from scratch again</h3>
+      <p>This is the highest leverage step in the whole project. Make a single preset that fixes everything structural, then duplicate it for every new sound.</p>
+      <p>The template locks: input and gate settings, output level, standard block order, <strong>which switch means what</strong>, what each of the four snapshots means, and your standard controller assignments. On a dark stage you need FS2 to mean the same thing in every preset on the unit, and the only way that happens is if you never start from a blank.</p>
+      <p>Two mechanisms make this repeatable. <strong>Favorites</strong> saves a fully dialed block with its settings and assignments so you can drop your boost or your ambient reverb into any preset in one move, and they export as .fav files. <strong>User Model Defaults</strong> changes what a model looks like every time you insert it, so your go to delay starts at your settings instead of Line 6's. Build both libraries as you go.</p>
+    </div>
+  </div>
+
+  <div class="stage">
+    <div class="num">04</div>
+    <div class="body">
+      <h3>Design in HX Edit, judge on the hardware</h3>
+      <p>Exactly the split you proposed. HX Edit is where library work happens: reordering by drag, copy and paste of blocks between presets, renaming, batch export. The hardware is where you decide whether it needs more tremolo, because a 2.4 inch screen is a bad place to organize 128 slots and a computer is a bad place to judge a tone at volume.</p>
+      <p>One structural note: presets cannot be deleted into emptiness. There are 128 fixed slots and you overwrite them. A wipe is really writing your own content or blanks over the top, so build downward from 01A and stop when you run out of ideas worth keeping.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section id="levels" class="pad" data-c="dist">
+  <div class="eyebrow">The fix for your loudest complaint</div>
+  <h2>Level matching and gain staging</h2>
+
+  <div class="call go">
+    <span class="tag">The control you are looking for</span>
+    <p><strong>Channel Volume, not Master.</strong> Ben Adrian, the Line 6 engineer who models the amps, put it plainly: Channel Volume is always a flat, post amp level control, like a fader on a console. It sits inside the amp block but is not tied to the amp's tonality. Master behaves like a real amp's master volume, so turning it up adds power amp saturation and changes the sound.</p>
+    <p>So: <strong>Channel Volume is your leveling fader. Master is a tone control.</strong> That distinction alone fixes most preset volume scatter.</p>
+  </div>
+
+  <h3>The method</h3>
+  <ol>
+    <li>Pick your most used preset, usually the rhythm crunch, and call it the reference. Set its Channel Volume around 10 if it is your cleanest anchor.</li>
+    <li>Play at real performance volume through the rig you actually use. Not headphones at 2am.</li>
+    <li>Match every other preset to the reference with Channel Volume.</li>
+    <li><strong>Match the clean part of each preset, not the distorted part.</strong> Distortion compresses and lies to your ear.</li>
+    <li>Use a meter, a DAW, or pink noise as a sanity check, never as the verdict.</li>
+  </ol>
+
+  <div class="call">
+    <span class="tag">Why the meter disagrees with your ears</span>
+    <p>The output indicators show peak level, not perceived loudness. A high gain preset with the same peak as a clean one will sound louder because it is compressed, and a mid forward preset sounds louder than a scooped one at identical dB. Expect to set high gain presets slightly lower by the meter so they sit right in the room.</p>
+  </div>
+
+  <h3>Where clipping actually comes from</h3>
+  <ul class="plain">
+    <li>Leave per block <strong>Level at 0.0 dB</strong>. Boosting Level on several blocks in a row is the most common way people build digital clipping into a preset.</li>
+    <li>The Input, Output, Send and Return blocks carry signal present and clip indicators. Green is signal, red is too hot. If the Output block goes red, pull down Channel Volume or block Levels, do not just turn down the volume knob.</li>
+    <li>Use the Output block Level and Pan as a final trim, after Channel Volume, not instead of it.</li>
+  </ul>
+
+  <h3>Global EQ, and what it is not for</h3>
+  <p>Three parametric bands plus low and high cut, applied to everything at the output stage. It exists to compensate for a room or a playback system, and it is the right tool when the venue is boomy. It is the wrong tool for fixing a preset, because a preset problem follows you to the next room.</p>
+  <p>The detail that matters for you specifically: <strong>Global EQ is never heard on the Send, Digital or USB outputs.</strong> It cannot contaminate your recordings or your direct feed. Reset it from the Menu, Global EQ, <span class="btn">ACTION</span>, Reset EQ, OK.</p>
+</section>
+
+<hr class="rule">
+
+<section id="taste" class="pad" data-c="verb">
+  <div class="eyebrow">The cheese problem</div>
+  <h2>Dialing effects so they do not embarrass you</h2>
+  <p class="lede">Almost every cheesy modeler tone is one of two mistakes: Mix too high, or no filtering on the wet signal. Both are one knob away from fixed.</p>
+
+  <h3>Mix is the honesty control</h3>
+  <p>Mix is wet against dry. Level is how loud the block is. Reaching for Level when you mean Mix is how people end up with a reverb that sounds like a parking garage bolted onto a guitar. These are ranges working players land on in a full band mix, not laws:</p>
+
+  <table>
+    <thead><tr><th>Effect</th><th>Mix in a band mix</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><span class="swatch" style="background:var(--verb)"></span>Reverb</td><td>15 to 30%</td><td>Common pro approach is decay all the way up with low Mix and generous filtering, rather than short decay at high Mix. It will sound too quiet alone. Trust it in context.</td></tr>
+      <tr><td><span class="swatch" style="background:var(--delay)"></span>Delay</td><td>20 to 25%</td><td>For supportive rhythmic delay. Higher only when the repeat is the part.</td></tr>
+      <tr><td><span class="swatch" style="background:var(--mod)"></span>Chorus, flange, phase</td><td>Modest</td><td>Extreme mixes are the classic tell. Around 50% depth is a deliberate genre choice, not a default.</td></tr>
+      <tr><td><span class="swatch" style="background:var(--pitch)"></span>Ring mod and similar</td><td>30 to 50%</td><td>At 100% it is a novelty. Scaled back it becomes a usable broken radio texture.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Cut the wet signal so it stops fighting you</h3>
+  <p>Most delay and reverb blocks have Low Cut and High Cut. This is the single most underused pair of parameters on the platform. Starting points that working players use:</p>
+  <ul class="plain">
+    <li><strong>Delays:</strong> Low Cut around 200 Hz, High Cut around 4 kHz. Darkening the repeats puts them behind your pick attack instead of competing with it.</li>
+    <li><strong>Large reverbs:</strong> Low Cut around 500 Hz, High Cut around 5 kHz. Kills the mud under the band and the hiss on top.</li>
+  </ul>
+
+  <h3>The rest of the taming kit</h3>
+  <dl class="spec">
+    <dt>Headroom</dt>
+    <dd>On some mod and delay blocks. Negative values add grit the way the original pedal did, positive values clean it up. At 0 dB the model behaves like the hardware.</dd>
+    <dt>Trails</dt>
+    <dd>On means repeats and tails ring out when you bypass the block or change snapshot. This is what makes snapshot changes sound seamless. Turn it on deliberately.</dd>
+    <dt>Spread</dt>
+    <dd>On stereo delays, 0 is centered and 10 is full left to right. On modulated stereo delays it sets LFO phase relationship instead, 0 in sync and 10 fully opposed.</dd>
+    <dt>Mono over stereo</dt>
+    <dd>A stereo block costs roughly twice the DSP of the mono version, and a dual cab roughly twice a single. If your rig is mono there is no audible reason to pay that. Free the DSP.</dd>
+    <dt>Legacy models</dt>
+    <dd>The Legacy subcategory holds the M13, M9, DL4 era models. They generally cost less DSP and are sometimes the better musical choice. Newer is not automatically better here.</dd>
+  </dl>
+
+  <h3>Order changes the answer</h3>
+  <ul class="plain">
+    <li><strong>Time based after the amp</strong> is clean and studio like. This is the default and usually correct.</li>
+    <li><strong>Delay before the amp</strong> pushes the repeats through the gain stage so they compress and blur. More organic, washy under high gain. This is the Vox and Edge territory.</li>
+    <li><strong>EQ before the amp</strong> shapes what hits it. Pete Thorn's documented trick is cutting everything below 500 Hz going into a high gain amp to clear the mud. <strong>EQ after</strong> shapes the final voicing.</li>
+    <li><strong>Gates</strong> go at the input for the whole chain, or immediately after a high gain drive to catch that drive's own noise.</li>
+    <li><strong>One amp into a dual cab or an IR</strong> beats two full Amp plus Cab blocks, for width at a fraction of the DSP.</li>
+  </ul>
+</section>
+
+<hr class="rule">
+
+<section id="architecture" class="pad" data-c="cab">
+  <div class="eyebrow">The plan</div>
+  <h2>Eight presets that cover everything</h2>
+  <p class="lede">You said five to ten, each nailing an amp character and then milked with different chain ingredients. Here is that, built as one bank so it lives entirely on the A, B, C, D switches with no bank changing on stage.</p>
+
+  <div class="bank" style="margin-top:24px">
+    <table>
+      <thead><tr><th>Slot</th><th>Character</th><th>Anchor model</th><th>What the four snapshots do</th></tr></thead>
+      <tbody>
+        <tr><td>01A</td><td><span class="swatch" style="background:var(--dyn)"></span>Glassy clean</td><td>US Deluxe or Archetype Clean</td><td>Dry, chorus and plate, slap delay, big ambient wash</td></tr>
+        <tr><td>01B</td><td><span class="swatch" style="background:var(--dist)"></span>Edge of breakup</td><td>Line 6 Litigator or Divided Duo</td><td>Clean edge, pushed, boosted lead, tremolo texture</td></tr>
+        <tr><td>01C</td><td><span class="swatch" style="background:var(--amp)"></span>Classic crunch</td><td>Brit Plexi or Brit 2204</td><td>Rhythm, thicker rhythm, lead with delay, feedback swell</td></tr>
+        <tr><td>01D</td><td><span class="swatch" style="background:var(--filter)"></span>Modern gain</td><td>Placater Dirty or Cali IV</td><td>Tight chug, scooped, lead, ambient lead</td></tr>
+        <tr><td>02A</td><td><span class="swatch" style="background:var(--mod)"></span>Chime and jangle</td><td>Essex A30</td><td>Clean, vibe, delay into the amp, wide stereo mod</td></tr>
+        <tr><td>02B</td><td><span class="swatch" style="background:var(--pitch)"></span>Texture and synth</td><td>Litigator plus a poly block</td><td>Octave, shimmer, 12 string, pad</td></tr>
+        <tr><td>02C</td><td><span class="swatch" style="background:var(--verb)"></span>Bass</td><td>Ampeg SVT or B-15NF</td><td>Fingerstyle, pick, dirt blend, octave</td></tr>
+        <tr><td>02D</td><td><span class="swatch" style="background:var(--util)"></span>Keys and line input</td><td>Input set to Return L/R</td><td>Dry, plate, tape delay, full ambient</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin-top:18px;color:var(--ink-faint);font-size:14px">Anchor models are a starting shortlist drawn from what experienced players reach for, not gospel. Litigator earns its place twice because it costs little DSP and stretches from clean to crunch on Drive alone, which is exactly what a snapshot rig wants.</p>
+
+  <h3>Spending eight blocks well</h3>
+  <figure class="diagram">
+    <svg viewBox="0 0 900 132" role="img" aria-label="A typical eight block chain">
+      <g font-family="IBM Plex Mono, monospace" font-size="9.5">
+        <rect x="14" y="42" width="94" height="46" rx="4" fill="#1C1E25" stroke="#22C7C7"/><text x="61" y="70" text-anchor="middle" fill="#8FE6E6">GATE</text>
+        <rect x="122" y="42" width="94" height="46" rx="4" fill="#1C1E25" stroke="#E8C020"/><text x="169" y="70" text-anchor="middle" fill="#F4E7A8">DRIVE</text>
+        <rect x="230" y="42" width="94" height="46" rx="4" fill="#1C1E25" stroke="#E03A3A"/><text x="277" y="70" text-anchor="middle" fill="#F09A9A">AMP</text>
+        <rect x="338" y="42" width="94" height="46" rx="4" fill="#1C1E25" stroke="#FF5FA2"/><text x="385" y="70" text-anchor="middle" fill="#FFA8CC">CAB or IR</text>
+        <rect x="446" y="42" width="94" height="46" rx="4" fill="#1C1E25" stroke="#F08A2C"/><text x="493" y="70" text-anchor="middle" fill="#F7BE86">EQ</text>
+        <rect x="554" y="42" width="94" height="46" rx="4" fill="#1C1E25" stroke="#3B84E8"/><text x="601" y="70" text-anchor="middle" fill="#9CC3F5">MOD</text>
+        <rect x="662" y="42" width="94" height="46" rx="4" fill="#1C1E25" stroke="#35C86A"/><text x="709" y="70" text-anchor="middle" fill="#8EE3AF">DELAY</text>
+        <rect x="770" y="42" width="94" height="46" rx="4" fill="#1C1E25" stroke="#E5761B"/><text x="817" y="70" text-anchor="middle" fill="#F3B27A">REVERB</text>
+        <g stroke="#3A3F4B" stroke-width="1.5">
+          <path d="M108 65 L122 65"/><path d="M216 65 L230 65"/><path d="M324 65 L338 65"/><path d="M432 65 L446 65"/><path d="M540 65 L554 65"/><path d="M648 65 L662 65"/><path d="M756 65 L770 65"/>
+        </g>
+        <text x="14" y="24" fill="#6C727E" letter-spacing="2">EIGHT BLOCKS, ALL SPENT</text>
+        <text x="14" y="118" fill="#6C727E">Drop one to add a second drive or a second delay and let snapshots choose between them.</text>
+      </g>
+    </svg>
+  </figure>
+
+  <div class="call stop">
+    <span class="tag">What eats your DSP</span>
+    <p>Amps, impulse responses and reverbs are expensive. The polyphonic pitch models are in another category entirely: Poly Sustain, Poly Pitch, Poly Wham, Poly Capo, 12 String and Poly Detune can each consume <strong>up to half a preset's available DSP</strong>. If you want one, plan the preset around it from the start rather than discovering the ceiling at block six. Ben Vesco maintains per model DSP tables if you want the exact numbers.</p>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section id="studio" class="pad" data-c="filter">
+  <div class="eyebrow">Recording</div>
+  <h2>The studio side</h2>
+  <p class="lede">You already record. This part of the box is worth more to you than the footswitches, and the routing is the only confusing bit.</p>
+
+  <dl class="spec">
+    <dt>USB 1/2</dt>
+    <dd>Processed signal, and the default monitoring path. What you hear by default is hardware monitored from here.</dd>
+    <dt>USB 3/4</dt>
+    <dd>Additional monitoring returns. Point your Output block here when you want to hear DAW plugins on the armed track instead of the hardware's own monitor path.</dd>
+    <dt>USB 5/6</dt>
+    <dd>The only USB pair selectable as an <strong>Input block source</strong>. This is your reamp return path. 1/2 and 3/4 are monitoring only and cannot feed the chain.</dd>
+    <dt>Dry DI</dt>
+    <dd>Recorded simultaneously with the processed tone on a separate stream, so one pass gives you both a committed sound and something to reamp later.</dd>
+    <dt>Windows driver</dt>
+    <dd>Install the Line 6 Helix ASIO driver and select it in your DAW. Set the buffer as low as runs clean. Note that Windows allows only one active ASIO device, which complicates running the XL alongside your other interface.</dd>
+    <dt>Helix Native</dt>
+    <dd>Owners get a discount, and presets move between hardware and plugin. For reamping and detailed editing this is usually less painful than routing audio back through the box.</dd>
+  </dl>
+
+  <h3>Reamping, the short version</h3>
+  <ol class="tight">
+    <li>Record the processed tone and the dry DI on separate tracks in one pass.</li>
+    <li>Route the dry track's output to USB 5/6.</li>
+    <li>Set the XL's Input block source to USB 5/6.</li>
+    <li>Record the result back on a new track.</li>
+  </ol>
+
+  <h3>Four cable method and hybrid rigs</h3>
+  <p>4CM works, with one requirement people forget: you must place a <code class="path">Send/Return &gt; Mono &gt; FX Loop</code> block at the point in the chain where your real amp's preamp belongs. Without it you get silence, not a bypassed loop. Factory presets starting with 4CM are wired for this and will not make sound otherwise.</p>
+  <p>For a hybrid rig where you want a real amp on stage and a modeled feed to the desk, put a Send block immediately before the Amp or Amp plus Cab block. The tap feeds your amp, the full modeled chain with cab or IR goes to front of house. Factory presets starting with BAS are built on this pattern.</p>
+
+  <div class="call info">
+    <span class="tag">Aux input, worth knowing</span>
+    <p>The Return jacks can be globally set as an always on stereo Aux In, and the Input block can be sourced from Return L/R. Between those two you have a path for the Nord, a drum machine, or anything else you want running through the effects without repatching. That is what 02D in the bank map above is for.</p>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section id="disagree" class="pad" data-c="util">
+  <div class="eyebrow">Honest accounting</div>
+  <h2>Where credentialed people disagree</h2>
+  <p class="lede">Presented as disputes rather than settled facts, because they are not settled.</p>
+
+  <div class="grid g2" style="margin-top:22px">
+    <div class="panel">
+      <h4 style="margin-top:0">Snapshots or stomps</h4>
+      <p style="font-size:14.5px;color:var(--ink-dim);margin:0">Joe Gore argues for snapshots on tap efficiency. Alex Strabala uses stomps for the 32 combination range and changes presets by hand. Neither is wrong, and the split tracks how choreographed their gigs are.</p>
+    </div>
+    <div class="panel">
+      <h4 style="margin-top:0">Wipe or overwrite</h4>
+      <p style="font-size:14.5px;color:var(--ink-dim);margin:0">Eric Klein's explanations of the reset mechanics suggest factory resets exist mainly to refresh factory content after updates. Plenty of players never wipe and simply build downward from 01A. Wiping is optional.</p>
+    </div>
+    <div class="panel">
+      <h4 style="margin-top:0">Amp plus Cab, or Amp plus IR</h4>
+      <p style="font-size:14.5px;color:var(--ink-dim);margin:0">IRs often cost less DSP and third party ones are frequently more polished. Stock cab blocks give you real time mic and distance control. Genuine split, and after the 3.50 cab engine rewrite the DSP argument is weaker than it was.</p>
+    </div>
+    <div class="panel">
+      <h4 style="margin-top:0">How much reverb</h4>
+      <p style="font-size:14.5px;color:var(--ink-dim);margin:0">Defended positions run from roughly 15% to 30% Mix in a mix. That spread is genre and taste, not a fact anyone can settle for you.</p>
+    </div>
+  </div>
+
+  <h3>What is documented versus what is opinion</h3>
+  <p><strong>Documented behavior,</strong> from the owner's manual, HelixHelp and the Line 6 release notes: every button sequence in this document, what snapshots store, DSP costs, reset combinations, Global EQ routing, tuner specifications, the firmware timeline.</p>
+  <p><strong>Opinion, attributed:</strong> the Mix percentages, the cut frequencies, the anchor amp shortlist, wipe versus overwrite, snapshot versus stomp philosophy. Ben Adrian's Channel Volume guidance sits in between, phrased as advice but coming from the engineer who built the models.</p>
+
+  <h3>Firmware notes that matter</h3>
+  <ul class="plain tight">
+    <li>The XL shipped March 2021. Its manual is labeled 3.0 but it launched into the 3.10 era.</li>
+    <li>Snapshot Reselect, the row arrangement options and snapshot return behavior all arrived in <strong>2.80</strong> in 2019, so they were present from day one on your unit.</li>
+    <li><strong>3.50</strong>, November 2022, rebuilt the cab engine. New cabs and 1024 point IRs use roughly 66% less DSP than the old hybrid versions, and 2048 point IRs roughly 80% less. If your mental model of what fits in eight blocks comes from older advice, update it.</li>
+    <li><strong>3.80</strong>, November 2024, is current: six amps, four cabs, one effect added.</li>
+  </ul>
+</section>
+
+<hr class="rule">
+
+<section id="verify" class="pad" data-c="amp">
+  <div class="eyebrow">Before you trust this</div>
+  <h2>Check these against your own unit</h2>
+  <ul class="plain">
+    <li><strong>Reset combinations.</strong> C and D on the XL for factory restore, but the wider matrix of globals only, presets only and full wipe is documented for the HX Stomp family generally. Confirm against the current Knowledge Base for your firmware. A wrong combination can take your IR library with it.</li>
+    <li><strong>The four center switch letters.</strong> The column logic in the control map is solid. Which of A, B, C, D sits on the front row versus the back is silkscreened on your pedal, so read it there rather than trusting a diagram.</li>
+    <li><strong>Numeric effect settings.</strong> Starting points from experienced players, not specifications. Expect band context values to sound thin when you play alone.</li>
+    <li><strong>The MODE switch still cannot be locked</strong> as of 3.80. If that changes in a later firmware the release notes will say so.</li>
+    <li><strong>Power off before plugging anything into the EXP and FS jack.</strong> Live insertion can flip the tip and ring setting.</li>
+  </ul>
+</section>
+
+<footer class="pad">
+  <p>Sources behind this document, in rough order of authority: the HX Stomp XL Owner's Manual and Cheat Sheet, Line 6 release notes and Knowledge Base, HelixHelp by Ben Vesco, forum statements from Eric Klein and Ben Adrian of Yamaha Guitar Group, published settings guidance from working preset designers including Alex Strabala and Jason Sadites, documented rig details from Pete Thorn, and reviews in Guitar World, MusicRadar and Guitarist.</p>
+  <p class="src">Compiled August 2026 &nbsp;&#183;&nbsp; Firmware 3.80 &nbsp;&#183;&nbsp; Verify reset combinations before use</p>
+</footer>
+
+<script>
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('.rail a'));
+  var pairs = [];
+  links.forEach(function(a){
+    var el = document.querySelector(a.getAttribute('href'));
+    if(el) pairs.push({link:a, el:el});
+  });
+  if(!pairs.length) return;
+
+  function paint(active){
+    pairs.forEach(function(p){
+      var on = p === active;
+      p.link.style.color = on ? 'var(--ink)' : '';
+      p.link.style.background = on ? 'rgba(255,255,255,.05)' : '';
+      var d = p.link.querySelector('.dot');
+      if(d) d.style.boxShadow = on ? '0 0 9px currentColor' : '';
+    });
+  }
+
+  var ticking = false;
+  function update(){
+    ticking = false;
+    var line = window.innerHeight * 0.3, best = null;
+    pairs.forEach(function(p){
+      if(p.el.getBoundingClientRect().top <= line) best = p;
+    });
+    paint(best || pairs[0]);
+  }
+  function onScroll(){
+    if(ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(update);
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll, {passive:true});
+  update();
+})();
+</script>
+
+</main>
+</div>
+</body>
+</html>

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Savernake Gazette: The Making of The King of Limbs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=Oswald:wght@400;500;600&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#E9E3D2;
+    --paper-deep:#DFD7C1;
+    --ink:#221D15;
+    --ink-soft:#4A4335;
+    --bloom-blue:#2F6DAE;
+    --feral-red:#B5311F;
+    --chartreuse:#8E9A15;
+    --ochre:#C08428;
+    --rule:1px solid var(--ink);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);
+    background-image:
+      radial-gradient(ellipse at 18% 8%, rgba(47,109,174,.05), transparent 42%),
+      radial-gradient(ellipse at 85% 90%, rgba(181,49,31,.05), transparent 40%),
+      repeating-linear-gradient(0deg, rgba(34,29,21,.014) 0 2px, transparent 2px 4px);
+    color:var(--ink);
+    font-family:"Newsreader", Georgia, "Times New Roman", serif;
+    font-size:17px;
+    line-height:1.62;
+  }
+  ::selection{background:var(--ochre);color:var(--paper)}
+  .sheet{max-width:1060px;margin:0 auto;padding:0 22px 90px}
+
+  /* ---------- masthead ---------- */
+  .topbar{
+    display:flex;justify-content:space-between;gap:12px;
+    border-top:3px double var(--ink);border-bottom:var(--rule);
+    padding:6px 2px;margin-top:26px;
+    font-family:"Oswald",sans-serif;font-size:.68rem;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--ink-soft);
+  }
+  .nameplate{
+    text-align:center;padding:26px 10px 6px;
+  }
+  .nameplate h1{
+    font-family:"UnifrakturMaguntia","Newsreader",serif;
+    font-weight:400;
+    font-size:clamp(2.6rem,8.4vw,5.4rem);
+    letter-spacing:.01em;line-height:1;
+  }
+  .nameplate .est{
+    font-family:"Oswald",sans-serif;font-size:.66rem;letter-spacing:.3em;
+    text-transform:uppercase;color:var(--ink-soft);margin-top:10px;
+  }
+  .deckline{
+    border-top:var(--rule);border-bottom:3px double var(--ink);
+    margin-top:16px;padding:10px 8px;text-align:center;
+    font-family:"Oswald",sans-serif;font-weight:500;font-size:clamp(.78rem,2vw,.95rem);
+    letter-spacing:.22em;text-transform:uppercase;
+  }
+  .deckline b{color:var(--feral-red);font-weight:600}
+  .frieze{display:block;width:100%;height:auto;margin:4px 0 0}
+  .contents{
+    display:flex;flex-wrap:wrap;justify-content:center;gap:4px 0;
+    border-top:var(--rule);border-bottom:var(--rule);
+    padding:8px 4px;margin-bottom:44px;
+    font-family:"Oswald",sans-serif;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+  }
+  .contents a{color:var(--ink);text-decoration:none;padding:2px 10px}
+  .contents a:hover,.contents a:focus-visible{color:var(--paper);background:var(--ink);outline:none}
+  .contents span{color:var(--ochre)}
+
+  /* ---------- sections ---------- */
+  section{margin:0 0 58px}
+  .kicker{
+    font-family:"Oswald",sans-serif;font-weight:600;font-size:.72rem;
+    letter-spacing:.26em;text-transform:uppercase;
+    display:inline-block;padding:3px 10px;color:var(--paper);
+    margin-bottom:14px;
+  }
+  .k-blue{background:var(--bloom-blue)} .k-red{background:var(--feral-red)}
+  .k-green{background:var(--chartreuse)} .k-ochre{background:var(--ochre)}
+  h2{
+    font-family:"Newsreader",serif;font-weight:700;
+    font-size:clamp(1.7rem,4.5vw,2.5rem);line-height:1.08;
+    letter-spacing:-.01em;margin-bottom:10px;
+    text-wrap:balance;
+  }
+  .standfirst{
+    font-size:1.12rem;font-style:italic;color:var(--ink-soft);
+    max-width:46em;margin-bottom:22px;line-height:1.5;
+  }
+  .duo{display:grid;grid-template-columns:minmax(0,2.05fr) minmax(0,1fr);gap:36px;align-items:start}
+  .prose p{margin-bottom:1em}
+  .prose p:last-child{margin-bottom:0}
+  .cols .prose-inner{column-count:2;column-gap:34px;column-rule:1px solid rgba(34,29,21,.28)}
+  .lede::first-letter{
+    font-family:"Newsreader",serif;font-weight:700;
+    float:left;font-size:3.6em;line-height:.82;
+    padding:4px 8px 0 0;color:var(--feral-red);
+  }
+  a{color:var(--bloom-blue)}
+
+  /* ---------- sidebars ---------- */
+  .box{
+    border:2px solid var(--ink);background:var(--paper-deep);
+    padding:16px 18px 18px;box-shadow:5px 5px 0 rgba(34,29,21,.16);
+  }
+  .box + .box{margin-top:26px}
+  .box h3{
+    font-family:"Oswald",sans-serif;font-weight:600;font-size:.74rem;
+    letter-spacing:.24em;text-transform:uppercase;
+    border-bottom:var(--rule);padding-bottom:8px;margin-bottom:12px;
+  }
+  .mono{font-family:"Courier Prime",monospace;font-size:.82rem;line-height:1.55}
+  .chrono div{padding:6px 0;border-bottom:1px dotted rgba(34,29,21,.4)}
+  .chrono div:last-child{border-bottom:none}
+  .chrono b{display:block;color:var(--feral-red);font-size:.78rem;letter-spacing:.04em}
+
+  .pull{
+    border-top:3px double var(--ink);border-bottom:3px double var(--ink);
+    margin:30px 0;padding:20px 8px;
+    font-size:clamp(1.25rem,3vw,1.6rem);line-height:1.3;font-weight:600;
+    text-align:center;position:relative;
+  }
+  .pull em{font-style:italic}
+  .pull .who{
+    display:block;margin-top:10px;font-family:"Oswald",sans-serif;font-weight:500;
+    font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft);
+  }
+  .wash{position:relative}
+  .wash::before{
+    content:"";position:absolute;inset:8px 12% ;z-index:-1;border-radius:50%;
+    filter:blur(26px);opacity:.28;
+  }
+  .wash.w-blue::before{background:var(--bloom-blue)}
+  .wash.w-red::before{background:var(--feral-red)}
+  .wash.w-green::before{background:var(--chartreuse)}
+
+  /* ---------- table ---------- */
+  table{width:100%;border-collapse:collapse;font-size:.92rem;margin-top:8px}
+  caption{
+    caption-side:top;text-align:left;font-family:"Oswald",sans-serif;font-size:.7rem;
+    letter-spacing:.22em;text-transform:uppercase;padding-bottom:8px;color:var(--ink-soft);
+  }
+  th{
+    font-family:"Oswald",sans-serif;font-weight:600;font-size:.68rem;
+    letter-spacing:.16em;text-transform:uppercase;text-align:left;
+    border-top:3px double var(--ink);border-bottom:var(--rule);padding:8px 10px;
+  }
+  td{border-bottom:1px solid rgba(34,29,21,.35);padding:9px 10px;vertical-align:top}
+  td:first-child{font-weight:700;white-space:nowrap}
+  tr:last-child td{border-bottom:3px double var(--ink)}
+  .tag{
+    font-family:"Oswald",sans-serif;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;
+    padding:1px 7px;color:var(--paper);white-space:nowrap;
+  }
+  .t-loop{background:var(--feral-red)} .t-song{background:var(--bloom-blue)} .t-hybrid{background:var(--ochre)}
+
+  /* ---------- turntable diagram ---------- */
+  .method-fig{margin:34px 0 8px;border:2px solid var(--ink);background:var(--paper-deep);
+    box-shadow:5px 5px 0 rgba(34,29,21,.16);padding:20px}
+  .method-fig figcaption{
+    font-family:"Courier Prime",monospace;font-size:.78rem;color:var(--ink-soft);
+    border-top:1px dotted rgba(34,29,21,.5);margin-top:14px;padding-top:10px;
+  }
+  .record{animation:spin 14s linear infinite;transform-origin:170px 195px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @media (prefers-reduced-motion: reduce){.record{animation:none}}
+
+  hr.sep{border:none;border-top:3px double var(--ink);margin:0 0 58px}
+  footer{
+    border-top:3px double var(--ink);padding-top:16px;
+    font-family:"Courier Prime",monospace;font-size:.78rem;color:var(--ink-soft);
+    display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  }
+
+  @media (max-width:760px){
+    .duo{grid-template-columns:1fr}
+    .cols .prose-inner{column-count:1}
+    .topbar{font-size:.58rem}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <!-- ================= MASTHEAD ================= -->
+  <header>
+    <div class="topbar">
+      <span>Special Studio Edition</span>
+      <span>Oxfordshire &amp; Los Angeles</span>
+      <span>Price: &pound;6 (download)</span>
+    </div>
+    <div class="nameplate">
+      <h1>The Savernake Gazette</h1>
+      <p class="est">Named for the Wiltshire forest that keeps the actual King of Limbs, a thousand-year oak</p>
+    </div>
+    <div class="deckline">
+      A complete dossier on the making, release &amp; afterlife of <b>Radiohead's The King of Limbs</b> &middot; Sessions May 1909&hellip; correction, May 2009 &ndash; January 2011
+    </div>
+
+    <svg class="frieze" viewBox="0 0 1060 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A frieze of spectral bare trees with washes of colour, in the manner of the album artwork">
+      <defs><filter id="blur"><feGaussianBlur stdDeviation="14"/></filter></defs>
+      <ellipse cx="180" cy="95" rx="90" ry="40" fill="#2F6DAE" opacity=".30" filter="url(#blur)"/>
+      <ellipse cx="440" cy="75" rx="80" ry="38" fill="#8E9A15" opacity=".32" filter="url(#blur)"/>
+      <ellipse cx="690" cy="100" rx="85" ry="36" fill="#C08428" opacity=".32" filter="url(#blur)"/>
+      <ellipse cx="920" cy="80" rx="80" ry="40" fill="#B5311F" opacity=".28" filter="url(#blur)"/>
+      <g stroke="#221D15" stroke-width="3" fill="none" stroke-linecap="round">
+        <path d="M120 148 L128 84 M128 84 L104 52 M104 52 L92 40 M104 52 L116 34 M128 84 L152 48 M152 48 L146 30 M152 48 L168 38 M128 84 L138 60"/>
+        <path d="M340 148 L346 70 M346 70 L318 40 M318 40 L306 22 M318 40 L330 18 M346 70 L376 42 M376 42 L392 30 M376 42 L372 20 M346 70 L352 44"/>
+        <path d="M560 148 L554 88 M554 88 L528 58 M528 58 L512 48 M528 58 L534 34 M554 88 L582 52 M582 52 L600 44 M582 52 L578 28 M554 88 L560 62"/>
+        <path d="M780 148 L788 76 M788 76 L760 48 M760 48 L744 34 M760 48 L770 24 M788 76 L818 46 M818 46 L834 38 M818 46 L812 24 M788 76 L796 52"/>
+        <path d="M980 148 L974 92 M974 92 L950 64 M950 64 L938 50 M950 64 L958 40 M974 92 L1000 58 M1000 58 L1016 50 M1000 58 L994 34"/>
+      </g>
+      <g fill="#E9E3D2" stroke="#221D15" stroke-width="1.4">
+        <ellipse cx="126" cy="96" rx="4.5" ry="6"/><ellipse cx="345" cy="84" rx="4.5" ry="6"/>
+        <ellipse cx="556" cy="100" rx="4.5" ry="6"/><ellipse cx="786" cy="90" rx="4.5" ry="6"/>
+      </g>
+      <g fill="#221D15">
+        <circle cx="126" cy="97" r="1.7"/><circle cx="345" cy="85" r="1.7"/>
+        <circle cx="556" cy="101" r="1.7"/><circle cx="786" cy="91" r="1.7"/>
+      </g>
+      <line x1="0" y1="148.5" x2="1060" y2="148.5" stroke="#221D15" stroke-width="2"/>
+    </svg>
+
+    <nav class="contents" aria-label="Contents">
+      <a href="#prologue">Prologue</a><span>&#10045;</span>
+      <a href="#mindset">The Mindset</a><span>&#10045;</span>
+      <a href="#sessions">The Sessions</a><span>&#10045;</span>
+      <a href="#method">The Method</a><span>&#10045;</span>
+      <a href="#songs">The Songs</a><span>&#10045;</span>
+      <a href="#rooms">The Rooms</a><span>&#10045;</span>
+      <a href="#object">The Object</a><span>&#10045;</span>
+      <a href="#afterlife">The Afterlife</a>
+    </nav>
+  </header>
+
+  <!-- ================= PROLOGUE ================= -->
+  <section id="prologue">
+    <span class="kicker k-blue">Prologue &middot; 2008&ndash;2009</span>
+    <h2 class="wash w-blue">The Comedown After the Rainbow</h2>
+    <p class="standfirst">Before a note of The King of Limbs existed, Radiohead had talked themselves out of ever making a normal album again. The lead-up is a story of exhaustion with the format, and of a frontman falling hard for DJ culture.</p>
+    <div class="duo">
+      <div class="prose">
+        <p class="lede">By the time the In Rainbows tour wound down in South America in early 2009, Radiohead had spent the better part of two decades on the same wheel: two or three years grinding out a record, followed by a year and a half hauling it around the world. In Rainbows had been a triumph on both fronts, but it had also taken roughly two and a half fitful years to finish, and the band came off the road openly questioning whether the long-player, as a ritual, still made sense for them. Thom Yorke told The Believer in 2009 that the band was done, at least for now, with the drawn-out ordeal of making full albums, and imagined a future of singles, EPs, and things dropped without ceremony.</p>
+        <p>They tested that theory almost immediately. In August 2009 they put out two orphan tracks in quick succession: "Harry Patch (In Memory Of)," a Jonny Greenwood string arrangement supporting a Yorke vocal, released as a charity download days after the death of the last surviving British WWI infantryman, and "These Are My Twisted Words," a krautrock-leaning band jam given away free through their site. Both came from early sessions the band had quietly started in May 2009. Neither was promoted. That was the point: music as transmission rather than event.</p>
+        <p>The other current pulling at the record was Yorke's second life. His 2006 solo album The Eraser had pushed him deep into electronic production, and by 2009 he had a live band, soon to be named Atoms for Peace, that included Flea and Nigel Godrich and was built to make machine music sweat. Yorke and Godrich were spending real time in Los Angeles, orbiting the beat scene around Flying Lotus and the Low End Theory club, absorbing dubstep and UK bass, and DJing for fun. Yorke guested on Flying Lotus's Cosmogramma during this exact period, and his "Office Chart" playlists on Radiohead's Dead Air Space blog read like a bass-music syllabus: Burial, Modeselektor, Actress, and company. When the band regrouped, that listening came into the building with him.</p>
+      </div>
+      <aside>
+        <div class="box mono chrono">
+          <h3>Chronology, Pt. I</h3>
+          <div><b>Mar 2009</b>In Rainbows touring ends in South America</div>
+          <div><b>May 2009</b>First TKOL sessions begin, Oxfordshire</div>
+          <div><b>Aug 2009</b>"Harry Patch" and "These Are My Twisted Words" released as one-offs</div>
+          <div><b>Late 2009</b>Yorke and Godrich deep in LA DJ and beat-scene culture</div>
+          <div><b>Jan 2010</b>Three weeks at Drew Barrymore's LA house; Haiti benefit show</div>
+          <div><b>Feb 2010</b>Yorke solo debuts "Give Up the Ghost" and "Mouse Dog Bird" (later "Separator")</div>
+          <div><b>2010</b>Stop-start sessions; Selway releases Familial; Jonny scores Norwegian Wood</div>
+          <div><b>Jan 2011</b>Recording completed</div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- ================= MINDSET ================= -->
+  <section id="mindset">
+    <span class="kicker k-green">The Mindset</span>
+    <h2 class="wash w-green">No Guitars, No Grid: Hunting the Third Thing</h2>
+    <p class="standfirst">The band walked in with two prohibitions and one organizing principle. The prohibitions: no writing on guitars, no composing hunched over a laptop. The principle: rhythm runs the show.</p>
+    <div class="cols prose">
+      <div class="prose-inner">
+        <p>Jonny Greenwood put the brief in one sentence, telling Rolling Stone: <em>"We wanted a third thing, which involved playing and programming."</em> Guitars and chord sequences would drag them back toward songs they already knew how to write. Pure computer composition would produce music that was assembled rather than played, and they had already been to that country on Kid A and Amnesiac. The third thing had to keep human hands on real instruments while surrendering the arrangement decisions to machines, chance, and edit.</p>
+        <p>There was also a deliberate philosophy about what kind of object they were making. Stanley Donwood, embedded with the band as always, described In Rainbows as a definitive statement and said the new record was meant to be the opposite: something transitory, something that felt like it almost did not exist. Yorke called the finished thing "an expression of wildness and mutation," language borrowed from his environmental preoccupations, and framed the whole record as visual: forests, spirits, decay, growth. That mattered practically as well as thematically, because a record conceived as weather rather than architecture gives you permission to leave songs half-dissolved.</p>
+        <p>Ed O'Brien supplied the structural principle in an interview after release: rhythm, he said, is the king of limbs, the trunk everything else branches from. On previous records the song came first and the groove served it. Here the groove was the song's landlord. If a track could not survive as a rhythm bed before anyone sang on it, it did not get to exist. That inversion explains nearly every sonic decision that followed.</p>
+      </div>
+    </div>
+    <div class="pull">"We wanted a third thing, which involved playing and programming."<span class="who">Jonny Greenwood, Rolling Stone, 2012</span></div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- ================= SESSIONS ================= -->
+  <section id="sessions">
+    <span class="kicker k-ochre">The Sessions</span>
+    <h2 class="wash w-red">Two Buildings, Twenty Months, No Clock</h2>
+    <p class="standfirst">Recording ran intermittently from May 2009 to January 2011: mostly at the band's own studio in the Oxfordshire countryside, with a famous three-week detour to a movie star's house in Los Angeles.</p>
+    <div class="duo">
+      <div class="prose">
+        <p>The work happened in short bursts with long gaps, by design. Sessions would run for a few weeks, then everyone would scatter: Phil Selway finished and released his first solo album, Familial, in 2010; Jonny scored the film Norwegian Wood; Yorke played Atoms for Peace shows in April 2010. In September 2010 the band described going back into the studio simply to "take stock" of what they had. This was the anti-In-Rainbows schedule. Rather than white-knuckling one long campaign until an album surrendered, they treated the record like a garden they visited.</p>
+        <p>The most storied stretch came in early 2010, when the band decamped to Los Angeles for about three weeks and set up a makeshift studio inside Drew Barrymore's house in the hills. Gear was trucked in, rooms were repurposed, and the sessions leaned heavily on rhythm-first jamming: drums, bass, and loop generation, stockpiling raw material to be carved up later. The band confirmed the location only obliquely, thanking "Drew" in the album credits, and Barrymore later confirmed her house had hosted them. It was in LA, surrounded by the DJ world Yorke and Godrich had been living in, that the record's defining experiment took hold.</p>
+        <p>The sessions were porous to the outside world in a way Radiohead sessions usually are not. On 24 January 2010 they paused recording to play a hastily arranged benefit for Haiti earthquake relief at the Henry Fonda Theatre in Hollywood, where Yorke played a bare acoustic "Lotus Flower." Two weeks later, at a Green Party benefit in Cambridge, he solo-debuted "Give Up the Ghost" and a song then called "Mouse Dog Bird," which became "Separator." The material was leaking into daylight while it was still wet.</p>
+      </div>
+      <aside>
+        <div class="box mono">
+          <h3>Studio Notes</h3>
+          <p>LOCATIONS: Radiohead's own studio complex, rural Oxfordshire (their base since the Kid A era), plus approx. 3 weeks at Drew Barrymore's house, Los Angeles, early 2010, converted into a temporary rig.</p>
+          <p style="margin-top:10px">PRODUCER: Nigel Godrich, as on every album since OK Computer. Post-production and editing consumed roughly 18 months of his life by his own account.</p>
+          <p style="margin-top:10px">DOCUMENTED TOOLS: turntables + vinyl emulation (DVS-style control) software; bespoke loop-manipulation software written by Jonny Greenwood (a longtime Max/MSP builder); loop pedals under Selway's drums; Roland TR-808 pulsing beneath "Codex"; field recordings incl. birdsong and room air.</p>
+          <p style="margin-top:10px">RUNTIME: 8 tracks, 37:34. Shortest Radiohead album. O'Brien cited Marvin Gaye's What's Going On as proof a classic can run short.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- ================= METHOD ================= -->
+  <section id="method">
+    <span class="kicker k-red">The Method &middot; Centerpiece</span>
+    <h2 class="wash w-red">The Two-Week Turntable Experiment That Ate the Record</h2>
+    <p class="standfirst">Godrich proposed a fortnight of making music with turntables instead of instruments. It ran six months, generated the spine of the album, and left him a mess that took a year and a half to untangle.</p>
+
+    <div class="cols prose">
+      <div class="prose-inner">
+        <p class="lede">Here is the process, step by step, as the band and Godrich have described it. First, Radiohead played. Jams, grooves, individual parts, fragments: drums, bass, guitar figures, piano, noise. Nothing was treated as a take of a song. Everything was treated as raw stock, and it was all captured into what amounted to a private sample library of Radiohead playing Radiohead.</p>
+        <p>Second, that library got cut up. Loops were sliced out of the playing and loaded into two very different kinds of machinery. One was Jonny Greenwood's own software: bespoke patches, built in his long-preferred Max/MSP environment, that let the band trigger, mangle, stack, and re-time loops of themselves in real time. Crucially, his tools were designed to be played, not programmed. Manipulating a loop became a performance gesture, something done with hands in the moment, which kept the "playing" half of the third thing alive inside the "programming" half.</p>
+        <p>The other machinery is the part you asked about: the decks. Yorke and Godrich, fresh off their DJ immersion, set up turntables running vinyl emulation software, the digital vinyl systems DJs use, where a timecoded control record on a physical turntable drives playback of an audio file. Load a Radiohead loop into the system and it behaves like a record: you can drop the needle anywhere, ride the platter, nudge the tempo, cut between copies, rewind, stutter, and scratch. Instead of composing on a screen with a mouse, they were physically handling their own recordings the way a DJ handles someone else's, treating the band's output as found material to be crate-dug. That is the "turntable triggering" at the heart of the record: loops launched and manhandled from actual decks, with all the drift, grain, and accident that vinyl handling introduces. It is why the album's repetition never feels grid-locked. The loops wobble like something spun by hand, because much of the time they were.</p>
+        <p>Third, the drummer entered the hall of mirrors. Phil Selway both fed the machine and answered it: laying beats into loop pedals, then playing live against chopped and reassembled versions of himself, a human drummer shadowboxing a machine built from his own limbs. The polyrhythmic thickets on "Bloom," where multiple Selways interlock at odd angles, are the sound of that arrangement. Colin Greenwood's bass then did the humanizing work, threading long melodic lines through the mechanized undergrowth. O'Brien identified this as the recurring rescue move: the band would hit a brick wall with a loop bed they knew was great but unfinished, and then, in his telling of "Bloom," Colin found the bassline, Thom started singing, and the thing suddenly got a hundred times better.</p>
+        <p>Fourth, Yorke wrote over the top. He compared his role to film editing: the rhythm beds were footage, and he assembled, cut, and scored them with melody and lyric until they became scenes. Vocals were frequently sampled and scattered too; "Feral" is essentially nothing but Yorke shrapnel over mulched drums, the method with its skin removed.</p>
+        <p>Finally, Godrich cleaned up the crime scene. His own summary of the sessions is the most honest studio quote of the era: the output was <em>"a gigantic mess that took me about a year and a half to unravel."</em> Unraveling meant auditioning miles of loop experiments, finding the passages with a pulse, structuring them into tracks, and mixing a record that had to feel simultaneously mechanized and alive. The two-week lark had become the whole album. As Godrich put it, that experiment ended up being six months, and that is the record, the whole story of it.</p>
+      </div>
+    </div>
+
+    <figure class="method-fig">
+      <svg viewBox="0 0 1000 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram: a spinning record beside the six-step King of Limbs production loop">
+        <!-- record -->
+        <g>
+          <circle cx="170" cy="195" r="140" fill="#221D15"/>
+          <g class="record">
+            <circle cx="170" cy="195" r="140" fill="#221D15"/>
+            <g stroke="#3A342A" stroke-width="1.5" fill="none">
+              <circle cx="170" cy="195" r="126"/><circle cx="170" cy="195" r="112"/>
+              <circle cx="170" cy="195" r="98"/><circle cx="170" cy="195" r="84"/>
+              <circle cx="170" cy="195" r="70"/>
+            </g>
+            <circle cx="170" cy="195" r="48" fill="#B5311F"/>
+            <circle cx="170" cy="195" r="48" fill="none" stroke="#221D15" stroke-width="2"/>
+            <text x="170" y="188" text-anchor="middle" font-family="Oswald,sans-serif" font-size="13" letter-spacing="2" fill="#E9E3D2">TICKER</text>
+            <text x="170" y="206" text-anchor="middle" font-family="Oswald,sans-serif" font-size="13" letter-spacing="2" fill="#E9E3D2">TAPE LTD</text>
+            <circle cx="170" cy="195" r="5" fill="#E9E3D2"/>
+          </g>
+          <!-- tonearm -->
+          <g stroke="#221D15" stroke-width="7" stroke-linecap="round">
+            <line x1="322" y1="60" x2="240" y2="150"/>
+          </g>
+          <circle cx="322" cy="60" r="14" fill="#221D15"/>
+          <rect x="228" y="142" width="26" height="16" rx="3" fill="#C08428" transform="rotate(-46 241 150)"/>
+        </g>
+        <!-- steps -->
+        <g font-family="Newsreader,serif" font-size="17" fill="#221D15">
+          <g font-family="Oswald,sans-serif" font-size="13" letter-spacing="2">
+            <text x="400" y="66" fill="#B5311F">01 PLAY</text>
+            <text x="400" y="126" fill="#2F6DAE">02 SAMPLE</text>
+            <text x="400" y="186" fill="#8E9A15">03 CUT &amp; RIDE</text>
+            <text x="400" y="246" fill="#C08428">04 ANSWER IT LIVE</text>
+            <text x="400" y="306" fill="#B5311F">05 SING OVER IT</text>
+            <text x="400" y="366" fill="#2F6DAE">06 UNRAVEL</text>
+          </g>
+          <text x="560" y="66">The band jams; everything is captured as raw stock, not takes.</text>
+          <text x="560" y="126">Loops of their own playing become a private sample library.</text>
+          <text x="560" y="186">Loops driven from turntables via vinyl emulation; Jonny's software mangles in real time.</text>
+          <text x="560" y="246">Selway drums against looped Selways; Colin's bass stitches it into music.</text>
+          <text x="560" y="306">Yorke writes melody and lyric over the beds, editing like a filmmaker.</text>
+          <text x="560" y="366">Godrich spends ~18 months shaping the mess into eight tracks.</text>
+        </g>
+        <g stroke="#221D15" stroke-width="1" stroke-dasharray="3 4">
+          <line x1="395" y1="80" x2="990" y2="80"/><line x1="395" y1="140" x2="990" y2="140"/>
+          <line x1="395" y1="200" x2="990" y2="200"/><line x1="395" y1="260" x2="990" y2="260"/>
+          <line x1="395" y1="320" x2="990" y2="320"/>
+        </g>
+      </svg>
+      <figcaption>FIG. 1: The King of Limbs production loop. The record spins; the process repeats until an album falls out. Steps compiled from accounts by Godrich, Greenwood, O'Brien, and Yorke in Rolling Stone, BBC, and NPR interviews.</figcaption>
+    </figure>
+
+    <div class="pull">"A gigantic mess that took me about a year and a half to unravel."<span class="who">Nigel Godrich on the session tapes, The Guardian, 2020</span></div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- ================= SONGS ================= -->
+  <section id="songs">
+    <span class="kicker k-blue">The Songs</span>
+    <h2 class="wash w-blue">Written Beforehand, or Grown in the Petri Dish?</h2>
+    <p class="standfirst">Both, in a nearly perfect split, and the split is the album's secret architecture: a looped, grown first half and a written, played second half, hinged at "Lotus Flower."</p>
+    <div class="cols prose">
+      <div class="prose-inner">
+        <p>Very little of The King of Limbs arrived as finished songs the way the In Rainbows material had, road-tested and arranged before tape rolled. But it is wrong to say it was all conjured from loops, too. A few songs predated the sessions by years. "Morning Mr Magpie" is the deep cut: Yorke had played it as a gentle acoustic number as far back as the early 2000s, and a version appears on the 2004 webcast DVD The Most Gigantic Lying Mouth of All Time. In the studio it was fed through the method and came out the other side rewired as jittery, wiry funk, barely recognizable as the same organism. That transformation is the clearest before-and-after demonstration of what the process did to a song.</p>
+        <p>The back half, by contrast, is mostly songwriting in the classic sense. "Give Up the Ghost" and "Separator" both existed as playable Yorke songs by February 2010, when he debuted them solo in Cambridge. "Codex" is a sibling of the piano ballads Yorke has always written, given an 808 heartbeat and funeral brass rather than a loop skeleton. "Give Up the Ghost" even absorbs the method gently: its recording is built around live-looped, layered vocal harmonies, the turntable aesthetic translated to something pastoral.</p>
+        <p>The first half is where the petri dish did its work. "Bloom," born from a warped piano loop and stacked polyrhythms and sparked by Yorke watching the BBC's Blue Planet, was grown, not written. "Feral" is pure construction, an instrumental in all but name. "Little by Little" and "Lotus Flower" sit between the poles: real songs with real hooks whose bodies are nonetheless assembled from loop tissue. "Lotus Flower" had a prior life on stage, played acoustically at the Haiti benefit and turning up in Atoms for Peace sets, before the studio dressed it in that snaking synth bass.</p>
+      </div>
+    </div>
+    <table>
+      <caption>Track provenance index</caption>
+      <thead><tr><th>Track</th><th>Origin</th><th>How it got its body</th></tr></thead>
+      <tbody>
+        <tr><td>Bloom</td><td><span class="tag t-loop">Grown</span></td><td>Warped piano loop; multi-Selway polyrhythms; horns; inspired by The Blue Planet. Colin's bassline and Thom's vocal rescued it from the "great but unfinished" pile.</td></tr>
+        <tr><td>Morning Mr Magpie</td><td><span class="tag t-hybrid">Rewired</span></td><td>Acoustic song from the early 2000s (see the 2004 Lying Mouth DVD) rebuilt as twitchy, clipped funk by the loop process.</td></tr>
+        <tr><td>Little by Little</td><td><span class="tag t-hybrid">Hybrid</span></td><td>Crumbling guitar figures and clattering percussion assembled over a loop chassis; a song grown around a groove.</td></tr>
+        <tr><td>Feral</td><td><span class="tag t-loop">Grown</span></td><td>The method undisguised: chopped Yorke vocal fragments scattered over mulched, dubstep-leaning drums.</td></tr>
+        <tr><td>Lotus Flower</td><td><span class="tag t-hybrid">Hybrid</span></td><td>Existed as a performable song by 2009&ndash;10 (Haiti benefit; Atoms for Peace sets); studio version built on driving synth bass and falsetto.</td></tr>
+        <tr><td>Codex</td><td><span class="tag t-song">Written</span></td><td>Classic Yorke piano ballad given a TR-808 pulse, spectral horns, and strings. Minimal loop interference.</td></tr>
+        <tr><td>Give Up the Ghost</td><td><span class="tag t-song">Written</span></td><td>Debuted solo, Feb 2010. Acoustic guitar with live-looped, layered vocal harmonies; the method gone pastoral.</td></tr>
+        <tr><td>Separator</td><td><span class="tag t-song">Written</span></td><td>Debuted solo as "Mouse Dog Bird," Feb 2010. Brittle drum loop under a full-band glow; the bridge between the album's two halves.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <hr class="sep">
+
+  <!-- ================= ROOMS ================= -->
+  <section id="rooms">
+    <span class="kicker k-green">The Rooms</span>
+    <h2 class="wash w-green">The Environment: A Barn, A Borrowed House, A Painter in the Corner</h2>
+    <p class="standfirst">Radiohead have not made an album in a conventional commercial studio since the 1990s, and the domestic, clockless character of these rooms is audible in the record.</p>
+    <div class="duo">
+      <div class="prose">
+        <p>Home base was the band's own studio complex in the Oxfordshire countryside, the converted rural buildings they have operated since the Kid A era. It is a private facility with no day rate, no lockout deadline, and no engineer watching a clock, which is precisely what a stop-start, experiment-heavy process requires. A six-month turntable detour is unthinkable at a commercial facility; at your own place it is just what happened that year. The band has a long history of preferring non-studios, going back to recording OK Computer in a Bath mansion and In Rainbows in country houses, and the Barrymore residency continued the tradition: an ordinary, beautiful house temporarily colonized by flight cases, chosen for atmosphere and privacy rather than acoustics.</p>
+        <p>The environment included one non-musician who shaped the record's identity as much as any instrument: Stanley Donwood, who as always painted on site while the band worked, absorbing the music as it formed. He has said the sessions made him imagine immense multicoloured cathedrals of trees, with strange fauna lurking in fog, an image he chased directly into the artwork. He first attempted oil portraits of the band in the style of Gerhard Richter and abandoned them as disasters by his own cheerful admission, then followed the music into the forest instead. The record's world, spectral woods, watching spirits, mutation, was being drawn in the same rooms where it was being sampled.</p>
+        <p>One more environmental note: nature itself is in the record. Field recordings, birdsong, and open-air ambience are threaded through the mixes, so the rural setting is not just backstory. The Oxfordshire outdoors is literally printed onto the album.</p>
+      </div>
+      <aside>
+        <div class="box mono">
+          <h3>Why Houses, Not Studios</h3>
+          <p>NO CLOCK: experiments can run six months without a bill arriving.</p>
+          <p style="margin-top:10px">NO AUDIENCE: failure stays private. The Richter portraits and the dead-end loops went in the same bin, unwitnessed.</p>
+          <p style="margin-top:10px">ATMOSPHERE AS INSTRUMENT: rooms with character, windows, and weather leak into performances and field recordings alike.</p>
+          <p style="margin-top:10px">COHABITATION: Donwood painting beside the band since OK Computer means the art and the audio grow from the same air.</p>
+        </div>
+        <div class="box mono">
+          <h3>The Title</h3>
+          <p>The King of Limbs is a real oak in Savernake Forest, Wiltshire, roughly a thousand years old, standing near Tottenham House, where In Rainbows was recorded. The new record was named for a tree that watched the old one being made.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- ================= OBJECT ================= -->
+  <section id="object">
+    <span class="kicker k-ochre">Epilogue, Pt. I</span>
+    <h2 class="wash w-red">The Object: Newsprint, Blotter Paper, and a Valentine's Ambush</h2>
+    <p class="standfirst">The release was as designed as the record: a surprise announcement, a self-owned label, a newspaper you could hold, and a special edition engineered to decay.</p>
+    <div class="cols prose">
+      <div class="prose-inner">
+        <p class="lede">On 14 February 2011 the band's website simply announced a new album for that Saturday. The download arrived a day early, on Friday 18 February, because the site was ready, sold for six pounds through their own newly formed company, Ticker Tape Ltd, with XL handling physical release worldwide and TBD in North America. No singles were released and no press campaign preceded it. The same day, the "Lotus Flower" video appeared: Yorke alone in black and white, dancing choreography by Wayne McGregor under Garth Jennings's direction, which the internet promptly detonated into the Dancing Thom meme. Radiohead had accidentally invented a promotional channel that cost nothing and reached everyone.</p>
+        <p>The physical thinking ran deeper than the drop. Donwood, having chosen a forest of spirits and familiars drawn from Northern European fairy tales for the cover art (made with Yorke, who signs his visual work pseudonymously), wanted the special edition to embody flux and decay. His material answer was newsprint, paper that yellows and crumbles by design, with typography lifted from Depression-era American newspapers and layouts nodding to 1960s underground press like Oz and International Times. The resulting "newspaper album," released 9 May at thirty pounds, contained two clear ten-inch records, a CD, large sheets of artwork, 625 tiny individual artworks, and a sheet printed on the perforated blotting paper associated with LSD distribution, a detail Donwood pointed out with visible delight. It all came wrapped in oxo-degradable plastic: packaging built to rot, for an album about mutation. The edition earned a Grammy nomination for its packaging.</p>
+        <p>To mark the retail release on 28 March, the band printed an actual newspaper, The Universal Sigh: twelve tabloid pages of artwork, lyrics, poetry, and short fiction by Donwood, Jay Griffiths, and the nature writer Robert Macfarlane, handed out free at record shops in cities worldwide. Yorke and Donwood personally distributed copies outside Rough Trade East in London, frontman as paperboy. Commercially, the strategy worked where it counted: the self-sold download moved three to four hundred thousand copies, management said the album out-earned every previous Radiohead record, and the standard vinyl became the UK's best-selling LP of 2011. The retail CD entered at UK number seven, ending a five-album streak of number ones, which the band's camp attributed to the surprise itself: some fans never realized a new album had come out. A Record Store Day double A-side, "Supercollider" and "The Butcher," released the session's two finest outtakes that April.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- ================= AFTERLIFE ================= -->
+  <section id="afterlife">
+    <span class="kicker k-red">Epilogue, Pt. II</span>
+    <h2 class="wash w-blue">The Afterlife: Two Drummers, One Basement, and a Cut-Short Tour</h2>
+    <p class="standfirst">The band stayed off stage for months, then rebuilt the album as a living thing. Many listeners decided the second version was the real one.</p>
+    <div class="duo">
+      <div class="prose">
+        <p>There was no tour at release, and barely any performance at all for four months. Yorke wanted to keep working in the studio, and more practically, nobody knew how to play the record yet. Music assembled from turntables and self-sampling does not map onto ten human hands. The solution was an eleventh pair and more: Clive Deamer, the Portishead and Get the Blessing drummer, joined as a second percussionist. Selway described the arrangement as one drummer playing traditionally while the other mimicked a drum machine, push and pull, like kids at play. Deamer never left; he has been part of the live band ever since, one of the album's most durable legacies.</p>
+        <p>The first public unveiling was a surprise: an unannounced set on Glastonbury's small Park Stage on 24 June 2011, heavy on TKOL and In Rainbows. In September came two intense club shows at New York's Roseland Ballroom, the season premiere of Saturday Night Live, and an unusual hour-long Colbert Report special. The definitive document, though, was The King of Limbs: Live from the Basement, taped at Maida Vale for Godrich's From the Basement series, broadcast that July and released on disc in December. The full album was performed with the expanded lineup plus brass, alongside three new songs: "The Daily Mail," "Staircase," and "Supercollider." Godrich framed it as recording the very mechanised album a second time to show it in a different light, and for a large faction of fans the Basement versions, muscular and human, quietly replaced the studio ones.</p>
+        <p>The real tour began in February 2012 and ran through arenas and festivals across North America, Europe, and Asia: Coachella, Bonnaroo, Fuji Rock. O'Brien argued the precise, detailed TKOL material actually needed controlled rooms rather than fields. On 16 June 2012, hours before a show at Toronto's Downsview Park, the temporary stage collapsed, killing drum technician Scott Johnson and injuring three other crew members. The band rescheduled the European leg and paid tribute to Johnson and their crew at their return show in Nîmes that July. Charges laid against the promoter, staging companies, and an engineer were ultimately dropped in 2017 under Canadian trial-delay rules; a 2019 inquest returned a verdict of accidental death, and the band spent years publicly pressing for accountability on Johnson's behalf. It is the shadow over the whole era, and the reason the touring history feels truncated in memory.</p>
+        <p>The music kept mutating, exactly as designed. The TKOL RMX 1234567 series handed the stems to Four Tet, Caribou, Jamie xx, Modeselektor, SBTRKT, Lone, and others across a run of 2011 vinyl singles compiled that September, with Yorke championing remix culture as a way to keep the record from being fixed in stone. The PolyFauna app of 2014 turned the album's sounds and imagery into wandering digital wildlife. In 2017 the band re-recorded "Bloom" with Hans Zimmer and the BBC Concert Orchestra for Blue Planet II, returning the song to the documentary that inspired it. And the 2012 tour incubated the next record: "Identikit" and "Present Tense," debuted on those stages, surfaced on A Moon Shaped Pool four years later.</p>
+        <p>Critically, the record was divisive on arrival, praised for craft, dinged for scale, its closing track's teasing final lyric fueling months of rumors about a second disc that never existed. Yorke's own verdict was the most disarming: he could see why it alienated people, he said, because he had not realized it was its own planet. A decade of reappraisal has largely come around to the planet. The King of Limbs now reads less like a minor Radiohead album than like the band's most complete answer to a question they had been asking since Kid A: what happens if the machines and the humans are the same five people.</p>
+      </div>
+      <aside>
+        <div class="box mono chrono">
+          <h3>Chronology, Pt. II</h3>
+          <div><b>14 Feb 2011</b>Album announced on radiohead.com</div>
+          <div><b>18 Feb 2011</b>Download released a day early; "Lotus Flower" video, meme ignition</div>
+          <div><b>28 Mar 2011</b>Retail CD/LP; The Universal Sigh handed out worldwide</div>
+          <div><b>16 Apr 2011</b>"Supercollider" / "The Butcher" for Record Store Day</div>
+          <div><b>9 May 2011</b>Newspaper Album special edition</div>
+          <div><b>24 Jun 2011</b>Surprise Glastonbury Park Stage set (first show, w/ Clive Deamer)</div>
+          <div><b>Jul 2011</b>Live from the Basement airs (Maida Vale)</div>
+          <div><b>Sep 2011</b>Roseland Ballroom x2; SNL; Colbert special; TKOL RMX 1234567</div>
+          <div><b>19 Dec 2011</b>Basement DVD; "The Daily Mail" / "Staircase" single</div>
+          <div><b>Feb 2012</b>World tour begins (Coachella, Bonnaroo, Fuji Rock)</div>
+          <div><b>16 Jun 2012</b>Downsview Park stage collapse; drum tech Scott Johnson killed; tour rescheduled</div>
+          <div><b>2014&ndash;17</b>PolyFauna app; "Bloom" redone with Hans Zimmer for Blue Planet II</div>
+        </div>
+        <div class="box mono">
+          <h3>Ledger</h3>
+          <p>DOWNLOADS: 300k&ndash;400k direct in two months; the band's most profitable album per management.</p>
+          <p style="margin-top:10px">CHARTS: UK #7; US #3 peak on the Billboard 200; #1 US Alternative, Independent, and Rock.</p>
+          <p style="margin-top:10px">VINYL: best-selling UK LP of 2011.</p>
+          <p style="margin-top:10px">GRAMMYS: five nominations, incl. Best Alternative Album and Best Special Edition Package.</p>
+        </div>
+      </aside>
+    </div>
+    <div class="pull">"I didn't realise it was its own planet."<span class="who">Thom Yorke on the album's reception, Rolling Stone, 2012</span></div>
+  </section>
+
+  <footer>
+    <span>Compiled July 2026 for the private study of one C. Smeltzer, Arkansas.</span>
+    <span>Sourced from band interviews in Rolling Stone, the BBC, NPR, Mojo, The Guardian, Creative Review &amp; contemporaneous press.</span>
+  </footer>
+
+</div>
+</body>
+</html>

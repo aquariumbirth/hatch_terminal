@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HATCH_TERMINAL</title>
+<meta name="description" content="Self-contained interactive documents on how records get made and how to make your own. Static HTML, no build step, no dependencies.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   HATCH_TERMINAL / INDEX
+   MOD 04 tokens. Chrome is the machine, content is the bench.
+   To add a piece: copy a .row block inside the right .wing.
+   ============================================================ */
+
+:root{
+  --paper:#F2EFE8;
+  --panel:#DFDBD1;
+  --ink:#16151A;
+  --blueprint:#1F4E7A;
+  --alarm:#D9541E;
+
+  --jr:#C4441A;          /* JACKET_RIPPER  scuffed orange, on paper */
+  --sg:#E9A23B;          /* STUDIO_GLOW    dark amber */
+  --sg-glow:#FFC66B;     /* STUDIO_GLOW    the lit filament */
+  --sg-dark:#171009;     /* STUDIO_GLOW    panel */
+  --dd:#F0C230;          /* DAMAGE_DONE    hazard yellow */
+  --dd-blue:#14314F;     /* DAMAGE_DONE    panel */
+  --dd-paper:#EDF1F6;
+
+  --hair:1px solid rgba(22,21,26,.22);
+  --hair-soft:1px solid rgba(22,21,26,.12);
+  --step:60ms;
+  --max:1180px;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'IBM Plex Serif',Georgia,serif;
+  font-size:16px;
+  line-height:1.5;
+  /* texture: hairline weave, no images anywhere on this site */
+  background-image:
+    repeating-linear-gradient(0deg,rgba(22,21,26,.022) 0 1px,transparent 1px 3px),
+    repeating-linear-gradient(90deg,rgba(22,21,26,.014) 0 1px,transparent 1px 4px);
+}
+a{color:inherit}
+
+.wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+.mono{font-family:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+
+/* ---------- TOP RAIL ---------- */
+.rail{border-bottom:var(--hair);background:var(--panel)}
+.rail .wrap{display:flex;justify-content:space-between;align-items:center;
+  gap:14px;padding-top:9px;padding-bottom:8px;flex-wrap:wrap}
+.rail .mono{opacity:.72}
+.rail .now{color:var(--alarm);opacity:1}
+
+/* ---------- MASTHEAD ---------- */
+header.mast{border-bottom:var(--hair);padding:44px 0 0}
+.wordmark{
+  font-family:'Bricolage Grotesque','Arial Black',sans-serif;
+  font-weight:800;
+  font-size:clamp(46px,11.2vw,132px);
+  line-height:.86;
+  letter-spacing:-.045em;
+  margin:0;
+}
+.wordmark .us{color:var(--alarm)}
+.cursor{display:inline-block;width:.44em;height:.085em;background:var(--alarm);
+  vertical-align:baseline;margin-left:.06em;animation:blink 1.06s steps(1,end) infinite}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+
+.creed{max-width:52ch;margin:22px 0 30px;font-size:17.5px;line-height:1.46}
+.creed em{font-style:italic;color:var(--blueprint)}
+
+.spec{display:grid;grid-template-columns:repeat(4,1fr);border-top:var(--hair);
+  border-left:var(--hair)}
+.spec div{border-right:var(--hair);border-bottom:var(--hair);padding:10px 12px 11px;
+  background:rgba(223,219,209,.42)}
+.spec b{display:block;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;
+  font-size:26px;letter-spacing:-.02em;line-height:1.05;margin-top:5px}
+.spec .mono{opacity:.6}
+
+/* ---------- WING MODULE ---------- */
+.wing{border-bottom:var(--hair);padding:0 0 8px}
+.whead{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:end;
+  padding:34px 0 14px;border-bottom:var(--hair)}
+.wnum{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;
+  padding-bottom:6px;opacity:.55}
+.wname{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;
+  font-size:clamp(28px,5.4vw,54px);letter-spacing:-.035em;line-height:.94;margin:0}
+.wsub{font-style:italic;font-size:15.5px;opacity:.8;margin:7px 0 0}
+.enter{text-decoration:none;border:var(--hair);padding:8px 13px;background:var(--paper);
+  white-space:nowrap;transition:background var(--step) steps(2),color var(--step) steps(2)}
+.enter:hover,.enter:focus-visible{background:var(--ink);color:var(--paper);outline:none}
+
+/* ---------- PIECE ROW ---------- */
+.row{display:grid;grid-template-columns:56px 1fr 132px;gap:14px;align-items:baseline;
+  text-decoration:none;padding:15px 10px 16px;border-bottom:var(--hair-soft);
+  border-left:3px solid transparent;
+  transition:background var(--step) steps(2),border-color var(--step) steps(2),
+             transform var(--step) steps(2)}
+.row:last-of-type{border-bottom:none}
+.row .n{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em;opacity:.45}
+.row h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:21px;
+  letter-spacing:-.02em;line-height:1.14;margin:0 0 5px}
+.row p{margin:0;font-size:15px;line-height:1.42;opacity:.82;max-width:64ch}
+.row .tag{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;text-align:right;opacity:.5;padding-top:4px}
+.row:hover,.row:focus-visible{outline:none;transform:translateX(3px)}
+
+.wing-jr{background-image:
+  repeating-linear-gradient(84deg,rgba(22,21,26,.055) 0 1px,transparent 1px 37px),
+  repeating-linear-gradient(97deg,rgba(196,68,26,.065) 0 1px,transparent 1px 53px),
+  repeating-linear-gradient(71deg,rgba(22,21,26,.035) 0 1px,transparent 1px 91px)}
+.wing-jr .row:hover,.wing-jr .row:focus-visible{background:rgba(196,68,26,.10);border-left-color:var(--jr)}
+.wing-jr .row:hover .n,.wing-jr .row:focus-visible .n{color:var(--jr);opacity:1}
+.wing-jr .wname{color:var(--jr)}
+
+/* ---------- STUDIO_GLOW: lit filament in a dark room ---------- */
+.wing-sg{background:var(--sg-dark);color:#F6ECDC;border-bottom:none;
+  background-image:radial-gradient(115% 68% at 16% 0%,rgba(233,162,59,.22),transparent 64%)}
+.wing-sg .whead{border-bottom:1px solid rgba(246,236,220,.22)}
+.wing-sg .wnum,.wing-sg .wsub{opacity:.72}
+.wing-sg .wname{color:var(--sg-glow);
+  text-shadow:0 0 22px rgba(233,162,59,.5),0 0 4px rgba(255,198,107,.45)}
+.wing-sg .wname::after{content:"";display:inline-block;width:.4em;height:.4em;
+  background:var(--sg-glow);margin-left:.18em;transform:translateY(-.06em);
+  box-shadow:0 0 14px var(--sg-glow)}
+.wing-sg .enter{background:transparent;border-color:rgba(246,236,220,.34);color:#F6ECDC}
+.wing-sg .enter:hover,.wing-sg .enter:focus-visible{background:var(--sg);color:var(--sg-dark);border-color:var(--sg)}
+.wing-sg .row{border-bottom:1px solid rgba(246,236,220,.13)}
+.wing-sg .row:hover,.wing-sg .row:focus-visible{background:rgba(233,162,59,.14);border-left-color:var(--sg)}
+.wing-sg .row:hover .n,.wing-sg .row:focus-visible .n{color:var(--sg-glow);opacity:1}
+
+/* ---------- DAMAGE_DONE: the panel that is not clean ---------- */
+.wing-dd{background:var(--dd-blue);color:var(--dd-paper);border-bottom:none;
+  margin-top:0;padding-bottom:26px}
+.wing-dd .hazard{height:9px;background:repeating-linear-gradient(45deg,
+  var(--dd) 0 12px,var(--dd-blue) 12px 24px)}
+.wing-dd .whead{border-bottom:1px solid rgba(237,241,246,.28)}
+.wing-dd .wname{color:var(--dd)}
+.wing-dd .wnum,.wing-dd .wsub{opacity:.7}
+.wing-dd .enter{background:transparent;border-color:rgba(237,241,246,.4);color:var(--dd-paper)}
+.wing-dd .enter:hover,.wing-dd .enter:focus-visible{background:var(--dd);color:var(--dd-blue);border-color:var(--dd)}
+.wing-dd .row{border-bottom:1px solid rgba(237,241,246,.15)}
+.wing-dd .row:hover,.wing-dd .row:focus-visible{background:rgba(240,194,48,.15);border-left-color:var(--dd)}
+.wing-dd .row:hover .n,.wing-dd .row:focus-visible .n{color:var(--dd);opacity:1}
+
+/* unlit panel — placeholder, deliberately not a link */
+.unlit{display:grid;grid-template-columns:56px 1fr 132px;gap:14px;align-items:baseline;
+  padding:15px 10px 16px;border-left:3px solid transparent;opacity:.34}
+.unlit h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:21px;
+  letter-spacing:-.02em;margin:0 0 5px}
+.unlit p{margin:0;font-size:15px;line-height:1.42}
+.unlit .tag{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;
+  text-align:right;padding-top:4px}
+
+/* ---------- FOOTER ---------- */
+footer{border-top:var(--hair);padding:26px 0 46px;background:var(--panel)}
+.fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:26px}
+.fgrid h4{margin:0 0 9px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+  letter-spacing:.16em;text-transform:uppercase;opacity:.55;font-weight:500}
+.fgrid p{margin:0 0 8px;font-size:14.5px;line-height:1.44;opacity:.85}
+.fgrid a{text-decoration:none;border-bottom:1px solid rgba(22,21,26,.3)}
+.fgrid a:hover{border-bottom-color:var(--alarm);color:var(--alarm)}
+.stamp{margin-top:24px;padding-top:12px;border-top:var(--hair);display:flex;
+  justify-content:space-between;gap:12px;flex-wrap:wrap;opacity:.55}
+
+/* ---------- SMALL SCREENS ---------- */
+@media(max-width:760px){
+  .spec{grid-template-columns:repeat(2,1fr)}
+  .whead{grid-template-columns:1fr;gap:8px;align-items:start}
+  .whead .enter{justify-self:start}
+  .row,.unlit{grid-template-columns:34px 1fr;gap:10px}
+  .row .tag,.unlit .tag{grid-column:2;text-align:left;padding-top:7px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+  .cursor{opacity:1}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ TOP RAIL ============ -->
+<div class="rail">
+  <div class="wrap">
+    <span class="mono">HATCH_TERMINAL / INDEX</span>
+    <span class="mono">Static HTML &middot; No build step &middot; No dependencies</span>
+    <span class="mono now">v1.0 / 2026</span>
+  </div>
+</div>
+
+<!-- ============ MASTHEAD ============ -->
+<header class="mast">
+  <div class="wrap">
+    <h1 class="wordmark">HATCH<span class="us">_</span>TERMINAL<span class="cursor"></span></h1>
+
+    <p class="creed">
+      Self-contained documents on how records get made and how to make your own.
+      The information already exists, scattered across interviews, forums, out-of-print
+      books and tech notes. <em>What does not exist is anybody assembling it into
+      something you can operate.</em> Every piece here ends with a thing you can do.
+    </p>
+
+    <div class="spec">
+      <div><span class="mono">Wings</span><b>03</b></div>
+      <div><span class="mono">Pieces live</span><b>18</b></div>
+      <div><span class="mono">Dependencies</span><b>00</b></div>
+      <div><span class="mono">Photographs</span><b>00</b></div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ WING 01 / JACKET_RIPPER ============ -->
+<section class="wing wing-jr" aria-labelledby="w-jr">
+  <div class="wrap">
+    <div class="whead">
+      <span class="wnum">MOD 01</span>
+      <div>
+        <h2 class="wname" id="w-jr">JACKET_RIPPER</h2>
+        <p class="wsub">Secrets shared with the crateful dead.</p>
+      </div>
+      <a class="enter mono" href="jacket-ripper/index.html">Enter wing &rarr;</a>
+    </div>
+
+    <a class="row" href="jacket-ripper/the-deep-bin/index.html">
+      <span class="n">01</span>
+      <span>
+        <h3>The Deep Bin: 60 Cult Albums Nobody Puts on the Lists</h3>
+        <p>Five entry doors sorted by mood instead of year, with availability noted, because obscurity is partly a distribution problem.</p>
+      </span>
+      <span class="tag">Report</span>
+    </a>
+
+    <a class="row" href="jacket-ripper/the-deep-bin-vol-2/index.html">
+      <span class="n">02</span>
+      <span>
+        <h3>The Deep Bin, Vol. 2: 1950&ndash;1989</h3>
+        <p>Same excavation, older strata. Sixty more, back through the decades where the reissue market has not finished arguing yet.</p>
+      </span>
+      <span class="tag">Report</span>
+    </a>
+
+    <a class="row" href="jacket-ripper/true-excavation/index.html">
+      <span class="n">03</span>
+      <span>
+        <h3>True Excavation: 60 Cult Albums, 1980s to 2000s</h3>
+        <p>Minimal synth, private-press ambient, Japanese oddities and tape-label industrial. Deeper water, thinner pressings, worse distribution.</p>
+      </span>
+      <span class="tag">Report</span>
+    </a>
+
+    <a class="row" href="jacket-ripper/sophtware-slump/index.html">
+      <span class="n">04</span>
+      <span>
+        <h3>No Robot Unturned: Grandaddy&rsquo;s <i>The Sophtware Slump</i></h3>
+        <p>Skateboarders from a town people drive through, a converted warehouse called Little Portugal, eleven transmissions, and acclaim without sales.</p>
+      </span>
+      <span class="tag">Report</span>
+    </a>
+  </div>
+</section>
+
+<!-- ============ WING 02 / STUDIO_GLOW ============ -->
+<section class="wing wing-sg" aria-labelledby="w-sg">
+  <div class="wrap">
+    <div class="whead">
+      <span class="wnum">MOD 02</span>
+      <div>
+        <h2 class="wname" id="w-sg">STUDIO_GLOW</h2>
+        <p class="wsub">Experimental wet frets, bash yr. guitars.</p>
+      </div>
+      <a class="enter mono" href="studio-glow/index.html">Enter wing &rarr;</a>
+    </div>
+
+    <a class="row" href="studio-glow/sonic-youth-tunings/index.html">
+      <span class="n">01</span>
+      <span>
+        <h3>The Tuning Arsenal &mdash; Sonic Youth, EVOL to The Eternal</h3>
+        <p>Twenty-seven tunings with tappable strings, fretboard diagrams, plucked audio and a live tension calculator. Bring a guitar you can afford to detune.</p>
+      </span>
+      <span class="tag">Instrument</span>
+    </a>
+
+    <a class="row" href="studio-glow/king-of-limbs/index.html">
+      <span class="n">02</span>
+      <span>
+        <h3>The Savernake Gazette: The Making of <i>The King of Limbs</i></h3>
+        <p>Two buildings, twenty months, no clock, and a two-week turntable experiment that ate the record.</p>
+      </span>
+      <span class="tag">Report</span>
+    </a>
+
+    <a class="row" href="studio-glow/two-rooms/index.html">
+      <span class="n">03</span>
+      <span>
+        <h3>Two Rooms, Forty-Two Years Apart</h3>
+        <p><i>Pornography</i> at RAK in about three weeks against <i>Songs of a Lost World</i> across five years. Same band, opposite constraints, and what limits actually decided.</p>
+      </span>
+      <span class="tag">Report</span>
+    </a>
+
+    <a class="row" href="studio-glow/the-sample-book/index.html">
+      <span class="n">04</span>
+      <span>
+        <h3>The Sample Book</h3>
+        <p>Where to get them, what the law actually says, how to make your own, and how to blend until the fingerprints are yours.</p>
+      </span>
+      <span class="tag">Field manual</span>
+    </a>
+
+    <a class="row" href="studio-glow/night-practice-book/index.html">
+      <span class="n">05</span>
+      <span>
+        <h3>The Night Practice Book</h3>
+        <p>Minor keys, jazz voicings, and the why behind chords you already play by ear. Am(maj7) is most of the book. Fingerings for both hands, six-week plan at the back.</p>
+      </span>
+      <span class="tag">Instrument</span>
+    </a>
+
+    <a class="row" href="studio-glow/night-practice-book-vol-2/index.html">
+      <span class="n">06</span>
+      <span>
+        <h3>The Engine Room &mdash; Night Practice Book, Vol. II</h3>
+        <p>The physics under the harmony. Intervals as ratios, fifths as structure, sevenths as vocabulary, three pedals, and what changes on Rhodes, Wurli and synth.</p>
+      </span>
+      <span class="tag">Instrument</span>
+    </a>
+  </div>
+</section>
+
+<!-- ============ WING 03 / DAMAGE_DONE ============ -->
+<section class="wing wing-dd" aria-labelledby="w-dd">
+  <div class="hazard" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="whead">
+      <span class="wnum">MOD 03</span>
+      <div>
+        <h2 class="wname" id="w-dd">DAMAGE_DONE</h2>
+        <p class="wsub">First person, dated, and nobody&rsquo;s fault but mine.</p>
+      </div>
+      <a class="enter mono" href="damage-done/index.html">Enter wing &rarr;</a>
+    </div>
+
+    <a class="row" href="damage-done/signal-path/index.html">
+      <span class="n">01</span>
+      <span>
+        <h3>Signal Path &mdash; Studio Operations Manual</h3>
+        <p>Four projects, one room, and a tappable patch bay that traces what feeds what. Pick tonight&rsquo;s job, get the shortest route to it, and see what is going to bite you.</p>
+      </span>
+      <span class="tag">Ops manual</span>
+    </a>
+
+    <a class="row" href="damage-done/hx-stomp-xl/index.html">
+      <span class="n">02</span>
+      <span>
+        <h3>The Board, Translated &mdash; Rig Dossier 001</h3>
+        <p>Eleven pedals into one HX Stomp XL. Eight translate cleanly on firmware 3.80. MOOD and Microcosm do not, and stay hardware.</p>
+      </span>
+      <span class="tag">Dossier</span>
+    </a>
+
+    <a class="row" href="damage-done/hx-stomp-xl-field-manual/index.html">
+      <span class="n">03</span>
+      <span>
+        <h3>Working the Stomp XL &mdash; Field Manual and Rebuild Plan</h3>
+        <p>Fluency under the feet, then a strip to eight level-matched presets where the same switch means the same thing everywhere. Factory content is a demo reel, not a rig.</p>
+      </span>
+      <span class="tag">Field manual</span>
+    </a>
+
+    <a class="row" href="damage-done/spd-sx-pro/index.html">
+      <span class="n">04</span>
+      <span>
+        <h3>SPD-SX Pro: A Working Guide</h3>
+        <p>A used pad on firmware 2.0, treated as an instrument. Wave organisation, the real 32-voice ceiling, and rig integration. No menu hand-holding.</p>
+      </span>
+      <span class="tag">Log</span>
+    </a>
+
+    <a class="row" href="damage-done/spd-sx-pro-kit-guide/index.html">
+      <span class="n">05</span>
+      <span>
+        <h3>SPD-SX Pro: Kit Builder Guide, Ver. 2.00</h3>
+        <p>One pad runs two loops in sync, the next kills it and starts another, and hitting harder brings in a third. Layers, mute groups, and the sequencer that is not one.</p>
+      </span>
+      <span class="tag">Instrument</span>
+    </a>
+
+    <a class="row" href="damage-done/nord-piano-88/index.html">
+      <span class="n">06</span>
+      <span>
+        <h3>Nord Piano 88, Opened Up</h3>
+        <p>What a first-generation stage piano still does better than anything on the desk, what a two-sensor keybed will never do, and how to build the Rhodes and Wurli rig around it.</p>
+      </span>
+      <span class="tag">Field report</span>
+    </a>
+
+    <a class="row" href="damage-done/launchkey-mk4-37/index.html">
+      <span class="n">07</span>
+      <span>
+        <h3>Launchkey MK4 37</h3>
+        <p>The panel at a glance, setup done once, chord map, arp and the Shift menu. Read it now so you never open the manual again.</p>
+      </span>
+      <span class="tag">Log</span>
+    </a>
+
+    <a class="row" href="damage-done/pyramid-song-piano/index.html">
+      <span class="n">08</span>
+      <span>
+        <h3>Pyramid Song &mdash; Piano Chord Reference</h3>
+        <p>Both hands, numbered fingerings, left hand walking parallel fifths under every chord. One page, printable, no theory lecture.</p>
+      </span>
+      <span class="tag">Sheet</span>
+    </a>
+
+    <!-- placeholder: goes live when the first standalone tool ships -->
+    <div class="unlit">
+      <span class="n">09</span>
+      <span>
+        <h3>The Bench</h3>
+        <p>Standalone tools you download and keep. Unlit until the first one is finished.</p>
+      </span>
+      <span class="tag">Offline</span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <h4>The standing rule</h4>
+        <p>Underground and fringe only. Big names are fair game when the piece is about chasing the sound, never about ranking the catalogue.</p>
+        <p>Paraphrase over quotation. No lyrics. Confidence labelled: confirmed, reported, transcribed.</p>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <p><a href="about/index.html">About / the argument</a></p>
+        <p><a href="jacket-ripper/index.html">JACKET_RIPPER</a></p>
+        <p><a href="studio-glow/index.html">STUDIO_GLOW</a></p>
+        <p><a href="damage-done/index.html">DAMAGE_DONE</a></p>
+      </div>
+      <div>
+        <h4>Colophon</h4>
+        <p>Bricolage Grotesque, IBM Plex Serif, IBM Plex Mono. Every texture on this page is a CSS gradient or hand-written SVG.</p>
+        <p>Hand-written HTML. Save it to a drive; it still opens in ten years.</p>
+      </div>
+    </div>
+    <div class="stamp">
+      <span class="mono">HATCH_TERMINAL &middot; Built for one person first</span>
+      <span class="mono">Fouke, AR</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
