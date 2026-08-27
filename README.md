@@ -1,4 +1,3 @@
-[README.md](https://github.com/user-attachments/files/31515811/README.md)
 # HATCH_TERMINAL
 
 Self-contained interactive documents on how records get made and how to make your own.
@@ -56,7 +55,7 @@ this is not a greatest-albums site.
 
 ---
 
-## Current inventory — 18 pieces
+## Current inventory — 17 pieces
 
 **JACKET_RIPPER (4)**
 `the-deep-bin` · `the-deep-bin-vol-2` · `true-excavation` · `sophtware-slump`
@@ -65,9 +64,9 @@ this is not a greatest-albums site.
 `sonic-youth-tunings` · `king-of-limbs` · `two-rooms` · `the-sample-book` ·
 `night-practice-book` · `night-practice-book-vol-2`
 
-**DAMAGE_DONE (8)**
+**DAMAGE_DONE (7)**
 `signal-path` · `hx-stomp-xl` · `hx-stomp-xl-field-manual` · `spd-sx-pro` ·
-`spd-sx-pro-kit-guide` · `nord-piano-88` · `launchkey-mk4-37` · `pyramid-song-piano`
+`spd-sx-pro-kit-guide` · `nord-piano-88` · `launchkey-mk4-37`
 
 ---
 
@@ -113,19 +112,20 @@ Dossier · Log · Sheet.
 
 ## Design tokens
 
-The chrome is the machine. The content is what is on the workbench. Site furniture
-is strict instrument panel; content blocks are allowed to break the grid. Chrome never does.
+Paper chrome, three dark rooms. Site furniture is strict instrument panel; content
+blocks may break the grid, chrome never does. The underscore is the cursor — it blinks
+inside every name, and nothing trails a name.
 
 ```
-Paper      #F2EFE8    reading surface
+Paper      #F2EFE8    chrome: masthead, rails, footer
 Panel      #DFDBD1    chrome fills
 Ink        #16151A    type and hard rules
 Blueprint  #1F4E7A    diagrams, technical drawing
 Alarm      #D9541E    the single interaction colour
 
-JACKET_RIPPER  #D2501B
-STUDIO_GLOW    #8FE6D2   (text weight #1A6D5C — the fill fails contrast)
-DAMAGE_DONE    #E8B93C   (text weight #8A6712)
+JACKET_RIPPER  #D6291E  red on #0D0B0B near-black, gritty
+STUDIO_GLOW    #E9A23B  amber, #FFC66B glow, on #171009
+DAMAGE_DONE    #C9A227  mustard panel; type #08192C dark blue + #14110A black
 ```
 
 Type: Bricolage Grotesque (display) · IBM Plex Serif (long-form) · IBM Plex Mono (all chrome).
@@ -146,8 +146,6 @@ Motion is mechanical, not cinematic. Things latch and step. Nothing fades in on 
 ## Known gaps
 
 - Wing landing pages and `/about/` — linked from the index, not yet uploaded.
-- **The Bench** — downloadable standalone tools. Sits unlit at the
-  bottom of DAMAGE_DONE until the first one is finished.
 - **WET_FILM** and a terminal-tech wing — real, deferred. No new wing opens until
   three actual drafts exist. Rooms with nothing in them make the whole house read
   as abandoned.

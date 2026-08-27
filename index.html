@@ -22,13 +22,15 @@
   --blueprint:#1F4E7A;
   --alarm:#D9541E;
 
-  --jr:#C4441A;          /* JACKET_RIPPER  scuffed orange, on paper */
+  --jr:#D6291E;          /* JACKET_RIPPER  red */
+  --jr-dark:#0D0B0B;     /* JACKET_RIPPER  panel, near-black */
+  --jr-paper:#EDE6DF;
   --sg:#E9A23B;          /* STUDIO_GLOW    dark amber */
   --sg-glow:#FFC66B;     /* STUDIO_GLOW    the lit filament */
   --sg-dark:#171009;     /* STUDIO_GLOW    panel */
-  --dd:#F0C230;          /* DAMAGE_DONE    hazard yellow */
-  --dd-blue:#14314F;     /* DAMAGE_DONE    panel */
-  --dd-paper:#EDF1F6;
+  --dd:#C9A227;          /* DAMAGE_DONE    mustard panel */
+  --dd-blue:#08192C;     /* DAMAGE_DONE    very dark blue, the lettering */
+  --dd-ink:#14110A;      /* DAMAGE_DONE    black body copy */
 
   --hair:1px solid rgba(22,21,26,.22);
   --hair-soft:1px solid rgba(22,21,26,.12);
@@ -73,9 +75,10 @@ header.mast{border-bottom:var(--hair);padding:44px 0 0}
   letter-spacing:-.045em;
   margin:0;
 }
+/* the underscore is the cursor. it blinks, and nothing trails the name. */
+.us{animation:blink 1.06s steps(1,end) infinite}
 .wordmark .us{color:var(--alarm)}
-.cursor{display:inline-block;width:.44em;height:.085em;background:var(--alarm);
-  vertical-align:baseline;margin-left:.06em;animation:blink 1.06s steps(1,end) infinite}
+.wname .us{color:inherit}
 @keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
 
 .creed{max-width:52ch;margin:22px 0 30px;font-size:17.5px;line-height:1.46}
@@ -117,13 +120,22 @@ header.mast{border-bottom:var(--hair);padding:44px 0 0}
   text-transform:uppercase;text-align:right;opacity:.5;padding-top:4px}
 .row:hover,.row:focus-visible{outline:none;transform:translateX(3px)}
 
-.wing-jr{background-image:
-  repeating-linear-gradient(84deg,rgba(22,21,26,.055) 0 1px,transparent 1px 37px),
-  repeating-linear-gradient(97deg,rgba(196,68,26,.065) 0 1px,transparent 1px 53px),
-  repeating-linear-gradient(71deg,rgba(22,21,26,.035) 0 1px,transparent 1px 91px)}
-.wing-jr .row:hover,.wing-jr .row:focus-visible{background:rgba(196,68,26,.10);border-left-color:var(--jr)}
+.wing-jr{background:var(--jr-dark);color:var(--jr-paper);border-bottom:none;
+  background-image:
+    radial-gradient(120% 90% at 50% 0%,rgba(255,255,255,.05),transparent 70%),
+    repeating-linear-gradient(93deg,rgba(0,0,0,.55) 0 1px,transparent 1px 6px),
+    repeating-linear-gradient(87deg,rgba(237,230,223,.05) 0 1px,transparent 1px 23px),
+    repeating-linear-gradient(112deg,rgba(214,41,30,.11) 0 1px,transparent 1px 61px),
+    repeating-linear-gradient(69deg,rgba(237,230,223,.032) 0 2px,transparent 2px 41px),
+    repeating-linear-gradient(7deg,rgba(0,0,0,.4) 0 1px,transparent 1px 13px)}
+.wing-jr .whead{border-bottom:1px solid rgba(237,230,223,.22)}
+.wing-jr .wnum,.wing-jr .wsub{opacity:.68}
+.wing-jr .wname{color:var(--jr);text-shadow:2px 0 0 rgba(214,41,30,.32)}
+.wing-jr .enter{background:transparent;border-color:rgba(237,230,223,.32);color:var(--jr-paper)}
+.wing-jr .enter:hover,.wing-jr .enter:focus-visible{background:var(--jr);color:var(--jr-dark);border-color:var(--jr)}
+.wing-jr .row{border-bottom:1px solid rgba(237,230,223,.13)}
+.wing-jr .row:hover,.wing-jr .row:focus-visible{background:rgba(214,41,30,.16);border-left-color:var(--jr)}
 .wing-jr .row:hover .n,.wing-jr .row:focus-visible .n{color:var(--jr);opacity:1}
-.wing-jr .wname{color:var(--jr)}
 
 /* ---------- STUDIO_GLOW: lit filament in a dark room ---------- */
 .wing-sg{background:var(--sg-dark);color:#F6ECDC;border-bottom:none;
@@ -132,37 +144,27 @@ header.mast{border-bottom:var(--hair);padding:44px 0 0}
 .wing-sg .wnum,.wing-sg .wsub{opacity:.72}
 .wing-sg .wname{color:var(--sg-glow);
   text-shadow:0 0 22px rgba(233,162,59,.5),0 0 4px rgba(255,198,107,.45)}
-.wing-sg .wname::after{content:"";display:inline-block;width:.4em;height:.4em;
-  background:var(--sg-glow);margin-left:.18em;transform:translateY(-.06em);
-  box-shadow:0 0 14px var(--sg-glow)}
 .wing-sg .enter{background:transparent;border-color:rgba(246,236,220,.34);color:#F6ECDC}
 .wing-sg .enter:hover,.wing-sg .enter:focus-visible{background:var(--sg);color:var(--sg-dark);border-color:var(--sg)}
 .wing-sg .row{border-bottom:1px solid rgba(246,236,220,.13)}
 .wing-sg .row:hover,.wing-sg .row:focus-visible{background:rgba(233,162,59,.14);border-left-color:var(--sg)}
 .wing-sg .row:hover .n,.wing-sg .row:focus-visible .n{color:var(--sg-glow);opacity:1}
 
-/* ---------- DAMAGE_DONE: the panel that is not clean ---------- */
-.wing-dd{background:var(--dd-blue);color:var(--dd-paper);border-bottom:none;
-  margin-top:0;padding-bottom:26px}
+/* ---------- DAMAGE_DONE: mustard panel, black and dark blue type ---------- */
+.wing-dd{background:var(--dd);color:var(--dd-ink);border-bottom:none;
+  margin-top:0;padding-bottom:26px;
+  background-image:radial-gradient(130% 80% at 50% 0%,rgba(255,255,255,.10),transparent 68%)}
 .wing-dd .hazard{height:9px;background:repeating-linear-gradient(45deg,
-  var(--dd) 0 12px,var(--dd-blue) 12px 24px)}
-.wing-dd .whead{border-bottom:1px solid rgba(237,241,246,.28)}
-.wing-dd .wname{color:var(--dd)}
-.wing-dd .wnum,.wing-dd .wsub{opacity:.7}
-.wing-dd .enter{background:transparent;border-color:rgba(237,241,246,.4);color:var(--dd-paper)}
-.wing-dd .enter:hover,.wing-dd .enter:focus-visible{background:var(--dd);color:var(--dd-blue);border-color:var(--dd)}
-.wing-dd .row{border-bottom:1px solid rgba(237,241,246,.15)}
-.wing-dd .row:hover,.wing-dd .row:focus-visible{background:rgba(240,194,48,.15);border-left-color:var(--dd)}
-.wing-dd .row:hover .n,.wing-dd .row:focus-visible .n{color:var(--dd);opacity:1}
-
-/* unlit panel — placeholder, deliberately not a link */
-.unlit{display:grid;grid-template-columns:56px 1fr 132px;gap:14px;align-items:baseline;
-  padding:15px 10px 16px;border-left:3px solid transparent;opacity:.34}
-.unlit h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:21px;
-  letter-spacing:-.02em;margin:0 0 5px}
-.unlit p{margin:0;font-size:15px;line-height:1.42}
-.unlit .tag{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;
-  text-align:right;padding-top:4px}
+  var(--dd-blue) 0 12px,var(--dd) 12px 24px)}
+.wing-dd .whead{border-bottom:1px solid rgba(8,25,44,.32)}
+.wing-dd .wname{color:var(--dd-blue)}
+.wing-dd .wnum,.wing-dd .wsub{opacity:.78;color:var(--dd-blue)}
+.wing-dd .enter{background:transparent;border-color:rgba(8,25,44,.45);color:var(--dd-blue)}
+.wing-dd .enter:hover,.wing-dd .enter:focus-visible{background:var(--dd-blue);color:var(--dd);border-color:var(--dd-blue)}
+.wing-dd .row{border-bottom:1px solid rgba(8,25,44,.2)}
+.wing-dd .row h3{color:var(--dd-blue)}
+.wing-dd .row:hover,.wing-dd .row:focus-visible{background:rgba(8,25,44,.13);border-left-color:var(--dd-blue)}
+.wing-dd .row:hover .n,.wing-dd .row:focus-visible .n{color:var(--dd-blue);opacity:1}
 
 /* ---------- FOOTER ---------- */
 footer{border-top:var(--hair);padding:26px 0 46px;background:var(--panel)}
@@ -180,12 +182,12 @@ footer{border-top:var(--hair);padding:26px 0 46px;background:var(--panel)}
   .spec{grid-template-columns:repeat(2,1fr)}
   .whead{grid-template-columns:1fr;gap:8px;align-items:start}
   .whead .enter{justify-self:start}
-  .row,.unlit{grid-template-columns:34px 1fr;gap:10px}
-  .row .tag,.unlit .tag{grid-column:2;text-align:left;padding-top:7px}
+  .row{grid-template-columns:34px 1fr;gap:10px}
+  .row .tag{grid-column:2;text-align:left;padding-top:7px}
 }
 @media(prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important}
-  .cursor{opacity:1}
+  .us{opacity:1}
 }
 </style>
 </head>
@@ -203,7 +205,7 @@ footer{border-top:var(--hair);padding:26px 0 46px;background:var(--panel)}
 <!-- ============ MASTHEAD ============ -->
 <header class="mast">
   <div class="wrap">
-    <h1 class="wordmark">HATCH<span class="us">_</span>TERMINAL<span class="cursor"></span></h1>
+    <h1 class="wordmark">HATCH<span class="us">_</span>TERMINAL</h1>
 
     <p class="creed">
       Self-contained documents on how records get made and how to make your own.
@@ -214,7 +216,7 @@ footer{border-top:var(--hair);padding:26px 0 46px;background:var(--panel)}
 
     <div class="spec">
       <div><span class="mono">Wings</span><b>03</b></div>
-      <div><span class="mono">Pieces live</span><b>18</b></div>
+      <div><span class="mono">Pieces live</span><b>17</b></div>
       <div><span class="mono">Dependencies</span><b>00</b></div>
       <div><span class="mono">Photographs</span><b>00</b></div>
     </div>
@@ -229,7 +231,7 @@ footer{border-top:var(--hair);padding:26px 0 46px;background:var(--panel)}
     <div class="whead">
       <span class="wnum">MOD 01</span>
       <div>
-        <h2 class="wname" id="w-jr">JACKET_RIPPER</h2>
+        <h2 class="wname" id="w-jr">JACKET<span class="us">_</span>RIPPER</h2>
         <p class="wsub">Secrets shared with the crateful dead.</p>
       </div>
       <a class="enter mono" href="jacket-ripper/index.html">Enter wing &rarr;</a>
@@ -279,8 +281,8 @@ footer{border-top:var(--hair);padding:26px 0 46px;background:var(--panel)}
     <div class="whead">
       <span class="wnum">MOD 02</span>
       <div>
-        <h2 class="wname" id="w-sg">STUDIO_GLOW</h2>
-        <p class="wsub">Experimental wet frets, bash yr. guitars.</p>
+        <h2 class="wname" id="w-sg">STUDIO<span class="us">_</span>GLOW</h2>
+        <p class="wsub">Experimental trainwrecks, beguiled with chrome hearts.</p>
       </div>
       <a class="enter mono" href="studio-glow/index.html">Enter wing &rarr;</a>
     </div>
@@ -348,8 +350,8 @@ footer{border-top:var(--hair);padding:26px 0 46px;background:var(--panel)}
     <div class="whead">
       <span class="wnum">MOD 03</span>
       <div>
-        <h2 class="wname" id="w-dd">DAMAGE_DONE</h2>
-        <p class="wsub">First person, dated, and nobody&rsquo;s fault but mine.</p>
+        <h2 class="wname" id="w-dd">DAMAGE<span class="us">_</span>DONE</h2>
+        <p class="wsub">If it was legal&hellip;</p>
       </div>
       <a class="enter mono" href="damage-done/index.html">Enter wing &rarr;</a>
     </div>
@@ -417,24 +419,6 @@ footer{border-top:var(--hair);padding:26px 0 46px;background:var(--panel)}
       <span class="tag">Log</span>
     </a>
 
-    <a class="row" href="damage-done/pyramid-song-piano/index.html">
-      <span class="n">08</span>
-      <span>
-        <h3>Pyramid Song &mdash; Piano Chord Reference</h3>
-        <p>Both hands, numbered fingerings, left hand walking parallel fifths under every chord. One page, printable, no theory lecture.</p>
-      </span>
-      <span class="tag">Sheet</span>
-    </a>
-
-    <!-- placeholder: goes live when the first standalone tool ships -->
-    <div class="unlit">
-      <span class="n">09</span>
-      <span>
-        <h3>The Bench</h3>
-        <p>Standalone tools you download and keep. Unlit until the first one is finished.</p>
-      </span>
-      <span class="tag">Offline</span>
-    </div>
   </div>
 </section>
 
