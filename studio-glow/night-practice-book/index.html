@@ -1,0 +1,858 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Night Practice Book · minor keys, jazz voicings, and the why</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ebony:#15130f;
+  --panel:#1d1a15;
+  --panel2:#242019;
+  --ivory:#eae3d0;
+  --dim:#a89f8b;
+  --faint:#6e6757;
+  --felt:#a8433c;      /* hammer felt red · left hand */
+  --felt-hi:#c05a50;
+  --brass:#c89b4e;     /* pedal brass · right hand */
+  --brass-hi:#dcb56e;
+  --line:#373126;
+  --keyw:#efe8d6;
+  --keyb:#221e17;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ebony);color:var(--ivory);
+  font-family:'Spectral',Georgia,serif;font-weight:300;font-size:17.5px;line-height:1.75;
+  -webkit-font-smoothing:antialiased}
+::selection{background:var(--felt);color:var(--ivory)}
+a{color:var(--brass)}
+.page{max-width:960px;margin:0 auto;padding:0 28px 140px}
+
+/* ---------- hero ---------- */
+header.hero{padding:92px 0 30px}
+.eyebrow{font:600 11px/1 'IBM Plex Mono',monospace;letter-spacing:.3em;text-transform:uppercase;color:var(--brass)}
+.eyebrow.red{color:var(--felt-hi)}
+h1{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;
+  font-size:clamp(48px,8vw,88px);line-height:1.0;margin:20px 0 22px;letter-spacing:-0.01em}
+.lede{font-size:20px;color:var(--dim);max-width:620px;margin:0 0 8px}
+.lede b{color:var(--ivory);font-weight:600}
+
+.legend{display:flex;gap:20px;flex-wrap:wrap;align-items:center;margin:34px 0 10px;
+  padding:14px 20px;background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  font:400 12.5px/1.6 'IBM Plex Mono',monospace;color:var(--dim)}
+.chip{width:12px;height:12px;border-radius:3px;display:inline-block;vertical-align:-1px;margin-right:8px}
+.chip.l{background:var(--felt)}
+.chip.r{background:var(--brass)}
+.chip.o{background:transparent;border:2px solid var(--felt-hi);border-radius:50%}
+
+/* ---------- contents ---------- */
+nav.toc{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:40px 0 0}
+nav.toc a{display:block;padding:16px 18px 13px;border:1px solid var(--line);border-radius:12px;
+  color:var(--ivory);text-decoration:none;background:transparent;transition:border-color .18s,background .18s}
+nav.toc a:hover{border-color:var(--brass);background:var(--panel)}
+nav.toc .n{display:block;font:600 10.5px 'IBM Plex Mono',monospace;letter-spacing:.24em;color:var(--felt-hi);margin-bottom:5px}
+nav.toc .t{font-family:'Instrument Serif',serif;font-size:21px;line-height:1.2}
+nav.toc .d{display:block;color:var(--dim);font-size:13.5px;margin-top:4px;line-height:1.5}
+
+/* ---------- structure ---------- */
+section.part{margin-top:120px;scroll-margin-top:40px}
+h2{font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(34px,4.6vw,48px);
+  line-height:1.08;margin:12px 0 10px}
+.partlede{color:var(--dim);font-size:18.5px;max-width:640px;margin:0 0 6px}
+h3{font-family:'Instrument Serif',serif;font-weight:400;font-size:27px;margin:58px 0 12px;line-height:1.2}
+h4{font:600 12px 'IBM Plex Mono',monospace;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--brass);margin:44px 0 8px}
+p,ul,ol{max-width:680px}
+li{margin:7px 0}
+strong{font-weight:600;color:var(--ivory)}
+em{font-style:italic}
+.sym,code{font-family:'IBM Plex Mono',monospace;font-size:.85em;color:var(--brass-hi)}
+hr.sep{border:0;height:1px;margin:70px 0 0;
+  background:linear-gradient(90deg,transparent,var(--line) 15%,var(--line) 85%,transparent)}
+
+table.tbl{border-collapse:collapse;width:100%;max-width:680px;margin:24px 0;font-size:15px}
+.tbl th{font:600 10.5px 'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--faint);text-align:left;padding:0 14px 9px 0;border-bottom:1px solid var(--line)}
+.tbl td{padding:10px 14px 10px 0;border-bottom:1px solid var(--line);vertical-align:top;color:var(--dim)}
+.tbl td:first-child{font-family:'IBM Plex Mono',monospace;font-size:13.5px;color:var(--brass-hi);white-space:nowrap}
+.tbl td b{color:var(--ivory);font-weight:600}
+
+aside.note{border-left:3px solid var(--brass);background:var(--panel);
+  padding:16px 22px;border-radius:0 12px 12px 0;margin:30px 0;max-width:660px;
+  font-size:15.5px;color:var(--dim)}
+aside.note.red{border-left-color:var(--felt)}
+aside.note b{color:var(--ivory)}
+
+/* ---------- diagrams ---------- */
+figure.dg{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+  padding:16px 18px 14px;margin:28px 0}
+figure.dg figcaption{display:flex;align-items:baseline;gap:6px 14px;flex-wrap:wrap;margin-bottom:12px}
+.dg .csym{font:600 15.5px 'IBM Plex Mono',monospace;color:var(--ivory)}
+.dg .cap{color:var(--dim);font-size:13.5px;line-height:1.5}
+.dg .fing{width:100%;font:400 12px 'IBM Plex Mono',monospace;color:var(--faint);margin-top:9px}
+.kbwrap{overflow-x:auto;padding-bottom:2px}
+svg.kb{display:block}
+
+button.play{margin-left:auto;font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.12em;
+  color:var(--brass);background:none;border:1px solid rgba(200,155,78,.5);
+  padding:6px 14px;border-radius:999px;cursor:pointer;white-space:nowrap;
+  transition:background .15s,color .15s}
+button.play:hover{background:var(--brass);color:var(--ebony)}
+button.play:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+button.play.striped{margin-left:0}
+
+.strip{display:flex;gap:14px;flex-wrap:wrap;align-items:stretch;margin:20px 0 6px}
+.strip figure.dg{margin:0;flex:1 1 205px;min-width:200px}
+.striphead{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:30px 0 0}
+.striphead .st{font-family:'Instrument Serif',serif;font-size:22px}
+.striphead .sd{color:var(--dim);font-size:14px}
+
+/* ---------- artist cards ---------- */
+.artist{border:1px solid var(--line);border-radius:16px;padding:28px 28px 22px;margin:30px 0;
+  background:linear-gradient(180deg,var(--panel) 0%,rgba(29,26,21,.25) 100%)}
+.artist h3{margin:0 0 2px}
+.artist .who{font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.2em;text-transform:uppercase;color:var(--felt-hi)}
+.artist ul{margin-top:14px}
+.artist p{color:var(--dim)}
+
+/* ---------- vault ---------- */
+.vault{display:grid;grid-template-columns:repeat(auto-fill,minmax(295px,1fr));gap:16px;margin-top:36px}
+.vault figure.dg{margin:0;display:flex;flex-direction:column}
+.vault .why{font-size:13.5px;color:var(--dim);line-height:1.6;margin-top:11px}
+.vault .why b{color:var(--ivory)}
+
+/* ---------- roadmap ---------- */
+.week{display:grid;grid-template-columns:110px 1fr;gap:8px 26px;max-width:720px;
+  padding:20px 0;border-bottom:1px solid var(--line)}
+.week .wk{font:600 11.5px 'IBM Plex Mono',monospace;letter-spacing:.18em;color:var(--brass);padding-top:5px}
+.week .wt{font-family:'Instrument Serif',serif;font-size:21px;margin:0 0 4px}
+.week p{margin:4px 0;color:var(--dim);font-size:15.5px}
+@media(max-width:560px){.week{grid-template-columns:1fr}}
+
+footer{margin-top:130px;border-top:1px solid var(--line);padding-top:30px;
+  color:var(--faint);font-size:14px;max-width:680px}
+footer b{color:var(--dim)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+@media(max-width:640px){.page{padding:0 18px 100px}header.hero{padding-top:64px}}
+</style>
+</head>
+<body>
+<div class="page">
+<header class="hero">
+  <div class="eyebrow">A lesson book for the small hours</div>
+  <h1>The Night<br>Practice Book</h1>
+  <p class="lede">Minor keys, jazz voicings, and the <b>why</b> behind the chords you already play by ear. Built around the harmony that runs through Badalamenti, Bill Evans, Reznor, Yorke, Tori Amos, Tom Waits, Bill Fay, and Jason Lytle.</p>
+
+  <figure class="dg" data-d="hero">
+    <figcaption>
+      <span class="csym">Am(maj7)</span>
+      <span class="cap">Press play. This one chord is most of this book.</span>
+    </figcaption>
+    <div class="kbwrap"></div>
+  </figure>
+
+  <div class="legend">
+    <span><span class="chip l"></span>left hand</span>
+    <span><span class="chip r"></span>right hand</span>
+    <span><span class="chip o"></span>the altered note in a scale</span>
+    <span>numbers are fingers · 1 = thumb, 5 = pinky, both hands</span>
+  </div>
+
+  <nav class="toc">
+    <a href="#p1"><span class="n">Part I</span><span class="t">The Why</span><span class="d">Intervals, how chords are built, and how to read any chord symbol.</span></a>
+    <a href="#p2"><span class="n">Part II</span><span class="t">Minor, Five Ways</span><span class="d">The minor scales and modes, with fingerings and who lives in each one.</span></a>
+    <a href="#p3"><span class="n">Part III</span><span class="t">Voicings</span><span class="d">From fistful triads to shells, guide tones, and rootless Evans voicings.</span></a>
+    <a href="#p4"><span class="n">Part IV</span><span class="t">Two Hands, Two Jobs</span><span class="d">Left hand patterns, right hand roles, and what the pedal is actually for.</span></a>
+    <a href="#p5"><span class="n">Part V</span><span class="t">The Artists</span><span class="d">The specific harmonic devices behind eight songwriters you love.</span></a>
+    <a href="#p6"><span class="n">Part VI</span><span class="t">The Vault</span><span class="d">Sixteen voicings worth stealing, with the reasons they work.</span></a>
+    <a href="#p7"><span class="n">Part VII</span><span class="t">The Six Week Plan</span><span class="d">A practice roadmap, plus exercises that connect your ear to the names.</span></a>
+  </nav>
+</header>
+
+<!-- ============================================================ PART I -->
+<section class="part" id="p1">
+  <div class="eyebrow red">Part I</div>
+  <h2>The Why</h2>
+  <p class="partlede">You already hear all of this. Playing by ear means your ear did the theory without telling you. This chapter just attaches names to things you can already recognize, so you can find them on purpose.</p>
+
+  <h3>Everything is distance</h3>
+  <p>Harmony has one raw material: the <strong>interval</strong>, the distance between two notes, counted in half steps (one key to the very next key, black or white). Every chord quality, every scale color, every mood you associate with a record is a particular set of distances. Memorize this table slowly over a couple of weeks. It is the periodic table for the rest of the book.</p>
+
+  <table class="tbl">
+    <tr><th>Interval</th><th>Half steps</th><th>Character</th></tr>
+    <tr><td>minor 2nd</td><td>1</td><td><b>Dread.</b> The shark, the knife. Two adjacent keys.</td></tr>
+    <tr><td>major 2nd</td><td>2</td><td>Neutral motion. The first two notes of most melodies.</td></tr>
+    <tr><td>minor 3rd</td><td>3</td><td><b>The sad one.</b> This single interval is what makes a chord minor.</td></tr>
+    <tr><td>major 3rd</td><td>4</td><td>The bright one. Makes a chord major.</td></tr>
+    <tr><td>perfect 4th</td><td>5</td><td>Open, suspended, church bells. Quartal jazz is built from these.</td></tr>
+    <tr><td>tritone</td><td>6</td><td><b>Unrest.</b> The engine inside every dominant 7th. Waits growls with it.</td></tr>
+    <tr><td>perfect 5th</td><td>7</td><td>Hollow strength. Neither major nor minor. The power chord.</td></tr>
+    <tr><td>minor 6th</td><td>8</td><td>Wistful, cinematic. Scores love it.</td></tr>
+    <tr><td>major 6th</td><td>9</td><td>Warm, nostalgic, barroom sweet.</td></tr>
+    <tr><td>minor 7th</td><td>10</td><td>Soft tension. Turns a triad into a jazz chord.</td></tr>
+    <tr><td>major 7th</td><td>11</td><td><b>The ache.</b> One half step below home. Dreamy over major, noir over minor.</td></tr>
+    <tr><td>octave</td><td>12</td><td>Home again.</td></tr>
+  </table>
+
+  <h3>Chords are stacked thirds</h3>
+  <p>Take any scale, grab a note, skip one, grab, skip, grab. That gives you a <strong>triad</strong>: root, 3rd, 5th. The quality of a triad comes entirely from which thirds you stacked:</p>
+  <ul>
+    <li><strong>Major</strong> = major 3rd, then minor 3rd on top (4 + 3 half steps). <span class="sym">C · E · G</span></li>
+    <li><strong>Minor</strong> = minor 3rd, then major 3rd (3 + 4). <span class="sym">A · C · E</span></li>
+    <li><strong>Diminished</strong> = two minor 3rds (3 + 3). Compressed, anxious. <span class="sym">B · D · F</span></li>
+    <li><strong>Augmented</strong> = two major 3rds (4 + 4). Weightless, wrong in a useful way. <span class="sym">C · E · G#</span></li>
+  </ul>
+  <p>Keep stacking thirds and you get <strong>seventh chords</strong>, where most of the music you love actually lives:</p>
+
+  <table class="tbl">
+    <tr><th>Symbol</th><th>Recipe</th><th>Sound</th></tr>
+    <tr><td>Cmaj7</td><td>major triad + major 7th</td><td>Dreamy, suspended in amber. Lytle's home base.</td></tr>
+    <tr><td>C7</td><td>major triad + minor 7th</td><td>The dominant. Restless, wants to move. Blues lives here.</td></tr>
+    <tr><td>Cm7</td><td>minor triad + minor 7th</td><td>Smoky, settled minor. The default jazz minor chord.</td></tr>
+    <tr><td>Cm(maj7)</td><td>minor triad + <b>major</b> 7th</td><td>Noir. Beautiful and wrong at once. Twin Peaks in one chord.</td></tr>
+    <tr><td>Cm7b5</td><td>diminished triad + minor 7th</td><td>Half-diminished. The saddest setup chord in music.</td></tr>
+    <tr><td>Cdim7</td><td>diminished triad + diminished 7th</td><td>A trapdoor. Silent film villain, or a slick passing chord.</td></tr>
+  </table>
+
+  <h3>Extensions and the decoder ring</h3>
+  <p>Keep stacking past the 7th and you reach <strong>9, 11, and 13</strong>. These are just scale steps 2, 4, and 6 played an octave up, where they turn from clutter into color. Two conventions worth knowing: <span class="sym">C9</span> implies the 7th is in there too, while <span class="sym">Cadd9</span> means a plain triad with a 9 added and <em>no</em> 7th. That second one is the Reznor and Lytle chord. And a <strong>slash chord</strong> like <span class="sym">G/B</span> just means a G chord with B as the lowest note. That is how songwriters make basslines walk.</p>
+
+  <table class="tbl">
+    <tr><th>You see</th><th>You play</th></tr>
+    <tr><td>Am</td><td>A C E · minor triad</td></tr>
+    <tr><td>Asus2 / Asus4</td><td>A B E / A D E · the 3rd is replaced, so it is neither major nor minor</td></tr>
+    <tr><td>Aadd9</td><td>A C# E + B · triad with a 9, no 7th</td></tr>
+    <tr><td>Am(add9)</td><td>A C E + B · the minor version, endlessly useful</td></tr>
+    <tr><td>Am9</td><td>A C E G B · m7 plus the 9</td></tr>
+    <tr><td>A6 / Am6</td><td>triad + 6th · barroom warm / velvet dark</td></tr>
+    <tr><td>C/E</td><td>C major with E in the bass · an inversion</td></tr>
+    <tr><td>E7b9</td><td>E G# B D + F · a dominant with a flat 9 · pure menace</td></tr>
+  </table>
+
+  <aside class="note">
+    <b>The ear-first shortcut.</b> When a chord in a record hits you, stop asking "what chord is that" and ask "what distances am I hearing." A minor 3rd somewhere? A major 7th rubbing the root? That question is answerable by ear, and the answer is the chord symbol. Theory is not a different skill from your ear. It is your ear, with a filing system.
+  </aside>
+</section>
+
+<!-- ============================================================ PART II -->
+<section class="part" id="p2">
+  <div class="eyebrow red">Part II</div>
+  <h2>Minor, Five Ways</h2>
+  <p class="partlede">Minor is not one scale. It is a neighborhood of scales that share a flat 3rd and disagree about everything else. Each disagreement is a different shade of dark, and each of your artists has a favorite street.</p>
+
+  <p>All the diagrams below are in A so you can see the shapes clearly, mostly on white keys. The circled numbers are <strong>right hand fingering</strong>. Left hand fingering for every seven-note scale here is the mirror pattern: <span class="sym">5 4 3 2 1 3 2 1</span> going up.</p>
+
+  <h3>Natural minor · the default dark</h3>
+  <p>Flat 3, flat 6, flat 7. This is the minor your ear grew up on: most rock, most folk, most of what Reznor and Yorke write sits here (its formal name is the <strong>Aeolian mode</strong>). Its signature move is the <span class="sym">bVII</span> to <span class="sym">i</span> cadence, G to Am, which resolves without any leading-tone drama.</p>
+  <figure class="dg" data-d="sc_nat">
+    <figcaption><span class="csym">A natural minor</span><span class="cap">1 · 2 · b3 · 4 · 5 · b6 · b7 &nbsp;·&nbsp; A B C D E F G</span></figcaption>
+    <div class="kbwrap"></div>
+  </figure>
+
+  <h3>Harmonic minor · the noir lift</h3>
+  <p>Raise the 7th of natural minor and two things happen. You gain a leading tone (G# pulls hard back to A), and you create a haunted gap of three half steps between F and G#. That gap is the "exotic" sound in film scores, in Tori's dramatic moments, and all over Badalamenti. This scale is also the factory that produces <span class="sym">Am(maj7)</span> and the menacing <span class="sym">E7b9</span>. One altered note, an entire genre.</p>
+  <figure class="dg" data-d="sc_harm">
+    <figcaption><span class="csym">A harmonic minor</span><span class="cap">1 · 2 · b3 · 4 · 5 · b6 · <b>7</b> &nbsp;·&nbsp; A B C D E F G#</span></figcaption>
+    <div class="kbwrap"></div>
+  </figure>
+
+  <h3>Melodic minor · the jazz minor</h3>
+  <p>Raise the 6th as well and the top half of the scale turns bright while the bottom stays dark. Jazz players use this form going up <em>and</em> down and just call it the <strong>jazz minor</strong>. It is Bill Evans country: the source of <span class="sym">m6</span>, <span class="sym">m(maj9)</span>, and the lush minor voicings later in this book. If harmonic minor is a black-and-white film, melodic minor is the same film in color.</p>
+  <figure class="dg" data-d="sc_mel">
+    <figcaption><span class="csym">A melodic minor</span><span class="cap">1 · 2 · b3 · 4 · 5 · <b>6</b> · <b>7</b> &nbsp;·&nbsp; A B C D E F# G#</span></figcaption>
+    <div class="kbwrap"></div>
+  </figure>
+
+  <h3>Dorian · the cool minor</h3>
+  <p>Natural minor with a raised 6th and the b7 kept. Minor, but with the lights on: melancholy that can still groove. Modal jazz is built on it, and a lot of Radiohead's "minor but strangely hopeful" passages are Dorian in disguise. Quick ear test: if the minor song sounds like it could keep going forever without needing to resolve, suspect Dorian.</p>
+  <figure class="dg" data-d="sc_dor">
+    <figcaption><span class="csym">A Dorian</span><span class="cap">1 · 2 · b3 · 4 · 5 · <b>6</b> · b7 &nbsp;·&nbsp; A B C D E F# G</span></figcaption>
+    <div class="kbwrap"></div>
+  </figure>
+
+  <h3>Phrygian · the threat</h3>
+  <p>Natural minor with a flat 2. That b2 leaning on the root is the darkest color in the modal system: flamenco, metal, industrial dread. Play the first two notes alone, A to Bb, and you already have the mood. Reznor's most claustrophobic piano moments live on this half step.</p>
+  <figure class="dg" data-d="sc_phr">
+    <figcaption><span class="csym">A Phrygian</span><span class="cap"><b>b2</b> · b3 · 4 · 5 · b6 · b7 &nbsp;·&nbsp; A Bb C D E F G</span></figcaption>
+    <div class="kbwrap"></div>
+  </figure>
+
+  <h3>The blues scale · the barroom</h3>
+  <p>Six notes: minor pentatonic plus the flat 5. Not a "scale" in the choir sense, more a set of licensed dirty notes. This is the Tom Waits floor plan, and it works over major chords, minor chords, and chords that have given up entirely.</p>
+  <figure class="dg" data-d="sc_blues">
+    <figcaption><span class="csym">A blues scale</span><span class="cap">1 · b3 · 4 · <b>b5</b> · 5 · b7 &nbsp;·&nbsp; A C D Eb E G</span></figcaption>
+    <div class="kbwrap"></div>
+  </figure>
+
+  <h3>And one door into the light</h3>
+  <p>For Lytle's and Bill Fay's warmer material you need plain major too. Same fingering logic, thumb on C. When Lytle's chords shimmer more than plain major should, he is usually borrowing <strong>Lydian</strong> color: a major scale with a raised 4th (in C, an F#). File that away for the <span class="sym">maj7#11</span> voicing in the Vault.</p>
+  <figure class="dg" data-d="sc_maj">
+    <figcaption><span class="csym">C major</span><span class="cap">1 · 2 · 3 · 4 · 5 · 6 · 7 &nbsp;·&nbsp; C D E F G A B</span></figcaption>
+    <div class="kbwrap"></div>
+  </figure>
+
+  <h4>How fingering actually works</h4>
+  <p>Every scale fingering in existence follows two rules: the <strong>thumb stays off black keys</strong> whenever possible, and the hand travels in alternating groups of <strong>three and four</strong> with the thumb tucking under after finger 3. Do not memorize fingerings as number strings. Feel them as two hand shapes, a triangle and a square, walking up the keyboard. Practice slowly enough that the thumb tuck is silent and invisible, because speed is just a relaxed tuck repeated.</p>
+
+  <table class="tbl">
+    <tr><th>Scale</th><th>Who lives there</th></tr>
+    <tr><td>Natural minor</td><td>Reznor, Yorke, Tori, most songs you already play</td></tr>
+    <tr><td>Harmonic minor</td><td>Badalamenti, Tori at her most theatrical, film noir</td></tr>
+    <tr><td>Melodic minor</td><td>Bill Evans, sophisticated ballads, the lush voicings in Part III</td></tr>
+    <tr><td>Dorian</td><td>Evans, Yorke, modal jazz, minor grooves that float</td></tr>
+    <tr><td>Phrygian</td><td>Reznor's dread, Waits at his most sinister</td></tr>
+    <tr><td>Blues</td><td>Waits, and the gravel underneath everyone else</td></tr>
+    <tr><td>Major / Lydian</td><td>Lytle, Bill Fay, the moments of grace between the dark songs</td></tr>
+  </table>
+
+  <aside class="note red">
+    <b>Practice these as sounds, not exercises.</b> One octave, hands separate, slow, and after each pass improvise for thirty seconds using only that scale over a droning open fifth in the left hand (A and E). The drone turns a fingering drill into an atmosphere, and you will learn the scale's personality along with its shape. That is the whole point.
+  </aside>
+</section>
+<!-- ============================================================ PART III -->
+<section class="part" id="p3">
+  <div class="eyebrow red">Part III</div>
+  <h2>Voicings</h2>
+  <p class="partlede">A chord is a decision about which notes to include. A voicing is a decision about where to put them. Same chord symbol, different voicing, completely different record. This is the chapter that changes how you sound.</p>
+
+  <h3>First, the problem</h3>
+  <p>Here is how most self-taught players voice A minor: everything crammed into one fist, low on the keyboard. Play it and listen honestly.</p>
+  <figure class="dg" data-d="v_mud">
+    <figcaption><span class="csym">Am · the mud</span><span class="cap">All correct notes, all in the wrong place. Thirds this low turn to sludge.</span></figcaption>
+    <div class="kbwrap"></div>
+  </figure>
+  <p>The fix is a physics rule called the <strong>low interval limit</strong>: close intervals blur together in the bass register. Rough guide: keep 3rds above C3, keep 2nds above E3, and below C2 play only single roots, octaves, and fifths. Bass wants space; treble tolerates crowds. Nearly every voicing that follows is just this rule applied with taste.</p>
+
+  <h3>The spread triad</h3>
+  <p>Same three notes as the mud, redistributed. Root and fifth low and open in the left hand, the sensitive third up where it can actually speak. This single change is eighty percent of sounding "professional."</p>
+  <figure class="dg" data-d="v_spread">
+    <figcaption><span class="csym">Am · spread</span><span class="cap">Left hand supplies weight, right hand supplies color. Compare it to the mud.</span></figcaption>
+    <div class="kbwrap"></div>
+  </figure>
+
+  <h3>Shells · the minimum viable chord</h3>
+  <p>Jazz players discovered you can delete most of a chord. A <strong>shell</strong> is the root plus one defining interval, usually the 7th, sometimes the 3rd stretched to a 10th. Two notes that imply everything. Shells leave enormous space for a voice or a right hand melody, which is why sparse writers from Evans to Reznor lean on them.</p>
+  <div class="strip">
+    <figure class="dg" data-d="v_shell7">
+      <figcaption><span class="csym">Am7 shell</span><span class="cap">Root + b7</span></figcaption>
+      <div class="kbwrap"></div>
+    </figure>
+    <figure class="dg" data-d="v_shell10">
+      <figcaption><span class="csym">Am shell</span><span class="cap">Root + 10th. Roll it if the reach is too far.</span></figcaption>
+      <div class="kbwrap"></div>
+    </figure>
+  </div>
+
+  <h3>Guide tones · why progressions feel inevitable</h3>
+  <p>Inside every 7th chord, the <strong>3rd and 7th</strong> do all the talking. They define the quality, and in a good progression they resolve into each other by half steps while the roots jump around underneath. Play this ii V I in C and watch the right hand barely move. That barely-moving is called <strong>voice leading</strong>, and it is the entire secret of "smooth."</p>
+  <div class="striphead"><span class="st">ii · V · I in C major</span><button class="play striped" data-seq="gt_dm7,gt_g7,gt_c">&#9654;&#xFE0E; play the progression</button></div>
+  <div class="strip">
+    <figure class="dg" data-d="gt_dm7"><figcaption><span class="csym">Dm7</span><span class="cap">guide tones F + C</span></figcaption><div class="kbwrap"></div></figure>
+    <figure class="dg" data-d="gt_g7"><figcaption><span class="csym">G7</span><span class="cap">C slides to B</span></figcaption><div class="kbwrap"></div></figure>
+    <figure class="dg" data-d="gt_c"><figcaption><span class="csym">Cmaj7</span><span class="cap">F slides to E · home</span></figcaption><div class="kbwrap"></div></figure>
+  </div>
+
+  <h3>Rootless voicings · the Bill Evans sound</h3>
+  <p>Evans' great trick: since the bass player has the root, the piano can spend its fingers on color instead. A <strong>rootless voicing</strong> keeps the 3rd and 7th and adds the 9 or 13. Playing solo, you supply the root yourself with a light left hand. The result is that floating, expensive sound that makes a plain progression feel like rain on a window. These three shapes, moved through keys, are a lifetime supply.</p>
+  <div class="striphead"><span class="st">The same ii · V · I, rootless</span><button class="play striped" data-seq="rl_dm9,rl_g13,rl_c9">&#9654;&#xFE0E; play the progression</button></div>
+  <div class="strip">
+    <figure class="dg" data-d="rl_dm9"><figcaption><span class="csym">Dm9</span><span class="cap">b3 · 5 · b7 · 9</span></figcaption><div class="kbwrap"></div></figure>
+    <figure class="dg" data-d="rl_g13"><figcaption><span class="csym">G13</span><span class="cap">b7 · 9 · 3 · 13 · one finger moves</span></figcaption><div class="kbwrap"></div></figure>
+    <figure class="dg" data-d="rl_c9"><figcaption><span class="csym">Cmaj9</span><span class="cap">3 · 5 · 7 · 9 · home, but floating</span></figcaption><div class="kbwrap"></div></figure>
+  </div>
+
+  <h3>The minor ii · V · i · the crown jewel</h3>
+  <p>Now the dark version, the progression under half the ballads ever written and most of the noir canon. Watch the top of the right hand: A falls to G#, then the whole shape settles onto the <span class="sym">m(maj7)</span>. Every note that moves, moves by half step. Learn this in A minor until it plays itself, then move it to E minor and D minor.</p>
+  <div class="striphead"><span class="st">ii&#248; · V7b9 · i(maj7) in A minor</span><button class="play striped" data-seq="mn_ii,mn_v,mn_i">&#9654;&#xFE0E; play the progression</button></div>
+  <div class="strip">
+    <figure class="dg" data-d="mn_ii"><figcaption><span class="csym">Bm7b5</span><span class="cap">the sigh</span></figcaption><div class="kbwrap"></div></figure>
+    <figure class="dg" data-d="mn_v"><figcaption><span class="csym">E7b9</span><span class="cap">the threat · b9 from harmonic minor</span></figcaption><div class="kbwrap"></div></figure>
+    <figure class="dg" data-d="mn_i"><figcaption><span class="csym">Am(maj7)</span><span class="cap">the beautiful wrong home</span></figcaption><div class="kbwrap"></div></figure>
+  </div>
+
+  <h3>Add9 and sus · modern melancholy</h3>
+  <p>The <span class="sym">add9</span> is the defining color of post-1990 minor piano. In the version below, the 9 (B) sits directly against the b3 (C), a deliberate one-half-step rub that reads as ache rather than error. The <span class="sym">sus2</span> goes the other way: remove the third entirely and the chord becomes weather, neither happy nor sad. Yorke writes whole passages of sus chords that never resolve, which is exactly why they feel suspended in air.</p>
+  <div class="strip">
+    <figure class="dg" data-d="v_add9rub"><figcaption><span class="csym">Am(add9)</span><span class="cap">B against C · the ache</span></figcaption><div class="kbwrap"></div></figure>
+    <figure class="dg" data-d="v_sus"><figcaption><span class="csym">Asus2</span><span class="cap">no third · pure weather</span></figcaption><div class="kbwrap"></div></figure>
+  </div>
+
+  <h3>Quartal voicings · stacked fourths</h3>
+  <p>Abandon thirds entirely and stack perfect 4ths. The result is ambiguous, open, modern: it implies a mode rather than declaring a chord. This exact shape, four 4ths capped with a 3rd, is the most famous piano voicing in jazz, and it sounds fully at home under a Radiohead-style melody. Try it over a low D drone.</p>
+  <figure class="dg" data-d="v_quartal">
+    <figcaption><span class="csym">quartal on D Dorian</span><span class="cap">E · A · D · G · B · fourths until the top</span></figcaption>
+    <div class="kbwrap"></div>
+  </figure>
+
+  <h3>Inversions and slash chords · the walking bass</h3>
+  <p>Any chord can put its 3rd or 5th in the bass. Songwriters use inversions to make the bassline step where the chords leap. Here the harmony goes C, G, Am, but the bass walks calmly down C, B, A. This device is everywhere in Fay and Lytle, and once you hear it you cannot unhear it.</p>
+  <div class="striphead"><span class="st">C · G/B · Am</span><button class="play striped" data-seq="s_c,s_gb,s_am">&#9654;&#xFE0E; play the walkdown</button></div>
+  <div class="strip">
+    <figure class="dg" data-d="s_c"><figcaption><span class="csym">C</span><span class="cap">bass on C</span></figcaption><div class="kbwrap"></div></figure>
+    <figure class="dg" data-d="s_gb"><figcaption><span class="csym">G/B</span><span class="cap">bass steps to B</span></figcaption><div class="kbwrap"></div></figure>
+    <figure class="dg" data-d="s_am"><figcaption><span class="csym">Am</span><span class="cap">arrives on A</span></figcaption><div class="kbwrap"></div></figure>
+  </div>
+
+  <h3>The diminished trapdoor</h3>
+  <p>A <span class="sym">dim7</span> chord is four minor 3rds, perfectly symmetrical, belonging to no key. Classic use: slip it between two diatonic chords a whole step apart as a chromatic staircase, C to <span class="sym">C#dim7</span> to Dm7. Gospel, stride, and Tom Waits all run on this move.</p>
+  <figure class="dg" data-d="v_dim">
+    <figcaption><span class="csym">C#dim7</span><span class="cap">C# · E · G · Bb · the passing chord between C and Dm</span></figcaption>
+    <div class="kbwrap"></div>
+  </figure>
+
+  <aside class="note">
+    <b>How to practice any voicing.</b> Three steps, always. One: loop it until your hand finds it without looking. Two: transpose it to two other keys, because a voicing you know in one key is a photograph and a voicing you know in three keys is a tool. Three: put one melody note on top and keep the voicing underneath it. Step three is where voicings become music.
+  </aside>
+</section>
+
+<!-- ============================================================ PART IV -->
+<section class="part" id="p4">
+  <div class="eyebrow red">Part IV</div>
+  <h2>Two Hands, Two Jobs</h2>
+  <p class="partlede">The piano is a duo pretending to be one instrument. The left hand is the rhythm section: weight, time, foundation. The right hand is the singer: melody, color, phrasing. Most "I can't play with both hands" problems are really "both hands are trying to do the same job."</p>
+
+  <h3>The left hand menu</h3>
+  <p>Build your left hand from this menu, simplest first. Each one is a complete accompaniment by itself.</p>
+  <table class="tbl">
+    <tr><th>Pattern</th><th>What it is</th><th>Where it shines</th></tr>
+    <tr><td>Single roots</td><td>One low note per chord, let it ring</td><td>Ballads, anything with a vocal</td></tr>
+    <tr><td>Open fifth</td><td>Root + 5th, maybe + octave</td><td>Scores, Reznor, anything ominous</td></tr>
+    <tr><td>Shells</td><td>Root + 7th or 10th</td><td>Jazz ballads, sparse noir</td></tr>
+    <tr><td>Ostinato</td><td>A short looping figure that never changes</td><td>Reznor, Tori, hypnosis in general</td></tr>
+    <tr><td>Stride-lite</td><td>Low root on 1 and 3, mid chord on 2 and 4</td><td>Waits, barroom, gospel</td></tr>
+    <tr><td>Rolled 10th</td><td>Root then 10th, quickly rolled</td><td>Warm, orchestral, hides small hands</td></tr>
+  </table>
+
+  <div class="strip">
+    <figure class="dg" data-d="h_open5"><figcaption><span class="csym">the slab</span><span class="cap">open 5th + octave · instant film score</span></figcaption><div class="kbwrap"></div></figure>
+    <figure class="dg" data-d="h_ost"><figcaption><span class="csym">ostinato</span><span class="cap">a loop that hypnotizes · this one adds the b7</span></figcaption><div class="kbwrap"></div></figure>
+  </div>
+  <div class="strip">
+    <figure class="dg" data-d="st_bass"><figcaption><span class="csym">stride-lite · beat 1</span><span class="cap">low root alone</span></figcaption><div class="kbwrap"></div></figure>
+    <figure class="dg" data-d="st_chord"><figcaption><span class="csym">stride-lite · beat 2</span><span class="cap">mid-register chord answers</span></figcaption><div class="kbwrap"></div></figure>
+  </div>
+
+  <h3>The right hand's one rule</h3>
+  <p><strong>The top note is the melody, whether you meant it or not.</strong> Ears track the highest sounding pitch. So when you play chords, choose the top note like a singer chooses a note, and rearrange the chord underneath it. This is why two voicings of the same chord tell different stories, and it is the actual meaning of Evans' famous lyricism: he sang with the top of his voicings. A beautiful exercise: play any progression from this book and force the top notes to make a melody that steps rather than leaps.</p>
+
+  <p>The other great right hand role is the <strong>broken figure</strong>: arpeggiating a voicing instead of blocking it. Tori builds entire songs from a rolling add9 pattern that never states the chord all at once. Here is one to loop until it disappears into muscle:</p>
+  <figure class="dg" data-d="h_tori">
+    <figcaption><span class="csym">broken Am(add9)</span><span class="cap">up and over, in eighth notes · loop it, then move the bass note under it</span></figcaption>
+    <div class="kbwrap"></div>
+  </figure>
+
+  <h3>Putting the hands together</h3>
+  <ul>
+    <li><strong>Hands separate first, always.</strong> Loop each hand until it is boring. Boredom is the signal that the hand has automated and freed your attention.</li>
+    <li><strong>Combine at half speed.</strong> The tempo where both hands work together cleanly is your real tempo. Speed is a byproduct of relaxation, never of effort.</li>
+    <li><strong>Anchor on downbeats.</strong> When coordinating a new pattern, make the hands meet on beat 1 and let the rest be approximate at first. Precision spreads outward from the downbeat.</li>
+    <li><strong>Give the hands different densities.</strong> Busy left hand, sustained right hand. Or the reverse. Two busy hands is a traffic jam.</li>
+  </ul>
+
+  <h3>The pedal, briefly</h3>
+  <p>The sustain pedal is not glue for your mistakes, it is a lighting rig. Three habits cover ninety percent of use: change the pedal <strong>just after</strong> each new chord lands (called legato pedaling, the down-up happens as the fingers strike), keep it <strong>shallower</strong> in the bass register where mud accumulates, and periodically play with <strong>no pedal at all</strong> so your fingers, not your foot, learn to connect notes. For the Badalamenti tremolo-and-haze sound, half pedal plus a slow left hand is the entire recipe.</p>
+</section>
+<!-- ============================================================ PART V -->
+<section class="part" id="p5">
+  <div class="eyebrow red">Part V</div>
+  <h2>The Artists</h2>
+  <p class="partlede">Not transcriptions. Devices. Each of these writers owns a small set of harmonic moves, and once you can play the move, you can hear it everywhere in their catalog and use it in yours.</p>
+
+  <div class="artist">
+    <div class="who">The slow dread</div>
+    <h3>Angelo Badalamenti</h3>
+    <p>The Twin Peaks sound is harmonic minor played at half speed with the pedal down. Its centerpiece is the <strong>line cliché</strong>: hold a minor chord and walk one inner voice down by half steps, 1 to 7 to b7 to 6. Four chords, one moving finger, infinite menace. Play it slowly, let each chord bloom fully, and add a soft left hand tremolo between root and fifth when you want the fog to roll in.</p>
+    <div class="striphead"><span class="st">The line cliché in A minor</span><button class="play striped" data-seq="lc1,lc2,lc3,lc4">&#9654;&#xFE0E; play all four</button></div>
+    <div class="strip">
+      <figure class="dg" data-d="lc1"><figcaption><span class="csym">Am</span><span class="cap">top voice: A</span></figcaption><div class="kbwrap"></div></figure>
+      <figure class="dg" data-d="lc2"><figcaption><span class="csym">Am(maj7)</span><span class="cap">falls to G#</span></figcaption><div class="kbwrap"></div></figure>
+      <figure class="dg" data-d="lc3"><figcaption><span class="csym">Am7</span><span class="cap">falls to G</span></figcaption><div class="kbwrap"></div></figure>
+      <figure class="dg" data-d="lc4"><figcaption><span class="csym">Am6</span><span class="cap">lands on F#</span></figcaption><div class="kbwrap"></div></figure>
+    </div>
+  </div>
+
+  <div class="artist">
+    <div class="who">The lyricist of voicings</div>
+    <h3>Bill Evans</h3>
+    <p>Evans' whole aesthetic reduces to three habits: <strong>rootless voicings</strong> (Part III, learn them cold), <strong>the top note sings</strong> (choose it like a melody, always), and <strong>inner voices move</strong>. That last one is subtle and devastating: while the chord appears to sit still, one interior note steps somewhere and the harmony breathes. Here is the smallest possible example. Play it and notice you heard a melody even though "nothing happened."</p>
+    <div class="striphead"><span class="st">Inner motion</span><button class="play striped" data-seq="ev1,ev2">&#9654;&#xFE0E; play both</button></div>
+    <div class="strip">
+      <figure class="dg" data-d="ev1"><figcaption><span class="csym">Cmaj7</span><span class="cap">B in the middle</span></figcaption><div class="kbwrap"></div></figure>
+      <figure class="dg" data-d="ev2"><figcaption><span class="csym">C6</span><span class="cap">B sinks to A · the chord exhales</span></figcaption><div class="kbwrap"></div></figure>
+    </div>
+    <p>His other lesson is restraint under a melody: shells and guide tones low, air in the middle, tune on top. When in doubt, remove a note.</p>
+  </div>
+
+  <div class="artist">
+    <div class="who">The machine with a heart</div>
+    <h3>Trent Reznor</h3>
+    <p>Reznor's piano writing is minimal by force of will: a left hand <strong>ostinato</strong> that never varies, an <strong>add9</strong> ache in the right hand, and the <strong>Phrygian b2</strong> when he wants your skin to crawl. The restraint is the point. One figure loops while a single chord change lands like an event, because in an empty room every object is enormous. Loop the ostinato from Part IV, then try the voicing below over it and hold it for four slow bars.</p>
+    <figure class="dg" data-d="r_phr">
+      <figcaption><span class="csym">the Phrygian rub</span><span class="cap">A · Bb · C · E over a bare fifth · dread in five notes</span></figcaption>
+      <div class="kbwrap"></div>
+    </figure>
+  </div>
+
+  <div class="artist">
+    <div class="who">The beautiful wrong turn</div>
+    <h3>Thom Yorke</h3>
+    <p>Radiohead harmony runs on three devices. First, <strong>oscillation</strong>: rock between two chords that share most of their notes and let the bass tell the story. Below, the right hand literally does not move while the harmony transforms. Second, <strong>modal mixture</strong>: in a major key, borrow the minor iv (F to Fm in the key of C) for that instant heartbreak dip. Third, <strong>sus chords that never resolve</strong>, so the music hangs in the air permanently. All three are cheap to play and expensive-sounding, the best kind of device.</p>
+    <div class="striphead"><span class="st">Oscillation · same hand, new world</span><button class="play striped" data-seq="y1,y2,y1,y2">&#9654;&#xFE0E; play the rocking</button></div>
+    <div class="strip">
+      <figure class="dg" data-d="y1"><figcaption><span class="csym">Am</span><span class="cap">bass on A</span></figcaption><div class="kbwrap"></div></figure>
+      <figure class="dg" data-d="y2"><figcaption><span class="csym">Fmaj7</span><span class="cap">only the bass moved</span></figcaption><div class="kbwrap"></div></figure>
+    </div>
+  </div>
+
+  <div class="artist">
+    <div class="who">The rolling engine</div>
+    <h3>Tori Amos</h3>
+    <p>Tori's signature is <strong>motion as harmony</strong>: the broken add9 figure from Part IV, driven hard, often over insistent left hand octaves in straight quarters. The chords are frequently simple; the ceaseless arpeggiation is what makes them sound orchestral. Her second signature is reaching for <strong>harmonic minor</strong> at emotional peaks, that raised 7th cutting through like a struck match. Practice recipe: loop the broken figure, move the left hand bass through A, F, C, G underneath it without stopping the right hand. That independence is the entire trick.</p>
+  </div>
+
+  <div class="artist">
+    <div class="who">The haunted saloon</div>
+    <h3>Tom Waits</h3>
+    <p>Waits plays traditional forms through a broken speaker: <strong>stride-lite</strong> left hand, <strong>6th chords</strong> for the sweet lie, the <strong>diminished trapdoor</strong> between chords, the <strong>blues scale</strong> smeared over everything, and when the song turns sinister, a naked <strong>tritone</strong> in the low register. The growl below is the Hendrix chord relocated to a piano bar: a dominant with a #9, major and minor third fighting in public.</p>
+    <figure class="dg" data-d="w_growl">
+      <figcaption><span class="csym">E7#9</span><span class="cap">G# and G natural in the same chord · the argument is the sound</span></figcaption>
+      <div class="kbwrap"></div>
+    </figure>
+  </div>
+
+  <div class="artist">
+    <div class="who">The hymnal</div>
+    <h3>Bill Fay</h3>
+    <p>Fay's harmony is gospel slowed to walking pace: <strong>plagal motion</strong> (IV to I, the "amen" cadence) instead of dominant drama, often over a <strong>pedal bass</strong> that refuses to move, plus suspensions that resolve gently downward. Hymn spacing matters here: left hand root and fifth, right hand close triad an octave up, nothing crowded. It sounds like forgiveness, which is the point.</p>
+    <div class="striphead"><span class="st">The amen over a pedal</span><button class="play striped" data-seq="f1,f2">&#9654;&#xFE0E; play the cadence</button></div>
+    <div class="strip">
+      <figure class="dg" data-d="f1"><figcaption><span class="csym">F/C</span><span class="cap">IV leaning on the tonic bass</span></figcaption><div class="kbwrap"></div></figure>
+      <figure class="dg" data-d="f2"><figcaption><span class="csym">C</span><span class="cap">amen</span></figcaption><div class="kbwrap"></div></figure>
+    </div>
+  </div>
+
+  <div class="artist">
+    <div class="who">The transmission from the desert</div>
+    <h3>Jason Lytle</h3>
+    <p>Grandaddy's keyboard language is <strong>major 7 shimmer</strong> over <strong>pedal points</strong>: the bass holds one note while triads drift overhead, so even ordinary chords feel like weather systems passing a fixed observer. Add 9ths freely, play in the upper half of the keyboard, and let the pedal blur adjacent chords slightly. Melancholy optimism is just Cmaj7 refusing to leave C in the bass.</p>
+    <div class="striphead"><span class="st">Pedal point drift</span><button class="play striped" data-seq="l1,l2,l3,l1">&#9654;&#xFE0E; play the drift</button></div>
+    <div class="strip">
+      <figure class="dg" data-d="l1"><figcaption><span class="csym">C</span><span class="cap">the observer</span></figcaption><div class="kbwrap"></div></figure>
+      <figure class="dg" data-d="l2"><figcaption><span class="csym">G/C</span><span class="cap">weather moves</span></figcaption><div class="kbwrap"></div></figure>
+      <figure class="dg" data-d="l3"><figcaption><span class="csym">Fadd9/C</span><span class="cap">more weather</span></figcaption><div class="kbwrap"></div></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ PART VI -->
+<section class="part" id="p6">
+  <div class="eyebrow red">Part VI</div>
+  <h2>The Vault</h2>
+  <p class="partlede">Sixteen voicings worth stealing. Each earns its place by doing something a plain triad cannot. Learn them in the key shown, then move each one to at least two more keys, then put them in your own songs where nobody will suspect a thing.</p>
+
+  <div class="vault">
+    <figure class="dg" data-d="va1"><figcaption><span class="csym">Am(maj7)</span><span class="cap">the noir tonic</span></figcaption><div class="kbwrap"></div><div class="why"><b>Why it works:</b> the major 7th (G#) aches against the minor 3rd's gloom. Resolve to it, or refuse to resolve at all. Badalamenti's front door.</div></figure>
+    <figure class="dg" data-d="va2"><figcaption><span class="csym">Am9</span><span class="cap">the velvet minor</span></figcaption><div class="kbwrap"></div><div class="why"><b>Why it works:</b> the 9 (B) softens m7 into something expensive. The default "sad but composed" chord of jazz balladry.</div></figure>
+    <figure class="dg" data-d="va3"><figcaption><span class="csym">Fmaj9(#11)</span><span class="cap">the Lydian shimmer</span></figcaption><div class="kbwrap"></div><div class="why"><b>Why it works:</b> the #11 (B) floats a tritone above the root without any menace, pure daylight haze. Lytle and dream pop live here.</div></figure>
+    <figure class="dg" data-d="va4"><figcaption><span class="csym">Em(maj9)</span><span class="cap">the spy chord</span></figcaption><div class="kbwrap"></div><div class="why"><b>Why it works:</b> minor 3rd, major 7th, and 9 stacked into one silhouette. The classic film-score ending chord, held with tremolo until the credits.</div></figure>
+    <figure class="dg" data-d="va5"><figcaption><span class="csym">Dm11</span><span class="cap">the fog bank</span></figcaption><div class="kbwrap"></div><div class="why"><b>Why it works:</b> the 11 (G) blurs the chord's edges; no leading tones anywhere, so it can sit motionless for whole minutes. Score writing in one grip.</div></figure>
+    <figure class="dg" data-d="va6"><figcaption><span class="csym">G13</span><span class="cap">the silk dominant</span></figcaption><div class="kbwrap"></div><div class="why"><b>Why it works:</b> the rootless dominant with a 13 on top. It wants to resolve to C, but politely, in a good coat. Straight out of the Evans playbook.</div></figure>
+    <figure class="dg" data-d="va7"><figcaption><span class="csym">E7b9</span><span class="cap">the Badalamenti dominant</span></figcaption><div class="kbwrap"></div><div class="why"><b>Why it works:</b> the b9 (F) comes from A harmonic minor and drips menace. Resolve it to Am(maj7) and you have scored a scene.</div></figure>
+    <figure class="dg" data-d="va8"><figcaption><span class="csym">Asus2 · wide</span><span class="cap">the cathedral</span></figcaption><div class="kbwrap"></div><div class="why"><b>Why it works:</b> fifths and 9ths only, no 3rd anywhere, so it is neither major nor minor: just architecture and reverb. Huge with the pedal down.</div></figure>
+    <figure class="dg" data-d="va9"><figcaption><span class="csym">Am(add9)</span><span class="cap">the ache</span></figcaption><div class="kbwrap"></div><div class="why"><b>Why it works:</b> B and C a half step apart in the middle of the hand. The controlled dissonance that defines modern minor piano. Reznor's signature color.</div></figure>
+    <figure class="dg" data-d="va10"><figcaption><span class="csym">Fm(add9)</span><span class="cap">the borrowed heartbreak</span></figcaption><div class="kbwrap"></div><div class="why"><b>Why it works:</b> this is iv borrowed from C minor. Drop it into a C major song right after F major and watch the room's temperature fall. Peak Yorke.</div></figure>
+    <figure class="dg" data-d="va11"><figcaption><span class="csym">C#dim7</span><span class="cap">the trapdoor</span></figcaption><div class="kbwrap"></div><div class="why"><b>Why it works:</b> perfectly symmetrical, so it belongs to no key and can exit into several. The chromatic stair between C and Dm. Gospel, stride, Waits.</div></figure>
+    <figure class="dg" data-d="va12"><figcaption><span class="csym">C6/9</span><span class="cap">closing time</span></figcaption><div class="kbwrap"></div><div class="why"><b>Why it works:</b> the 6 and 9 replace jazz tension with barroom warmth. The classic final chord when a plain major triad would feel like slamming the door.</div></figure>
+    <figure class="dg" data-d="va13"><figcaption><span class="csym">quartal stack</span><span class="cap">the modernist</span></figcaption><div class="kbwrap"></div><div class="why"><b>Why it works:</b> fourths all the way up, one 3rd as a roof. Declares a mode instead of a chord, which is exactly the ambiguity modal jazz and art rock both want.</div></figure>
+    <figure class="dg" data-d="va14"><figcaption><span class="csym">E7#9</span><span class="cap">the growl</span></figcaption><div class="kbwrap"></div><div class="why"><b>Why it works:</b> major 3rd below, minor 3rd (spelled #9) above: the blues' central argument voiced as a single chord. Waits with the lights half out.</div></figure>
+    <figure class="dg" data-d="va15"><figcaption><span class="csym">C9sus</span><span class="cap">the pulpit</span></figcaption><div class="kbwrap"></div><div class="why"><b>Why it works:</b> a whole Bb triad floating over a C bass. Gospel's favorite dominant: all the pull, none of the sharp edges. Bill Fay territory.</div></figure>
+    <figure class="dg" data-d="va16"><figcaption><span class="csym">A5(add9)</span><span class="cap">the void</span></figcaption><div class="kbwrap"></div><div class="why"><b>Why it works:</b> open fifths with a lone 9 hanging high above, and no 3rd for the ear to hold. Cold, vast, and perfect under a slow melody. Pure score writing.</div></figure>
+  </div>
+</section>
+
+<!-- ============================================================ PART VII -->
+<section class="part" id="p7">
+  <div class="eyebrow red">Part VII</div>
+  <h2>The Six Week Plan</h2>
+  <p class="partlede">Twenty to thirty minutes a day beats three hours on Sunday, every time. Each week has one idea. Resist the urge to rush ahead: the point is depth, not coverage, and the book will still be here.</p>
+
+  <div class="week"><div class="wk">Week 1</div><div><p class="wt">Names for what you hear</p><p>Daily: the interval table, played and sung, five minutes. A natural minor, hands separate, one octave. Then the drone game from Part II: open fifth in the left hand, improvise in the scale with the right. End each session by playing one chord from a song you know and naming its quality out loud.</p></div></div>
+  <div class="week"><div class="wk">Week 2</div><div><p class="wt">Shells and guide tones</p><p>Shell voicings for Am7, Dm7, E7. The major ii V I with guide tones in C, then G, then F. The real assignment: take one song you already play by ear and replace every chord with a shell. Feel how much room appears.</p></div></div>
+  <div class="week"><div class="wk">Week 3</div><div><p class="wt">The noir kit</p><p>A harmonic minor daily. The line cliché until it is automatic. The minor ii V i in A minor, slow, with pedal. By Friday, improvise a slow melody over the line cliché with the right hand. Congratulations, you are scoring an imaginary film.</p></div></div>
+  <div class="week"><div class="wk">Week 4</div><div><p class="wt">The Evans week</p><p>Rootless major ii V I in C, F, and G. Rootless minor ii V i in A minor and E minor. Practice singing the top note of each voicing as you play it. This is the week your recordings start sounding like records.</p></div></div>
+  <div class="week"><div class="wk">Week 5</div><div><p class="wt">Left hand independence</p><p>The ostinato and open-fifth patterns under a free right hand. Stride-lite through a slow 12-bar blues in A. Tori drill: keep the broken add9 figure running while the left hand moves through A, F, C, G. Sloppy is fine; continuous is mandatory.</p></div></div>
+  <div class="week"><div class="wk">Week 6</div><div><p class="wt">Theft</p><p>Choose five Vault voicings and write an eight-bar progression that uses all of them. Then reharmonize one of your existing songs: swap plain triads for add9s, maj7s, and one well-placed m(maj7). Record both versions. Compare. Keep what serves the song.</p></div></div>
+
+  <h3>The ear-to-theory bridge</h3>
+  <p>You learned by ear, which means your ear is the senior partner. These four exercises make theory report to it, a few minutes each, forever:</p>
+  <ul>
+    <li><strong>Quality flash.</strong> Play a random triad or 7th chord, eyes closed on the name. Call major, minor, dominant, or dim before your brain can count. Wrong answers are data, not failures.</li>
+    <li><strong>Find the seventh.</strong> Play any triad, then hunt by ear for the note a whole step below the octave (the b7) and a half step below (the maj7). Feel the difference in your chest, not your head.</li>
+    <li><strong>Degree singing.</strong> Play a slow A minor scale and sing the degree numbers. Then play a chord from this book and sing its top note's degree. This is how ear players become arrangers.</li>
+    <li><strong>One chord a day.</strong> Take one chord from a record you love and find it on the keys. Just one. Name it with Part I's decoder. In a year that is three hundred chords that are actually yours.</li>
+  </ul>
+
+  <aside class="note">
+    <b>A last word.</b> Theory is descriptive, not prescriptive. Every rule in this book is a summary of what already sounded good to someone's ear, including yours. When a voicing in here collides with an instinct of yours, trust the instinct and then figure out what the instinct knew. That second step is the whole education.
+  </aside>
+</section>
+
+<footer>
+  <p><b>The Night Practice Book.</b> Every diagram on this page is playable: press the buttons, match your fingers to the circles, steal everything. This file works offline; keep it near the piano.</p>
+</footer>
+</div>
+<script>
+(function(){
+"use strict";
+
+/* ---------- note math ---------- */
+var PC={C:0,D:2,E:4,F:5,G:7,A:9,B:11};
+var BLACK={1:1,3:1,6:1,8:1,10:1};
+function midi(n){
+  var m=/^([A-G])([#b]?)(\d)$/.exec(n);
+  var p=PC[m[1]]; if(m[2]==='#')p++; if(m[2]==='b')p--;
+  return 12*(+m[3]+1)+p;
+}
+function isB(m){return !!BLACK[((m%12)+12)%12];}
+function nameOf(m){
+  var N=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+  return N[((m%12)+12)%12]+(Math.floor(m/12)-1);
+}
+
+/* ---------- diagram data: [note, finger, hand, alt?] ---------- */
+var D={
+hero:{notes:[['A2',5,'L'],['E3',1,'L'],['C4',1,'R'],['E4',2,'R'],['G#4',5,'R']]},
+
+sc_nat:{notes:[['A3',1,'R'],['B3',2,'R'],['C4',3,'R'],['D4',1,'R'],['E4',2,'R'],['F4',3,'R'],['G4',4,'R'],['A4',5,'R']],
+  seq:['A3','B3','C4','D4','E4','F4','G4','A4'],fing:'RH 1 2 3 1 2 3 4 5 · LH 5 4 3 2 1 3 2 1'},
+sc_harm:{notes:[['A3',1,'R'],['B3',2,'R'],['C4',3,'R'],['D4',1,'R'],['E4',2,'R'],['F4',3,'R'],['G#4',4,'R',1],['A4',5,'R']],
+  seq:['A3','B3','C4','D4','E4','F4','G#4','A4'],fing:'RH 1 2 3 1 2 3 4 5 · mind the F to G# leap'},
+sc_mel:{notes:[['A3',1,'R'],['B3',2,'R'],['C4',3,'R'],['D4',1,'R'],['E4',2,'R'],['F#4',3,'R',1],['G#4',4,'R',1],['A4',5,'R']],
+  seq:['A3','B3','C4','D4','E4','F#4','G#4','A4'],fing:'RH 1 2 3 1 2 3 4 5 · jazz players keep this form both directions'},
+sc_dor:{notes:[['A3',1,'R'],['B3',2,'R'],['C4',3,'R'],['D4',1,'R'],['E4',2,'R'],['F#4',3,'R',1],['G4',4,'R'],['A4',5,'R']],
+  seq:['A3','B3','C4','D4','E4','F#4','G4','A4'],fing:'RH 1 2 3 1 2 3 4 5'},
+sc_phr:{notes:[['A3',1,'R'],['Bb3',2,'R',1],['C4',3,'R'],['D4',1,'R'],['E4',2,'R'],['F4',3,'R'],['G4',4,'R'],['A4',5,'R']],
+  seq:['A3','Bb3','C4','D4','E4','F4','G4','A4'],fing:'RH 1 2 3 1 2 3 4 5'},
+sc_blues:{notes:[['A3',1,'R'],['C4',2,'R'],['D4',3,'R'],['Eb4',4,'R',1],['E4',1,'R'],['G4',3,'R'],['A4',4,'R']],
+  seq:['A3','C4','D4','Eb4','E4','G4','A4'],fing:'RH 1 2 3 4 1 3 4'},
+sc_maj:{notes:[['C4',1,'R'],['D4',2,'R'],['E4',3,'R'],['F4',1,'R'],['G4',2,'R'],['A4',3,'R'],['B4',4,'R'],['C5',5,'R']],
+  seq:['C4','D4','E4','F4','G4','A4','B4','C5'],fing:'RH 1 2 3 1 2 3 4 5 · LH 5 4 3 2 1 3 2 1'},
+
+v_mud:{notes:[['A2',5,'L'],['C3',3,'L'],['E3',1,'L']]},
+v_spread:{notes:[['A2',5,'L'],['E3',1,'L'],['A3',1,'R'],['C4',2,'R'],['E4',5,'R']]},
+v_shell7:{notes:[['A2',5,'L'],['G3',1,'L']]},
+v_shell10:{notes:[['A2',5,'L'],['C4',1,'L']],fing:'roll it: pinky lands, thumb follows'},
+gt_dm7:{notes:[['D3',5,'L'],['F4',1,'R'],['C5',5,'R']]},
+gt_g7:{notes:[['G2',5,'L'],['F4',1,'R'],['B4',4,'R']]},
+gt_c:{notes:[['C3',5,'L'],['E4',1,'R'],['B4',4,'R']]},
+rl_dm9:{notes:[['D3',5,'L'],['F4',1,'R'],['A4',2,'R'],['C5',3,'R'],['E5',5,'R']]},
+rl_g13:{notes:[['G2',5,'L'],['F4',1,'R'],['A4',2,'R'],['B4',3,'R'],['E5',5,'R']]},
+rl_c9:{notes:[['C3',5,'L'],['E4',1,'R'],['G4',2,'R'],['B4',3,'R'],['D5',5,'R']]},
+mn_ii:{notes:[['B2',5,'L'],['D4',1,'R'],['F4',2,'R'],['A4',4,'R']]},
+mn_v:{notes:[['E2',5,'L'],['D4',1,'R'],['F4',2,'R'],['G#4',3,'R']]},
+mn_i:{notes:[['A2',5,'L'],['C4',1,'R'],['E4',2,'R'],['G#4',4,'R']]},
+v_add9rub:{notes:[['A2',5,'L'],['E3',1,'L'],['B3',1,'R'],['C4',2,'R'],['E4',5,'R']]},
+v_sus:{notes:[['A2',5,'L'],['E3',1,'L'],['A3',1,'R'],['B3',2,'R'],['E4',5,'R']]},
+v_quartal:{notes:[['E3',5,'L'],['A3',2,'L'],['D4',1,'L'],['G4',1,'R'],['B4',3,'R']]},
+s_c:{notes:[['C3',5,'L'],['E4',1,'R'],['G4',2,'R'],['C5',5,'R']]},
+s_gb:{notes:[['B2',5,'L'],['D4',1,'R'],['G4',3,'R'],['B4',5,'R']]},
+s_am:{notes:[['A2',5,'L'],['C4',1,'R'],['E4',3,'R'],['A4',5,'R']]},
+v_dim:{notes:[['C#3',5,'L'],['E4',1,'R'],['G4',2,'R'],['Bb4',4,'R']]},
+
+h_open5:{notes:[['A2',5,'L'],['E3',2,'L'],['A3',1,'L']]},
+h_ost:{notes:[['A2',5,'L'],['E3',2,'L'],['G3',1,'L']],
+  seq:['A2','E3','G3','E3','A2','E3','G3','E3'],fing:'loop it in eighth notes until it disappears'},
+st_bass:{notes:[['A2',5,'L']]},
+st_chord:{notes:[['A3',5,'L'],['C4',3,'L'],['E4',1,'L']]},
+h_tori:{notes:[['E4',1,'R'],['A4',2,'R'],['B4',3,'R'],['C5',4,'R'],['E5',5,'R']],
+  seq:['E4','A4','C5','B4','E5','B4','C5','A4'],fing:'1 2 4 3 5 3 4 2 · smooth, no accents'},
+
+lc1:{notes:[['A2',5,'L'],['E3',1,'L'],['C4',1,'R'],['E4',2,'R'],['A4',5,'R']]},
+lc2:{notes:[['A2',5,'L'],['E3',1,'L'],['C4',1,'R'],['E4',2,'R'],['G#4',5,'R']]},
+lc3:{notes:[['A2',5,'L'],['E3',1,'L'],['C4',1,'R'],['E4',2,'R'],['G4',5,'R']]},
+lc4:{notes:[['A2',5,'L'],['E3',1,'L'],['C4',1,'R'],['E4',2,'R'],['F#4',4,'R']]},
+ev1:{notes:[['C3',5,'L'],['G3',1,'L'],['E4',1,'R'],['G4',2,'R'],['B4',5,'R']]},
+ev2:{notes:[['C3',5,'L'],['G3',1,'L'],['E4',1,'R'],['G4',2,'R'],['A4',4,'R']]},
+r_phr:{notes:[['A2',5,'L'],['E3',1,'L'],['A3',1,'R'],['Bb3',2,'R'],['C4',3,'R'],['E4',5,'R']]},
+y1:{notes:[['A2',5,'L'],['C4',1,'R'],['E4',3,'R'],['A4',5,'R']]},
+y2:{notes:[['F2',5,'L'],['C4',1,'R'],['E4',3,'R'],['A4',5,'R']]},
+w_growl:{notes:[['E2',5,'L'],['G#3',1,'R'],['D4',2,'R'],['G4',5,'R']]},
+f1:{notes:[['C3',5,'L'],['F4',1,'R'],['A4',3,'R'],['C5',5,'R']]},
+f2:{notes:[['C3',5,'L'],['E4',1,'R'],['G4',2,'R'],['C5',5,'R']]},
+l1:{notes:[['C3',5,'L'],['E4',1,'R'],['G4',2,'R'],['C5',5,'R']]},
+l2:{notes:[['C3',5,'L'],['D4',1,'R'],['G4',3,'R'],['B4',5,'R']]},
+l3:{notes:[['C3',5,'L'],['F4',1,'R'],['G4',2,'R'],['A4',3,'R'],['C5',5,'R']]},
+
+va1:{notes:[['A2',5,'L'],['E3',1,'L'],['C4',1,'R'],['E4',2,'R'],['G#4',5,'R']]},
+va2:{notes:[['A2',5,'L'],['C4',1,'R'],['E4',2,'R'],['G4',3,'R'],['B4',5,'R']]},
+va3:{notes:[['F2',5,'L'],['A3',1,'L'],['E4',1,'R'],['G4',2,'R'],['B4',4,'R']]},
+va4:{notes:[['E2',5,'L'],['B3',1,'L'],['D#4',1,'R'],['F#4',2,'R'],['G4',3,'R']]},
+va5:{notes:[['D2',5,'L'],['A2',1,'L'],['C4',1,'R'],['F4',2,'R'],['G4',3,'R']]},
+va6:{notes:[['G2',5,'L'],['F4',1,'R'],['A4',2,'R'],['B4',3,'R'],['E5',5,'R']]},
+va7:{notes:[['E2',5,'L'],['D4',1,'R'],['F4',2,'R'],['G#4',3,'R']]},
+va8:{notes:[['A2',5,'L'],['E3',1,'L'],['B3',1,'R'],['E4',3,'R'],['A4',5,'R']]},
+va9:{notes:[['A2',5,'L'],['E3',1,'L'],['B3',1,'R'],['C4',2,'R'],['E4',5,'R']]},
+va10:{notes:[['F2',5,'L'],['C3',1,'L'],['Ab3',1,'R'],['C4',3,'R'],['G4',5,'R']]},
+va11:{notes:[['C#3',5,'L'],['E4',1,'R'],['G4',2,'R'],['Bb4',4,'R']]},
+va12:{notes:[['C3',5,'L'],['G3',1,'L'],['E4',1,'R'],['A4',3,'R'],['D5',5,'R']]},
+va13:{notes:[['E3',5,'L'],['A3',2,'L'],['D4',1,'L'],['G4',1,'R'],['B4',3,'R']]},
+va14:{notes:[['E2',5,'L'],['G#3',1,'R'],['D4',2,'R'],['G4',5,'R']]},
+va15:{notes:[['C3',5,'L'],['G3',1,'L'],['Bb3',1,'R'],['D4',2,'R'],['F4',4,'R']]},
+va16:{notes:[['A2',5,'L'],['E3',2,'L'],['A3',1,'L'],['E4',1,'R'],['B4',5,'R']]}
+};
+
+/* ---------- svg renderer ---------- */
+var NS='http://www.w3.org/2000/svg';
+var W=26, WH=104, BW=15, BH=64, LBL=16;
+var SHIFT={1:-2.2,3:2.2,6:-2.8,8:0,10:2.8};
+function el(tag,attrs){
+  var e=document.createElementNS(NS,tag);
+  for(var k in attrs)e.setAttribute(k,attrs[k]);
+  return e;
+}
+function fillFor(h,black){
+  if(h==='L')return black?'var(--felt-hi)':'var(--felt)';
+  return black?'var(--brass-hi)':'var(--brass)';
+}
+function render(fig){
+  var spec=D[fig.dataset.d]; if(!spec)return;
+  var notes=spec.notes.map(function(x){return{name:x[0],m:midi(x[0]),f:x[1],h:x[2],alt:!!x[3]};});
+  var lo=Math.min.apply(null,notes.map(function(n){return n.m;}));
+  var hi=Math.max.apply(null,notes.map(function(n){return n.m;}));
+  var start=lo-(((lo%12)+12)%12);
+  var end=hi+(11-(((hi%12)+12)%12));
+  var whites=[],wIdx={},i,m;
+  for(m=start;m<=end;m++){if(!isB(m)){wIdx[m]=whites.length;whites.push(m);}}
+  var pressed={}; notes.forEach(function(n){pressed[n.m]=n;});
+  var width=whites.length*W, height=WH+LBL;
+  var svg=el('svg',{class:'kb',viewBox:'0 0 '+width+' '+height,'aria-hidden':'true'});
+  svg.style.maxWidth=(whites.length*19)+'px';
+  svg.style.width='100%';
+
+  /* white keys */
+  whites.forEach(function(wm,idx){
+    var p=pressed[wm];
+    svg.appendChild(el('rect',{x:idx*W,y:0,width:W,height:WH,rx:2.5,
+      fill:p?fillFor(p.h,false):'var(--keyw)',stroke:'var(--ebony)','stroke-width':1.4}));
+  });
+  /* black keys */
+  for(m=start;m<=end;m++){
+    if(!isB(m))continue;
+    var idx=wIdx[m-1];
+    var x=(idx+1)*W-BW/2+SHIFT[((m%12)+12)%12];
+    var p=pressed[m];
+    svg.appendChild(el('rect',{x:x,y:0,width:BW,height:BH,rx:2,
+      fill:p?fillFor(p.h,true):'var(--keyb)',stroke:'var(--ebony)','stroke-width':1.4}));
+    if(p)drawMark(svg,x+BW/2,BH-13,7.4,p);
+  }
+  /* white key marks + labels */
+  whites.forEach(function(wm,idx){
+    var p=pressed[wm], cx=idx*W+W/2;
+    if(p)drawMark(svg,cx,WH-15,8.2,p);
+    if(p){
+      svg.appendChild(txt(cx,WH+12,p.name,8.5,'var(--dim)'));
+    }else if(((wm%12)+12)%12===0){
+      svg.appendChild(txt(cx,WH+12,nameOf(wm),7.5,'var(--faint)'));
+    }
+  });
+  /* black pressed note labels */
+  for(m=start;m<=end;m++){
+    if(!isB(m)||!pressed[m])continue;
+    var bx=(wIdx[m-1]+1)*W-BW/2+SHIFT[((m%12)+12)%12]+BW/2;
+    svg.appendChild(txt(bx,WH+12,pressed[m].name,8.5,'var(--dim)'));
+  }
+  fig.querySelector('.kbwrap').appendChild(svg);
+
+  var cap=fig.querySelector('figcaption');
+  if(cap){
+    var b=document.createElement('button');
+    b.className='play'; b.type='button';
+    b.textContent='\u25B6\uFE0E play';
+    b.addEventListener('click',function(){playSpec(spec);});
+    cap.appendChild(b);
+  }
+  if(spec.fing){
+    var f=document.createElement('div');
+    f.className='fing'; f.textContent=spec.fing;
+    cap.appendChild(f);
+  }
+}
+function drawMark(svg,cx,cy,r,p){
+  svg.appendChild(el('circle',{cx:cx,cy:cy,r:r,fill:'var(--ebony)','fill-opacity':.88}));
+  if(p.alt)svg.appendChild(el('circle',{cx:cx,cy:cy,r:r+3,fill:'none',stroke:'var(--felt-hi)','stroke-width':2}));
+  var t=txt(cx,cy+3.6,String(p.f),10.5,'var(--ivory)');
+  t.setAttribute('font-weight','600');
+  svg.appendChild(t);
+}
+function txt(x,y,s,size,fill){
+  var t=el('text',{x:x,y:y,'text-anchor':'middle','font-size':size,fill:fill,
+    'font-family':"'IBM Plex Mono',monospace"});
+  t.textContent=s;
+  return t;
+}
+
+/* ---------- audio ---------- */
+var AC=null,master=null;
+function ac(){
+  if(!AC){
+    AC=new (window.AudioContext||window.webkitAudioContext)();
+    master=AC.createGain(); master.gain.value=0.9;
+    master.connect(AC.destination);
+  }
+  if(AC.state==='suspended')AC.resume();
+  return AC;
+}
+function tone(m,t,dur,vel){
+  var c=ac(), f=440*Math.pow(2,(m-69)/12);
+  var o1=c.createOscillator(); o1.type='triangle'; o1.frequency.value=f;
+  o1.detune.value=Math.random()*4-2;
+  var o2=c.createOscillator(); o2.type='sine'; o2.frequency.value=f*2;
+  var g2=c.createGain(); g2.gain.value=0.16;
+  var g=c.createGain();
+  var fl=c.createBiquadFilter(); fl.type='lowpass'; fl.frequency.value=2400; fl.Q.value=0.4;
+  o1.connect(g); o2.connect(g2); g2.connect(g); g.connect(fl); fl.connect(master);
+  g.gain.setValueAtTime(0,t);
+  g.gain.linearRampToValueAtTime(vel,t+0.012);
+  g.gain.exponentialRampToValueAtTime(Math.max(vel*0.3,0.001),t+dur*0.55);
+  g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+  o1.start(t); o2.start(t);
+  o1.stop(t+dur+0.05); o2.stop(t+dur+0.05);
+}
+function playChord(midis,when,dur){
+  var c=ac();
+  var t=(when!=null)?when:c.currentTime+0.04;
+  var vel=Math.min(0.16,0.5/midis.length+0.05);
+  midis.slice().sort(function(a,b){return a-b;}).forEach(function(m,i){
+    tone(m,t+i*0.03,dur||2.8,vel);
+  });
+}
+function playSpec(spec){
+  var c=ac();
+  if(spec.seq){
+    var t0=c.currentTime+0.05;
+    spec.seq.forEach(function(n,i){tone(midi(n),t0+i*0.3,0.9,0.14);});
+  }else{
+    playChord(spec.notes.map(function(x){return midi(x[0]);}));
+  }
+}
+
+/* ---------- init ---------- */
+document.querySelectorAll('figure.dg[data-d]').forEach(render);
+document.querySelectorAll('button[data-seq]').forEach(function(b){
+  b.addEventListener('click',function(){
+    var ids=b.dataset.seq.split(',');
+    var c=ac(), t0=c.currentTime+0.05;
+    ids.forEach(function(id,i){
+      var spec=D[id]; if(!spec)return;
+      playChord(spec.notes.map(function(x){return midi(x[0]);}),t0+i*1.15,1.4);
+    });
+  });
+});
+})();
+</script>
+</body>
+</html>

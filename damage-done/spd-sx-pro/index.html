@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPD-SX Pro Working Guide — Cliff / Phantom Threads / Honey Grips</title>
+<style>
+  :root{
+    --bg:#0d0d10;
+    --panel:#15151b;
+    --panel2:#1c1c24;
+    --ink:#e7e4dd;
+    --muted:#9a978f;
+    --rule:#2a2a34;
+    --accent:#c66b4a;      /* oxidized copper/rust */
+    --accent2:#6f8ba3;     /* cold slate blue */
+    --warn:#d8a24a;
+    --good:#7ea87e;
+    --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+    font-size:17px;line-height:1.62;letter-spacing:.1px;
+  }
+  header.hero{
+    padding:64px 24px 40px;border-bottom:1px solid var(--rule);
+    background:linear-gradient(180deg,#101017 0%,#0d0d10 100%);
+  }
+  .wrap{max-width:920px;margin:0 auto;}
+  header.hero h1{
+    font-size:2.05rem;line-height:1.15;margin:0 0 12px;font-weight:700;letter-spacing:-.4px;
+  }
+  header.hero .sub{color:var(--muted);font-size:1.02rem;max-width:680px;}
+  header.hero .tag{
+    display:inline-block;margin-top:20px;padding:5px 12px;border:1px solid var(--rule);
+    border-radius:3px;font-family:var(--mono);font-size:.72rem;color:var(--accent);
+    text-transform:uppercase;letter-spacing:1.5px;
+  }
+  nav.toc{
+    position:sticky;top:0;z-index:10;background:rgba(13,13,16,.94);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);padding:12px 24px;
+  }
+  nav.toc ul{list-style:none;margin:0 auto;padding:0;max-width:920px;display:flex;flex-wrap:wrap;gap:6px 18px;}
+  nav.toc a{color:var(--muted);text-decoration:none;font-size:.82rem;font-family:var(--mono);letter-spacing:.3px;}
+  nav.toc a:hover{color:var(--accent);}
+  main{padding:8px 24px 80px;}
+  section{padding:44px 0;border-bottom:1px solid var(--rule);}
+  section:last-child{border-bottom:none;}
+  h2{font-size:1.5rem;margin:0 0 6px;font-weight:700;letter-spacing:-.2px;}
+  h2 .num{font-family:var(--mono);color:var(--accent);font-size:.95rem;margin-right:10px;font-weight:500;}
+  h3{font-size:1.12rem;margin:30px 0 8px;color:var(--ink);font-weight:600;}
+  h4{font-size:.95rem;margin:20px 0 6px;color:var(--accent2);text-transform:uppercase;letter-spacing:1px;font-weight:600;}
+  p{margin:10px 0;}
+  ul,ol{margin:10px 0;padding-left:22px;}
+  li{margin:6px 0;}
+  a{color:var(--accent);}
+  strong{color:#fff;font-weight:600;}
+  code,.mono{font-family:var(--mono);font-size:.86em;background:var(--panel2);padding:2px 6px;border-radius:3px;color:#d9d4c8;}
+  .lead{font-size:1.05rem;color:var(--ink);}
+  .tldr{background:var(--panel);border:1px solid var(--rule);border-left:3px solid var(--accent);border-radius:5px;padding:22px 26px;margin:26px 0;}
+  .tldr h2{font-size:1.05rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:12px;}
+  .tldr ul{padding-left:20px;}
+  .tldr li{margin:9px 0;}
+  .card{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:20px 24px;margin:18px 0;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media(max-width:680px){.grid{grid-template-columns:1fr;}nav.toc ul{gap:4px 12px;}}
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.9rem;}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--rule);vertical-align:top;}
+  th{color:var(--accent2);font-size:.76rem;text-transform:uppercase;letter-spacing:.8px;font-weight:600;}
+  td .mono{font-size:.82rem;}
+  .callout{border-radius:5px;padding:14px 18px;margin:16px 0;font-size:.95rem;}
+  .callout.warn{background:rgba(216,162,74,.08);border:1px solid rgba(216,162,74,.3);}
+  .callout.good{background:rgba(126,168,126,.08);border:1px solid rgba(126,168,126,.3);}
+  .callout.verdict{background:rgba(198,107,74,.09);border:1px solid rgba(198,107,74,.35);}
+  .callout .label{display:block;font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;}
+  .callout.warn .label{color:var(--warn);}
+  .callout.good .label{color:var(--good);}
+  .callout.verdict .label{color:var(--accent);}
+  .src{color:var(--muted);font-size:.86rem;font-style:italic;}
+  .spec-list{font-family:var(--mono);font-size:.86rem;line-height:1.9;}
+  .spec-list b{color:var(--accent2);font-weight:600;}
+  .divider-note{color:var(--muted);font-size:.9rem;}
+  footer{padding:40px 24px 60px;color:var(--muted);font-size:.85rem;text-align:center;}
+  .kbd{font-family:var(--mono);font-size:.8em;border:1px solid var(--rule);border-radius:3px;padding:1px 6px;background:var(--panel2);}
+  @media print{
+    body{background:#fff;color:#111;}
+    nav.toc{position:static;background:#fff;}
+    .card,.tldr,.callout{background:#f6f6f6;border-color:#ccc;}
+    strong{color:#000;}
+    a{color:#8a4a30;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>SPD-SX Pro: A Working Guide</h1>
+    <p class="sub">Concepts, specs, and rig integration for a used SPD-SX Pro on firmware 2.0. Built for Phantom Threads (dark textural post-punk, two-piece with Brandon) and Honey Grips (haunted industrial ambient). No menu hand-holding.</p>
+    <span class="tag">firmware 2.00 · Ableton Live 12 Suite · Windows 11</span>
+  </div>
+</header>
+
+<nav class="toc">
+  <ul>
+    <li><a href="#tldr">TL;DR</a></li>
+    <li><a href="#keyfindings">Key Findings</a></li>
+    <li><a href="#waves">1 · Wave Organization</a></li>
+    <li><a href="#fw2">2 · Firmware 2.0</a></li>
+    <li><a href="#kits">3 · Device vs App</a></li>
+    <li><a href="#samples">4 · Free Sources + Ableton</a></li>
+    <li><a href="#rig">5 · Rig Integration</a></li>
+    <li><a href="#recs">Recommendations</a></li>
+    <li><a href="#caveats">Caveats</a></li>
+  </ul>
+</nav>
+
+<main class="wrap">
+
+  <section id="tldr">
+    <div class="tldr">
+      <h2>TL;DR</h2>
+      <ul>
+        <li><strong>The Pro is now a real instrument, not an accessory.</strong> Everything imports to <strong>48 kHz / 16-bit</strong> and your true ceiling is <strong>32-voice polyphony</strong> (not the 32 GB / ~44 hour storage). Build your library around ASCII names + tags + LED color, and treat voice count as the budget you actually spend live.</li>
+        <li><strong>Firmware 2.00 (announced April 1, 2026) closes the biggest gaps.</strong> Real-time and offline time-stretch, per-kit master effects, DJ Drop Mute, per-pad Phones/Master out muting, and a WRITE button in the App v2.00 turn it into a legitimate loop/backing centerpiece. Do a full "ALL" backup, then load the new Factory Restore data so tempo-sync works on preset loops.</li>
+        <li><strong>Hybrid workflow wins, and the JamMan mostly stays home.</strong> Edit and load in the SPD-SX Pro App over USB for speed; sample and perform on the hardware. For the duo, make the SPD-SX Pro the clock and click source, send stems to the PA on Master, keep click on Phones. The JamMan Solo XT is largely redundant against pad loops + Ableton; the HX Stomp XL is worth patching for texture on select Direct outs.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="keyfindings">
+    <h2><span class="num">§</span>Key Findings</h2>
+    <ul>
+      <li><strong>Format reality:</strong> The Pro converts every import (WAV/AIFF 44.1 or 48 kHz, 16/24/32-bit; MP3 32–320 kbps) to <strong>48 kHz/16-bit linear</strong> on load. It will not store 24-bit. Prep at 48/16 to keep control of the conversion.</li>
+      <li><strong>Polyphony is the constraint:</strong> Roland's spec sheet confirms <span class="mono">Maximum Polyphony: 32 voices (included click voices)</span>. Two-layer pads, ringing reverb tails, and a stereo backing track all draw from that pool.</li>
+      <li><strong>Clock:</strong> Unlike the original SPD-SX (which Roland confirmed could not send clock), the Pro <em>can</em> transmit MIDI clock. Community testing shows it is a usable tempo master for a click-driven duo, with caveats around start/stop messaging to external sequencers.</li>
+      <li><strong>The App connects live:</strong> Sound On Sound: "All changes made on the software are updated in real time." Batch import, bulk tagging, renumbering, and routing are dramatically faster than on the LCD.</li>
+      <li><strong>Free source quality is genuinely high</strong> for your genres: 99Sounds, SampleRadar, Freesound (mind the per-file license), plus Ableton Live 12 Suite's own experimental/granular packs. You already own the best sample factory you need in Ableton.</li>
+    </ul>
+  </section>
+
+  <!-- ============ SECTION 1 ============ -->
+  <section id="waves">
+    <h2><span class="num">01</span>Wave Organization Best Practices</h2>
+
+    <h3>Supported formats and the hard limits</h3>
+    <div class="card">
+      <p class="spec-list">
+        <b>Import formats:</b> WAV, AIFF (44.1 / 48 kHz, 16 / 24 / 32-bit), MP3 (32–320 kbps)<br>
+        <b>Internal format:</b> 48 kHz / 16-bit linear (everything converts on load)<br>
+        <b>Min / max length:</b> shorter than 20 ms rejected · longer than 1 hour rejected<br>
+        <b>Sampling to unit:</b> up to 60 min from AUDIO IN · up to 10 min resample, at 16-bit/48 kHz<br>
+        <b>Storage:</b> 32 GB internal, ~44 hours of 48/16 stereo · up to 20,000 wave slots (incl. preload)<br>
+        <b>Kits / setlists:</b> 200 kits · 32 setlists × 32 steps<br>
+        <b>Polyphony:</b> 32 voices, including click voices
+      </p>
+    </div>
+    <p>Roland's support note is explicit: "Imported files are converted to 48 kHz/16-bit format. The sound quality of the imported files may change, depending on the format." Two practical consequences:</p>
+    <ul>
+      <li><strong>Prep at 48 kHz/16-bit yourself.</strong> Do the sample-rate conversion in Ableton with a good algorithm rather than letting the pad do a silent, uncontrolled downconvert. This matters most on delicate hauntology textures and tape-warble where aliasing artifacts show.</li>
+      <li><strong>Stereo vs mono is your storage/voice lever.</strong> A dense Honey Grips drone bed can stay stereo; percussive one-shots and trigger layers should be mono to conserve voices and headroom.</li>
+      <li><strong>AIFF loop points are ignored</strong> on import, and <strong>non-ASCII / multi-byte filenames cannot be imported</strong> ("Files whose names or paths contain multi-byte characters cannot be imported"). Keep the entire file path plain ASCII.</li>
+    </ul>
+
+    <h3>A naming convention that survives a large library</h3>
+    <p>The wave list gets unmanageable fast once you cross a few hundred files. Impose structure at the filename level before import, because the App reads those names into the list:</p>
+    <div class="card">
+      <p class="mono" style="font-size:.84rem;line-height:1.8;">
+        [PROJECT]_[TYPE]_[NAME]_[BPM]_[KEY].wav<br><br>
+        PT_LOOP_ironpulse_120_Am.wav<br>
+        PT_OS_snarehit_x.wav<br>
+        HG_DRONE_schoolPCfan_Cmin.wav<br>
+        HG_TEX_tapewarble_slow.wav<br>
+        CLK_bar4count.wav
+      </p>
+    </div>
+    <p>Prefix by project (PT / HG), then TYPE (LOOP, OS for one-shot, DRONE, TEX for texture, STEM, CLK). Put BPM and key in the name for anything you will time-stretch or pitch-match. The BPM in the filename is a note to yourself; the unit still needs its own per-wave tempo value set (see below) for tempo-sync to function.</p>
+
+    <h3>Tags, filtering, and color</h3>
+    <ul>
+      <li><strong>Tags:</strong> assign up to 127 user tags and filter the wave list by them. Set these in bulk in the App, not one-by-one on the LCD. Build a small fixed vocabulary: <code>kick</code>, <code>perc</code>, <code>drone</code>, <code>texture</code>, <code>stem</code>, <code>click</code>, <code>PT</code>, <code>HG</code>. Over-tagging is as useless as no tagging.</li>
+      <li><strong>Pad LED color coding:</strong> the RGB pad-dividing LEDs (vertical and horizontal) take 10 preset colors plus custom named colors. Roland's design intent is to "group kicks, snares, backing tracks, and clicks with their own assigned color." Adopt one scheme across every kit so muscle memory transfers on a dark stage: e.g. rust/orange = one-shots you hit rhythmically, slate blue = loops/drones, dim white = backing stems, green = click/transport. The horizontal LEDs can be set to stay lit, flash on strike, or animate with the WAV level.</li>
+    </ul>
+
+    <h3>Keeping the library manageable</h3>
+    <ul>
+      <li><strong>Two banks in your head:</strong> the preload bank (factory, largely irrelevant to you) and the user bank. Do not fight the factory content; filter it out with tags and work almost entirely in your own user waves.</li>
+      <li><strong>Renumber deliberately, and back up first.</strong> WAVE RENUMBER compacts and reorders wave slots after you delete dead files, but Roland warns it "significantly changes the order of the waves." Run it in the App, and take an "ALL" backup immediately before.</li>
+      <li><strong>Set per-wave tempo on every loop.</strong> Time-stretch tempo-sync only works if each wave carries a correct tempo, set via Tempo Detect or manual entry. One-shots do not need it. Do this once at import time so future kits can pull any loop to the kit click.</li>
+      <li><strong>Curate per project, not per song.</strong> Keep a Phantom Threads master kit-set and a Honey Grips master kit-set, and clone kits within them rather than rebuilding. 200 kit slots is generous; setlists then reorder those kits per show without duplicating waves.</li>
+    </ul>
+  </section>
+
+  <!-- ============ SECTION 2 ============ -->
+  <section id="fw2">
+    <h2><span class="num">02</span>Firmware 2.0: What Actually Changed</h2>
+    <p>Version 2.00 was <strong>announced April 1, 2026</strong> via Roland's official press release ("Roland announces the Version 2.0 update for the SPD-SX PRO Sampling Pad") and is a free download. This is the largest functional jump the platform has had since launch. Confirmed additions from Roland's official update history:</p>
+
+    <h4>Sampling / sound engine</h4>
+    <ul>
+      <li><strong>Time Stretch (new):</strong> two modes. <em>Real-Time</em> syncs a wave's playback tempo to the kit click tempo (Tempo Sync); <em>Offline</em> is higher quality and rendered in advance from the WAVE EDIT screen. This is the feature that lets a loop follow a changing band tempo instead of drifting.</li>
+      <li><strong>Factory content tempo caveat:</strong> after updating, factory preload waves still lack correct tempo tags. To make tempo-sync work on them, load the "SPD-SX PRO FACTORY RESTORE DATA for System Program Ver.2.00 or later" (this is a full factory reset, so back up first). Afterward, loop phrases get optimal tempos and one-shots default to 120 BPM.</li>
+      <li><strong>Per-kit Master Effects:</strong> master FX can now be assigned inside each kit instead of only globally, and controlled from the panel knob live. This is a big deal for switching sonic character between songs in a set.</li>
+    </ul>
+
+    <h4>Performance / muting</h4>
+    <ul>
+      <li><strong>DJ Drop Mute:</strong> temporarily mutes the Pro's output (e.g. a backing track) while playback continues silently in the background, so it comes back in sync. A "Pre-FX" option can leave just the Master delay tail during the mute. Directly useful for Phantom Threads breakdowns and drop-ins.</li>
+      <li><strong>TRIGGER IN Mute:</strong> mute connected acoustic-drum triggers (like an RT-30) by striking a pad, to switch between hybrid and pure-acoustic sections without stopping.</li>
+      <li><strong>Per-pad Phones / Master Out mute:</strong> a pad can now be set to output nowhere on Phones or Master. Essential for a sidechain trigger pad (kick used only to duck a synth) whose sound you do not want in the mix.</li>
+      <li><strong>Loop stop on kit change:</strong> new <span class="mono">Loop ON (Mute on KitChg)</span> setting stops loops when you switch kits, instead of letting them ring across the change.</li>
+      <li><strong>Kit click tempo adjust by pad strike:</strong> nudge the click tempo up/down with a pad instead of putting down sticks. Combined with Real-Time time-stretch, synced loops track the change.</li>
+    </ul>
+
+    <h4>Workflow / connectivity</h4>
+    <ul>
+      <li><strong>SPD-SX backup import:</strong> load individual kits + their waves from old SPD-SX "ALL" backups (KIT+SETTINGS backups will not load; effects/output settings are not carried over).</li>
+      <li>Kit list display, MIDI in/out indicators, custom kit background images, panel LED brightness, batch parameter <span class="mono">SET ALL</span> across pads, expanded copy targets (effects, direct out, trigger settings, setlist), automatic backup-name recall, and a shortcut to the KIT CLICK screen.</li>
+      <li><strong>App v2.00 support:</strong> adds <strong>AUTO SELECT</strong> (clicking a pad layer jumps the WAVE LIST to that sample) and a <strong>WRITE button</strong> that commits parameters to memory without powering the unit off.</li>
+    </ul>
+
+    <div class="callout good">
+      <span class="label">Point releases before 2.0</span>
+      Ver.1.10 (Jun 2023) added Roland Cloud sound content and the Tx Start/Stop parameter; Ver.1.11 (Dec 2024) changed the Auto Off default to 20 minutes and fixed a spurious-trigger bug; Ver.1.20 (May 2025) added WT-10 / DH-10 wireless trigger support. If your used unit predates any of these, update straight to 2.00.
+    </div>
+  </section>
+
+  <!-- ============ SECTION 3 ============ -->
+  <section id="kits">
+    <h2><span class="num">03</span>Kit Building: On-Device vs the SPD-SX Pro App</h2>
+    <p>The App is free through Roland Cloud Manager for Windows and Mac. Set the unit's USB driver mode to <strong>VENDOR</strong> (GENERIC passes MIDI only) so audio and the App both work. Critically, it edits <strong>live</strong>: Sound On Sound confirms "All changes made on the software are updated in real time so there's no need to wait for an age to save everything or unplug the USB connection to audition samples on the unit itself."</p>
+
+    <table>
+      <thead><tr><th>Task</th><th>Where it belongs</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>Batch importing dozens of WAVs</td><td>App</td><td>Drag-and-drop many files at once; converts to 48/16 on load</td></tr>
+        <tr><td>Bulk tagging / renaming / renumbering</td><td>App</td><td>Multi-select and keyboard entry; painful on the LCD</td></tr>
+        <tr><td>Kit output routing &amp; effects matrix</td><td>App</td><td>SOS: "a little easier to understand with the software editor"</td></tr>
+        <tr><td>Backups / restore</td><td>App + USB stick</td><td>App BACKUP for convenience; USB "ALL" as the portable copy</td></tr>
+        <tr><td>Sampling from AUDIO IN / resampling</td><td>Hardware only</td><td>App imports files but cannot record</td></tr>
+        <tr><td>Pad sequencer, footswitch/hi-hat/expression setup</td><td>Hardware</td><td>Performance features live on the unit</td></tr>
+        <tr><td>Firmware update, driver mode, factory restore</td><td>Hardware</td><td>System-level operations</td></tr>
+        <tr><td>Fine-tuning a sound by feel while playing</td><td>Hardware</td><td>Panel knobs for volume/pitch/attack/release under the sticks</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout warn">
+      <span class="label">Parity, not exclusivity</span>
+      There is no editing parameter that is strictly App-only. Roland's design intent is feature parity between the App and the LCD; the App simply makes bulk and routing tasks far faster. Everything can be done on the hardware in a pinch, which matters for the standalone-next-to-the-kit use case.
+    </div>
+
+    <h3>Your recommended hybrid workflow</h3>
+    <ol>
+      <li><strong>Studio PC (Windows 11, Ableton Live 12 Suite):</strong> the primary station. Produce and export samples in Ableton, then run the SPD-SX Pro App here to import, tag, name, build kits, and set routing/effects. This is where the library gets built and maintained.</li>
+      <li><strong>Lenovo laptop:</strong> keep the App installed as a field editor and, more importantly, as the live Ableton machine. You can make small edits or reload a backup at soundcheck.</li>
+      <li><strong>Backups, layered:</strong> after any significant session, take an App backup <em>and</em> an "ALL" backup to a USB stick formatted on the unit. The USB "ALL" file is the one that is portable, survives a dead laptop, and can be re-imported kit-by-kit. Keep a dated copy in cloud storage. Use the App v2.00 <span class="mono">WRITE</span> button to commit edits without a power cycle so you do not lose in-progress work.</li>
+    </ol>
+    <div class="callout warn">
+      <span class="label">Connection reliability</span>
+      Connect the unit directly to a USB port, not through a hub, and power on the SPD-SX Pro before launching Ableton or the App. Roland maintains a dedicated troubleshooting article for App/unit communication failures, so treat the USB link as something to keep simple and stable, especially live.
+    </div>
+  </section>
+
+  <!-- ============ SECTION 4 ============ -->
+  <section id="samples">
+    <h2><span class="num">04</span>Free Sample Sources + Making Your Own in Ableton</h2>
+    <p>All sources below are currently active and royalty-free, with license notes where they matter. For a hardware sampler that plays samples out live, "royalty-free" and "no redistribution" is the license posture you want; avoid anything CC-BY-NC if a track might ever be monetized.</p>
+
+    <h3>Curated repositories for your palette</h3>
+    <div class="grid">
+      <div class="card">
+        <h4>99Sounds <span class="src">(99sounds.org)</span></h4>
+        <p>The single best free label for your aesthetic. Launched by Tomislav Zlatic of Bedroom Producers Blog; boutique, royalty-free, 24-bit WAV.</p>
+        <ul>
+          <li><strong>Magnetic Fields</strong> — 50 dark, dusty, mechanical soundscapes by Matt Bowdler (The Unfinished). Straight Caretaker/hauntology fuel.</li>
+          <li><strong>Drones</strong> — 50 dark-ambient drones by Red Fog (24-bit, 44.1 kHz, stereo).</li>
+          <li><strong>Dark Engine</strong> — feedback and distorted drum hits processed through a Boss OS-2 and MXR Carbon Copy. Industrial percussion for Honey Grips.</li>
+          <li><strong>Vinyl Noise SFX</strong> — 37 raw vinyl recordings, unprocessed, 16-bit WAV. Instant tape/vinyl bed.</li>
+          <li><strong>Cinematic Textures</strong> — drones and textures by Dronny Darko.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>SampleRadar <span class="src">(musicradar.com)</span></h4>
+        <p>Enormous free archive from Future Music / Computer Music discs. Royalty-free, WAV, no redistribution. Directly on-genre packs:</p>
+        <ul>
+          <li><strong>500 free industrial</strong> samples (five tempo-labeled construction kits, 24-bit)</li>
+          <li><strong>152 industrial metal</strong> (100/140/160 BPM kits)</li>
+          <li><strong>205 EBM</strong> — "punchy and dystopian" synth/bass/drums</li>
+          <li><strong>100 experimental</strong> — inspired by Autechre, Burial, Saturn Never Sleeps</li>
+          <li><strong>270 rhythmic noise</strong> — Juno-60, SH-101, Wasp, tape hiss, vinyl crackle, pedal glitch</li>
+          <li><strong>303 organic drone</strong> samples</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Freesound <span class="src">(freesound.org)</span></h4>
+        <p>The field-recording and found-sound backbone. Deep on vinyl crackle, tape hiss, room tone, and mechanical noise. <strong>Licenses vary per file</strong> (CC0, CC-BY, CC-BY-NC): filter to CC0 for zero-friction use, or CC-BY and keep an attribution list. Perfect for Honey Grips source material to layer under sampled school-hardware noise.</p>
+      </div>
+      <div class="card">
+        <h4>Bedroom Producers Blog <span class="src">(bedroomproducersblog.com)</span></h4>
+        <p>Ongoing roundups and exclusive freebies, frequently from ModeAudio (drones, textures, ambient garage loops, cinematic drones). Reliable curation aimed at exactly this corner of production. Email sign-up is sometimes required.</p>
+      </div>
+    </div>
+
+    <h3>You already own the best factory: Ableton Live 12 Suite</h3>
+    <p>Suite ships with sound design tools and packs that are tailor-made for your genres, and everything you build there can be exported straight to SPD-SX Pro spec:</p>
+    <ul>
+      <li><strong>Packs:</strong> <em>Glitch and Wash</em> (granular textures, precise slices vs ambient washes), <em>Drone Lab</em> (evolving tone/texture, generative noise), <em>Spectral Textures</em> (field recordings + additive synthesis), <em>Punch and Tilt</em> (machine rhythms, dark hypnotic textures). Filter the Ableton Packs page by "Free" for rotating extras, and pull Elphnt's free TAPE and Drones-x-Noises packs.</li>
+      <li><strong>Devices for industrial/textural design:</strong> <em>Roar</em> (multi-stage saturation/distortion, your primary grit engine), <em>Erosion</em> (noise-modulated degradation for lo-fi presence), <em>Vinyl Distortion</em> (built-in crackle generator, a la Burial), <em>Granulator III</em> (Robert Henke's granular sampler for drones/pads), <em>Hybrid Reverb</em> (convolution + algorithmic, and its drone-generation mode), <em>Corpus</em> (resonators for metallic haunting), and convolution reverb loaded with impulse responses of real spaces.</li>
+    </ul>
+
+    <h4>Resampling and export workflow for the Pro</h4>
+    <ol>
+      <li><strong>Set the Ableton project to the target intent.</strong> Design freely at 44.1 or 48 kHz; export at <strong>48 kHz / 16-bit WAV</strong> so the pad's forced conversion does nothing and you keep the quality you hear.</li>
+      <li><strong>Resample chain:</strong> route your device chain to a Resampling audio track, capture a pass, then consolidate. This bakes in Roar/Erosion/reverb tails so the pad only has to play back, not process, which protects your 32-voice budget.</li>
+      <li><strong>One-shots:</strong> trim tight to the transient, add a short fade-out to avoid clicks, keep them mono unless the stereo image is the point. Export each hit as its own file with your naming convention.</li>
+      <li><strong>Loops (the tempo-critical part):</strong> fix a project BPM, make loops an exact bar-multiple (1, 2, 4, 8 bars), and <strong>export so the loop starts exactly on the downbeat.</strong> VDrums users report the Pro's loop-point handling can drift if a loop begins off the beat, because it adds the pre-roll each cycle. Downbeat-aligned, bar-locked loops solve this. Put the BPM in the filename and set the per-wave tempo on import so Real-Time time-stretch can pull it to the kit click.</li>
+      <li><strong>Stems for backing:</strong> if you run stems on pads rather than from Ableton, export full-length stems (they can be as long as the song, under the 1-hour ceiling) and set them to loop off / one-shot as appropriate.</li>
+    </ol>
+    <p class="divider-note">Logic note: if you ever bounce on Logic, its "Bounce" to WAV at 48 kHz/16-bit behaves identically for these purposes. But your rig is Ableton, so stay in Ableton for the tempo-aware loop work above.</p>
+  </section>
+
+  <!-- ============ SECTION 5 ============ -->
+  <section id="rig">
+    <h2><span class="num">05</span>Integration With Your Rig</h2>
+
+    <h3>The SPD-SX Pro's I/O and interface, precisely</h3>
+    <div class="card">
+      <p class="spec-list">
+        <b>Analog out:</b> stereo balanced Master (L/R) + 4 assignable mono Direct outs + assignable stereo Phones<br>
+        <b>Trigger in:</b> 4 dual-trigger jacks (up to 8 pads via Y-cables) + HH/expression control input + 2 footswitch<br>
+        <b>MIDI:</b> 5-pin DIN In/Out, plus USB<br>
+        <b>USB audio:</b> 8 channels record, 12 channels playback · native 48 kHz (SRC to 96 / 44.1)<br>
+        <b>Driver mode:</b> VENDOR = audio + MIDI · GENERIC = MIDI only<br>
+        <b>Quirk:</b> USB playback channels 7/8 carry the AUDIO IN passthrough
+      </p>
+    </div>
+
+    <h3>Master clock and tempo strategy for a two-piece</h3>
+    <p>With just you and Brandon, you need one unambiguous timekeeper. Two clean options:</p>
+    <div class="grid">
+      <div class="card">
+        <h4>Option A — SPD-SX Pro is master <span class="src">(recommended for song-based sets)</span></h4>
+        <p>The Pro runs its internal click as the tempo source and transmits MIDI clock out (Sync Mode OFF so it uses its own clock; Sync Out ON to send it). It drives its own click to your Phones/IEMs and can clock Ableton or a synth. This keeps the timekeeper on the instrument you are already playing, with per-kit tempos recalled automatically. Firmware 2.0's pad-strike tempo nudge lets you flex tempo without stopping.</p>
+      </div>
+      <div class="card">
+        <h4>Option B — Ableton (Lenovo) is master <span class="src">(recommended for ambient/generative sets)</span></h4>
+        <p>Ableton generates clock and sends it to the SPD-SX Pro over USB MIDI; the pad follows and its click stays locked. Better for Honey Grips long-form pieces where Ableton is already running warped stems, generative racks, and Max devices. Ableton is the more capable master when the set is software-driven.</p>
+      </div>
+    </div>
+    <div class="callout warn">
+      <span class="label">Clock reality check</span>
+      The Pro sends MIDI clock (a genuine fix over the original SPD-SX, which Roland confirmed could not). But forum testing shows its usefulness as a master for external <em>sequencers</em> that need Start/Stop messages is limited; verify the <span class="mono">Tx Start/Stop</span> parameter (added in v1.10) behaves with each device before trusting it live. For a duo playing to a click and stems, that limitation rarely bites. If you ever add a hardware sequencer or arpeggiated synth that must lock to bar one, make Ableton the master.
+    </div>
+
+    <h3>Click and stems routing (the core live problem, solved)</h3>
+    <p>You want stems to the PA and click only in your ears. The Pro's output count makes this trivial without a submixer:</p>
+    <ul>
+      <li><strong>Backing stems / loops:</strong> assign to <strong>Master Out (L/R)</strong> to front-of-house.</li>
+      <li><strong>Click and any count-in guide pads:</strong> assign to <strong>Phones</strong> only, or to a <strong>Direct out</strong> feeding your IEM pack. Firmware 2.0's per-pad Phones/Master mute means a guide pad can be forced out of the PA entirely.</li>
+      <li><strong>Stem separation:</strong> use the 4 Direct outs to send, say, drums/percussion to FOH separately from synth/texture beds, giving your engineer real control on a two-piece where every layer counts.</li>
+    </ul>
+
+    <h3>Line 6 HX Stomp XL</h3>
+    <div class="card">
+      <p class="spec-list">
+        <b>I/O:</b> stereo TS in, balanced TRS out, stereo FX loop, line-level capable<br>
+        <b>Engine:</b> 8 processing blocks, 24-bit/96 kHz, 128 presets, 4 snapshots/preset<br>
+        <b>Interface:</b> 8-in / 6-out 24-bit/96 kHz USB<br>
+        <b>Looper:</b> 60 s mono / 30 s stereo
+      </p>
+    </div>
+    <p><strong>Verdict: worth patching, but selectively.</strong> The HX Stomp XL accepts line-level stereo, so running a stereo pair from two of the Pro's Direct outs into the Stomp's L/R inputs is entirely practical. Do <em>not</em> run your whole mix through it; instead route only the pads you want mangled (drones, industrial hits, tape textures) to the Direct outs feeding the Stomp, and keep clean stems on Master. That gives Honey Grips reverbs, pitch-shifting, and modulation on select textures while the backing stays pristine. Because Brandon's guitar is already living in the Stomp world (Slowdive/Ed O'Brien pad textures), you get a shared sonic signature between his guitar and your sampled beds, which is a strong identity move for the duo.</p>
+    <div class="callout good">
+      <span class="label">Creative move</span>
+      Send a sampled decommissioned-school-PC drone from a Direct out into the HX Stomp, sit a long modulated reverb and a pitch block on it, and let Brandon's volume-swell guitar share the same reverb tail. The listener cannot tell where the guitar ends and the machine begins. That ambiguity is the Phantom Threads / Honey Grips signature.
+    </div>
+
+    <h3>DigiTech JamMan Solo XT (with external footswitch)</h3>
+    <div class="card">
+      <p class="spec-list">
+        <b>Recording:</b> 35 min stereo CD-quality, 200 internal memories + 200 on SDHC (16+ hours)<br>
+        <b>Sync:</b> JamSync (link units), aux in, USB, JamManager software · discontinued product
+      </p>
+    </div>
+    <div class="callout verdict">
+      <span class="label">Honest assessment</span>
+      <strong>Mostly redundant. Keep it only for one specific job.</strong> For a structured, click-driven set, the JamMan overlaps almost entirely with what the SPD-SX Pro does better: the Pro stores pre-built loops with recallable tempos, tighter start points, and per-kit organization, and Ableton on the Lenovo covers everything the JamMan cannot. The JamMan's single-footswitch ergonomics are genuinely awkward live (double-tap to stop, small buttons to change slots), and its JamSync has known first-measure re-sync glitches. <strong>Where it still earns a spot:</strong> spontaneous, hands-free capture of a live guitar or texture phrase mid-performance, built up in the moment, which neither the Pro nor a pre-arranged Ableton set does gracefully. If Honey Grips improvises, park it in Brandon's signal path for live loop-building and leave the structured looping to the Pro/Ableton. If your sets are arranged, leave it home.
+    </div>
+
+    <h3>Novation Launchkey MK4 37 + Nord + bass + vocals</h3>
+    <p>The Launchkey is your melodic/harmonic controller for Ableton (Session control, Nord layering, playing in pad and bass parts). It is not part of the SPD-SX Pro chain directly; think of it as the Ableton-side counterpart to the SPD-SX Pro's percussive/sample side. In a two-piece, that split matters: <strong>the Pro handles rhythm, stems, textures, and transport; the Launchkey/Ableton handles melodic overdubs and scene launching; Brandon covers harmonic/textural guitar.</strong> Your Nord, bass, and tenor vocal are live acoustic sources into the PA or into OCTA-CAPTURE in the studio.</p>
+
+    <h3>OCTA-CAPTURE in the home studio</h3>
+    <div class="card">
+      <p class="spec-list">
+        <b>Format:</b> 10 in / 10 out, USB 2.0, 24-bit/192 kHz (model UA-1010)<br>
+        <b>Preamps:</b> 8 VS Preamps, AUTO-SENS auto-leveling<br>
+        <b>Monitoring:</b> 4 independent Direct Mixers, 40-bit DSP
+      </p>
+    </div>
+    <p>This is your capture engine for Honey Grips source material. The eight preamps let you mic and line-in decommissioned school IT hardware (drive whine, fan hum, CRT degauss, keyboard rattle, dial-up-era squeal) in one pass, at up to 24/192 for maximum room to pitch down and stretch. Record raw in Ableton on the Windows PC, sound-design with Roar/Granulator III/Hybrid Reverb, then export the finished textures at 48/16 for the Pro. The OCTA-CAPTURE is a studio tool; live, the SPD-SX Pro is your interface.</p>
+
+    <h3>Acoustic Taye kit as a hybrid surface</h3>
+    <p>With the Pro standing next to the Taye kit as a standalone unit, you play sample layers with sticks alongside acoustic drums. Two levels of integration:</p>
+    <ul>
+      <li><strong>Basic:</strong> the Pro is a self-contained sample instrument you strike; no triggers needed. Its LED color coding earns its keep here on a dark stage.</li>
+      <li><strong>Hybrid:</strong> add RT-30 acoustic triggers on kick/snare into the Pro's trigger inputs to layer sampled reinforcement, then use firmware 2.0's <strong>TRIGGER IN Mute</strong> to switch that reinforcement on/off per song section with a pad strike, no menu diving mid-song.</li>
+    </ul>
+
+    <h3>Signature scenarios that make the two projects sound like themselves</h3>
+    <div class="grid">
+      <div class="card">
+        <h4>Phantom Threads (dark textural post-punk)</h4>
+        <ul>
+          <li><strong>Suicide-style motorik pulse</strong> as a downbeat-locked loop on one pad, driving the whole song, with the Pro as clock master so Brandon and you lock to it. Nudge tempo by pad strike for the slow-build sections.</li>
+          <li><strong>Depeche Mode / The Idiot industrial clang</strong> from 99Sounds Dark Engine hits on shoulder pads, mono, tight, sent through the HX Stomp for shared reverb with the guitar.</li>
+          <li><strong>Nick Cave menace</strong>: a low sustained drone on Master under a sparse, hard-hit metallic one-shot pattern; DJ Drop Mute to yank everything to silence before a chorus and let just the delay tail hang.</li>
+          <li>Stems on pads (not Ableton) for reliability as a two-piece, with click to IEMs only.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Honey Grips (haunted industrial ambient)</h4>
+        <ul>
+          <li><strong>Caretaker-adjacent hauntology</strong>: sample a warped fragment (99Sounds Magnetic Fields or your own tape-warble), set a long Offline time-stretch, layer 99Sounds Vinyl Noise underneath, and loop it downbeat-locked as an evolving bed.</li>
+          <li><strong>Decommissioned-hardware ambient</strong>: OCTA-CAPTURE-recorded fan/drive/CRT noise, granulated in Ableton, exported as stereo drones, played from pads through the HX Stomp with modulation and cavernous reverb.</li>
+          <li><strong>Boards of Canada tape-warble</strong>: build the pitch-drift in Ableton (LFO on sample transposition + Erosion), bake it in via resampling, so the Pro just plays the finished warble and spends no voices processing it.</li>
+          <li>Run <strong>Ableton (Lenovo) as clock master</strong> here, with generative Max devices and warped stems, and let the Pro follow for hands-on textural punctuation.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RECOMMENDATIONS ============ -->
+  <section id="recs">
+    <h2><span class="num">→</span>Recommendations</h2>
+
+    <h3>Stage 1 — Set the foundation (this week)</h3>
+    <ul>
+      <li>Confirm firmware is <strong>2.00</strong> (SYSTEM &gt; SYSTEM INFO). If not, update from a unit-formatted USB stick, holding START/STOP on power-up.</li>
+      <li>Take a full <strong>"ALL" backup</strong> of the used unit's current state before touching anything, in case there is content worth keeping.</li>
+      <li>Install the <strong>SPD-SX Pro App</strong> on both the Windows 11 studio PC and the Lenovo. Set driver mode to <strong>VENDOR</strong>.</li>
+      <li>Load the <strong>Ver.2.00 Factory Restore data</strong> only after backing up, so preset loops carry correct tempos and time-stretch works. (Skip if you do not intend to use factory loops.)</li>
+    </ul>
+
+    <h3>Stage 2 — Build the library (next two weeks)</h3>
+    <ul>
+      <li>Download the on-genre packs from <strong>99Sounds</strong> (Magnetic Fields, Drones, Dark Engine, Vinyl Noise) and the <strong>SampleRadar</strong> industrial/experimental/rhythmic-noise sets. Pull CC0 vinyl/tape/room-tone from <strong>Freesound</strong>.</li>
+      <li>Do a first Honey Grips <strong>OCTA-CAPTURE session</strong> on the school hardware; design in Ableton; export at 48/16.</li>
+      <li>Import everything via the App with your <strong>naming convention</strong>, <strong>bulk tags</strong>, and <strong>per-wave tempos</strong> set. Establish the <strong>LED color scheme</strong> and apply it consistently.</li>
+      <li>Build a Phantom Threads master kit-set and a Honey Grips master kit-set; clone kits rather than rebuild.</li>
+    </ul>
+
+    <h3>Stage 3 — Wire the live rig (before first show)</h3>
+    <ul>
+      <li>Decide clock master <strong>per project</strong>: Pro-as-master for Phantom Threads songs, Ableton-as-master for Honey Grips.</li>
+      <li>Route <strong>stems to Master → PA</strong>, <strong>click to Phones/IEM only</strong>, and split key layers across <strong>Direct outs</strong> for the engineer.</li>
+      <li>Patch <strong>two Direct outs → HX Stomp XL L/R</strong> for shared texture processing with Brandon's guitar. Leave the JamMan out unless the set improvises.</li>
+      <li>If using the Taye kit hybrid, add RT-30 triggers and map <strong>TRIGGER IN Mute</strong> to a pad for section switching.</li>
+    </ul>
+
+    <h3>Benchmarks that change the plan</h3>
+    <table>
+      <thead><tr><th>If you observe</th><th>Then</th></tr></thead>
+      <tbody>
+        <tr><td>Loops or reverb tails cutting off / choking mid-song</td><td>You are hitting the 32-voice ceiling. Bounce two-layer pads to single stereo files, mono your one-shots, shorten tails.</td></tr>
+        <tr><td>Loops drifting out of time on repeat</td><td>Re-export downbeat-aligned and bar-locked; confirm per-wave tempo is set; use Real-Time time-stretch tempo-sync.</td></tr>
+        <tr><td>External synth/sequencer will not lock to bar one from the Pro's clock</td><td>Switch that song to Ableton-as-master; the Pro's Start/Stop transmission is the weak link.</td></tr>
+        <tr><td>You are improvising live guitar textures nightly</td><td>Reintroduce the JamMan Solo XT into Brandon's chain for hands-free capture; otherwise it stays home.</td></tr>
+        <tr><td>App/unit USB comms dropping at soundcheck</td><td>Direct USB (no hub), power the Pro first, and pre-load kits so you are not editing live.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ CAVEATS ============ -->
+  <section id="caveats">
+    <h2><span class="num">!</span>Caveats and Open Questions</h2>
+    <ul>
+      <li><strong>16-bit ceiling is permanent.</strong> The Pro stores 48 kHz/16-bit only. This is fine for playback, but do not expect it to preserve 24-bit source detail. Keep your 24-bit masters in the Ableton/OCTA-CAPTURE archive; the pad only ever gets the 16-bit render.</li>
+      <li><strong>MIDI clock master is functional but not bulletproof.</strong> The Pro sends clock, but community reports flag limited Start/Stop handling for external sequencers. Bench-test every clock-dependent device before trusting it on stage, and default to Ableton-as-master when in doubt.</li>
+      <li><strong>Import speed is not officially quantified.</strong> Roland and reviewers call kit loading and App editing "fast" and "real-time" but publish no throughput figure. Budget time for a large first import and do it off-stage.</li>
+      <li><strong>JamSync has a known glitch.</strong> If you ever link two DigiTech loopers, the master's re-sync can repeat the first measure. This reinforces keeping the JamMan as a solo capture tool, not a synced multi-track rig.</li>
+      <li><strong>Freesound licenses are per-file.</strong> CC0 is unrestricted; CC-BY needs attribution; avoid CC-BY-NC for anything monetized. Verify each file, do not assume the whole site is one license.</li>
+      <li><strong>Factory Restore is destructive.</strong> Loading the Ver.2.00 factory tempo data is a full reset. Only do it after your "ALL" backup, and ideally before you have built any user content on the used unit.</li>
+      <li><strong>The App is dedicated and lightly maintained.</strong> It works only with the SPD-SX Pro, and at least one reviewer expects limited further development. Treat USB "ALL" backups as your real safety net rather than relying solely on the App.</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <p>Working reference for Cliff · SPD-SX Pro firmware 2.00 (announced April 1, 2026) · Phantom Threads &amp; Honey Grips.<br>Verify firmware-specific behavior against your unit before any show. Specs drawn from Roland official documentation and reputable reviews/forums.</p>
+</footer>
+
+</body>
+</html>

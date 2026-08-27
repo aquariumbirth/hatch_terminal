@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Deep Bin, Vol. 2: 60 Cult Albums, 1950-1989</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Karla:ital,wght@0,400;0,500;0,700;1,400&family=Red+Hat+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#12100d;
+  --bg-2:#1a1713;
+  --text:#e8e2d3;
+  --dim:#96907f;
+  --line:#2c2822;
+  --dial:#d8963c;    /* tube-amp amber for vol.2 */
+  --sticker:#b8483c; /* faded 45 label red */
+  --label:#7fa88f;   /* sage catalog green */
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Karla',sans-serif;
+  font-size:16.5px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:840px;margin:0 auto;padding:0 22px}
+
+/* ---------- HEADER ---------- */
+header{padding:60px 0 38px;border-bottom:1px solid var(--line)}
+.freq{
+  font-family:'Red Hat Mono',monospace;
+  font-size:12px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--dial);
+  margin-bottom:22px;
+  display:flex;align-items:center;gap:12px;
+}
+.freq::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--dial),transparent)}
+h1{
+  font-family:'Syne',sans-serif;
+  font-weight:800;
+  font-size:clamp(44px,9.5vw,100px);
+  line-height:.95;
+  letter-spacing:-.02em;
+}
+h1 span{color:var(--sticker)}
+h1 .vol{color:var(--dial);font-weight:700}
+.deck{margin-top:24px;max-width:680px;font-size:18px;color:var(--dim)}
+.deck strong{color:var(--text)}
+.house-rules{
+  margin-top:26px;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;
+}
+.rule{
+  font-family:'Red Hat Mono',monospace;
+  font-size:12.5px;color:var(--dim);
+  border:1px solid var(--line);
+  padding:12px 14px;
+  background:var(--bg-2);
+}
+.rule b{color:var(--sticker);display:block;margin-bottom:4px;letter-spacing:.12em}
+
+/* ---------- BINS ---------- */
+.bin{padding:54px 0 6px}
+.bin-head{
+  display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;
+  border-bottom:2px solid var(--dial);
+  padding-bottom:10px;
+}
+.bin-head h2{
+  font-family:'Syne',sans-serif;
+  font-weight:800;
+  font-size:clamp(32px,7vw,58px);
+  line-height:1;
+  color:var(--text);
+}
+.bin-head h2 em{font-style:normal;color:var(--dial)}
+.bin-head .count{
+  font-family:'Red Hat Mono',monospace;
+  font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);
+  margin-left:auto;
+}
+.bin-note{
+  margin:14px 0 4px;
+  font-size:15px;color:var(--dim);font-style:italic;max-width:660px;
+}
+
+/* ---------- ALBUM CARDS ---------- */
+.rec{
+  display:grid;
+  grid-template-columns:66px 1fr;
+  gap:18px;
+  padding:22px 0 20px;
+  border-bottom:1px dashed var(--line);
+}
+.rec:last-child{border-bottom:none}
+.rec .cat{
+  font-family:'Red Hat Mono',monospace;
+  font-weight:700;
+  font-size:13px;
+  color:var(--bg);
+  background:var(--label);
+  align-self:start;
+  padding:5px 0;
+  text-align:center;
+  border-radius:2px;
+  margin-top:4px;
+}
+.rec h3{
+  font-family:'Syne',sans-serif;
+  font-weight:700;
+  font-size:clamp(18px,3vw,22px);
+  line-height:1.15;
+  color:var(--text);
+}
+.rec h3 .album{color:var(--dial);font-weight:500;font-style:italic;font-family:'Karla',sans-serif;font-size:.95em}
+.rec .meta{
+  font-family:'Red Hat Mono',monospace;
+  font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--dim);
+  margin:5px 0 9px;
+}
+.rec p{color:var(--dim);max-width:640px;font-size:15.5px}
+.rec p em{color:var(--text)}
+.file{
+  margin-top:9px;
+  font-family:'Red Hat Mono',monospace;
+  font-size:12px;
+  color:var(--sticker);
+}
+.file::before{content:"FILE UNDER: ";color:var(--dim);letter-spacing:.08em}
+@media(max-width:540px){.rec{grid-template-columns:1fr;gap:8px}.rec .cat{width:66px}}
+
+/* ---------- OUTRO ---------- */
+.outro{padding:52px 0 24px;border-top:1px solid var(--line);margin-top:46px}
+.outro h2{
+  font-family:'Red Hat Mono',monospace;
+  font-size:12px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--dial);margin-bottom:14px;
+}
+.outro p{color:var(--dim);max-width:680px;margin-bottom:14px;font-size:15.5px}
+.outro p strong{color:var(--text)}
+footer{
+  margin-top:32px;padding:22px 0 60px;
+  border-top:1px solid var(--line);
+  font-family:'Red Hat Mono',monospace;
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--dim);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+}
+:focus-visible{outline:2px solid var(--dial);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="freq">AM after midnight &middot; The signal from before</div>
+  <h1>The Deep <span>Bin</span> <span class="vol">Vol.&nbsp;2</span></h1>
+  <p class="deck">Sixty more albums with genuinely small followings, this time from <strong>1950 through 1989</strong>. Same filter as Volume 1: nothing the reissue circuit has already dragged into the canon, so no Rodriguez story arcs, no Numero-headliner rediscoveries, no acid-archive staples. Private-press loners, deep soul one-shots, loft jazz, second-shelf krautrock, outsider country, and the 80s lanes Volume 1 didn't touch. FILE UNDER cards point at your shelves.</p>
+  <div class="house-rules">
+    <div class="rule"><b>RULE 1</b>Small cult means small: tiny pressings, dead scenes, artists who vanished</div>
+    <div class="rule"><b>RULE 2</b>Disqualified: anyone with a rediscovery documentary, a deluxe box set, or an anniversary essay</div>
+    <div class="rule"><b>RULE 3</b>No repeats from Vol. 1, and the 80s picks here avoid the post-punk lane entirely</div>
+  </div>
+</header>
+
+<!-- ================= 1950s ================= -->
+<section class="bin" id="b50">
+  <div class="bin-head"><h2>Bin <em>A</em> / The 50s</h2><span class="count">8 records</span></div>
+  <p class="bin-note">The album barely existed as an artform yet, which is exactly why full LPs from this decade's margins are so strange: nobody was watching.</p>
+
+  <article class="rec"><div class="cat">A-01</div><div>
+    <h3>The Orioles <span class="album">/ The Orioles Sing</span></h3>
+    <div class="meta">1952 &middot; Jubilee &middot; Baltimore</div>
+    <p>The group that invented the ache of doo-wop, collected on an early 10-inch when almost no Black vocal groups got albums at all. Sonny Til's lead is the sound of longing before rock and roll gave it a beat.</p>
+    <div class="file">the root cellar under your Blind Willie Johnson shelf</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">A-02</div><div>
+    <h3>Big Maybelle <span class="album">/ Big Maybelle Sings</span></h3>
+    <div class="meta">1957 &middot; Savoy &middot; New York</div>
+    <p>A voice that could level a building, singing jump blues and torch material for a label that never promoted her right. She cut "Whole Lotta Shakin' Goin' On" before Jerry Lee Lewis and got none of the money.</p>
+    <div class="file">the missing panel between Bessie Smith and the Burnside juke</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">A-03</div><div>
+    <h3>The "5" Royales <span class="album">/ Dedicated to You</span></h3>
+    <div class="meta">1957 &middot; King &middot; Winston-Salem</div>
+    <p>Gospel-trained vocal group fronted by Lowman Pauling, whose stinging, overdriven guitar breaks predate everything: Steve Cropper and James Brown both took open notes. The cult around this band is small and evangelical.</p>
+    <div class="file">proto-Stax, proto-funk, proto your entire soul shelf</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">A-04</div><div>
+    <h3>Charlie Feathers <span class="album">/ the Sun, Meteor &amp; King sides</span></h3>
+    <div class="meta">1955-57 &middot; Memphis</div>
+    <p>The hiccuping ghost of rockabilly: stuttered, feral vocal takes too weird for hits and too perfect to forget. He spent decades claiming he invented the Sun sound; listen and it's genuinely hard to argue.</p>
+    <div class="file">the feral corner of the old-country shelf, Stooges energy at 1956 volume</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">A-05</div><div>
+    <h3>Link Wray &amp; His Ray Men <span class="album">/ Link Wray &amp; the Wraymen</span></h3>
+    <div class="meta">1960 &middot; Epic &middot; Washington DC</div>
+    <p>The first LP from the man who stabbed his speaker cone with a pencil and invented the power chord as menace. "Rumble" got banned from radio as an instrumental, still the highest compliment ever paid a guitar tone.</p>
+    <div class="file">the big bang your Stooges records orbit</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">A-06</div><div>
+    <h3>Esquerita <span class="album">/ Esquerita!</span></h3>
+    <div class="meta">1959 &middot; Capitol &middot; New Orleans via Greenville</div>
+    <p>The pompadoured wildman Little Richard openly credited as his model, shrieking over pounded piano with zero commercial instinct. Capitol signed him, panicked, and let the album die; the cult keeps it alive by hand.</p>
+    <div class="file">rock and roll's suppressed first draft</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">A-07</div><div>
+    <h3>Harmonica Frank Floyd <span class="album">/ The Great Original Recordings</span></h3>
+    <div class="meta">rec. 1951-58 &middot; Sun / Chess sides &middot; Memphis</div>
+    <p>A one-man-band hobo who played harmonica out of the side of his mouth while singing, recorded by Sam Phillips before Elvis ever walked in. Greil Marcus gave him a Mystery Train chapter; the listening public never followed.</p>
+    <div class="file">outsider blues, the true weird-America shelf</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">A-08</div><div>
+    <h3>Five Blind Boys of Mississippi <span class="album">/ the Peacock sides</span></h3>
+    <div class="meta">1950s &middot; Peacock &middot; Jackson, Mississippi</div>
+    <p>Archie Brownlee's scream is the most terrifying sound in gospel, a shriek that secular soul spent twenty years domesticating. Hard gospel's violence, undiluted.</p>
+    <div class="file">the source code for every scream on your soul and Swans shelves alike</div>
+  </div></article>
+</section>
+
+<!-- ================= 1960s ================= -->
+<section class="bin" id="b60">
+  <div class="bin-head"><h2>Bin <em>B</em> / The 60s</h2><span class="count">15 records</span></div>
+  <p class="bin-note">Under the paisley surface: regional garage casualties, free jazz off the canon's edge, and downhome blues cut live in rooms.</p>
+
+  <article class="rec"><div class="cat">B-01</div><div>
+    <h3>The Wailers <span class="album">/ Out of Our Tree</span></h3>
+    <div class="meta">1966 &middot; Etiquette &middot; Tacoma</div>
+    <p>The Pacific Northwest's founding garage band, on their own label, rawer and stranger than their surf-era fame suggests. The Sonics learned at their feet; history filed it the other way around.</p>
+    <div class="file">pre-punk, filed under Nuggets' rougher older brother</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">B-02</div><div>
+    <h3>The Music Machine <span class="album">/ (Turn On) The Music Machine</span></h3>
+    <div class="meta">1966 &middot; Original Sound &middot; Los Angeles</div>
+    <p>Sean Bonniwell dressed the band in black with one black glove each and wrote fuzz-punk miniatures with real arrangements underneath. One hit, then label sabotage and oblivion; the album is wall-to-wall sharp.</p>
+    <div class="file">proto-punk with a songwriter's brain, Wire's American granddad</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">B-03</div><div>
+    <h3>The Litter <span class="album">/ Distortions</span></h3>
+    <div class="meta">1967 &middot; Warick &middot; Minneapolis</div>
+    <p>Minneapolis garage-psych whose title is a promise kept: "Action Woman" is the angriest 45 of its era, stretched here into an album of fuzz vengeance. Original pressings dissolved into the upper Midwest.</p>
+    <div class="file">the exact midpoint of your Stooges and Ty Segall shelves</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">B-04</div><div>
+    <h3>Kim Fowley <span class="album">/ Outrageous</span></h3>
+    <div class="meta">1968 &middot; Imperial &middot; Los Angeles</div>
+    <p>The Hollywood hustler-ghoul free-associating over sleazy acid rock, part put-on, part genuine breakdown, fully committed either way. Feels illegal to enjoy; hard to stop.</p>
+    <div class="file">trash-prophet ranting, Birthday Party precursor energy</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">B-05</div><div>
+    <h3>The Deviants <span class="album">/ Ptooff!</span></h3>
+    <div class="meta">1967 &middot; Underground Impresarios &middot; London</div>
+    <p>Mick Farren's Ladbroke Grove anarchists sold their debut by mail order through the underground press: blues-punk, tape collage, and sneering agitprop years before punk had a name for itself.</p>
+    <div class="file">The Fall's spiritual prehistory, sold out of a squat</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">B-06</div><div>
+    <h3>July <span class="album">/ July</span></h3>
+    <div class="meta">1968 &middot; Major Minor &middot; London</div>
+    <p>Sun-warped UK psych with dissonant guitar stabs and melodies that curdle mid-phrase; sold nothing, band dissolved into session work. Originals trade for house-deposit money while the actual cult stays tiny.</p>
+    <div class="file">the sour-candy corner of your psych shelf</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">B-07</div><div>
+    <h3>The Open Mind <span class="album">/ The Open Mind</span></h3>
+    <div class="meta">1969 &middot; Philips &middot; London</div>
+    <p>Heavy UK psych anchored by "Magic Potion," a proto-metal stomp everyone missed until collectors found it twenty years late. The album around it is moodier and better than its footnote reputation.</p>
+    <div class="file">between Sabbath's conception and your garage lane</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">B-08</div><div>
+    <h3>Giuseppi Logan <span class="album">/ The Giuseppi Logan Quartet</span></h3>
+    <div class="meta">1965 &middot; ESP-Disk &middot; New York</div>
+    <p>Cracked, keening free jazz from a multi-instrumentalist who vanished for four decades afterward, resurfacing in a park, still playing. With Milford Graves on drums it barely touches the ground.</p>
+    <div class="file">the rawest nerve on the free-jazz shelf, pre-canonization</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">B-09</div><div>
+    <h3>Sonny Sharrock <span class="album">/ Black Woman</span></h3>
+    <div class="meta">1969 &middot; Vortex &middot; New York</div>
+    <p>Jazz guitar played as pure slide-and-scream texture, Linda Sharrock's wordless voice riding the feedback. The bridge between Coltrane's late fire and every noise guitarist you own.</p>
+    <div class="file">Sonic Youth's jazz section starts here</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">B-10</div><div>
+    <h3>Noah Howard <span class="album">/ The Black Ark</span></h3>
+    <div class="meta">rec. 1969 &middot; Freedom &middot; New York</div>
+    <p>Loft-era fire music with Arthur Doyle's tenor going fully vertical, recorded once and scattered across European labels. Among heads it gets discussed like a rumor that turned out to be true.</p>
+    <div class="file">the loft above the Coltrane canon</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">B-11</div><div>
+    <h3>Robert Pete Williams <span class="album">/ Free Again</span></h3>
+    <div class="meta">1961 &middot; Prestige Bluesville &middot; Louisiana</div>
+    <p>Discovered singing inside Angola prison, paroled, then recorded playing blues with no fixed meter or key, only testimony. The most harmonically free country blues ever cut, and none of it was an aesthetic choice.</p>
+    <div class="file">deeper than Bukka: the outer rim of your blues shelf</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">B-12</div><div>
+    <h3>Doctor Ross <span class="album">/ The Flying Eagle</span></h3>
+    <div class="meta">1966 &middot; Testament &middot; Detroit via Tunica</div>
+    <p>One-man-band boogie: left-handed flipped guitar, rack harmonica, hi-hat and kick simultaneously, cut live in a room. Worked a Michigan assembly line by day, detonated juke joints by night.</p>
+    <div class="file">the Burnside shelf's one-man annex</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">B-13</div><div>
+    <h3>Jackie Shane <span class="album">/ the singles &amp; live sides</span></h3>
+    <div class="meta">1962-67 &middot; Sar / Cub &middot; Nashville via Toronto</div>
+    <p>A Black trans soul singer ruling Toronto's club circuit with a voice like silk over a switchblade, then vanishing completely in 1971. The material circulated for decades as pure collector legend.</p>
+    <div class="file">deep soul's most electric ghost story</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">B-14</div><div>
+    <h3>The Mystic Tide <span class="album">/ the Solid Sound singles run</span></h3>
+    <div class="meta">1966-67 &middot; Solid Sound &middot; Long Island</div>
+    <p>Teenage garage at its most oceanic: minor-key drone originals self-pressed in runs of a few hundred, played on local radio once, gone. The purest small-cult object in this bin.</p>
+    <div class="file">proto-shoegaze in a suburban basement, 1966</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">B-15</div><div>
+    <h3>Wayne Kemp <span class="album">/ the barroom country sides</span></h3>
+    <div class="meta">1960s &middot; Nashville indies</div>
+    <p>The honky-tonk demimonde that wrote hits for bigger names and drank the proceeds: Kemp's own sides are hard-shuffling, dead-eyed barroom country the mainstream sanded smooth. The real thing, before outlaw became a marketing category.</p>
+    <div class="file">the smoke-damaged wing of your Gram Parsons shelf</div>
+  </div></article>
+</section>
+
+<!-- ================= 1970s ================= -->
+<section class="bin" id="b70">
+  <div class="bin-head"><h2>Bin <em>C</em> / The 70s</h2><span class="count">27 records</span></div>
+  <p class="bin-note">The private-press flood: loner folk pressed in hundreds, spiritual jazz on musician-owned labels, krautrock's second shelf, and dub cut for one soundsystem at a time.</p>
+
+  <article class="rec"><div class="cat">C-01</div><div>
+    <h3>Kenneth Higney <span class="album">/ Attic Demonstration</span></h3>
+    <div class="meta">1976 &middot; Kebrutney &middot; New Jersey</div>
+    <p>A truck driver pressed his songwriting demos to shop to other artists; nobody bid, and the record became legend for its tuneless, wounded sincerity. Outsider music with zero self-awareness and total conviction.</p>
+    <div class="file">the Jandek lane without the Jandek fame</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">C-02</div><div>
+    <h3>Dave Bixby <span class="album">/ Ode to Quetzalcoatl</span></h3>
+    <div class="meta">1969 &middot; private press &middot; Grand Rapids, Michigan</div>
+    <p>Post-acid casualty turned Christian seeker singing hollowed-out guitar hymns about losing everyone he knew. One of the darkest loner-folk records ever pressed, in an edition of a few hundred.</p>
+    <div class="file">the bleak end of your Mount Eerie shelf</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">C-03</div><div>
+    <h3>Fraction <span class="album">/ Moon Blood</span></h3>
+    <div class="meta">1971 &middot; Angelus &middot; Los Angeles</div>
+    <p>Christian heavy psych with a vocalist doing full Jim Morrison possession over doomed fuzz. Pressed in a couple hundred copies for a church label that had no idea what it had.</p>
+    <div class="file">Stooges-weight psych, sanctified</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">C-04</div><div>
+    <h3>Ellen Mary McGee <span class="album">/ Fresh Oxygen</span></h3>
+    <div class="meta">1971 &middot; private press &middot; New York</div>
+    <p>Self-pressed Greenwich Village folk from a teenager writing about isolation with unnerving calm, unheard until crate archaeologists surfaced it decades later, and even then only barely.</p>
+    <div class="file">loner folk, the genuinely unrescued tier</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">C-05</div><div>
+    <h3>Michael Chapman <span class="album">/ Fully Qualified Survivor</span></h3>
+    <div class="meta">1970 &middot; Harvest &middot; Hull</div>
+    <p>Gruff Yorkshire guitar-poet with Mick Ronson on lead, making bruised, road-worn songs about endurance. Peel loved it; the public bought Cat Stevens instead. His cult stayed pub-sized for fifty years.</p>
+    <div class="file">between Townes and Richard Thompson, northern division</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">C-06</div><div>
+    <h3>Bill Wilson <span class="album">/ Ever Changing Minstrel</span></h3>
+    <div class="meta">1973 &middot; ABC &middot; Indiana</div>
+    <p>Indiana songwriter given one shot on a major with Nashville's best sessioneers, delivering gritty heartland spirituals, then dropped into total obscurity. Died fixing a car in 1993; the record barely circulates.</p>
+    <div class="file">the Townes shelf's lost Hoosier brother</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">C-07</div><div>
+    <h3>Larry Jon Wilson <span class="album">/ New Beginnings</span></h3>
+    <div class="meta">1975 &middot; Monument &middot; Georgia</div>
+    <p>Swamp-deep Georgia baritone who started recording at 34, cut four albums of country-soul philosophy, and quit when nothing sold. The realest voice of the outlaw era belonged to a man the outlaw era never met.</p>
+    <div class="file">Bill Callahan's voice teacher, functionally</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">C-08</div><div>
+    <h3>Gary Stewart <span class="album">/ Out of Hand</span></h3>
+    <div class="meta">1975 &middot; RCA &middot; Fort Pierce, Florida</div>
+    <p>Honky-tonk sung with a quaver that sounds like a man vibrating apart, which he was. Country radio couldn't handle the intensity; the cult around this record understands it's the genre's rawest hour.</p>
+    <div class="file">hard country as self-destruction, filed near Nick Cave</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">C-09</div><div>
+    <h3>The Regional Jazz Private Presses <span class="album">/ a digging lane, not one title</span></h3>
+    <div class="meta">1970s &middot; regional jazz private presses</div>
+    <p>The regional jazz underground: musician-pressed quartet records from Dallas, Detroit, and Cleveland that never left their cities. Buying lane, not single title: this shelf is where the real spiritual-jazz digging lives now.</p>
+    <div class="file">the uncanonized floor below Strata-East</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">C-10</div><div>
+    <h3>The Ensemble Al-Salaam <span class="album">/ The Sojourner</span></h3>
+    <div class="meta">1974 &middot; Strata-East &middot; New York</div>
+    <p>Strata-East's least-discussed corner: vocal-led spiritual jazz that moves between chant, modal burn, and street-level prayer. The famous titles on the label got canonized; this one stayed in the crates.</p>
+    <div class="file">spiritual jazz, still at crate level</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">C-11</div><div>
+    <h3>Juju <span class="album">/ A Message from Mozambique</span></h3>
+    <div class="meta">1973 &middot; Strata-East &middot; San Francisco / New York</div>
+    <p>Plunky Branch's pre-Oneness unit playing furious liberation jazz: percussion squalls, screaming tenor, political recitation. Fire music as community organizing.</p>
+    <div class="file">the militant wing of your jazz shelf, Swans-adjacent intensity</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">C-12</div><div>
+    <h3>Mtume Umoja Ensemble <span class="album">/ Alkebu-Lan: Land of the Blacks</span></h3>
+    <div class="meta">1972 &middot; Strata-East &middot; New York</div>
+    <p>A live double LP of ecstatic congregation-jazz recorded at an East Village church, chants and horns stacked into trance. James Mtume later went smooth; this is the volcano before.</p>
+    <div class="file">Godspeed-scale collective catharsis, 1972</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">C-13</div><div>
+    <h3>Ronnie Boykins <span class="album">/ The Will Come, Is Now</span></h3>
+    <div class="meta">1975 &middot; ESP-Disk &middot; New York</div>
+    <p>Sun Ra's longtime bassist stepping out once: rolling, hymn-dark compositions anchored by his enormous arco tone. His only album as leader, and among ESP's most overlooked.</p>
+    <div class="file">the calm crater beside the Ra canon</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">C-14</div><div>
+    <h3>Selda <span class="album">/ Selda</span></h3>
+    <div class="meta">1976 &middot; T&uuml;rk&uuml;ola &middot; Istanbul</div>
+    <p>Anatolian protest folk run through fuzz pedals and electronics, sung by a woman the Turkish state repeatedly jailed for it. Ferocious, danceable, and genuinely dangerous to have made.</p>
+    <div class="file">psych-folk with a criminal record</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">C-15</div><div>
+    <h3>Kollektiv <span class="album">/ Kollektiv</span></h3>
+    <div class="meta">1973 &middot; Brain &middot; M&ouml;nchengladbach</div>
+    <p>Krautrock's second shelf at its best: flute-led grooves that lock into Can-grade repetition without the name recognition. One album, then the members drifted into other German bands.</p>
+    <div class="file">the Can itch, unscratched territory</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">C-16</div><div>
+    <h3>Ibliss <span class="album">/ Supernova</span></h3>
+    <div class="meta">1972 &middot; Spiegelei &middot; Krefeld, Germany</div>
+    <p>Percussion-heavy kraut-jazz from Kraftwerk's discarded early orbit (drummer included), all hand drums and modal sax and zero synthesizers. The road German music didn't take.</p>
+    <div class="file">the rhythmic ghost limb of the krautrock canon</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">C-17</div><div>
+    <h3>Between <span class="album">/ And the Waters Opened</span></h3>
+    <div class="meta">1973 &middot; Wergo &middot; Munich</div>
+    <p>Chamber-kraut meditation: harp, oboe, tabla, and organ drifting through long devotional pieces. Peter Michael Hamel's collective made sacred music for no church in particular.</p>
+    <div class="file">Popol Vuh's quieter neighbor nobody visits</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">C-18</div><div>
+    <h3>Fille Qui Mousse <span class="album">/ Se Taire Pour Une Femme Trop Belle</span></h3>
+    <div class="meta">rec. 1972 &middot; unreleased until later &middot; Paris</div>
+    <p>French underground collage-rock recorded for the Futura label and shelved when the money died: tape cuts, drones, and Dada rock fragments. Circulated for decades as a rumor among French-underground heads.</p>
+    <div class="file">This Heat's Parisian cousin, lost in the mail</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">C-19</div><div>
+    <h3>Mahogany Brain <span class="album">/ With (Junk-Saucepan) When (Spoon-Trigger)</span></h3>
+    <div class="meta">1971 &middot; Futura &middot; Paris</div>
+    <p>French poets making deliberately collapsing anti-rock: detuned guitars, mumbled verse, structures that rot in real time. Contemporary reviews called it unlistenable, which the cult takes as the point.</p>
+    <div class="file">pre-echo of your Dead C and Shadow Ring instincts</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">C-20</div><div>
+    <h3>Speed, Glue &amp; Shinki <span class="album">/ Eve</span></h3>
+    <div class="meta">1971 &middot; Atlantic Japan &middot; Tokyo</div>
+    <p>Japanese power trio fueled by exactly what the name says, playing lurching amphetamine blues-sludge with drummer Joey Smith howling about pills and eviction. Heavier than the era knew how to market.</p>
+    <div class="file">proto-doom with a rap sheet, Stooges shelf eastern annex</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">C-21</div><div>
+    <h3>Jacks <span class="album">/ Vacant World</span></h3>
+    <div class="meta">1968 &middot; Express &middot; Tokyo</div>
+    <p>Japan's darkest 60s band: funereal minor-key rock with Yoshio Hayakawa singing like a man reading his own obituary. Banned from broadcast for morbidity, worshipped quietly ever since.</p>
+    <div class="file">the Joy Division mood, seven years early and 6,000 miles east</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">C-22</div><div>
+    <h3>Maru Sankaku Shikaku <span class="album">/ the Osaka underground sides</span></h3>
+    <div class="meta">1970s &middot; private press &middot; Osaka</div>
+    <p>Osaka commune folk-psych that mutated across handmade pressings: chanting, junk percussion, buzzing strings. The layer of the Japanese underground that never got the Rallizes rediscovery treatment.</p>
+    <div class="file">the unrescued floor of Japanese psych</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">C-23</div><div>
+    <h3>Yabby You <span class="album">/ Conquering Lion</span></h3>
+    <div class="meta">1975 &middot; Vivian Jackson &middot; Kingston</div>
+    <p>Self-produced prophecy from a man who lived in a Kingston dump as a boy and pressed his own visions: the "Jesus Dread" whose mournful, doom-laden roots sound stands apart from the whole canon.</p>
+    <div class="file">dub's dark theology wing, past the Tubby staples</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">C-24</div><div>
+    <h3>Prince Far I <span class="album">/ Under Heavy Manners</span></h3>
+    <div class="meta">1976 &middot; Joe Gibbs &middot; Kingston</div>
+    <p>The Voice of Thunder intoning judgment over stripped, concrete-heavy rhythms. Chanting as architecture; On-U Sound and half of UK post-punk built on this foundation.</p>
+    <div class="file">the gravity well under your PiL and Burial records</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">C-25</div><div>
+    <h3>Junior Byles <span class="album">/ Beat Down Babylon</span></h3>
+    <div class="meta">1973 &middot; Dynamic &middot; Kingston</div>
+    <p>The most fragile great voice in roots reggae singing protest and heartbreak just before mental illness took him off the board. Beloved inside reggae circles, nearly unknown outside them.</p>
+    <div class="file">the Elliott Smith of Kingston, sincerely</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">C-26</div><div>
+    <h3>Creation Rebel <span class="album">/ Starship Africa</span></h3>
+    <div class="meta">1980 &middot; 4D Rhythms / On-U &middot; London</div>
+    <p>Adrian Sherwood's first full dub-as-science-fiction statement, recorded at the decade's hinge: rhythms dismantled and rebuilt as deep space. The bridge between Kingston and every UK bass music you own.</p>
+    <div class="file">where dub becomes Boards of Canada's uncle</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">C-27</div><div>
+    <h3>Exuma <span class="album">/ Exuma</span></h3>
+    <div class="meta">1970 &middot; Mercury &middot; Bahamas via New York</div>
+    <p>Bahamian junkanoo-voodoo folk: ankle bells, whooping spirits, songs about zombies delivered with terrifying joy. A major label released it and had absolutely no idea what to do next.</p>
+    <div class="file">Dr. John's Gris-Gris with the leash off</div>
+  </div></article>
+</section>
+
+<!-- ================= 1980s ================= -->
+<section class="bin" id="b80">
+  <div class="bin-head"><h2>Bin <em>D</em> / The 80s</h2><span class="count">10 records</span></div>
+  <p class="bin-note">Volume 1 owned the post-punk lane, so this bin takes the other exits: outsider synth, zolo art-pop, private-press new age, and desert noise.</p>
+
+  <article class="rec"><div class="cat">D-01</div><div>
+    <h3>Anal Magic &amp; Rev. Dwight Frizzell <span class="album">/ Beyond the Black Crack</span></h3>
+    <div class="meta">1976/80s circulation &middot; private press &middot; Kansas City</div>
+    <p>A Kansas City eccentric's free-jazz-musique-concr&egrave;te ritual pressed privately and passed hand to hand into the 80s cassette underground. Church organ, tape chaos, and total outsider conviction.</p>
+    <div class="file">the noise shelf's holy fool wing</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">D-02</div><div>
+    <h3>Ptose <span class="album">/ Ignobles Limaces</span></h3>
+    <div class="meta">1984 &middot; Ptose Production Presente &middot; Amiens, France</div>
+    <p>French cassette-culture surrealists making toy-synth nursery rhymes for a nightmare kindergarten. Mail-art pop that never wanted an audience bigger than its pen pals.</p>
+    <div class="file">The Residents' French cousins, still unlicensed</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">D-03</div><div>
+    <h3>R. Stevie Moore <span class="album">/ the cassette-club deep catalog</span></h3>
+    <div class="meta">1980s &middot; mail order from New Jersey</div>
+    <p>Hundreds of home-taped albums of warped power pop sold by mail subscription, decades before bedroom pop was a genre. Skip the two "known" comps and dig the raw club tapes; that's where the cult lives.</p>
+    <div class="file">Pavement's crooked-pop DNA, in utero</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">D-04</div><div>
+    <h3>Iasos <span class="album">/ Inter-Dimensional Music</span></h3>
+    <div class="meta">1975/80s circulation &middot; private press &middot; California</div>
+    <p>The new-age underground's founding transmission: shimmering electric textures made for meditation decades before ambient revivalists came digging. Take it straight or take it as drone; it holds either way.</p>
+    <div class="file">the private-press ancestor of your ambient lane</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">D-05</div><div>
+    <h3>Enno Velthuys <span class="album">/ A Glimpse of Light</span></h3>
+    <div class="meta">1985 &middot; Kubus Kassettes &middot; The Hague</div>
+    <p>Dutch cassette-label ambient of aching modesty: small synth melodies dissolving in tape fog, made by a recluse and dubbed in tiny runs. The gentlest music the 80s underground produced.</p>
+    <div class="file">directly beside Woo from Vol. 1</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">D-06</div><div>
+    <h3>Michel Banabila <span class="album">/ Marilli</span></h3>
+    <div class="meta">1983 &middot; private press &middot; Rotterdam</div>
+    <p>Fourth-world miniatures built from cheap keyboards and imagined ethnography, self-released by a Dutch 22-year-old. The Jon Hassell idea executed with pocket money and better dreams.</p>
+    <div class="file">fourth-world electronics, crate tier</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">D-07</div><div>
+    <h3>Vox Populi! <span class="album">/ Half Dead Ganja Music</span></h3>
+    <div class="meta">1987 &middot; VP231 &middot; Paris</div>
+    <p>Franco-Iranian family collective making ethno-industrial trance from hand drums, chants, and murky electronics. The cassette underground's most transporting séance.</p>
+    <div class="file">between your dub shelf and your Swans shelf, incense lit</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">D-08</div><div>
+    <h3>Paris 1942 <span class="album">/ Paris 1942</span></h3>
+    <div class="meta">1985 &middot; Placebo &middot; Phoenix</div>
+    <p>Arizona's underground eating itself: members of the Phoenix punk scene making dirge-surrealist death-rock in a one-off session. Desert weirdness with no scene to sell to and none sought.</p>
+    <div class="file">the noise-rock shelf's cactus wing</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">D-09</div><div>
+    <h3>Glenn Phillips <span class="album">/ Lost at Sea</span></h3>
+    <div class="meta">1975/80s cult circulation &middot; Snow Star &middot; Atlanta</div>
+    <p>Ex-Hampton Grease Band guitarist self-pressing instrumental albums of crying, ecstatic guitar that fusion was too polite to claim. Mailed from his house for decades; the cult remains letter-sized.</p>
+    <div class="file">guitar-as-voice, between Sharrock and your shoegaze lane</div>
+  </div></article>
+
+  <article class="rec"><div class="cat">D-10</div><div>
+    <h3>Pep Llopis <span class="album">/ Poiemusia La Nau Dels Argonautes</span></h3>
+    <div class="meta">1987 &middot; Blau &middot; Valencia</div>
+    <p>Valencian minimalist sailing Mediterranean myth on flutes, synth pulses, and spoken Catalan verse. A private world complete in itself, barely known even after the crate world found Spain.</p>
+    <div class="file">the far shore of your ambient shelf</div>
+  </div></article>
+</section>
+
+<!-- ================= OUTRO ================= -->
+<div class="outro">
+  <h2>Listening logistics</h2>
+  <p><strong>Availability drops hard in this volume.</strong> The 50s sides and the jazz mostly stream; the private-press folk (Bixby, McGee, Higney), the French Futura records, the Japanese commune material, and nearly all of Bin D live on Discogs, YouTube rips, and specialist reissue shops. Budget accordingly and consider it sport.</p>
+  <p><strong>Five doors by mood</strong>: Larry Jon Wilson if you want a voice tonight; Sonny Sharrock when the Sonic Youth itch turns to jazz; Yabby You for the dub theology; Jacks for the 1968 Joy Division mood; Gary Stewart when hard country needs to hurt.</p>
+  <p><strong>Honest flags</strong>: two entries are lanes rather than single canonical albums (the regional-jazz private presses at C-09, the Osaka underground at C-22) because that territory genuinely works that way; and Selda, Iasos, and Exuma sit closest to the canonization line in this set. If the reissue machine gets to them, they age off the list. Everything else should stay buried a good while longer.</p>
+</div>
+
+<footer>
+  <span>60 Records &middot; 4 Bins &middot; 1950-1989 &middot; Vol. 2 of the Deep Bin</span>
+  <span>Ask at the counter</span>
+</footer>
+
+</div>
+</body>
+</html>
