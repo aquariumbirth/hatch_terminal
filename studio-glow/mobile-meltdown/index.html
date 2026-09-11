@@ -40,10 +40,14 @@ header{position:fixed;top:0;left:0;right:0;z-index:40;background:rgba(13,13,16,.
 .crumb .box{display:inline-block;background:#000;border:1px solid #33333d;color:#fff;
  font-family:C;font-weight:700;font-size:10px;letter-spacing:.11em;padding:3px 7px 4px;
  white-space:nowrap}
+.crumb .box{color:var(--l)}
 .crumb .ht:hover .box{border-color:var(--verm)}
-.crumb .ht i{font-style:normal;color:var(--verm);animation:blink 1.06s steps(1,end) infinite}
+.crumb .ht i{font-style:normal;color:var(--verm);
+ animation:blink 1.06s steps(1,end) infinite, cursorhue 4.24s steps(1,end) infinite}
 @keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
-@media(prefers-reduced-motion:reduce){.crumb .ht i{animation:none}}
+@keyframes cursorhue{0%,24.9%{color:#D6291E}25%,49.9%{color:#F2C230}
+ 50%,74.9%{color:#D9541E}75%,100%{color:#FFF}}
+@media(prefers-reduced-motion:reduce){.crumb .ht i{animation:none;color:var(--verm)}}
 .crumb .wing{color:var(--l)}
 .crumb .wing:hover{text-decoration:underline}
 .crumb .sl{color:#3a3a44}
@@ -295,9 +299,7 @@ main{max-width:1180px;margin:0 auto;padding:14px 18px 40px}
 <header>
  <div class="crumb">
   <a href="../../" class="ht"><span class="box">HATCH TERMINAL<i>_</i></span></a>
-  <span class="sl">/</span><a href="../" class="wing">STUDIO_GLOW</a>
-  <span class="sl">/</span><span class="here">mobile-meltdown</span>
-  <span class="kind">Instrument</span>
+  <span class="kind">Pluck it</span>
  </div>
  <div class="hrow">
   <div class="brand">Sonic Youth <i>Tunings</i></div>

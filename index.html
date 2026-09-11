@@ -89,7 +89,7 @@ header.mast{padding:24px 0 34px}
   padding:.30em .5em .36em;
   white-space:nowrap;
 }
-.creed{max-width:58ch;margin:22px 0 0;font-size:17.5px;line-height:1.5}
+.creed{max-width:62ch;margin:18px 0 0;font-family:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;line-height:1.85;opacity:.72}
 .creed em{font-style:italic;color:var(--blueprint)}
 
 /* ---------- WING MODULE ---------- */
@@ -166,11 +166,14 @@ footer h4{margin:0 0 9px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
 .nav{display:flex;gap:26px;flex-wrap:wrap}
 .nav a{text-decoration:none;font-size:15.5px;border-bottom:1px solid rgba(22,21,26,.3)}
 .nav a:hover{border-bottom-color:var(--alarm);color:var(--alarm)}
-.side{margin-top:18px}
-.side a{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;
-  letter-spacing:.15em;text-transform:uppercase;text-decoration:none;opacity:.42;
-  border-bottom:1px solid rgba(22,21,26,.22);padding-bottom:2px}
-.side a:hover{opacity:1;color:var(--alarm);border-bottom-color:var(--alarm)}
+.hundred{font-family:'IBM Plex Serif',Georgia,serif;font-style:italic;font-weight:500;
+  font-size:12px;letter-spacing:.06em;text-decoration:none;opacity:.72;
+  border-bottom:1px solid transparent;padding-bottom:1px;transition:.14s}
+.hundred .cross{font-style:normal;color:var(--ink);opacity:1;margin-left:5px;
+  font-family:'IBM Plex Serif',Georgia,serif}
+.hundred:hover .cross,.hundred:focus-visible .cross{color:var(--alarm)}
+.hundred:hover,.hundred:focus-visible{opacity:1;color:var(--alarm);
+  border-bottom-color:var(--alarm)}
 .stamp{margin-top:22px;padding-top:12px;border-top:var(--hair);display:flex;
   justify-content:space-between;gap:12px;flex-wrap:wrap;opacity:.6}
 
@@ -252,8 +255,8 @@ footer h4{margin:0 0 9px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
   <div class="wrap">
     <h1 class="wordmark"><span class="box">HATCH TERMINAL<span class="us">_</span></span></h1>
     <p class="creed">
-      Resources for those struggling to get songs stuck in their head, and not the
-      other way around.
+      Resources for those seeking wild vibrations, flickering illuminations,
+      and struggle each day to get more songs stuck in their heads.
     </p>
   </div>
 </header>
@@ -506,11 +509,8 @@ footer h4{margin:0 0 9px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
       <a href="#damage-done">DAMAGE_DONE</a>
       <a href="#wet-film">WET_FILM</a>
     </div>
-    <div class="side">
-      <a href="studio-glow/mobile-meltdown/index.html">Mobile_Meltdown</a>
-    </div>
     <div class="stamp">
-      <span class="mono">Inspiration + Perspiration = Song Creation</span>
+      <a class="hundred" href="studio-glow/mobile-meltdown/index.html" title="100%">100% Catholic Blocked<span class="cross">&#10013;</span></a>
       <span class="mono">McAdams &amp; Co. <span id="yr">2026</span></span>
     </div>
   </div>
@@ -561,7 +561,8 @@ document.getElementById('yr').textContent=new Date().getFullYear();
     if(w) w.body.style.maxHeight=w.body.querySelector('.winner').offsetHeight+'px';
   });
 
-  if(location.hash) fromHash(); else open(wings[0]);
+  /* nothing opens on load; a hash still opens that wing */
+  if(location.hash) fromHash();
 })();
 </script>
 </body>
