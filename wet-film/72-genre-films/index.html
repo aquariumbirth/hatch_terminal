@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>72 Genre Films for the Tarantino / De Palma Canon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#161210;
+  --card:#1e1814;
+  --paper:#ede3cd;
+  --paper-dim:#c9bba0;
+  --dim:#93846f;
+  --red:#c7351f;
+  --red-bright:#e04328;
+  --amber:#e3a438;
+  --line:#352b21;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--bg);
+  color:var(--paper);
+  font-family:'Newsreader',Georgia,serif;
+  font-size:17px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+body::after{
+  content:"";
+  position:fixed;inset:0;
+  pointer-events:none;
+  opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+  z-index:5;
+}
+.wrap{max-width:860px;margin:0 auto;padding:0 24px}
+
+/* ---------- MASTHEAD ---------- */
+header{
+  border-bottom:4px double var(--line);
+  padding:64px 0 40px;
+  position:relative;
+}
+.ticket-strip{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--amber);
+  border:1px dashed var(--amber);
+  display:inline-block;
+  padding:6px 14px;
+  margin-bottom:28px;
+}
+h1{
+  font-family:'Anton',sans-serif;
+  font-size:clamp(64px,13vw,148px);
+  line-height:.92;
+  letter-spacing:.01em;
+  text-transform:uppercase;
+  color:var(--paper);
+}
+h1 .num{color:var(--red-bright)}
+.subtitle-bar{
+  margin-top:22px;
+  background:var(--red);
+  color:var(--paper);
+  font-family:'Anton',sans-serif;
+  text-transform:uppercase;
+  font-size:clamp(16px,3vw,26px);
+  letter-spacing:.09em;
+  padding:8px 16px;
+  display:inline-block;
+  transform:rotate(-.6deg);
+}
+.deck{
+  margin-top:30px;
+  max-width:640px;
+  font-size:19px;
+  color:var(--paper-dim);
+}
+.deck strong{color:var(--paper);font-weight:500}
+.edge-code{
+  position:absolute;
+  top:18px;right:0;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  letter-spacing:.2em;
+  color:var(--dim);
+  text-transform:uppercase;
+}
+
+/* ---------- INTRO NOTES ---------- */
+.notes{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+  padding:36px 0;
+  border-bottom:1px solid var(--line);
+}
+.note{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-top:3px solid var(--amber);
+  padding:20px 22px;
+  font-size:15.5px;
+  color:var(--paper-dim);
+}
+.note h3{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--amber);
+  margin-bottom:10px;
+}
+.note em{color:var(--paper);font-style:italic}
+@media(max-width:680px){.notes{grid-template-columns:1fr}}
+
+/* ---------- INDEX ---------- */
+.index{padding:40px 0;border-bottom:1px solid var(--line)}
+.index h2{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--dim);margin-bottom:20px;
+}
+.index-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:8px;
+}
+.index a{
+  display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+  text-decoration:none;
+  color:var(--paper);
+  font-family:'Anton',sans-serif;
+  text-transform:uppercase;
+  font-size:15px;
+  letter-spacing:.05em;
+  padding:11px 14px;
+  border:1px solid var(--line);
+  background:var(--card);
+  transition:border-color .15s,color .15s;
+}
+.index a:hover,.index a:focus-visible{border-color:var(--red-bright);color:var(--red-bright)}
+.index a .ct{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;color:var(--dim);letter-spacing:.1em;
+}
+
+/* ---------- SECTIONS ---------- */
+section{padding:56px 0 8px}
+.sec-head{
+  display:flex;align-items:baseline;gap:18px;
+  border-bottom:3px solid var(--red);
+  padding-bottom:12px;margin-bottom:8px;
+}
+.sec-head .rn{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:14px;letter-spacing:.2em;color:var(--red-bright);
+  white-space:nowrap;
+}
+.sec-head h2{
+  font-family:'Anton',sans-serif;
+  font-size:clamp(26px,5vw,40px);
+  text-transform:uppercase;
+  letter-spacing:.02em;
+  line-height:1.05;
+}
+.sec-head .sc{
+  margin-left:auto;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;color:var(--dim);letter-spacing:.15em;white-space:nowrap;
+}
+@media(max-width:430px){
+  .sec-head{flex-wrap:wrap}
+  .sec-head .sc{margin-left:0;flex-basis:100%;letter-spacing:.1em}
+}
+.sec-note{
+  font-size:15px;color:var(--dim);font-style:italic;
+  margin:14px 0 6px;
+}
+
+/* ---------- FILM ENTRIES ---------- */
+.film{
+  display:grid;
+  grid-template-columns:76px 1fr;
+  gap:20px;
+  padding:26px 0;
+  border-bottom:1px solid var(--line);
+}
+.film:last-child{border-bottom:none}
+.film .no{
+  font-family:'Anton',sans-serif;
+  font-size:44px;
+  line-height:1;
+  color:transparent;
+  -webkit-text-stroke:1.5px var(--amber);
+  padding-top:4px;
+}
+.film h3{
+  font-family:'Anton',sans-serif;
+  font-size:clamp(20px,3.4vw,26px);
+  text-transform:uppercase;
+  letter-spacing:.02em;
+  line-height:1.1;
+  color:var(--paper);
+}
+.film .meta{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--dim);
+  margin:7px 0 12px;
+}
+.film p{color:var(--paper-dim);font-size:16.5px;max-width:640px}
+.film p em{color:var(--paper)}
+.tags{margin-top:12px;display:flex;flex-wrap:wrap;gap:7px}
+.tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10.5px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  padding:4px 9px;
+  border:1px solid var(--dim);
+  color:var(--paper-dim);
+}
+.tag.ballot{border-color:var(--red-bright);color:var(--red-bright)}
+.tag.rt{border-color:var(--amber);color:var(--amber)}
+.tag.cs{border-color:#7fa06a;color:#9dbd87}
+.tag.dp{border-color:#7e93b8;color:#9db2d6}
+.tag.new{background:var(--red);border-color:var(--red);color:var(--paper)}
+@media(max-width:560px){
+  .film{grid-template-columns:1fr;gap:8px}
+  .film .no{font-size:30px}
+}
+
+/* ---------- DOUBLE BILLS ---------- */
+.bills{padding:60px 0;border-top:4px double var(--line);margin-top:48px}
+.bills h2{
+  font-family:'Anton',sans-serif;
+  font-size:clamp(28px,5vw,44px);
+  text-transform:uppercase;text-align:center;
+  margin-bottom:6px;
+}
+.bills .sub{
+  text-align:center;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--amber);margin-bottom:34px;
+}
+.bill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.bill{
+  border:2px solid var(--paper);
+  background:var(--card);
+  padding:20px 18px;
+  text-align:center;
+}
+.bill .a,.bill .b{
+  font-family:'Anton',sans-serif;
+  text-transform:uppercase;
+  font-size:17px;line-height:1.2;
+}
+.bill .a{color:var(--paper)}
+.bill .b{color:var(--red-bright)}
+.bill .plus{
+  font-family:'IBM Plex Mono',monospace;
+  color:var(--amber);font-size:12px;letter-spacing:.3em;
+  margin:8px 0;
+}
+
+/* ---------- OUTRO ---------- */
+.outro{padding:52px 0 30px;border-top:1px solid var(--line);margin-top:40px}
+.outro h2{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--dim);margin-bottom:16px;
+}
+.outro p{color:var(--paper-dim);font-size:16px;max-width:680px;margin-bottom:14px}
+.outro p strong{color:var(--paper);font-weight:500}
+footer{
+  padding:28px 0 60px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--dim);
+  border-top:4px double var(--line);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+}
+:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+</style>
+</head>
+<body>
+<style>
+@keyframes htcur{0%,24.9%{color:#D6291E}25%,49.9%{color:#F2C230}50%,74.9%{color:#D9541E}75%,100%{color:#FFF}}
+@keyframes htblk{0%,49%{opacity:1}50%,100%{opacity:0}}
+.htbar{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.09em;
+ padding:9px 16px;background:#0d0d10;color:#8a8a94;display:flex;gap:9px;align-items:center;
+ flex-wrap:wrap;line-height:1.5;border-bottom:1px solid #24242d}
+.htbar a{text-decoration:none}
+.htbar .htbadge{display:inline-block;background:#000;border:1px solid #33333d;color:#fff;
+ font-weight:700;padding:3px 7px;white-space:nowrap}
+.htbar .htbadge:hover{border-color:#d9541e}
+.htbar .htus{animation:htblk 1.06s steps(1,end) infinite, htcur 4.24s steps(1,end) infinite}
+.htbar .htwing{color:#c4566e}
+.htbar .htwing:hover{text-decoration:underline}
+.htbar .htsl{color:#3a3a44}
+@media(prefers-reduced-motion:reduce){.htbar .htus{animation:none;color:#d9541e}}
+</style>
+<div class="htbar">
+ <a class="htbadge" href="../../">HATCH TERMINAL<span class="htus">_</span></a>
+ <span class="htsl">/</span><a class="htwing" href="../">WET_FILM</a>
+</div>
+
+
+<div class="wrap">
+
+<header>
+  <div class="edge-code">REEL 01 / PRINT 4602 / JULY 2026</div>
+  <div class="ticket-strip">No spaghetti westerns on this bill</div>
+  <h1><span class="num">72</span> Genre<br>Films</h1>
+  <div class="subtitle-bar">For the Tarantino / De Palma Canon</div>
+  <p class="deck">A map of what <strong>Quentin Tarantino</strong> and <strong>Brian De Palma</strong> have actually cited, homaged, re-released, or ballot-listed: kung fu, giallo, blaxploitation, grindhouse, noir and heist, Melville-style French crime, Hong Kong heroic bloodshed, Hitchcockian thrillers, samurai, New Hollywood, and car-chase cinema. The Leone shelf sits this one out; in its place, the Cinema Speculation deep cuts and the rest of the Rolling Thunder catalog.</p>
+</header>
+
+<div class="notes">
+  <div class="note">
+    <h3>The documentary spine</h3>
+    Tarantino's Sight &amp; Sound ballots (2002, 2012), his Grindhouse Cinema Database top 20, <em>Cinema Speculation</em>, the Video Archives and Bret Easton Ellis podcasts, and his Rolling Thunder Pictures re-releases. De Palma left no ballot, so his canon is reconstructed from interviews, his films' explicit homages, and the 2016 Baumbach and Paltrow documentary.
+  </div>
+  <div class="note">
+    <h3>Where they converge</h3>
+    Hitchcock, film noir, and the idea of remixing genre. Tarantino on <em>Blow Out</em>: "one of the greatest movies ever made... Brian De Palma is the greatest director of his generation." <em>Carrie</em> was the only horror title on his 2012 ballot. Where a film has a hard documented connection, it is tagged; a handful ride on cult standing as connective tissue.
+  </div>
+</div>
+
+<nav class="index" aria-label="Genre index">
+  <h2>Program by genre</h2>
+  <div class="index-grid">
+    <a href="#westerns">Classic Westerns <span class="ct">01-04</span></a>
+    <a href="#kungfu">Kung Fu &amp; Wuxia <span class="ct">05-13</span></a>
+    <a href="#samurai">Samurai &amp; Japan <span class="ct">14-20</span></a>
+    <a href="#giallo">Giallo &amp; Horror <span class="ct">21-27</span></a>
+    <a href="#blax">Blaxploitation <span class="ct">28-33</span></a>
+    <a href="#grindhouse">Grindhouse <span class="ct">34-40</span></a>
+    <a href="#wip">Girl-Gang &amp; WIP <span class="ct">41-43</span></a>
+    <a href="#newhollywood">New Hollywood <span class="ct">44-48</span></a>
+    <a href="#noir">Crime &amp; Noir <span class="ct">49-56</span></a>
+    <a href="#melville">French Crime <span class="ct">57-60</span></a>
+    <a href="#hk">Heroic Bloodshed <span class="ct">61-63</span></a>
+    <a href="#hitchcock">Hitchcockian <span class="ct">64-69</span></a>
+    <a href="#chase">Car-Chase <span class="ct">70-72</span></a>
+  </div>
+</nav>
+
+<!-- ============ I. WESTERNS ============ -->
+<section id="westerns">
+  <div class="sec-head"><span class="rn">I</span><h2>American &amp; Classic Westerns</h2><span class="sc">4 films</span></div>
+
+  <article class="film">
+    <div class="no">01</div>
+    <div>
+      <h3>Rio Bravo</h3>
+      <div class="meta">Howard Hawks &middot; 1959 &middot; USA</div>
+      <p>A Texas sheriff and a ragtag crew, a drunk, a cripple, a kid, hold a killer in jail against a rancher's army. Tarantino's self-declared "ultimate hangout movie": "if I ever liked a girl... I would show her <em>Rio Bravo</em>, and she better like it!" A stated template for <em>Jackie Brown</em> and <em>Once Upon a Time in Hollywood</em>, and #2 on his 2002 ballot.</p>
+      <div class="tags"><span class="tag ballot">2002 Ballot</span><span class="tag">Hangout Template</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">02</div>
+    <div>
+      <h3>The Searchers</h3>
+      <div class="meta">John Ford &middot; 1956 &middot; USA</div>
+      <p>A Confederate veteran spends years hunting the Comanche who abducted his niece, his racism curdling into obsession. Documented favorite of both directors; Tarantino devotes much of his <em>Taxi Driver</em> chapter in <em>Cinema Speculation</em> to its influence, and it appears among De Palma's cited favorites.</p>
+      <div class="tags"><span class="tag cs">Cinema Speculation</span><span class="tag dp">De Palma Core</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">03</div>
+    <div>
+      <h3>My Darling Clementine</h3>
+      <div class="meta">John Ford &middot; 1946 &middot; USA</div>
+      <p>Wyatt Earp cleans up Tombstone en route to the OK Corral in Ford's elegiac frontier poem. A documented De Palma all-time favorite.</p>
+      <div class="tags"><span class="tag dp">De Palma Core</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">04</div>
+    <div>
+      <h3>Duel at Diablo</h3>
+      <div class="meta">Ralph Nelson &middot; 1966 &middot; USA</div>
+      <p>A scout, a horse trader, and a cavalry unit are pinned by Apache fighters in a brutal, unusually violent studio western. A cult title Tarantino has programmed and championed for its ferocity.</p>
+      <div class="tags"><span class="tag">Deep Cut</span></div>
+    </div>
+  </article>
+</section>
+
+<!-- ============ II. KUNG FU ============ -->
+<section id="kungfu">
+  <div class="sec-head"><span class="rn">II</span><h2>Kung Fu, Martial Arts &amp; Wuxia</h2><span class="sc">9 films</span></div>
+
+  <article class="film">
+    <div class="no">05</div>
+    <div>
+      <h3>Five Fingers of Death</h3>
+      <div class="meta">Chung Chang-wha &middot; 1972 &middot; Hong Kong</div>
+      <p>A student masters the lethal "iron palm" to win a martial arts tournament and avenge his school. Tarantino's grindhouse #7; the "trailer opened my eyes" origin story and the alarm cue <em>Kill Bill</em> uses are his own citations.</p>
+      <div class="tags"><span class="tag">Grindhouse #7</span><span class="tag">Kill Bill DNA</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">06</div>
+    <div>
+      <h3>Master of the Flying Guillotine</h3>
+      <div class="meta">Jimmy Wang Yu &middot; 1976 &middot; Hong Kong / Taiwan</div>
+      <p>A blind assassin with a decapitating flying weapon hunts the One-Armed Boxer through a martial arts tournament. Tarantino has called it his single most-recommended martial arts film, "one of the masterpieces of the genre."</p>
+      <div class="tags"><span class="tag">Direct Quote</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">07</div>
+    <div>
+      <h3>The Chinese Boxer</h3>
+      <div class="meta">Jimmy Wang Yu &middot; 1970 &middot; Hong Kong</div>
+      <p>A kung fu student takes on Japanese karate killers who destroyed his school, a foundational bare-hands revenge film. Tarantino's grindhouse #20 and a <em>Kill Bill</em> touchstone.</p>
+      <div class="tags"><span class="tag">Grindhouse #20</span><span class="tag">Kill Bill DNA</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">08</div>
+    <div>
+      <h3>The 36th Chamber of Shaolin</h3>
+      <div class="meta">Lau Kar-leung &middot; 1978 &middot; Hong Kong</div>
+      <p>A young rebel enters the Shaolin temple and grinds through its training chambers to master kung fu. Its star Gordon Liu plays Pai Mei and a Crazy 88 in <em>Kill Bill</em>.</p>
+      <div class="tags"><span class="tag">Kill Bill DNA</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">09</div>
+    <div>
+      <h3>Five Deadly Venoms</h3>
+      <div class="meta">Chang Cheh &middot; 1978 &middot; Hong Kong</div>
+      <p>A dying master's last pupil must find five former students, each with an animal fighting style, before the evil ones kill again. A Chang Cheh / Venom Mob classic Tarantino has repeatedly recommended.</p>
+      <div class="tags"><span class="tag">Recommended</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">10</div>
+    <div>
+      <h3>The Street Fighter</h3>
+      <div class="meta">Shigehiro Ozawa &middot; 1974 &middot; Japan</div>
+      <p>Sonny Chiba's brutal, amoral mercenary Terry Tsurugi sells his fists to the highest bidder. Tarantino's grindhouse #13; the Chiba trilogy that Clarence adores in Tarantino's script for <em>True Romance</em>.</p>
+      <div class="tags"><span class="tag">Grindhouse #13</span><span class="tag">True Romance</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">11</div>
+    <div>
+      <h3>One-Armed Swordsman</h3>
+      <div class="meta">Chang Cheh &middot; 1967 &middot; Hong Kong</div>
+      <p>A maimed swordsman masters a one-handed style to defend the teacher who cast him out. The record-breaking Shaw Brothers classic that made Jimmy Wang Yu, a Tarantino favorite, a star.</p>
+      <div class="tags"><span class="tag">Shaw Foundation</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">12</div>
+    <div>
+      <h3>Soul Brothers of Kung Fu</h3>
+      <div class="meta">Hua Shan &middot; 1977 &middot; Hong Kong</div>
+      <p>A modern-day kung fu tale fusing Bruceploitation and blaxploitation, with Carl Scott and Bruce Li tangling with Hong Kong gangsters. Tarantino told the Pure Cinema Podcast it may be his favorite modern-set martial arts movie.</p>
+      <div class="tags"><span class="tag">Podcast Pick</span><span class="tag">Deep Cut</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">13</div>
+    <div>
+      <h3>The Mighty Peking Man</h3>
+      <div class="meta">Ho Meng-hua &middot; 1977 &middot; Hong Kong</div>
+      <p>A giant ape and the jungle woman he raised are hauled from the Himalayan wilds to Hong Kong, where showbiz greed wrecks everything. Shaw Brothers' delirious <em>King Kong</em> cash-in; Tarantino's Rolling Thunder label re-released it theatrically in 1999 as a personal favorite of peak Shaw spectacle.</p>
+      <div class="tags"><span class="tag new">New to the Bill</span><span class="tag rt">Rolling Thunder</span><span class="tag">Deep Cut</span></div>
+    </div>
+  </article>
+</section>
+
+<!-- ============ III. SAMURAI & JAPAN ============ -->
+<section id="samurai">
+  <div class="sec-head"><span class="rn">III</span><h2>Samurai &amp; Japanese Cinema</h2><span class="sc">7 films</span></div>
+
+  <article class="film">
+    <div class="no">14</div>
+    <div>
+      <h3>Seven Samurai</h3>
+      <div class="meta">Akira Kurosawa &middot; 1954 &middot; Japan</div>
+      <p>Seven masterless ronin defend a farming village from bandits. The fountainhead of the ensemble-mission film; Kurosawa's <em>Rashomon</em> structure recurs in <em>Reservoir Dogs</em>.</p>
+      <div class="tags"><span class="tag">Structural Source</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">15</div>
+    <div>
+      <h3>Yojimbo</h3>
+      <div class="meta">Akira Kurosawa &middot; 1961 &middot; Japan</div>
+      <p>A wandering ronin plays two rival gangs against each other in a corrupt town. The Leone and <em>Django</em> lineage runs straight back to it; a documented structural influence on <em>Django Unchained</em>.</p>
+      <div class="tags"><span class="tag">Structural Source</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">16</div>
+    <div>
+      <h3>Sanjuro</h3>
+      <div class="meta">Akira Kurosawa &middot; 1962 &middot; Japan</div>
+      <p>Kurosawa's loose <em>Yojimbo</em> sequel, ending in a duel whose accidental blood-geyser effect Tarantino cites as the origin of his own arterial-spray aesthetic.</p>
+      <div class="tags"><span class="tag">Direct Quote</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">17</div>
+    <div>
+      <h3>Lady Snowblood</h3>
+      <div class="meta">Toshiya Fujita &middot; 1973 &middot; Japan</div>
+      <p>Yuki, born in prison to avenge her family, cuts a blood-soaked path through Meiji-era Japan. The single most direct template for <em>Kill Bill</em>; its song "The Flower of Carnage" scores O-Ren's death.</p>
+      <div class="tags"><span class="tag">Kill Bill DNA</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">18</div>
+    <div>
+      <h3>Shogun Assassin / Lone Wolf and Cub</h3>
+      <div class="meta">Kenji Misumi &middot; 1972 / 1980 &middot; Japan</div>
+      <p>A disgraced executioner roams feudal Japan pushing a baby cart rigged with weapons. B.B. watches it as a bedtime story in <em>Kill Bill Vol. 2</em>.</p>
+      <div class="tags"><span class="tag">Homage On Screen</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">19</div>
+    <div>
+      <h3>Battle Royale</h3>
+      <div class="meta">Kinji Fukasaku &middot; 2000 &middot; Japan</div>
+      <p>A class of schoolchildren is dumped on an island and forced to kill each other down to a single survivor. Tarantino in 2009: "If there was any movie that has been made since I've been making movies that I wish I had made, it's that one." He ranked it #11 on his 2025 best-of-the-century list and cast Chiaki Kuriyama in <em>Kill Bill</em> on the strength of it.</p>
+      <div class="tags"><span class="tag">Direct Quote</span><span class="tag">Kill Bill Casting</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">20</div>
+    <div>
+      <h3>Sonatine</h3>
+      <div class="meta">Takeshi Kitano &middot; 1993 &middot; Japan</div>
+      <p>A weary Tokyo yakuza is sent to Okinawa to settle a gang war that turns out to be a setup, and his crew kills time on a beach between eruptions of deadpan violence. Rolling Thunder gave it its US release in 1998; Kitano's stillness-then-carnage rhythm is a documented Tarantino enthusiasm.</p>
+      <div class="tags"><span class="tag new">New to the Bill</span><span class="tag rt">Rolling Thunder</span></div>
+    </div>
+  </article>
+</section>
+
+<!-- ============ IV. GIALLO ============ -->
+<section id="giallo">
+  <div class="sec-head"><span class="rn">IV</span><h2>Italian Giallo &amp; Horror</h2><span class="sc">7 films</span></div>
+
+  <article class="film">
+    <div class="no">21</div>
+    <div>
+      <h3>Deep Red</h3>
+      <div class="meta">Dario Argento &middot; 1975 &middot; Italy</div>
+      <p>A jazz pianist witnesses a psychic's murder and turns amateur detective as a black-gloved killer closes in. Tarantino saw it alone at around 15 and has described it as having rattled him to the bone; homaged in <em>Kill Bill</em>.</p>
+      <div class="tags"><span class="tag">Formative</span><span class="tag">Kill Bill DNA</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">22</div>
+    <div>
+      <h3>Suspiria</h3>
+      <div class="meta">Dario Argento &middot; 1977 &middot; Italy</div>
+      <p>An American ballet student discovers her German dance academy is a witches' coven, rendered in delirious Technicolor and Goblin's score. Tarantino's grindhouse #19.</p>
+      <div class="tags"><span class="tag">Grindhouse #19</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">23</div>
+    <div>
+      <h3>The Bird with the Crystal Plumage</h3>
+      <div class="meta">Dario Argento &middot; 1970 &middot; Italy</div>
+      <p>An American writer in Rome witnesses an attempted murder and becomes obsessed with solving it. Its Morricone score plays under Stuntman Mike's stalking in <em>Death Proof</em>, a direct restaging of its opening.</p>
+      <div class="tags"><span class="tag">Homage On Screen</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">24</div>
+    <div>
+      <h3>Tenebrae</h3>
+      <div class="meta">Dario Argento &middot; 1982 &middot; Italy</div>
+      <p>A crime novelist in Rome is stalked by a killer enacting scenes from his book. Tarantino paid homage to it in <em>Kill Bill Vol. 1</em>.</p>
+      <div class="tags"><span class="tag">Kill Bill DNA</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">25</div>
+    <div>
+      <h3>Blood and Black Lace</h3>
+      <div class="meta">Mario Bava &middot; 1964 &middot; Italy</div>
+      <p>A masked killer murders models at a fashion house to recover an incriminating diary. The film that codified the giallo's black-gloved killer; a foundational influence on both Argento and De Palma.</p>
+      <div class="tags"><span class="tag dp">De Palma Core</span><span class="tag">Genre Codex</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">26</div>
+    <div>
+      <h3>Black Sabbath</h3>
+      <div class="meta">Mario Bava &middot; 1963 &middot; Italy</div>
+      <p>A three-story horror anthology hosted by Boris Karloff. Tarantino has said Bava "got me thinking in terms of shots" and cited the film's "operatic quality" as formative.</p>
+      <div class="tags"><span class="tag">Direct Quote</span><span class="tag">Formative</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">27</div>
+    <div>
+      <h3>The Beyond</h3>
+      <div class="meta">Lucio Fulci &middot; 1981 &middot; Italy</div>
+      <p>A woman inherits a Louisiana hotel built over a gateway to hell, unleashing surreal, gory carnage. A documented Tarantino favorite; his Rolling Thunder label re-released it in the US.</p>
+      <div class="tags"><span class="tag rt">Rolling Thunder</span></div>
+    </div>
+  </article>
+</section>
+
+<!-- ============ V. BLAXPLOITATION ============ -->
+<section id="blax">
+  <div class="sec-head"><span class="rn">V</span><h2>Blaxploitation</h2><span class="sc">6 films</span></div>
+
+  <article class="film">
+    <div class="no">28</div>
+    <div>
+      <h3>Coffy</h3>
+      <div class="meta">Jack Hill &middot; 1973 &middot; USA</div>
+      <p>Pam Grier's vigilante nurse guns down the dealers who hooked her little sister. Tarantino's grindhouse #5; he has described its "violent power over an audience," and cast Grier in <em>Jackie Brown</em>.</p>
+      <div class="tags"><span class="tag">Grindhouse #5</span><span class="tag">Jackie Brown DNA</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">29</div>
+    <div>
+      <h3>Foxy Brown</h3>
+      <div class="meta">Jack Hill &middot; 1974 &middot; USA</div>
+      <p>Grier goes undercover to destroy the drug-and-prostitution ring that killed her boyfriend. <em>Jackie Brown</em>'s title, casting, and poster art are direct homages.</p>
+      <div class="tags"><span class="tag">Jackie Brown DNA</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">30</div>
+    <div>
+      <h3>The Mack</h3>
+      <div class="meta">Michael Campus &middot; 1973 &middot; USA</div>
+      <p>A newly released convict (Max Julien) builds a pimp empire in Oakland, with Richard Pryor alongside. Tarantino owns a rare 35mm print and cites it as an influence on <em>True Romance</em>.</p>
+      <div class="tags"><span class="tag">True Romance</span><span class="tag">Print Owner</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">31</div>
+    <div>
+      <h3>Black Caesar</h3>
+      <div class="meta">Larry Cohen &middot; 1973 &middot; USA</div>
+      <p>Fred Williamson's Harlem hood claws his way to the top of the rackets, scored by James Brown. A Larry Cohen picture Tarantino has long championed.</p>
+      <div class="tags"><span class="tag">Championed</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">32</div>
+    <div>
+      <h3>Detroit 9000</h3>
+      <div class="meta">Arthur Marks &middot; 1973 &middot; USA</div>
+      <p>A biracial cop pairing investigates a robbery at a Black congressman's fundraiser. Tarantino's Rolling Thunder Pictures gave it a limited theatrical re-release in October 1998, followed by a Miramax video release in April 1999.</p>
+      <div class="tags"><span class="tag rt">Rolling Thunder</span><span class="tag">Deep Cut</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">33</div>
+    <div>
+      <h3>Shaft</h3>
+      <div class="meta">Gordon Parks &middot; 1971 &middot; USA</div>
+      <p>Richard Roundtree's private eye navigates Harlem crime lords and mobsters to Isaac Hayes's score. Tarantino has said his Django and Broomhilda von Shaft are conceived as ancestors of John Shaft.</p>
+      <div class="tags"><span class="tag">Django Lineage</span></div>
+    </div>
+  </article>
+</section>
+
+<!-- ============ VI. GRINDHOUSE ============ -->
+<section id="grindhouse">
+  <div class="sec-head"><span class="rn">VI</span><h2>Grindhouse &amp; Exploitation</h2><span class="sc">7 films</span></div>
+
+  <article class="film">
+    <div class="no">34</div>
+    <div>
+      <h3>The Texas Chain Saw Massacre</h3>
+      <div class="meta">Tobe Hooper &middot; 1974 &middot; USA</div>
+      <p>Five friends stumble onto a family of cannibals in rural Texas. Tarantino's grindhouse #1 and one of the few films he calls "perfect."</p>
+      <div class="tags"><span class="tag">Grindhouse #1</span><span class="tag">Direct Quote</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">35</div>
+    <div>
+      <h3>Dawn of the Dead</h3>
+      <div class="meta">George A. Romero &middot; 1978 &middot; USA</div>
+      <p>Survivors barricade in a shopping mall as the zombie apocalypse spreads. Tarantino's grindhouse #2.</p>
+      <div class="tags"><span class="tag">Grindhouse #2</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">36</div>
+    <div>
+      <h3>Halloween</h3>
+      <div class="meta">John Carpenter &middot; 1978 &middot; USA</div>
+      <p>Michael Myers stalks babysitters on Halloween night in suburban Illinois. Tarantino's grindhouse #4.</p>
+      <div class="tags"><span class="tag">Grindhouse #4</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">37</div>
+    <div>
+      <h3>The Last House on the Left</h3>
+      <div class="meta">Wes Craven &middot; 1972 &middot; USA</div>
+      <p>Grieving parents take savage revenge on the gang that murdered their daughter. Tarantino's grindhouse #10.</p>
+      <div class="tags"><span class="tag">Grindhouse #10</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">38</div>
+    <div>
+      <h3>Thriller: A Cruel Picture</h3>
+      <div class="meta">Bo Arne Vibenius &middot; 1973 &middot; Sweden</div>
+      <p>A mute woman, forced into prostitution, trains herself and hunts her abusers; also known as <em>They Call Her One Eye</em>. Tarantino's grindhouse #18 and the direct model for Elle Driver's eyepatch in <em>Kill Bill</em>.</p>
+      <div class="tags"><span class="tag">Grindhouse #18</span><span class="tag">Kill Bill DNA</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">39</div>
+    <div>
+      <h3>Rolling Thunder</h3>
+      <div class="meta">John Flynn &middot; 1977 &middot; USA</div>
+      <p>A returning POW whose family is slaughtered goes on a hook-handed rampage with a fellow vet (Tommy Lee Jones). On both his 2002 and 2012 Sight &amp; Sound ballots, the subject of a <em>Cinema Speculation</em> chapter ("the greatest savage, fascist, Revengeamatic flick ever made"), and the namesake of his distribution company.</p>
+      <div class="tags"><span class="tag ballot">2002 Ballot</span><span class="tag ballot">2012 Ballot</span><span class="tag cs">Cinema Speculation</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">40</div>
+    <div>
+      <h3>The Funhouse</h3>
+      <div class="meta">Tobe Hooper &middot; 1981 &middot; USA</div>
+      <p>Four teens hide overnight in a carnival funhouse and are hunted by a deformed barker's son. Hooper's studio follow-up to <em>Chain Saw</em> gets a full-throated defense and its own chapter in <em>Cinema Speculation</em>, where Tarantino argues for it as underrated carny-gothic craft.</p>
+      <div class="tags"><span class="tag new">New to the Bill</span><span class="tag cs">Cinema Speculation</span><span class="tag">Deep Cut</span></div>
+    </div>
+  </article>
+</section>
+
+<!-- ============ VII. WIP & GIRL-GANG ============ -->
+<section id="wip">
+  <div class="sec-head"><span class="rn">VII</span><h2>Women-in-Prison &amp; Girl-Gang</h2><span class="sc">3 films</span></div>
+
+  <article class="film">
+    <div class="no">41</div>
+    <div>
+      <h3>Switchblade Sisters</h3>
+      <div class="meta">Jack Hill &middot; 1975 &middot; USA</div>
+      <p>A Los Angeles girl gang, the Jezebels, wars over turf, boys, and betrayal in a lurid riff on <em>Othello</em>. Tarantino re-released it through Rolling Thunder in 1996 and calls Hill "the Howard Hawks of exploitation filmmaking"; its one-eyed Patch fed Elle Driver.</p>
+      <div class="tags"><span class="tag rt">Rolling Thunder</span><span class="tag">Kill Bill DNA</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">42</div>
+    <div>
+      <h3>The Big Doll House</h3>
+      <div class="meta">Jack Hill &middot; 1971 &middot; USA</div>
+      <p>Women in a brutal jungle prison plot a violent breakout; the film that launched the women-in-prison cycle and Pam Grier's career. A documented Tarantino and Jack Hill favorite.</p>
+      <div class="tags"><span class="tag">Hill Canon</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">43</div>
+    <div>
+      <h3>The Big Bird Cage</h3>
+      <div class="meta">Jack Hill &middot; 1972 &middot; USA</div>
+      <p>A companion women-in-prison picture with Grier and Sid Haig staging a revolt at a jungle labor camp. Part of the Hill exploitation run Tarantino has consistently championed.</p>
+      <div class="tags"><span class="tag">Hill Canon</span></div>
+    </div>
+  </article>
+</section>
+
+<!-- ============ VIII. NEW HOLLYWOOD ============ -->
+<section id="newhollywood">
+  <div class="sec-head"><span class="rn">VIII</span><h2>New Hollywood &amp; the Cinema Speculation Shelf</h2><span class="sc">5 films</span></div>
+  <p class="sec-note">The replacement block. With the Leone shelf retired, these five come off Tarantino's own ballots and book chapters: the 1970s appreciations that anchor Cinema Speculation and the two strangest picks on his 2012 Sight &amp; Sound ballot.</p>
+
+  <article class="film">
+    <div class="no">44</div>
+    <div>
+      <h3>Taxi Driver</h3>
+      <div class="meta">Martin Scorsese &middot; 1976 &middot; USA</div>
+      <p>A Vietnam vet cabbie drifts through a rotting New York toward vigilante explosion. On both of Tarantino's Sight &amp; Sound ballots and the subject of the longest, most personal chapter in <em>Cinema Speculation</em>, which reads it as <em>The Searchers</em> reborn in Schrader's script.</p>
+      <div class="tags"><span class="tag new">New to the Bill</span><span class="tag ballot">2002 Ballot</span><span class="tag ballot">2012 Ballot</span><span class="tag cs">Cinema Speculation</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">45</div>
+    <div>
+      <h3>Dirty Harry</h3>
+      <div class="meta">Don Siegel &middot; 1971 &middot; USA</div>
+      <p>Clint Eastwood's Inspector Callahan hunts the Scorpio killer across San Francisco. Tarantino devotes a <em>Cinema Speculation</em> chapter to it, wrestling with Pauline Kael's "fascist" verdict while making the case for Siegel's craft and the film's raw-nerve grip on its 1971 audience.</p>
+      <div class="tags"><span class="tag new">New to the Bill</span><span class="tag cs">Cinema Speculation</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">46</div>
+    <div>
+      <h3>Sorcerer</h3>
+      <div class="meta">William Friedkin &middot; 1977 &middot; USA</div>
+      <p>Four desperate fugitives truck sweating nitroglycerin through South American jungle to a burning oil well. Friedkin's <em>Wages of Fear</em> remake bombed against <em>Star Wars</em>; Tarantino put it on his 2012 Sight &amp; Sound ballot anyway, one of the decade's great doomed white-knuckle machines.</p>
+      <div class="tags"><span class="tag new">New to the Bill</span><span class="tag ballot">2012 Ballot</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">47</div>
+    <div>
+      <h3>Hardcore</h3>
+      <div class="meta">Paul Schrader &middot; 1979 &middot; USA</div>
+      <p>A devout Calvinist businessman (George C. Scott) descends into the Los Angeles porn underworld to find his runaway daughter. Chaptered in <em>Cinema Speculation</em>, where Tarantino dissects what the studio softened and what the film could have been, which is half the fun of the chapter.</p>
+      <div class="tags"><span class="tag new">New to the Bill</span><span class="tag cs">Cinema Speculation</span><span class="tag">Deep Cut</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">48</div>
+    <div>
+      <h3>Pretty Maids All in a Row</h3>
+      <div class="meta">Roger Vadim &middot; 1971 &middot; USA</div>
+      <p>Rock Hudson's high-school guidance counselor seduces and murders his own students in a sunny MGM black comedy scripted by Gene Roddenberry. The most eyebrow-raising title on Tarantino's 2012 Sight &amp; Sound ballot, and about as lesser-known as a ballot pick gets.</p>
+      <div class="tags"><span class="tag new">New to the Bill</span><span class="tag ballot">2012 Ballot</span><span class="tag">Deep Cut</span></div>
+    </div>
+  </article>
+</section>
+
+<!-- ============ IX. CRIME & NOIR ============ -->
+<section id="noir">
+  <div class="sec-head"><span class="rn">IX</span><h2>Crime, Heist, Film Noir &amp; Neo-Noir</h2><span class="sc">8 films</span></div>
+
+  <article class="film">
+    <div class="no">49</div>
+    <div>
+      <h3>The Killing</h3>
+      <div class="meta">Stanley Kubrick &middot; 1956 &middot; USA</div>
+      <p>A racetrack robbery, dissected in fractured chronology, unravels through betrayal and bad luck. Tarantino: "I did think of it as my <em>Killing</em>, my take on that kind of heist movie"; his favorite heist film.</p>
+      <div class="tags"><span class="tag">Direct Quote</span><span class="tag">Reservoir Dogs DNA</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">50</div>
+    <div>
+      <h3>Kansas City Confidential</h3>
+      <div class="meta">Phil Karlson &middot; 1952 &middot; USA</div>
+      <p>An ex-con is framed for an armored-car heist pulled by masked men who don't know each other's identities. The acknowledged structural blueprint for <em>Reservoir Dogs</em>.</p>
+      <div class="tags"><span class="tag">Reservoir Dogs DNA</span><span class="tag">Deep Cut</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">51</div>
+    <div>
+      <h3>The Big Combo</h3>
+      <div class="meta">Joseph H. Lewis &middot; 1955 &middot; USA</div>
+      <p>A detective obsessively pursues a sadistic crime boss in shadow-drenched noir. Tarantino cites its 1950s noir texture for <em>Reservoir Dogs</em>, and it fed the torture-scene aesthetic.</p>
+      <div class="tags"><span class="tag">Reservoir Dogs DNA</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">52</div>
+    <div>
+      <h3>The Taking of Pelham One Two Three</h3>
+      <div class="meta">Joseph Sargent &middot; 1974 &middot; USA</div>
+      <p>Hijackers led by "Mr. Blue" seize a New York subway car and hold its riders for ransom. The source of <em>Reservoir Dogs</em>' color-coded aliases.</p>
+      <div class="tags"><span class="tag">Reservoir Dogs DNA</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">53</div>
+    <div>
+      <h3>The Getaway</h3>
+      <div class="meta">Sam Peckinpah &middot; 1972 &middot; USA</div>
+      <p>A just-paroled robber (Steve McQueen) and his wife run for Mexico after a heist goes wrong. Subject of a <em>Cinema Speculation</em> chapter; its set photo of McQueen and Peckinpah is the book's cover.</p>
+      <div class="tags"><span class="tag cs">Cinema Speculation</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">54</div>
+    <div>
+      <h3>The Outfit</h3>
+      <div class="meta">John Flynn &middot; 1973 &middot; USA</div>
+      <p>A career criminal (Robert Duvall) methodically wars against the syndicate that killed his brother. A John Flynn picture Tarantino resurrects and analyzes in <em>Cinema Speculation</em>.</p>
+      <div class="tags"><span class="tag cs">Cinema Speculation</span><span class="tag">Deep Cut</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">55</div>
+    <div>
+      <h3>Point Blank</h3>
+      <div class="meta">John Boorman &middot; 1967 &middot; USA</div>
+      <p>A double-crossed thief (Lee Marvin) walks through a fractured Los Angeles to collect what he's owed. A documented influence on <em>Reservoir Dogs</em> and a title among De Palma's cited favorites.</p>
+      <div class="tags"><span class="tag">Reservoir Dogs DNA</span><span class="tag dp">De Palma Core</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">56</div>
+    <div>
+      <h3>High and Low</h3>
+      <div class="meta">Akira Kurosawa &middot; 1963 &middot; Japan</div>
+      <p>An executive faces an agonizing moral choice when a kidnapper mistakenly takes his chauffeur's son. A documented Brian De Palma favorite and a landmark police-procedural noir.</p>
+      <div class="tags"><span class="tag dp">De Palma Core</span></div>
+    </div>
+  </article>
+</section>
+
+<!-- ============ X. FRENCH CRIME ============ -->
+<section id="melville">
+  <div class="sec-head"><span class="rn">X</span><h2>French New Wave &amp; Melville Crime</h2><span class="sc">4 films</span></div>
+
+  <article class="film">
+    <div class="no">57</div>
+    <div>
+      <h3>Le Samoura&iuml;</h3>
+      <div class="meta">Jean-Pierre Melville &middot; 1967 &middot; France</div>
+      <p>Alain Delon's monastic contract killer moves through Paris in trench coat and fedora toward his doom. Tarantino has cited it as a favorite and the source of <em>Reservoir Dogs</em>' suited-men iconography ("I could see Alain Delon say, 'I'm Mr. Blonde'").</p>
+      <div class="tags"><span class="tag">Direct Quote</span><span class="tag">Reservoir Dogs DNA</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">58</div>
+    <div>
+      <h3>Le Cercle Rouge</h3>
+      <div class="meta">Jean-Pierre Melville &middot; 1970 &middot; France</div>
+      <p>A paroled thief, an escaped convict, and an alcoholic ex-cop plot a jewelry heist against a relentless inspector. The quintessential Melville crime film and a cornerstone of the cool-crime lineage Tarantino draws from.</p>
+      <div class="tags"><span class="tag">Melville Lineage</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">59</div>
+    <div>
+      <h3>Bob le Flambeur</h3>
+      <div class="meta">Jean-Pierre Melville &middot; 1956 &middot; France</div>
+      <p>An aging Montmartre gambler assembles a crew to rob a casino. The elegant proto-heist film that launched the Melville template Tarantino cites among his key influences.</p>
+      <div class="tags"><span class="tag">Melville Lineage</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">60</div>
+    <div>
+      <h3>Band of Outsiders</h3>
+      <div class="meta">Jean-Luc Godard &middot; 1964 &middot; France</div>
+      <p>Two petty crooks and a girl plan a robbery, detouring into a Louvre sprint and a caf&eacute; dance. Tarantino named his production company A Band Apart after it and calls it his favorite Godard film.</p>
+      <div class="tags"><span class="tag">Company Namesake</span></div>
+    </div>
+  </article>
+</section>
+
+<!-- ============ XI. HEROIC BLOODSHED ============ -->
+<section id="hk">
+  <div class="sec-head"><span class="rn">XI</span><h2>Hong Kong Heroic Bloodshed</h2><span class="sc">3 films</span></div>
+
+  <article class="film">
+    <div class="no">61</div>
+    <div>
+      <h3>City on Fire</h3>
+      <div class="meta">Ringo Lam &middot; 1987 &middot; Hong Kong</div>
+      <p>Chow Yun-fat's undercover cop bonds with the jewel thieves he's infiltrating, building to a warehouse standoff. Tarantino: "I love <em>City on Fire</em> and I have the poster for it framed in my house"; its climax shaped <em>Reservoir Dogs</em>.</p>
+      <div class="tags"><span class="tag">Direct Quote</span><span class="tag">Reservoir Dogs DNA</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">62</div>
+    <div>
+      <h3>The Killer</h3>
+      <div class="meta">John Woo &middot; 1989 &middot; Hong Kong</div>
+      <p>An assassin who blinded a singer takes a last job to fund her surgery, pursued by a cop who becomes his mirror. Tarantino's admiration for Woo is on record ("he can direct an action scene, and Michelangelo could paint a ceiling").</p>
+      <div class="tags"><span class="tag">Direct Quote</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">63</div>
+    <div>
+      <h3>Hard Boiled</h3>
+      <div class="meta">John Woo &middot; 1992 &middot; Hong Kong</div>
+      <p>A cop (Chow Yun-fat) and an undercover agent shoot their way through a hospital gun-battle finale. Woo's operatic peak and a key text in the heroic-bloodshed style Tarantino absorbed.</p>
+      <div class="tags"><span class="tag">Genre Codex</span></div>
+    </div>
+  </article>
+</section>
+
+<!-- ============ XII. HITCHCOCKIAN ============ -->
+<section id="hitchcock">
+  <div class="sec-head"><span class="rn">XII</span><h2>Hitchcockian &amp; Voyeur / Paranoia Thrillers</h2><span class="sc">6 films</span></div>
+  <p class="sec-note">The De Palma spine: the films his own filmography restages, obsesses over, and argues with.</p>
+
+  <article class="film">
+    <div class="no">64</div>
+    <div>
+      <h3>Vertigo</h3>
+      <div class="meta">Alfred Hitchcock &middot; 1958 &middot; USA</div>
+      <p>A retired detective's obsession with a woman he's tailing spirals into control and delusion. The film that (with <em>Citizen Kane</em>) turned De Palma toward filmmaking and the basis for his <em>Obsession</em> and parts of <em>Body Double</em>.</p>
+      <div class="tags"><span class="tag dp">De Palma Core</span><span class="tag">Homage On Screen</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">65</div>
+    <div>
+      <h3>Psycho</h3>
+      <div class="meta">Alfred Hitchcock &middot; 1960 &middot; USA</div>
+      <p>A woman on the run stops at the Bates Motel; her murder detonates the plot. De Palma's <em>Dressed to Kill</em> is a note-for-note homage.</p>
+      <div class="tags"><span class="tag dp">De Palma Core</span><span class="tag">Homage On Screen</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">66</div>
+    <div>
+      <h3>Rear Window</h3>
+      <div class="meta">Alfred Hitchcock &middot; 1954 &middot; USA</div>
+      <p>A housebound photographer spies on his neighbors and becomes convinced he's witnessed a murder. The main-plot source for De Palma's <em>Body Double</em>.</p>
+      <div class="tags"><span class="tag dp">De Palma Core</span><span class="tag">Homage On Screen</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">67</div>
+    <div>
+      <h3>Blow-Up</h3>
+      <div class="meta">Michelangelo Antonioni &middot; 1966 &middot; UK / Italy</div>
+      <p>A mod London photographer believes he has inadvertently captured a murder in his images. The direct basis for De Palma's <em>Blow Out</em> and a formative art-house text for him.</p>
+      <div class="tags"><span class="tag dp">De Palma Core</span><span class="tag">Homage On Screen</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">68</div>
+    <div>
+      <h3>The Conversation</h3>
+      <div class="meta">Francis Ford Coppola &middot; 1974 &middot; USA</div>
+      <p>A surveillance expert becomes tormented by a recording he can't stop replaying. The co-influence (with <em>Blow-Up</em>) behind <em>Blow Out</em>'s sound-man premise.</p>
+      <div class="tags"><span class="tag dp">De Palma Core</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">69</div>
+    <div>
+      <h3>Peeping Tom</h3>
+      <div class="meta">Michael Powell &middot; 1960 &middot; UK</div>
+      <p>A shy studio focus-puller films women as he murders them, indicting the camera and the viewer. A documented influence on De Palma's <em>Murder &agrave; la Mod</em>, <em>Sisters</em>, and <em>Raising Cain</em>.</p>
+      <div class="tags"><span class="tag dp">De Palma Core</span></div>
+    </div>
+  </article>
+</section>
+
+<!-- ============ XIII. CAR-CHASE ============ -->
+<section id="chase">
+  <div class="sec-head"><span class="rn">XIII</span><h2>Car-Chase Cinema</h2><span class="sc">3 films</span></div>
+
+  <article class="film">
+    <div class="no">70</div>
+    <div>
+      <h3>Vanishing Point</h3>
+      <div class="meta">Richard C. Sarafian &middot; 1971 &middot; USA</div>
+      <p>A driver races a white Dodge Challenger across the desert Southwest toward a nihilist end. The sacred text of <em>Death Proof</em>; its exact car is the object of the second half's obsession.</p>
+      <div class="tags"><span class="tag">Death Proof DNA</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">71</div>
+    <div>
+      <h3>Dirty Mary Crazy Larry</h3>
+      <div class="meta">John Hough &middot; 1974 &middot; USA</div>
+      <p>A would-be NASCAR driver, his mechanic, and a girl outrun the law across California after a robbery. Stuntman Mike's Charger carries its 983-DAN license plate as an homage.</p>
+      <div class="tags"><span class="tag">Death Proof DNA</span></div>
+    </div>
+  </article>
+
+  <article class="film">
+    <div class="no">72</div>
+    <div>
+      <h3>Bullitt</h3>
+      <div class="meta">Peter Yates &middot; 1968 &middot; USA</div>
+      <p>Steve McQueen's San Francisco cop drives the most influential chase in movie history. Subject of the opening chapter of <em>Cinema Speculation</em>; the JJZ-109 plate recurs on Stuntman Mike's Nova.</p>
+      <div class="tags"><span class="tag cs">Cinema Speculation</span></div>
+    </div>
+  </article>
+</section>
+
+<!-- ============ DOUBLE BILLS ============ -->
+<div class="bills">
+  <h2>Now Showing</h2>
+  <div class="sub">Program by double bill, the way both directors think</div>
+  <div class="bill-grid">
+    <div class="bill"><div class="a">Kansas City Confidential</div><div class="plus">&raquo; INTO &laquo;</div><div class="b">Reservoir Dogs</div></div>
+    <div class="bill"><div class="a">Blow-Up</div><div class="plus">&raquo; INTO &laquo;</div><div class="b">Blow Out</div></div>
+    <div class="bill"><div class="a">City on Fire</div><div class="plus">&raquo; INTO &laquo;</div><div class="b">The Killer</div></div>
+    <div class="bill"><div class="a">Lady Snowblood</div><div class="plus">&raquo; INTO &laquo;</div><div class="b">Kill Bill</div></div>
+    <div class="bill"><div class="a">Vanishing Point</div><div class="plus">&raquo; INTO &laquo;</div><div class="b">Death Proof</div></div>
+    <div class="bill"><div class="a">Hardcore</div><div class="plus">&raquo; INTO &laquo;</div><div class="b">Taxi Driver</div></div>
+  </div>
+</div>
+
+<!-- ============ OUTRO ============ -->
+<div class="outro">
+  <h2>Where to start</h2>
+  <p><strong>The documented spine</strong>, if you want the load-bearing titles: Rio Bravo, Taxi Driver, Five Fingers of Death, Lady Snowblood, Deep Red, Coffy, Rolling Thunder, The Killing, Le Samoura&iuml;, City on Fire, Vertigo, and Vanishing Point. Every one is tied to a specific quote, ballot, homage, or re-release.</p>
+  <p><strong>Deep-cut priorities</strong> for the obsessive who has seen the canon: Soul Brothers of Kung Fu, Detroit 9000, Pretty Maids All in a Row, The Mighty Peking Man, Thriller: A Cruel Picture, The Outfit, Hardcore, and Duel at Diablo.</p>
+  <p><strong>Rolling Thunder completists</strong>: five of the label's six reissues are on this bill (The Beyond, Detroit 9000, The Mighty Peking Man, Sonatine, Switchblade Sisters). The sixth is Chungking Express, which sits outside the genre lanes here but belongs on your shelf anyway.</p>
+  <p><strong>To skew harder toward De Palma</strong>: promote Body Double, Sisters, and Dressed to Kill to primary texts and add Eisenstein's Battleship Potemkin (the Odessa Steps he restaged in The Untouchables) and Powell and Pressburger's The Red Shoes.</p>
+
+  <h2 style="margin-top:34px">Caveats</h2>
+  <p><strong>Attribution asymmetry</strong>: Tarantino's picks are documented to the individual title via his own lists and book; De Palma never submitted a Sight &amp; Sound ballot, so his canon here is reconstructed from interviews, the 2016 documentary, and the explicit homages inside his films. Treat his broader favorites as "reportedly cited."</p>
+  <p><strong>Connective tissue</strong>: a few titles (Duel at Diablo, The Big Bird Cage, Hard Boiled) lean more on cult standing and genre-representative value than on a single hard quote.</p>
+  <p><strong>Porous boundaries by design</strong>: Battle Royale could sit under revenge or exploitation; The Street Fighter is Japanese but grouped with martial arts; High and Low is Japanese but grouped with crime because that is the lane in which De Palma cites it. The groupings reflect how these directors talk about the films, not rigid taxonomy.</p>
+</div>
+
+<footer>
+  <span>72 Films &middot; 13 Genres &middot; 0 Spaghetti Westerns</span>
+  <span>Admit One</span>
+</footer>
+
+</div>
+</body>
+</html>

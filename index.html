@@ -29,6 +29,10 @@
   --sg-glow:#FFC66B;     /* STUDIO_GLOW    the lit filament */
   --sg-dark:#171009;     /* STUDIO_GLOW    panel */
 
+  --wf:#440F1D;          /* WET_FILM       dark wine panel */
+  --wf-deep:#25060E;     /* WET_FILM       deeper wine, borders and texture */
+  --wf-grey:#D3CDCF;     /* WET_FILM       light grey body copy */
+
   --dd:#C9A227;          /* DAMAGE_DONE    mustard panel */
   --dd-blue:#08192C;     /* DAMAGE_DONE    very dark blue, the lettering */
   --dd-ink:#14110A;      /* DAMAGE_DONE    black body copy */
@@ -60,21 +64,32 @@ a{color:inherit}
 
 /* the underscore is the cursor. it blinks, and nothing trails the name. */
 .us{animation:blink 1.06s steps(1,end) infinite}
-.wordmark .us{color:var(--alarm)}
+.wordmark .us{color:var(--alarm);
+  animation:blink 1.06s steps(1,end) infinite, cursorhue 4.24s steps(1,end) infinite}
 .wname .us{color:inherit}
 @keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes cursorhue{
+  0%,24.9%{color:#D6291E}      /* red */
+  25%,49.9%{color:#F2C230}     /* yellow */
+  50%,74.9%{color:#D9541E}     /* orange */
+  75%,100%{color:#FFFFFF}      /* white */
+}
 
 /* ---------- MASTHEAD ---------- */
-header.mast{padding:52px 0 34px}
-.wordmark{
+header.mast{padding:24px 0 34px}
+.wordmark{margin:0;line-height:1}
+.wordmark .box{
+  display:inline-block;
+  background:var(--ink);
+  color:var(--paper);
   font-family:'Bricolage Grotesque','Arial Black',sans-serif;
   font-weight:800;
-  font-size:clamp(46px,11.2vw,132px);
-  line-height:.86;
-  letter-spacing:-.045em;
-  margin:0;
+  font-size:clamp(20px,3.4vw,31px);
+  letter-spacing:-.008em;
+  padding:.30em .5em .36em;
+  white-space:nowrap;
 }
-.creed{max-width:58ch;margin:24px 0 0;font-size:17.5px;line-height:1.5}
+.creed{max-width:58ch;margin:22px 0 0;font-size:17.5px;line-height:1.5}
 .creed em{font-style:italic;color:var(--blueprint)}
 
 /* ---------- WING MODULE ---------- */
@@ -128,11 +143,14 @@ header.mast{padding:52px 0 34px}
 .wing-sg .row:hover .n,.wing-sg .row:focus-visible .n{color:var(--sg-glow);opacity:1}
 
 /* ---------- DAMAGE_DONE: mustard panel, black and dark blue type ---------- */
-.wing-dd{background:var(--dd);color:var(--dd-ink);padding-bottom:26px;
+.wing-dd{background:var(--dd);color:var(--dd-ink);padding-bottom:0;
   background-image:radial-gradient(130% 80% at 50% 0%,rgba(255,255,255,.10),transparent 68%)}
 .wing-dd .hazard{height:9px;background:repeating-linear-gradient(45deg,
   var(--dd-blue) 0 12px,var(--dd) 12px 24px)}
-.wing-dd .whead{border-bottom:1px solid rgba(8,25,44,.32)}
+.wing-dd .whead{padding:29px 0 10px}
+.wing-dd .hazard-b{background:repeating-linear-gradient(-45deg,
+  var(--dd-blue) 0 12px,var(--dd) 12px 24px)}
+.wing-dd.open .whead{border-bottom:1px solid rgba(8,25,44,.32)}
 .wing-dd .wname{color:var(--dd-blue)}
 .wing-dd .wsub{opacity:.78;color:var(--dd-blue)}
 .wing-dd .row{border-bottom:1px solid rgba(8,25,44,.2)}
@@ -148,8 +166,72 @@ footer h4{margin:0 0 9px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
 .nav{display:flex;gap:26px;flex-wrap:wrap}
 .nav a{text-decoration:none;font-size:15.5px;border-bottom:1px solid rgba(22,21,26,.3)}
 .nav a:hover{border-bottom-color:var(--alarm);color:var(--alarm)}
-.stamp{margin-top:24px;padding-top:12px;border-top:var(--hair);display:flex;
+.side{margin-top:18px}
+.side a{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.15em;text-transform:uppercase;text-decoration:none;opacity:.42;
+  border-bottom:1px solid rgba(22,21,26,.22);padding-bottom:2px}
+.side a:hover{opacity:1;color:var(--alarm);border-bottom-color:var(--alarm)}
+.stamp{margin-top:22px;padding-top:12px;border-top:var(--hair);display:flex;
   justify-content:space-between;gap:12px;flex-wrap:wrap;opacity:.6}
+
+/* ---------- WET_FILM: wine dark, projected light ---------- */
+.wing-wf{background:var(--wf);color:var(--wf-grey);
+  background-image:
+    /* projector bloom, hot in the middle */
+    radial-gradient(68% 100% at 50% 32%,rgba(255,232,206,.115),transparent 70%),
+    /* burnt edges */
+    radial-gradient(126% 120% at 50% 50%,transparent 38%,rgba(14,3,7,.74) 100%),
+    /* unexposed film border down both sides */
+    linear-gradient(90deg,rgba(22,5,11,.55) 0 9px,transparent 9px),
+    linear-gradient(270deg,rgba(22,5,11,.55) 0 9px,transparent 9px),
+    /* emulsion grain, coprime periods so the stipple never lines up */
+    repeating-linear-gradient(37deg,rgba(255,250,240,.055) 0 1px,transparent 1px 3px),
+    repeating-linear-gradient(113deg,rgba(20,4,10,.09) 0 1px,transparent 1px 5px),
+    repeating-linear-gradient(71deg,rgba(255,244,232,.032) 0 1px,transparent 1px 7px),
+    /* cel scratches, irregular spacing, some bright some gouged */
+    repeating-linear-gradient(90.4deg,rgba(255,242,230,.16) 0 1px,transparent 1px 137px),
+    repeating-linear-gradient(89.6deg,rgba(24,5,12,.44) 0 1px,transparent 1px 211px),
+    repeating-linear-gradient(90deg,rgba(255,230,212,.09) 0 1px,transparent 1px 89px),
+    repeating-linear-gradient(90.2deg,rgba(20,4,10,.26) 0 2px,transparent 2px 313px),
+    /* chemical staining and print wear */
+    repeating-linear-gradient(3deg,rgba(52,13,25,.20) 0 2px,transparent 2px 168px),
+    repeating-linear-gradient(-2deg,rgba(255,220,190,.035) 0 3px,transparent 3px 247px),
+    linear-gradient(178deg,rgba(255,224,194,.07) 0%,transparent 24%,transparent 68%,rgba(24,6,12,.40) 100%)}
+.wing-wf .wrap{position:relative}
+.wing-wf .whead{border-bottom:1px solid rgba(255,255,255,.24)}
+.wing-wf .wname{color:#fff}
+.wing-wf .wsub{color:var(--wf-grey);opacity:.82}
+.wing-wf .wcount,.wing-wf .wtog{color:var(--wf-grey)}
+.wing-wf .row{border-bottom:1px solid rgba(255,255,255,.14)}
+.wing-wf .row:last-of-type{border-bottom:none}
+.wing-wf .row h3{color:#fff}
+.wing-wf .row p{color:var(--wf-grey)}
+.wing-wf .row:hover,.wing-wf .row:focus-visible{background:rgba(255,255,255,.10);border-left-color:#fff}
+.wing-wf .row:hover .n,.wing-wf .row:focus-visible .n{color:#fff;opacity:1}
+
+/* ---------- ACCORDION ---------- */
+.whead{display:grid;grid-template-columns:1fr auto auto;gap:12px 16px;align-items:baseline;
+  width:100%;background:none;border:0;border-radius:0;text-align:left;cursor:pointer;
+  font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
+.whead .wname{grid-column:1}
+.whead .wsub{grid-column:1;grid-row:2}
+.wcount{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.15em;
+  text-transform:uppercase;opacity:.6;white-space:nowrap}
+.wtog{position:relative;width:19px;height:19px;flex:0 0 auto;opacity:.72}
+.wtog::before,.wtog::after{content:"";position:absolute;background:currentColor}
+.wtog::before{left:0;right:0;top:9px;height:1.5px}
+.wtog::after{top:0;bottom:0;left:9px;width:1.5px;transition:transform .18s linear}
+.wing.open .wtog::after{transform:scaleY(0)}
+.wing.open .wcount{opacity:1}
+.whead:hover .wtog,.whead:focus-visible .wtog{opacity:1}
+.wbody{max-height:0;overflow:hidden;transition:max-height .26s linear}
+.wbody[hidden]{display:block}
+
+@media(max-width:430px){
+  .whead{grid-template-columns:1fr auto;gap:8px 10px}
+  .wcount{grid-column:1;grid-row:3;justify-self:start}
+  .wtog{grid-column:2;grid-row:1;align-self:center}
+}
 
 /* ---------- SMALL SCREENS ---------- */
 @media(max-width:760px){
@@ -168,11 +250,10 @@ footer h4{margin:0 0 9px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
 <!-- ============ MASTHEAD ============ -->
 <header class="mast">
   <div class="wrap">
-    <h1 class="wordmark">HATCH<span class="us">_</span>TERMINAL</h1>
+    <h1 class="wordmark"><span class="box">HATCH TERMINAL<span class="us">_</span></span></h1>
     <p class="creed">
-      Fly on the wall, or rabbit down the hole: transmissions from the studios to the
-      record crates. Explore what ignited the artists and bands who made the records
-      that got you making your own.
+      Resources for those struggling to get songs stuck in their head, and not the
+      other way around.
     </p>
   </div>
 </header>
@@ -182,11 +263,15 @@ footer h4{margin:0 0 9px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
 <!-- ============ JACKET_RIPPER ============ -->
 <section class="wing wing-jr" id="jacket-ripper" aria-labelledby="w-jr">
   <div class="wrap">
-    <div class="whead">
+    <button class="whead" type="button" aria-expanded="false" aria-controls="b-jr">
       <h2 class="wname" id="w-jr">JACKET<span class="us">_</span>RIPPER</h2>
-      <p class="wsub">Secrets shared with the crateful dead.</p>
-    </div>
+      <p class="wsub">Secrets snared by the crateful dead.</p>
+      <span class="wcount">03 pieces</span>
+      <span class="wtog" aria-hidden="true"></span>
+    </button>
 
+    <div class="wbody" id="b-jr">
+      <div class="winner">
     <a class="row" href="jacket-ripper/the-deep-bin/index.html">
       <span class="n">01</span>
       <span>
@@ -213,26 +298,24 @@ footer h4{margin:0 0 9px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
       </span>
       <span class="tag">Report</span>
     </a>
+      </div>
+    </div>
 
-    <a class="row" href="jacket-ripper/sophtware-slump/index.html">
-      <span class="n">04</span>
-      <span>
-        <h3>No Robot Unturned: Grandaddy&rsquo;s <i>The Sophtware Slump</i></h3>
-        <p>Skateboarders from a town people drive through, a converted warehouse called Little Portugal, eleven transmissions, and acclaim without sales.</p>
-      </span>
-      <span class="tag">Report</span>
-    </a>
-  </div>
+      </div>
 </section>
 
 <!-- ============ STUDIO_GLOW ============ -->
 <section class="wing wing-sg" id="studio-glow" aria-labelledby="w-sg">
   <div class="wrap">
-    <div class="whead">
+    <button class="whead" type="button" aria-expanded="false" aria-controls="b-sg">
       <h2 class="wname" id="w-sg">STUDIO<span class="us">_</span>GLOW</h2>
-      <p class="wsub">Experimental trainwrecks, beguiled with chrome hearts.</p>
-    </div>
+      <p class="wsub">Experimental headsets, reels and false starts.</p>
+      <span class="wcount">05 pieces</span>
+      <span class="wtog" aria-hidden="true"></span>
+    </button>
 
+    <div class="wbody" id="b-sg">
+      <div class="winner">
     <a class="row" href="studio-glow/sonic-youth-tunings/index.html">
       <span class="n">01</span>
       <span>
@@ -259,6 +342,26 @@ footer h4{margin:0 0 9px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
       </span>
       <span class="tag">Report</span>
     </a>
+
+    <a class="row" href="jacket-ripper/sophtware-slump/index.html">
+      <span class="n">04</span>
+      <span>
+        <h3>No Robot Unturned: Grandaddy&rsquo;s <i>The Sophtware Slump</i></h3>
+        <p>Skateboarders from a town people drive through, a converted warehouse called Little Portugal, eleven transmissions, and acclaim without sales.</p>
+      </span>
+      <span class="tag">Report</span>
+    </a>
+
+    <a class="row" href="studio-glow/remain-in-light/index.html">
+      <span class="n">05</span>
+      <span>
+        <h3>Remain in Light: A Listener&rsquo;s Reference</h3>
+        <p>Talking Heads at Compass Point and Sigma Sound, from the Fela blueprint to the credit dispute that broke the band. Track by track, board to sleeve.</p>
+      </span>
+      <span class="tag">Dossier</span>
+    </a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -266,11 +369,15 @@ footer h4{margin:0 0 9px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
 <section class="wing wing-dd" id="damage-done" aria-labelledby="w-dd">
   <div class="hazard" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="whead">
+    <button class="whead" type="button" aria-expanded="false" aria-controls="b-dd">
       <h2 class="wname" id="w-dd">DAMAGE<span class="us">_</span>DONE</h2>
       <p class="wsub">If it was legal&hellip;</p>
-    </div>
+      <span class="wcount">06 pieces</span>
+      <span class="wtog" aria-hidden="true"></span>
+    </button>
 
+    <div class="wbody" id="b-dd">
+      <div class="winner">
     <a class="row" href="damage-done/signal-path/index.html">
       <span class="n">01</span>
       <span>
@@ -280,26 +387,10 @@ footer h4{margin:0 0 9px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
       <span class="tag">Ops manual</span>
     </a>
 
-    <a class="row" href="damage-done/hx-stomp-xl/index.html">
-      <span class="n">02</span>
-      <span>
-        <h3>The Board, Translated &mdash; Rig Dossier 001</h3>
-        <p>Eleven pedals into one HX Stomp XL. Eight translate cleanly on firmware 3.80. MOOD and Microcosm do not, and stay hardware.</p>
-      </span>
-      <span class="tag">Dossier</span>
-    </a>
-
-    <a class="row" href="damage-done/hx-stomp-xl-field-manual/index.html">
-      <span class="n">03</span>
-      <span>
-        <h3>Working the Stomp XL &mdash; Field Manual and Rebuild Plan</h3>
-        <p>Fluency under the feet, then a strip to eight level-matched presets where the same switch means the same thing everywhere. Factory content is a demo reel, not a rig.</p>
-      </span>
-      <span class="tag">Field manual</span>
-    </a>
-
+    
+    
     <a class="row" href="damage-done/spd-sx-pro/index.html">
-      <span class="n">04</span>
+      <span class="n">02</span>
       <span>
         <h3>SPD-SX Pro: A Working Guide</h3>
         <p>A used pad on firmware 2.0, treated as an instrument. Wave organisation, the real 32-voice ceiling, and rig integration. No menu hand-holding.</p>
@@ -308,7 +399,7 @@ footer h4{margin:0 0 9px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
     </a>
 
     <a class="row" href="damage-done/spd-sx-pro-kit-guide/index.html">
-      <span class="n">05</span>
+      <span class="n">03</span>
       <span>
         <h3>SPD-SX Pro: Kit Builder Guide, Ver. 2.00</h3>
         <p>One pad runs two loops in sync, the next kills it and starts another, and hitting harder brings in a third. Layers, mute groups, and the sequencer that is not one.</p>
@@ -316,26 +407,10 @@ footer h4{margin:0 0 9px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
       <span class="tag">Instrument</span>
     </a>
 
-    <a class="row" href="damage-done/nord-piano-88/index.html">
-      <span class="n">06</span>
-      <span>
-        <h3>Nord Piano 88, Opened Up</h3>
-        <p>What a first-generation stage piano still does better than anything on the desk, what a two-sensor keybed will never do, and how to build the Rhodes and Wurli rig around it.</p>
-      </span>
-      <span class="tag">Field report</span>
-    </a>
-
-    <a class="row" href="damage-done/launchkey-mk4-37/index.html">
-      <span class="n">07</span>
-      <span>
-        <h3>Launchkey MK4 37</h3>
-        <p>The panel at a glance, setup done once, chord map, arp and the Shift menu. Read it now so you never open the manual again.</p>
-      </span>
-      <span class="tag">Log</span>
-    </a>
-
+    
+    
     <a class="row" href="damage-done/the-sample-book/index.html">
-      <span class="n">08</span>
+      <span class="n">04</span>
       <span>
         <h3>The Sample Book</h3>
         <p>Where to get them, what the law actually says, how to make your own, and how to blend until the fingerprints are yours.</p>
@@ -344,7 +419,7 @@ footer h4{margin:0 0 9px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
     </a>
 
     <a class="row" href="damage-done/night-practice-book/index.html">
-      <span class="n">09</span>
+      <span class="n">05</span>
       <span>
         <h3>The Night Practice Book</h3>
         <p>Minor keys, jazz voicings, and the why behind chords you already play by ear. Am(maj7) is most of the book. Fingerings for both hands, six-week plan at the back.</p>
@@ -353,15 +428,71 @@ footer h4{margin:0 0 9px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
     </a>
 
     <a class="row" href="damage-done/night-practice-book-vol-2/index.html">
-      <span class="n">10</span>
+      <span class="n">06</span>
       <span>
         <h3>The Engine Room &mdash; Night Practice Book, Vol. II</h3>
         <p>The physics under the harmony. Intervals as ratios, fifths as structure, sevenths as vocabulary, three pedals, and what changes on Rhodes, Wurli and synth.</p>
       </span>
       <span class="tag">Instrument</span>
     </a>
+      </div>
+    </div>
+  </div>
+  <div class="hazard hazard-b" aria-hidden="true"></div>
+</section>
+
+<!-- ============ WET_FILM ============ -->
+<section class="wing wing-wf" id="wet-film" aria-labelledby="w-wf">
+  <div class="wrap">
+    <button class="whead" type="button" aria-expanded="false" aria-controls="b-wf">
+      <h2 class="wname" id="w-wf">WET<span class="us">_</span>FILM</h2>
+      <p class="wsub">Ghostly lights from strange worlds that once were.</p>
+      <span class="wcount">04 pieces</span>
+      <span class="wtog" aria-hidden="true"></span>
+    </button>
+
+    <div class="wbody" id="b-wf">
+      <div class="winner">
+    <a class="row" href="wet-film/72-genre-films/index.html">
+      <span class="n">01</span>
+      <span>
+        <h3>72 Genre Films for the Tarantino / De Palma Canon</h3>
+        <p>Thirteen genres, from spaghetti westerns to Hong Kong heroic bloodshed. Every entry tied to a ballot, a quote, a homage, or a Rolling Thunder re-release rather than received wisdom.</p>
+      </span>
+      <span class="tag">Report</span>
+    </a>
+
+    <a class="row" href="wet-film/30-cult-transmissions/index.html">
+      <span class="n">02</span>
+      <span>
+        <h3>30 Cult Transmissions: The Korine / Gallo Lane, 1980 to Now</h3>
+        <p>Transgressive outsider cinema on decade shelves, each entry carrying the lane it runs in. Korine and Gallo are both barred from their own list.</p>
+      </span>
+      <span class="tag">Report</span>
+    </a>
+
+    <a class="row" href="wet-film/eloquent-ruin/index.html">
+      <span class="n">03</span>
+      <span>
+        <h3>Eloquent Ruin / The Red Curtain: 30 Films in the Naked, Withnail and Lynchian Lanes</h3>
+        <p>Two shelves running at once: articulate British miserabilism against dream-logic uncanny cinema, with Lynch banned from the lane named after him. The border films are flagged where the shelves touch.</p>
+      </span>
+      <span class="tag">Report</span>
+    </a>
+
+    <a class="row" href="wet-film/nitrate/index.html">
+      <span class="n">04</span>
+      <span>
+        <h3>Nitrate: 60 Films Before Color, and the Directors They Built</h3>
+        <p>Twelve sections of pre-color cinema from German Expressionism to Hitchcock and Welles, each carrying the lineage line that traces it forward into New Hollywood.</p>
+      </span>
+      <span class="tag">Report</span>
+    </a>
+      </div>
+    </div>
   </div>
 </section>
+
 
 </main>
 
@@ -373,6 +504,10 @@ footer h4{margin:0 0 9px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
       <a href="#jacket-ripper">JACKET_RIPPER</a>
       <a href="#studio-glow">STUDIO_GLOW</a>
       <a href="#damage-done">DAMAGE_DONE</a>
+      <a href="#wet-film">WET_FILM</a>
+    </div>
+    <div class="side">
+      <a href="studio-glow/mobile-meltdown/index.html">Mobile_Meltdown</a>
     </div>
     <div class="stamp">
       <span class="mono">Inspiration + Perspiration = Song Creation</span>
@@ -381,6 +516,53 @@ footer h4{margin:0 0 9px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
   </div>
 </footer>
 
-<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+<script>
+document.getElementById('yr').textContent=new Date().getFullYear();
+
+/* ---------- one wing open at a time ---------- */
+(function(){
+  const wings=[...document.querySelectorAll('.wing')].map(w=>({
+    sec:w, btn:w.querySelector('.whead'), body:w.querySelector('.wbody')
+  })).filter(w=>w.btn&&w.body);
+
+  function shut(w){
+    w.body.style.maxHeight='0px';
+    w.sec.classList.remove('open');
+    w.btn.setAttribute('aria-expanded','false');
+  }
+  function open(w){
+    wings.forEach(o=>{ if(o!==w) shut(o); });
+    w.sec.classList.add('open');
+    w.btn.setAttribute('aria-expanded','true');
+    w.body.style.maxHeight=w.body.querySelector('.winner').offsetHeight+'px';
+  }
+  wings.forEach(w=>{
+    shut(w);
+    w.btn.addEventListener('click',()=>{
+      w.sec.classList.contains('open') ? shut(w) : open(w);
+      /* keep the wing you just opened in view */
+      if(w.sec.classList.contains('open')){
+        const y=w.sec.getBoundingClientRect().top+scrollY-8;
+        if(scrollY>y) scrollTo({top:y,behavior:'smooth'});
+      }
+    });
+  });
+
+  /* deep links: #studio-glow etc. open that wing */
+  function fromHash(){
+    const id=location.hash.slice(1);
+    const w=wings.find(w=>w.sec.id===id);
+    if(w){ open(w); w.sec.scrollIntoView({block:'start'}); }
+  }
+  addEventListener('hashchange',fromHash);
+
+  addEventListener('resize',()=>{
+    const w=wings.find(w=>w.sec.classList.contains('open'));
+    if(w) w.body.style.maxHeight=w.body.querySelector('.winner').offsetHeight+'px';
+  });
+
+  if(location.hash) fromHash(); else open(wings[0]);
+})();
+</script>
 </body>
 </html>

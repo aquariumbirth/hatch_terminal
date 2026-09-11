@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eloquent Ruin / The Red Curtain: 30 Films in the Naked, Withnail, and Lynchian Lanes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,400;1,9..144,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#131315;
+  --bg-2:#1a1a1d;
+  --text:#d6d2c8;
+  --text-dim:#8f8b82;
+  --line:#2c2c30;
+  --sodium:#d9971e;   /* streetlamp amber, Shelf A */
+  --rain:#7d8f8a;     /* wet slate green, Shelf A */
+  --velvet:#b01230;   /* curtain red, Shelf B */
+  --static:#5d6b9e;   /* TV-blue, Shelf B */
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Source Serif 4',Georgia,serif;
+  font-size:17px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+body::after{
+  content:"";
+  position:fixed;inset:0;pointer-events:none;z-index:9;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='130' height='130' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 22px}
+
+/* ---------- MASTHEAD ---------- */
+header{padding:64px 0 40px;border-bottom:1px solid var(--line)}
+.slug{
+  font-family:'Courier Prime',monospace;
+  font-size:13px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--text-dim);
+  margin-bottom:24px;
+}
+.slug b{color:var(--sodium);font-weight:700}
+.slug b.r{color:var(--velvet)}
+h1{
+  font-family:'Fraunces',serif;
+  font-weight:900;
+  font-size:clamp(46px,9.5vw,96px);
+  line-height:.98;
+  letter-spacing:-.015em;
+}
+h1 .a{color:var(--sodium)}
+h1 .b{color:var(--velvet);font-style:italic}
+h1 .slash{color:var(--text-dim);font-weight:400}
+.deck{
+  margin-top:26px;max-width:660px;
+  font-size:18.5px;color:var(--text-dim);
+}
+.deck strong{color:var(--text);font-weight:600}
+.program-note{
+  margin-top:26px;
+  font-family:'Courier Prime',monospace;
+  font-size:13.5px;
+  color:var(--text);
+  border-left:3px solid var(--sodium);
+  padding:10px 0 10px 16px;
+  max-width:640px;
+}
+.program-note .r{color:var(--velvet)}
+
+/* ---------- SHELF HEADERS ---------- */
+.shelf{padding:56px 0 4px}
+.shelf-head{margin-bottom:4px}
+.shelf-head .eyebrow{
+  font-family:'Courier Prime',monospace;
+  font-size:12px;letter-spacing:.26em;text-transform:uppercase;
+  margin-bottom:10px;
+}
+.shelf-head h2{
+  font-family:'Fraunces',serif;
+  font-weight:900;
+  font-size:clamp(34px,6.5vw,58px);
+  line-height:1;
+  letter-spacing:-.01em;
+}
+.shelf-head .desc{
+  margin-top:14px;
+  font-size:16px;font-style:italic;
+  color:var(--text-dim);
+  max-width:620px;
+}
+.shelf-a .eyebrow, .shelf-a h2 em{color:var(--sodium)}
+.shelf-a h2{color:var(--text)}
+.shelf-b .eyebrow{color:var(--velvet)}
+.shelf-b h2{color:var(--text);font-style:italic}
+.shelf-b h2 em{color:var(--velvet)}
+
+/* ---------- ENTRIES ---------- */
+.entry{
+  padding:28px 0 26px;
+  border-bottom:1px solid var(--line);
+  display:grid;
+  grid-template-columns:60px 1fr;
+  gap:20px;
+}
+.entry:last-child{border-bottom:none}
+.entry .no{
+  font-family:'Courier Prime',monospace;
+  font-weight:700;
+  font-size:15px;
+  padding-top:8px;
+}
+.shelf-a .entry .no{color:var(--sodium)}
+.shelf-b .entry .no{color:var(--velvet)}
+.entry h3{
+  font-family:'Fraunces',serif;
+  font-weight:600;
+  font-size:clamp(22px,3.8vw,29px);
+  line-height:1.08;
+  color:var(--text);
+}
+.shelf-b .entry h3{font-style:italic}
+.entry .meta{
+  font-family:'Courier Prime',monospace;
+  font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text-dim);
+  margin:7px 0 12px;
+}
+.entry p{color:var(--text-dim);max-width:630px;font-size:16.5px}
+.entry p em{color:var(--text);font-style:italic}
+.why{
+  margin-top:11px;
+  font-size:14.5px;
+  font-style:italic;
+  max-width:630px;
+}
+.shelf-a .why{color:var(--rain)}
+.shelf-b .why{color:var(--static)}
+.why::before{font-style:normal;font-family:'Courier Prime',monospace;font-size:12px;letter-spacing:.1em}
+.shelf-a .why::before{content:"LAMP: ";color:var(--sodium)}
+.shelf-b .why::before{content:"DREAM: ";color:var(--velvet)}
+.marks{margin-top:12px;display:flex;flex-wrap:wrap;gap:7px}
+.mark{
+  font-family:'Courier Prime',monospace;
+  font-size:11px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:4px 10px;
+  border:1px solid var(--line);
+  color:var(--text-dim);
+  border-radius:2px;
+}
+.mark.anchor{border-color:var(--sodium);color:var(--sodium)}
+.mark.anchor-r{border-color:var(--velvet);color:var(--velvet)}
+.mark.pair{border-color:var(--rain);color:var(--rain)}
+@media(max-width:540px){.entry{grid-template-columns:1fr;gap:8px}}
+
+/* ---------- WEATHER CHANGE DIVIDER ---------- */
+.curtain{
+  margin:64px 0 0;
+  padding:46px 22px;
+  text-align:center;
+  background:linear-gradient(180deg,var(--bg) 0%,#1e070d 45%,#26060e 100%);
+  border-top:1px solid var(--line);
+}
+.curtain .small{
+  font-family:'Courier Prime',monospace;
+  font-size:12px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--velvet);
+}
+.curtain h2{
+  font-family:'Fraunces',serif;
+  font-weight:900;font-style:italic;
+  font-size:clamp(30px,6vw,54px);
+  color:var(--text);
+  margin-top:12px;
+}
+.curtain p{
+  margin-top:12px;color:var(--text-dim);
+  font-size:15.5px;max-width:520px;margin-left:auto;margin-right:auto;
+  font-style:italic;
+}
+.shelf-b-bg{background:linear-gradient(180deg,#26060e 0%, var(--bg) 260px)}
+
+/* ---------- OUTRO ---------- */
+.outro{padding:54px 0 24px;border-top:1px solid var(--line);margin-top:48px}
+.outro h2{
+  font-family:'Courier Prime',monospace;
+  font-size:12px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--sodium);margin-bottom:14px;
+}
+.outro h2.r{color:var(--velvet)}
+.outro p{color:var(--text-dim);max-width:660px;margin-bottom:14px;font-size:16px}
+.outro p strong{color:var(--text)}
+footer{
+  margin-top:34px;padding:22px 0 62px;
+  border-top:1px solid var(--line);
+  font-family:'Courier Prime',monospace;
+  font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--text-dim);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+}
+:focus-visible{outline:2px solid var(--sodium);outline-offset:2px}
+</style>
+</head>
+<body>
+<style>
+@keyframes htcur{0%,24.9%{color:#D6291E}25%,49.9%{color:#F2C230}50%,74.9%{color:#D9541E}75%,100%{color:#FFF}}
+@keyframes htblk{0%,49%{opacity:1}50%,100%{opacity:0}}
+.htbar{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.09em;
+ padding:9px 16px;background:#0d0d10;color:#8a8a94;display:flex;gap:9px;align-items:center;
+ flex-wrap:wrap;line-height:1.5;border-bottom:1px solid #24242d}
+.htbar a{text-decoration:none}
+.htbar .htbadge{display:inline-block;background:#000;border:1px solid #33333d;color:#fff;
+ font-weight:700;padding:3px 7px;white-space:nowrap}
+.htbar .htbadge:hover{border-color:#d9541e}
+.htbar .htus{animation:htblk 1.06s steps(1,end) infinite, htcur 4.24s steps(1,end) infinite}
+.htbar .htwing{color:#c4566e}
+.htbar .htwing:hover{text-decoration:underline}
+.htbar .htsl{color:#3a3a44}
+@media(prefers-reduced-motion:reduce){.htbar .htus{animation:none;color:#d9541e}}
+</style>
+<div class="htbar">
+ <a class="htbadge" href="../../">HATCH TERMINAL<span class="htus">_</span></a>
+ <span class="htsl">/</span><a class="htwing" href="../">WET_FILM</a>
+</div>
+
+
+<div class="wrap">
+<header>
+  <div class="slug">Fade in: <b>a wet street</b> &nbsp;/&nbsp; cut to: <b class="r">a red room</b></div>
+  <h1><span class="a">Eloquent Ruin</span> <span class="slash">/</span><br><span class="b">The Red Curtain</span></h1>
+  <p class="deck">Thirty films across two shelves that share a border. <strong>Shelf A</strong> is the Naked and Withnail lane: brilliant, ruined men and damp British rooms, where the dialogue is the last thing still standing. <strong>Shelf B</strong> is Lynchian cinema with Lynch himself banned from entry: dream logic, uncanny interiors, the familiar gone wrong. The border between them is real, and three films on Shelf A are standing on it.</p>
+  <div class="program-note">HOUSE RULES: 1980 to now. Naked and Withnail are seated as anchors this time. No David Lynch directing credits<span class="r"> (he is the adjective, not the entry)</span>. Core authors of Shelf A are deliberately doubled: two Leigh, two Robinson, two Ramsay.</div>
+</header>
+
+<!-- ================= SHELF A ================= -->
+<section class="shelf shelf-a" id="ruin">
+  <div class="shelf-head">
+    <div class="eyebrow">Shelf A &middot; Films 01-15</div>
+    <h2>Eloquent <em>Ruin</em></h2>
+    <p class="desc">Articulate collapse. Men and women who narrate their own disintegration in complete sentences, under sodium light, usually holding a drink they cannot afford.</p>
+  </div>
+
+  <article class="entry">
+    <div class="no">01</div>
+    <div>
+      <h3>Made in Britain</h3>
+      <div class="meta">Alan Clarke &middot; 1982 &middot; UK</div>
+      <p>A 16-year-old skinhead (Tim Roth, first role, feral) burns through every institution built to contain him in long, prowling Steadicam takes. Made for ITV and harder than anything in cinemas that year.</p>
+      <div class="why">The intelligence-as-weapon protagonist: Trevor is Johnny from Naked a decade early, with the vocabulary swapped for violence.</div>
+      <div class="marks"><span class="mark">Alan Clarke</span><span class="mark">TV Outlaw</span></div>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="no">02</div>
+    <div>
+      <h3>Meantime</h3>
+      <div class="meta">Mike Leigh &middot; 1983 &middot; UK</div>
+      <p>Two brothers rot on the dole in a Thatcher-era East End flat, one of them courted by a lonely skinhead played by a shaved, devastating Gary Oldman. Tim Roth again, doing almost nothing, unforgettably.</p>
+      <div class="why">Leigh's dry run for Naked: unemployment as weather, family as a locked room, and menace worn like a borrowed coat.</div>
+      <div class="marks"><span class="mark pair">Leigh &times;2</span><span class="mark">Dole-Life</span></div>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="no">03</div>
+    <div>
+      <h3>Withnail and I</h3>
+      <div class="meta">Bruce Robinson &middot; 1987 &middot; UK</div>
+      <p>Two unemployed actors flee their condemned Camden flat for a Cumbrian cottage they are catastrophically unequipped for. "We've gone on holiday by mistake." The most quoted failure in British cinema, and underneath the comedy, a eulogy for a friendship and a decade.</p>
+      <div class="why">The anchor. Ruin performed as theatre, with the saddest last scene ever hidden inside a comedy.</div>
+      <div class="marks"><span class="mark anchor">Named in the Brief</span><span class="mark pair">Robinson &times;2</span></div>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="no">04</div>
+    <div>
+      <h3>Barfly</h3>
+      <div class="meta">Barbet Schroeder &middot; 1987 &middot; USA</div>
+      <p>Charles Bukowski's screenplay about his own drinking years, with Mickey Rourke floating through LA dive bars like a beat-up angel and Faye Dunaway matching him glass for glass. Fights in the alley, poetry in the room.</p>
+      <div class="why">The American cousin: same eloquent dereliction as Withnail, traded from Camden damp to California neon.</div>
+      <div class="marks"><span class="mark">Bukowski</span><span class="mark">Hangout Ruin</span></div>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="no">05</div>
+    <div>
+      <h3>Distant Voices, Still Lives</h3>
+      <div class="meta">Terence Davies &middot; 1988 &middot; UK</div>
+      <p>A working-class Liverpool family remembered in tableaux and pub singalongs, the father's violence arriving between the songs. Memory structured like an album of photographs that hurt to hold.</p>
+      <div class="why">The lyric ceiling of the shelf: proof the same damp rooms can be scored like a requiem instead of a rant.</div>
+      <div class="marks"><span class="mark">Memory Piece</span><span class="mark">Pub Hymnal</span></div>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="no">06</div>
+    <div>
+      <h3>How to Get Ahead in Advertising</h3>
+      <div class="meta">Bruce Robinson &middot; 1989 &middot; UK</div>
+      <p>An ad executive (Richard E. Grant again, at full Withnail velocity) has a breakdown over a pimple-cream campaign, and the boil on his neck grows a talking face with better ideas. Robinson's furious, flop follow-up.</p>
+      <div class="why">Where this shelf touches the other one: the eloquent ruin sprouts a literal second head, and the film crosses the border into body-horror satire.</div>
+      <div class="marks"><span class="mark pair">Robinson &times;2</span><span class="mark">Border Film</span></div>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="no">07</div>
+    <div>
+      <h3>Naked</h3>
+      <div class="meta">Mike Leigh &middot; 1993 &middot; UK</div>
+      <p>Johnny (David Thewlis) flees Manchester for a London night odyssey, weaponizing apocalyptic monologues against everyone kind enough to listen. The most articulate character in British film, and the cruelest, and the most lost.</p>
+      <div class="why">The other anchor. The shelf's thesis in one man: language as the last possession of the dispossessed.</div>
+      <div class="marks"><span class="mark anchor">Named in the Brief</span><span class="mark pair">Leigh &times;2</span></div>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="no">08</div>
+    <div>
+      <h3>London</h3>
+      <div class="meta">Patrick Keiller &middot; 1994 &middot; UK</div>
+      <p>A never-seen narrator (Paul Scofield's voice) recounts expeditions across the city with his companion Robinson, searching for the sources of English melancholy in static shots of IRA bombings, Tory re-election, and riverbanks. An essay film that plays like fiction.</p>
+      <div class="why">Johnny's monologue with the man removed: the city itself doing the eloquent ruination, in complete paragraphs.</div>
+      <div class="marks"><span class="mark">Essay Film</span><span class="mark">Deep Cut</span></div>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="no">09</div>
+    <div>
+      <h3>Ratcatcher</h3>
+      <div class="meta">Lynne Ramsay &middot; 1999 &middot; UK</div>
+      <p>A boy in 1970s Glasgow during the binmen's strike, canals full of rats and guilt, and one bus ride to a half-built housing estate where a window opens onto a wheat field. Debut feature, fully formed.</p>
+      <div class="why">Miserabilism transfigured: the shelf's poverty shot with a dreamer's eye, one image away from Shelf B at all times.</div>
+      <div class="marks"><span class="mark pair">Ramsay &times;2</span><span class="mark">Border Film</span></div>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="no">10</div>
+    <div>
+      <h3>Morvern Callar</h3>
+      <div class="meta">Lynne Ramsay &middot; 2002 &middot; UK</div>
+      <p>A supermarket worker (Samantha Morton) wakes on Christmas to her boyfriend's suicide, puts his novel under her own name, and takes the funeral money to Spain. Told almost wordlessly, through a walkman mixtape.</p>
+      <div class="why">Grief as dream state: the shelf's logic (poverty, dead ends, escape) executed with the other shelf's grammar.</div>
+      <div class="marks"><span class="mark pair">Ramsay &times;2</span><span class="mark">Border Film</span></div>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="no">11</div>
+    <div>
+      <h3>Dead Man's Shoes</h3>
+      <div class="meta">Shane Meadows &middot; 2004 &middot; UK</div>
+      <p>A soldier returns to his Midlands town to methodically terrorize the small-time dealers who tormented his disabled brother. Paddy Considine wrote himself the role and plays it like a wound with legs.</p>
+      <div class="why">The revenge film this shelf produces when the monologue finally runs out: grief with a gas mask on.</div>
+      <div class="marks"><span class="mark">Midlands Gothic</span><span class="mark">Cult Standard</span></div>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="no">12</div>
+    <div>
+      <h3>Tyrannosaur</h3>
+      <div class="meta">Paddy Considine &middot; 2011 &middot; UK</div>
+      <p>A widower who kicks his own dog to death in the first scene stumbles into the orbit of a charity-shop volunteer whose home life is worse than his rage. Considine moving behind the camera, sparing no one.</p>
+      <div class="why">The shelf's late-period masterwork of unlovable men: fury as grief that never learned another language.</div>
+      <div class="marks"><span class="mark">Kitchen Sink</span><span class="mark">Brutal</span></div>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="no">13</div>
+    <div>
+      <h3>Kill List</h3>
+      <div class="meta">Ben Wheatley &middot; 2011 &middot; UK</div>
+      <p>A broke ex-soldier takes one more contract job with his best mate, and the domestic drama of the first act (money rows, dinner parties) rots into folk-horror ritual by the last. The tonal swerve is the trap.</p>
+      <div class="why">Starts on this shelf, ends on the other one: British miserabilism walking straight through the red curtain.</div>
+      <div class="marks"><span class="mark">Border Film</span><span class="mark">Folk Dread</span></div>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="no">14</div>
+    <div>
+      <h3>Berberian Sound Studio</h3>
+      <div class="meta">Peter Strickland &middot; 2012 &middot; UK</div>
+      <p>A timid English sound engineer (Toby Jones) is hired onto an Italian giallo and dissolves into the film he is dubbing, one stabbed cabbage at a time. Nothing violent is ever shown; everything violent is heard.</p>
+      <div class="why">The Englishman abroad as Lynchian subject: repression, tape hiss, and a man becoming his own soundtrack.</div>
+      <div class="marks"><span class="mark">Border Film</span><span class="mark">Sound as Horror</span></div>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="no">15</div>
+    <div>
+      <h3>Under the Skin</h3>
+      <div class="meta">Jonathan Glazer &middot; 2013 &middot; UK</div>
+      <p>Something wearing Scarlett Johansson drives a van around Glasgow, harvesting men lured with hidden cameras and real, unscripted pickups. The black-void interior scenes are the decade's most Lynchian images not made by Lynch.</p>
+      <div class="why">The handover film: Shelf A's wet Scottish streets feeding directly into Shelf B's abyss. It closes this shelf and opens the next.</div>
+      <div class="marks"><span class="mark">Border Film</span><span class="mark">Hidden Camera</span></div>
+    </div>
+  </article>
+</section>
+</div><!-- /wrap -->
+
+<!-- ================= CURTAIN DIVIDER ================= -->
+<div class="curtain">
+  <div class="small">The weather changes here</div>
+  <h2>The Red Curtain</h2>
+  <p>Same night, different physics. Fifteen films that earn the adjective without the man: dream grammar, wrong rooms, and the familiar world with one law of nature quietly removed.</p>
+</div>
+
+<div class="shelf-b-bg">
+<div class="wrap">
+
+<!-- ================= SHELF B ================= -->
+<section class="shelf shelf-b" id="curtain-list">
+  <div class="shelf-head">
+    <div class="eyebrow">Shelf B &middot; Films 16-30 &middot; No Lynch admitted</div>
+    <h2>Lynchian, <em>Sans Lynch</em></h2>
+    <p class="desc">Each one supplies a different organ of the Lynchian body: the industrial hum, the red room, the doubled self, the small town with a basement.</p>
+  </div>
+
+  <article class="entry">
+    <div class="no">16</div>
+    <div>
+      <h3>Angel's Egg</h3>
+      <div class="meta">Mamoru Oshii &middot; 1985 &middot; Japan</div>
+      <p>A girl carries an enormous egg through a drowned gothic city while a soldier with a cross-shaped rifle follows. Almost no dialogue, no explanation, backgrounds like cathedral glass. Oshii made it after losing his faith and it shows in every frame.</p>
+      <div class="why">The dream film as pure state: mood carrying 100 percent of the meaning, the thing Lynch gets credited with inventing.</div>
+      <div class="marks"><span class="mark">Anime</span><span class="mark">Nearly Wordless</span></div>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="no">17</div>
+    <div>
+      <h3>Alice</h3>
+      <div class="meta">Jan &Scaron;vankmajer &middot; 1988 &middot; Czechoslovakia</div>
+      <p>Lewis Carroll rebuilt from taxidermy, sawdust, raw meat, and a real bored child. The White Rabbit leaks stuffing and eats it back. Every "said the White Rabbit" is spoken by Alice's own lips in extreme closeup.</p>
+      <div class="why">The uncanny object world: furniture with intentions, the texture-horror of childhood things gone slightly wrong.</div>
+      <div class="marks"><span class="mark">Stop Motion</span><span class="mark">Object Dread</span></div>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="no">18</div>
+    <div>
+      <h3>Santa Sangre</h3>
+      <div class="meta">Alejandro Jodorowsky &middot; 1989 &middot; Mexico / Italy</div>
+      <p>A boy raised in a circus watches his armless-cult mother mutilated by his knife-throwing father, then grows up to become her arms. Fellini, giallo, and a serial-killer melodrama fused into one hallucination.</p>
+      <div class="why">The primal-scene surrealism: trauma restaged as circus, which is the Lynch mechanism with the Americana swapped for Mexico.</div>
+      <div class="marks"><span class="mark">Circus Gothic</span><span class="mark">Midnight Canon</span></div>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="no">19</div>
+    <div>
+      <h3>Careful</h3>
+      <div class="meta">Guy Maddin &middot; 1992 &middot; Canada</div>
+      <p>An alpine town where everyone whispers and tiptoes because any loud noise triggers an avalanche, which is convenient, because everyone is also suppressing incestuous longing. Shot like a two-strip Technicolor film dug out of a glacier.</p>
+      <div class="why">Repression as a physical law of the world: the town that cannot raise its voice is the purest Lynchian premise never filmed by Lynch.</div>
+      <div class="marks"><span class="mark">Fake Archival</span><span class="mark">Repression Engine</span></div>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="no">20</div>
+    <div>
+      <h3>Institute Benjamenta</h3>
+      <div class="meta">The Quay Brothers &middot; 1995 &middot; UK</div>
+      <p>A man enrolls at a school for servants where the only lesson is self-erasure, run by a brother and sister in rooms of dust, antlers, and pencil-grey light. The stop-motion masters' first live-action feature, based on Robert Walser.</p>
+      <div class="why">The building as dreaming mind: corridors that rearrange, a camera that moves like sleep. Eraserhead's European cousin.</div>
+      <div class="marks"><span class="mark">Walser</span><span class="mark">Deep Cut</span></div>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="no">21</div>
+    <div>
+      <h3>Cure</h3>
+      <div class="meta">Kiyoshi Kurosawa &middot; 1997 &middot; Japan</div>
+      <p>Ordinary people commit identical murders and remember nothing; the only link is a drifting amnesiac who answers every question with a question. A police procedural that works like hypnosis on the detective and on you.</p>
+      <div class="why">Evil as transmission: the Lynchian idea that darkness is contagious and travels through conversation, played completely straight.</div>
+      <div class="marks"><span class="mark">Hypnotic Procedural</span><span class="mark">J-Dread</span></div>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="no">22</div>
+    <div>
+      <h3>Sombre</h3>
+      <div class="meta">Philippe Grandrieux &middot; 1998 &middot; France</div>
+      <p>A serial killer follows the Tour de France through the Alps, filmed so close and so dark that the image itself seems to be committing the violence. Bodies smear into landscape; the sound design breathes.</p>
+      <div class="why">The abstract-image extreme: what Lynch's dark-room scenes would be if a film were made of nothing else.</div>
+      <div class="marks"><span class="mark">Image Smear</span><span class="mark">Not for Everyone</span></div>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="no">23</div>
+    <div>
+      <h3>Songs from the Second Floor</h3>
+      <div class="meta">Roy Andersson &middot; 2000 &middot; Sweden</div>
+      <p>A city grinds to a halt in an unexplained traffic jam while pale, defeated people enact 46 fixed-camera tableaux of economic and spiritual collapse. Every set built by hand; four years to shoot.</p>
+      <div class="why">Purgatory with office furniture: the deadpan-apocalypse register, where the uncanny is fluorescent-lit and patient.</div>
+      <div class="marks"><span class="mark">Tableau Cinema</span><span class="mark">Deadpan Doom</span></div>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="no">24</div>
+    <div>
+      <h3>The American Astronaut</h3>
+      <div class="meta">Cory McAbee &middot; 2001 &middot; USA</div>
+      <p>A space trader crosses a black-and-white cardboard solar system delivering a boy who has seen a real woman, pursued by a birthday-obsessed killer, with dance numbers in asteroid saloons. One-of-one object.</p>
+      <div class="why">The vaudeville-void register: Eraserhead's radiator stage expanded into an entire musical universe.</div>
+      <div class="marks"><span class="mark">Space Western</span><span class="mark">Musical</span></div>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="no">25</div>
+    <div>
+      <h3>Innocence</h3>
+      <div class="meta">Lucile Hadzhalilovic &middot; 2004 &middot; France</div>
+      <p>Girls arrive in coffins at a boarding school deep in a forest, are sorted by ribbon color, and are trained in dance for a purpose no one explains. Nothing explicit ever happens, and the dread never once lets up.</p>
+      <div class="why">The institution as fairy tale: rules without authors, the Lynchian engine of menace generated purely by ritual.</div>
+      <div class="marks"><span class="mark">Forest School</span><span class="mark">Deep Cut</span></div>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="no">26</div>
+    <div>
+      <h3>Tropical Malady</h3>
+      <div class="meta">Apichatpong Weerasethakul &middot; 2004 &middot; Thailand</div>
+      <p>A tender soldier-and-villager romance stops dead at the halfway point, and the film restarts as a wordless jungle myth: a soldier hunting a shape-shifting tiger shaman who may be his lover. Booed at Cannes, then it won a prize.</p>
+      <div class="why">The two-halves structure: one story dreaming the other, the Mulholland mechanism relocated to the jungle.</div>
+      <div class="marks"><span class="mark">Bifurcated</span><span class="mark">Jungle Myth</span></div>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="no">27</div>
+    <div>
+      <h3>Dogtooth</h3>
+      <div class="meta">Yorgos Lanthimos &middot; 2009 &middot; Greece</div>
+      <p>Parents keep their adult children inside a villa compound, teaching them a false vocabulary ("the sea is an armchair") and staging the outside world as lethal. The system is airtight until a VHS tape gets in.</p>
+      <div class="why">The house with its own physics: a sealed reality maintained by language, and the violence required when one word slips.</div>
+      <div class="marks"><span class="mark">Sealed World</span><span class="mark">Greek Weird Wave</span></div>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="no">28</div>
+    <div>
+      <h3>Northfork</h3>
+      <div class="meta">Michael Polish &middot; 2003 &middot; USA</div>
+      <p>A 1955 Montana town is about to be flooded for a dam; men in matching black coats evacuate the holdouts while a dying orphan is visited by four possible angels. Shot in colors drained almost to grey.</p>
+      <div class="why">The vanishing American town as afterlife: plains-Americana melancholy that answers Twin Peaks' forests with open sky.</div>
+      <div class="marks"><span class="mark">Plains Gothic</span><span class="mark">Deep Cut</span></div>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="no">29</div>
+    <div>
+      <h3>Beyond the Black Rainbow</h3>
+      <div class="meta">Panos Cosmatos &middot; 2010 &middot; Canada</div>
+      <p>A mute girl with psychic abilities is held in a 1983 new-age research institute by a therapist who is mostly synthetic. Analog synths, red hallways, and a pace set to sedative drip.</p>
+      <div class="why">The corridor film: menace as interior design, the red room stretched into an entire architecture.</div>
+      <div class="marks"><span class="mark">Analog Nightmare</span><span class="mark">Corridors</span></div>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="no">30</div>
+    <div>
+      <h3>Upstream Color</h3>
+      <div class="meta">Shane Carruth &middot; 2013 &middot; USA</div>
+      <p>A woman is drugged by a parasite that dissolves her identity, and she rebuilds a life with a man who may share her infection, their memories braiding with a pig farm and Thoreau. Told almost entirely through cutting and sound.</p>
+      <div class="why">Identity as porous: two people who cannot tell whose memories they are wearing, which is the Lynchian double, biologized.</div>
+      <div class="marks"><span class="mark">Braided Selves</span><span class="mark">Sound-Led</span></div>
+    </div>
+  </article>
+</section>
+
+<!-- ================= OUTRO ================= -->
+<div class="outro">
+  <h2>Reading the border</h2>
+  <p><strong>Five films sit on the line on purpose</strong>: How to Get Ahead in Advertising, Ratcatcher, Morvern Callar, Kill List, and Berberian Sound Studio, with Under the Skin as the official handover. Watch those six in a row and you can feel British miserabilism turn into dream logic in real time. That progression is the actual argument of this list.</p>
+  <p><strong>Shelf A viewing order</strong> if you want the monologue lineage straight: Made in Britain, Meantime, Naked. That is one character aging ten years. Then Withnail, Barfly, and How to Get Ahead in Advertising as the comedy wing of the same disease.</p>
+  <h2 class="r" style="margin-top:30px">Curtain rules</h2>
+  <p><strong>Each Shelf B film supplies one Lynchian organ</strong>: Angel's Egg the mood-as-meaning, Alice the object dread, Careful the repression engine, Cure the contagious evil, Tropical Malady the bifurcated story, Dogtooth the sealed world, Beyond the Black Rainbow the corridor, Upstream Color the doubled self. Nobody has all the organs. That is why there is only one Lynch, and why he stays banned from his own adjective.</p>
+  <p><strong>Nearest misses</strong>: Radio On (1979) lost on the date rule by one year and would otherwise anchor Shelf A. Possession, The Reflecting Skin, Begotten, and Institute Benjamenta's cousin Frownland all live on the previous list, and repeats were barred. Holy Motors and Enemy were cut for being too famous for the brief.</p>
+</div>
+
+<footer>
+  <span>30 Films &middot; 2 Shelves &middot; 6 Border Crossings &middot; 0 Lynch</span>
+  <span>Silencio</span>
+</footer>
+
+</div>
+</div>
+</body>
+</html>

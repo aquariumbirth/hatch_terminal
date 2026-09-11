@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>30 Cult Transmissions: The Korine / Gallo Lane, 1980 to Now</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..100,400..900&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#dcd8ce;
+  --paper-2:#d2cec2;
+  --ink:#17150f;
+  --ink-soft:#4a463c;
+  --stamp:#c92f14;
+  --pen:#2740c4;
+  --line:#b5b0a2;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Space Grotesk',sans-serif;
+  font-size:16.5px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+body::after{
+  content:"";
+  position:fixed;inset:0;pointer-events:none;z-index:9;
+  opacity:.07;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 22px}
+
+/* ---------- MASTHEAD ---------- */
+header{padding:58px 0 34px;border-bottom:3px solid var(--ink);position:relative}
+.stamp{
+  display:inline-block;
+  font-family:'Space Mono',monospace;
+  font-weight:700;font-size:12px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--stamp);
+  border:2px solid var(--stamp);
+  padding:6px 12px;
+  transform:rotate(-2.5deg);
+  margin-bottom:26px;
+}
+h1{
+  font-family:'Anybody',sans-serif;
+  font-variation-settings:'wdth' 55,'wght' 900;
+  text-transform:uppercase;
+  font-size:clamp(32px,9.6vw,94px);
+  line-height:.88;
+  letter-spacing:-.01em;
+}
+h1 .alt{color:var(--stamp)}
+.subhead{
+  margin-top:20px;
+  font-family:'Space Mono',monospace;
+  font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-soft);
+  border-top:1px solid var(--ink);
+  border-bottom:1px solid var(--ink);
+  padding:10px 0;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+}
+.deck{margin-top:26px;max-width:640px;font-size:18px;color:var(--ink-soft)}
+.deck strong{color:var(--ink)}
+.deck .pen{color:var(--pen);font-style:italic}
+.rules{
+  margin-top:22px;
+  font-family:'Space Mono',monospace;
+  font-size:13px;
+  color:var(--ink);
+}
+.rules span{display:inline-block;margin-right:22px}
+.rules b{color:var(--stamp)}
+
+/* ---------- DECADE SHELVES ---------- */
+.shelf{padding:52px 0 6px}
+.shelf-head{
+  display:flex;align-items:center;gap:16px;margin-bottom:6px;
+}
+.shelf-head .decade{
+  font-family:'Anybody',sans-serif;
+  font-variation-settings:'wdth' 60,'wght' 900;
+  font-size:clamp(38px,7vw,62px);
+  text-transform:uppercase;
+  line-height:1;
+  background:var(--ink);
+  color:var(--paper);
+  padding:6px 16px 8px;
+}
+.shelf-head .range{
+  font-family:'Space Mono',monospace;
+  font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);
+}
+.shelf-note{
+  font-family:'Space Mono',monospace;
+  font-size:13px;font-style:italic;color:var(--pen);
+  margin:10px 0 4px;max-width:620px;
+}
+
+/* ---------- CARDS ---------- */
+.card{
+  border-bottom:1px solid var(--line);
+  padding:26px 0 24px;
+  display:grid;
+  grid-template-columns:64px 1fr;
+  gap:18px;
+}
+.card:last-child{border-bottom:none}
+.card .no{
+  font-family:'Space Mono',monospace;
+  font-weight:700;
+  font-size:15px;
+  color:var(--paper);
+  background:var(--ink);
+  width:44px;height:44px;
+  display:flex;align-items:center;justify-content:center;
+  transform:rotate(-3deg);
+  margin-top:4px;
+}
+.card h3{
+  font-family:'Anybody',sans-serif;
+  font-variation-settings:'wdth' 62,'wght' 800;
+  text-transform:uppercase;
+  font-size:clamp(21px,3.6vw,28px);
+  line-height:1.02;
+  letter-spacing:.005em;
+}
+.card .meta{
+  font-family:'Space Mono',monospace;
+  font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-soft);
+  margin:7px 0 11px;
+}
+.card p{color:var(--ink);max-width:620px;font-size:16px}
+.card p em{font-style:italic}
+.lane{
+  margin-top:11px;
+  font-family:'Space Mono',monospace;
+  font-size:12.5px;
+  color:var(--pen);
+  max-width:620px;
+}
+.lane::before{content:"\2192  ";color:var(--pen)}
+.badges{margin-top:12px;display:flex;flex-wrap:wrap;gap:7px}
+.badge{
+  font-family:'Space Mono',monospace;
+  font-size:10.5px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;
+  padding:4px 9px;
+  border:1.5px solid var(--ink);
+  color:var(--ink);
+  background:var(--paper-2);
+}
+.badge.hot{border-color:var(--stamp);color:var(--stamp);background:transparent}
+@media(max-width:540px){
+  .card{grid-template-columns:1fr;gap:10px}
+}
+
+/* ---------- OUTRO ---------- */
+.outro{padding:50px 0 20px;border-top:3px solid var(--ink);margin-top:44px}
+.outro h2{
+  font-family:'Space Mono',monospace;
+  font-size:12px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--stamp);margin-bottom:14px;
+}
+.outro p{color:var(--ink-soft);max-width:660px;margin-bottom:14px;font-size:16px}
+.outro p strong{color:var(--ink)}
+footer{
+  margin-top:30px;
+  padding:22px 0 60px;
+  border-top:1px solid var(--ink);
+  font-family:'Space Mono',monospace;
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink-soft);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+}
+:focus-visible{outline:2px solid var(--pen);outline-offset:2px}
+</style>
+</head>
+<body>
+<style>
+@keyframes htcur{0%,24.9%{color:#D6291E}25%,49.9%{color:#F2C230}50%,74.9%{color:#D9541E}75%,100%{color:#FFF}}
+@keyframes htblk{0%,49%{opacity:1}50%,100%{opacity:0}}
+.htbar{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.09em;
+ padding:9px 16px;background:#0d0d10;color:#8a8a94;display:flex;gap:9px;align-items:center;
+ flex-wrap:wrap;line-height:1.5;border-bottom:1px solid #24242d}
+.htbar a{text-decoration:none}
+.htbar .htbadge{display:inline-block;background:#000;border:1px solid #33333d;color:#fff;
+ font-weight:700;padding:3px 7px;white-space:nowrap}
+.htbar .htbadge:hover{border-color:#d9541e}
+.htbar .htus{animation:htblk 1.06s steps(1,end) infinite, htcur 4.24s steps(1,end) infinite}
+.htbar .htwing{color:#c4566e}
+.htbar .htwing:hover{text-decoration:underline}
+.htbar .htsl{color:#3a3a44}
+@media(prefers-reduced-motion:reduce){.htbar .htus{animation:none;color:#d9541e}}
+</style>
+<div class="htbar">
+ <a class="htbadge" href="../../">HATCH TERMINAL<span class="htus">_</span></a>
+ <span class="htsl">/</span><a class="htwing" href="../">WET_FILM</a>
+</div>
+
+
+<div class="wrap">
+
+<header>
+  <div class="stamp">Be kind &middot; Rewind &middot; Do not duplicate</div>
+  <h1>30 Cult<br>Trans<span class="alt">missions</span></h1>
+  <div class="subhead">
+    <span>The Korine / Gallo lane</span>
+    <span>1980 to now</span>
+    <span>No Korine. No Gallo.</span>
+  </div>
+  <p class="deck">Thirty films that live where <strong>Gummo</strong> and <strong>Buffalo '66</strong> live: outsider lyricism, hangout misery, transgression as form, non-actors, damaged film stock, and the feeling that the movie was found rather than made. <span class="pen">Their actual filmographies are banned from this list, which is the whole point.</span></p>
+  <div class="rules">
+    <span><b>RULE 1</b> 1980 or later</span>
+    <span><b>RULE 2</b> No Korine, no Gallo credits as director</span>
+    <span><b>RULE 3</b> If your video store filed it under "misc," it qualifies</span>
+  </div>
+</header>
+
+<!-- ================= 1980s ================= -->
+<section class="shelf" id="s80">
+  <div class="shelf-head"><div class="decade">'80s</div><div class="range">Films 01-09 &middot; The bootleg era</div></div>
+  <p class="shelf-note">Where the lane starts: midnight movies, Euro extremity, and 16mm made by people with no permission and no adults in the room.</p>
+
+  <article class="card">
+    <div class="no">01</div>
+    <div>
+      <h3>Forbidden Zone</h3>
+      <div class="meta">Richard Elfman &middot; 1980 &middot; USA</div>
+      <p>A family's basement door leads to the Sixth Dimension, ruled by a lecherous midget king, staged as a black-and-white cartoon-vaudeville fever with Oingo Boingo doing the songs. Handmade, offensive, and unrepeatable.</p>
+      <div class="lane">The DIY musical-grotesque energy Korine borrows whenever he lets his freaks sing.</div>
+      <div class="badges"><span class="badge">Midnight Movie</span><span class="badge hot">Handmade</span></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="no">02</div>
+    <div>
+      <h3>Pixote</h3>
+      <div class="meta">H&eacute;ctor Babenco &middot; 1980 &middot; Brazil</div>
+      <p>A ten-year-old street kid drifts from a brutal reformatory into S&atilde;o Paulo's crime economy, played by an actual street kid, Fernando Ramos da Silva, whose real life ended the way the film fears. Neorealism with the safety rails removed.</p>
+      <div class="lane">The non-actor, real-kids-in-real-ruin method that Kids and Gummo industrialized fifteen years later.</div>
+      <div class="badges"><span class="badge">Non-Actors</span><span class="badge hot">Foundational</span></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="no">03</div>
+    <div>
+      <h3>Possession</h3>
+      <div class="meta">Andrzej &Zdot;u&lstrok;awski &middot; 1981 &middot; France / West Germany</div>
+      <p>A marriage disintegrates in divided Berlin until the wife's secret turns out to be a tentacled thing in a rented flat. Isabelle Adjani's subway breakdown is the most committed three minutes of acting on film.</p>
+      <div class="lane">Emotional maximalism as transgression: the film every art-damage director secretly measures intensity against.</div>
+      <div class="badges"><span class="badge">Euro Extremity</span><span class="badge">Banned in the UK</span></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="no">04</div>
+    <div>
+      <h3>Liquid Sky</h3>
+      <div class="meta">Slava Tsukerman &middot; 1982 &middot; USA</div>
+      <p>Aliens land on a Manhattan rooftop to harvest the brain chemicals of new-wave club kids at the moment of orgasm. Anne Carlisle plays both leads in a neon-smeared no-budget downtown artifact.</p>
+      <div class="lane">Scene-documentation disguised as sci-fi: the club-kid anthropology Korine's whole crowd grew up bootlegging.</div>
+      <div class="badges"><span class="badge">No Budget</span><span class="badge">Scene Artifact</span></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="no">05</div>
+    <div>
+      <h3>Angst</h3>
+      <div class="meta">Gerald Kargl &middot; 1983 &middot; Austria</div>
+      <p>A killer walks out of prison and into a random house, narrating his compulsions while a body-mounted camera orbits him like a parasite. One feature, then Kargl never directed again.</p>
+      <div class="lane">Formal invention in service of the unwatchable; Noé calls it a direct influence, and the whole provocation wing descends from it.</div>
+      <div class="badges"><span class="badge">One and Done</span><span class="badge hot">Camera as Weapon</span></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="no">06</div>
+    <div>
+      <h3>Combat Shock</h3>
+      <div class="meta">Buddy Giovinazzo &middot; 1986 &middot; USA</div>
+      <p>A Vietnam vet wanders Staten Island's dead zones with a mutant baby at home, no money, and no exits, shot on scraps and sold by Troma with a lying poster. Taxi Driver rebuilt out of garbage.</p>
+      <div class="lane">Poverty-row despair as texture: the rotting-America mise-en-sc&egrave;ne Gummo turned into tornado country.</div>
+      <div class="badges"><span class="badge">Poverty Row</span><span class="badge">Troma Orphan</span></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="no">07</div>
+    <div>
+      <h3>River's Edge</h3>
+      <div class="meta">Tim Hunter &middot; 1986 &middot; USA</div>
+      <p>A teenager kills his girlfriend, shows the body to his friends, and nobody does anything. Crispin Glover vibrates at a frequency the rest of the cast can't hear; Dennis Hopper romances a sex doll.</p>
+      <div class="lane">The affectless-teen ur-text: Kids, Bully, and every dead-eyed adolescent hangout film start here.</div>
+      <div class="badges"><span class="badge">Dead-Eyed Teens</span><span class="badge hot">Ur-Text</span></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="no">08</div>
+    <div>
+      <h3>Nekromantik</h3>
+      <div class="meta">J&ouml;rg Buttgereit &middot; 1987 &middot; West Germany</div>
+      <p>A street cleaner brings his work home to complete a very committed love triangle. Super 8 transgression with a mournful score, made to test what cinema is allowed to hold, and seized by police accordingly.</p>
+      <div class="lane">Transgression as manifesto: the underground's line-in-the-sand film, passed hand to hand like contraband.</div>
+      <div class="badges"><span class="badge">Super 8</span><span class="badge">Confiscated</span></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="no">09</div>
+    <div>
+      <h3>Tetsuo: The Iron Man</h3>
+      <div class="meta">Shinya Tsukamoto &middot; 1989 &middot; Japan</div>
+      <p>A salaryman hits a metal fetishist with his car and begins mutating into scrap iron, rendered in convulsive 16mm stop-motion and industrial noise. Sixty-seven minutes that feel like being fed through a fax machine.</p>
+      <div class="lane">One-man-band filmmaking at maximum violence: proof the lane's real currency is total authorship, not money.</div>
+      <div class="badges"><span class="badge">One-Man Band</span><span class="badge hot">Industrial</span></div>
+    </div>
+  </article>
+</section>
+
+<!-- ================= 1990s ================= -->
+<section class="shelf" id="s90">
+  <div class="shelf-head"><div class="decade">'90s</div><div class="range">Films 10-18 &middot; The art-damage decade</div></div>
+  <p class="shelf-note">The decade Korine and Gallo actually emerged from. These are their neighbors, rivals, and the films playing in the same downtown theaters.</p>
+
+  <article class="card">
+    <div class="no">10</div>
+    <div>
+      <h3>The Reflecting Skin</h3>
+      <div class="meta">Philip Ridley &middot; 1990 &middot; UK / Canada</div>
+      <p>A boy in a golden 1950s wheat-field America decides the widow next door is a vampire while his brother (a young Viggo Mortensen) rots from atomic test exposure. Exploding frogs, dead friends, unbearable beauty.</p>
+      <div class="lane">American-gothic childhood shot like a hallucination: the prestige-painterly end of the outsider-lyric spectrum.</div>
+      <div class="badges"><span class="badge">American Gothic</span><span class="badge hot">Outsider Lyric</span></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="no">11</div>
+    <div>
+      <h3>Begotten</h3>
+      <div class="meta">E. Elias Merhige &middot; 1990 &middot; USA</div>
+      <p>God disembowels himself; Mother Earth and her convulsing Son wander a ruined landscape. No dialogue, rephotographed frame by frame until the image is mostly grain and scar tissue.</p>
+      <div class="lane">Film stock as wound. The degraded-image fetish that runs from here straight through every VHS-damage aesthetic since.</div>
+      <div class="badges"><span class="badge">No Dialogue</span><span class="badge">Image Damage</span></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="no">12</div>
+    <div>
+      <h3>Man Bites Dog</h3>
+      <div class="meta">Belvaux, Bonzel &amp; Poelvoorde &middot; 1992 &middot; Belgium</div>
+      <p>A documentary crew follows a charming serial killer on his rounds and slides from observing to helping. Shot for nothing in black and white by three film students who cast themselves.</p>
+      <div class="lane">Complicity as the subject: the camera-as-accomplice question every provocation film has to answer since.</div>
+      <div class="badges"><span class="badge">Mockumentary</span><span class="badge">Student Film</span></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="no">13</div>
+    <div>
+      <h3>Bad Boy Bubby</h3>
+      <div class="meta">Rolf de Heer &middot; 1993 &middot; Australia</div>
+      <p>A man kept in one room for 35 years by his mother escapes into Adelaide, parroting everything he hears, and accidentally becomes a rock star. Shot with 32 different cinematographers and binaural microphones in the lead's hair.</p>
+      <div class="lane">Holy-fool cinema: the innocent-monster protagonist Korine keeps rewriting, done first and meaner.</div>
+      <div class="badges"><span class="badge">Holy Fool</span><span class="badge hot">32 DPs</span></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="no">14</div>
+    <div>
+      <h3>Clean, Shaven</h3>
+      <div class="meta">Lodge Kerrigan &middot; 1993 &middot; USA</div>
+      <p>A schizophrenic man searches for his daughter while a detective tracks him for a murder he may not have committed. Sound design puts you inside the static of his head; two years to shoot, no compromises.</p>
+      <div class="lane">Subjective damage rendered as pure film form; the craft ceiling of the entire micro-budget misery genre.</div>
+      <div class="badges"><span class="badge">Sound as Psychosis</span><span class="badge">Micro-Budget</span></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="no">15</div>
+    <div>
+      <h3>The Doom Generation</h3>
+      <div class="meta">Gregg Araki &middot; 1995 &middot; USA</div>
+      <p>Two teens and a drifter leave a trail of severed heads across a neon-signed nowhere America, every purchase totaling $6.66. Subtitled "A Heterosexual Movie by Gregg Araki" out of pure spite.</p>
+      <div class="lane">Trash aesthetics deployed with total control: nihilism as pop art, the exact register Korine's Trash Humpers pretends not to want.</div>
+      <div class="badges"><span class="badge">New Queer Cinema</span><span class="badge">Nihilist Pop</span></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="no">16</div>
+    <div>
+      <h3>Trees Lounge</h3>
+      <div class="meta">Steve Buscemi &middot; 1996 &middot; USA</div>
+      <p>An unemployed mechanic drinks his life away at the end-of-the-bar stool in his Long Island hometown, driving an ice cream truck toward one very bad decision. Buscemi writing, directing, and starring as his own worst-case self.</p>
+      <div class="lane">The hangout-misery blueprint Buffalo '66 runs on: autobiography as self-indictment, charm as the trap.</div>
+      <div class="badges"><span class="badge">Hangout Misery</span><span class="badge hot">Self-Portrait</span></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="no">17</div>
+    <div>
+      <h3>Nil by Mouth</h3>
+      <div class="meta">Gary Oldman &middot; 1997 &middot; UK</div>
+      <p>A South London family orbits an alcoholic patriarch whose violence arrives like weather. Oldman wrote and directed it from his own childhood and never made another film; Ray Winstone has never been scarier.</p>
+      <div class="lane">Autobiographical wound-cinema with zero self-protection, the sincerity standard the ironists in this lane get measured against.</div>
+      <div class="badges"><span class="badge">One and Done</span><span class="badge">Kitchen Sink</span></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="no">18</div>
+    <div>
+      <h3>I Stand Alone</h3>
+      <div class="meta">Gaspar No&eacute; &middot; 1998 &middot; France</div>
+      <p>An unemployed horse butcher monologues his hatred of France, family, and himself toward an act the film warns you about with a 30-second on-screen countdown to leave the theater. No&eacute; before the strobe lights.</p>
+      <div class="lane">Direct-address misanthropy as endurance test; the confrontation contract between film and audience, printed in bold.</div>
+      <div class="badges"><span class="badge">Endurance Test</span><span class="badge hot">Countdown Warning</span></div>
+    </div>
+  </article>
+</section>
+
+<!-- ================= 2000s ================= -->
+<section class="shelf" id="s00">
+  <div class="shelf-head"><div class="decade">'00s</div><div class="range">Films 19-25 &middot; Post-Gummo, pre-streaming</div></div>
+  <p class="shelf-note">The generation that saw Gummo and Buffalo '66 in theaters and answered back, plus the Euro and Asian wings pushing further out.</p>
+
+  <article class="card">
+    <div class="no">19</div>
+    <div>
+      <h3>George Washington</h3>
+      <div class="meta">David Gordon Green &middot; 2000 &middot; USA</div>
+      <p>Kids in a rusting North Carolina rail town cover up an accidental death over one hazy summer, narrated like a dream. Non-actors, anamorphic 35mm, Terrence Malick light poured over Gummo geography.</p>
+      <div class="lane">The direct answer record: Gummo's wasteland reshot as elegy instead of provocation. Same lane, opposite polarity.</div>
+      <div class="badges"><span class="badge">Non-Actors</span><span class="badge hot">Gummo's Mirror</span></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="no">20</div>
+    <div>
+      <h3>Visitor Q</h3>
+      <div class="meta">Takashi Miike &middot; 2001 &middot; Japan</div>
+      <p>A stranger with a rock inserts himself into a family already violating every taboo on the books, and somehow heals them by escalating. Shot on consumer DV in eight days for a V-cinema series.</p>
+      <div class="lane">Domestic transgression played as deadpan sitcom; the furthest anyone has taken the home-video family portrait.</div>
+      <div class="badges"><span class="badge">Shot on DV</span><span class="badge">Taboo Bingo</span></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="no">21</div>
+    <div>
+      <h3>Bully</h3>
+      <div class="meta">Larry Clark &middot; 2001 &middot; USA</div>
+      <p>Florida teens talk themselves into murdering the friend who torments them, based on an actual 1993 case, played with terrifying vacancy by Brad Renfro and Bijou Phillips. Clark without Korine's script, which is exactly why it qualifies.</p>
+      <div class="lane">The Kids method aimed at a true crime: affectless adolescence carried to its documented conclusion.</div>
+      <div class="badges"><span class="badge">True Crime</span><span class="badge hot">Clark, No Korine</span></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="no">22</div>
+    <div>
+      <h3>Twentynine Palms</h3>
+      <div class="meta">Bruno Dumont &middot; 2003 &middot; France / USA</div>
+      <p>A photographer and his girlfriend drift through the Joshua Tree desert in a Hummer, eating, fighting, and screwing, until the film detonates in its last ten minutes. Critics compared it to The Brown Bunny all year, mostly as an insult.</p>
+      <div class="lane">Durational drift as a loaded gun; the Gallo-adjacent test of how much nothing an audience will sit through before the something.</div>
+      <div class="badges"><span class="badge">Desert Drift</span><span class="badge">Slow Detonation</span></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="no">23</div>
+    <div>
+      <h3>Taxidermia</h3>
+      <div class="meta">Gy&ouml;rgy P&aacute;lfi &middot; 2006 &middot; Hungary</div>
+      <p>Three generations of Hungarian men: a lecherous orderly, a competitive speed-eater, and a taxidermist who performs the ultimate self-portrait. History as digestion, rendered in grotesque tableaux of real formal beauty.</p>
+      <div class="lane">Body horror as national epic; proof the gross-out can carry generational weight when the craft is total.</div>
+      <div class="badges"><span class="badge">Body Grotesque</span><span class="badge">State Funded, Somehow</span></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="no">24</div>
+    <div>
+      <h3>Ex Drummer</h3>
+      <div class="meta">Koen Mortier &middot; 2007 &middot; Belgium</div>
+      <p>A famous writer joins a band of self-described handicapped Flemish lowlifes as their drummer, purely to study them like insects, and the contempt flows both ways. Opens with a backwards-walking upside-down tracking shot and gets less polite from there.</p>
+      <div class="lane">Class tourism indicted from inside: the author-slumming-with-freaks setup that shadows this whole lane, made literal.</div>
+      <div class="badges"><span class="badge">Punk Squalor</span><span class="badge hot">Deep Cut</span></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="no">25</div>
+    <div>
+      <h3>Frownland</h3>
+      <div class="meta">Ronald Bronstein &middot; 2007 &middot; USA</div>
+      <p>A door-to-door coupon salesman who cannot finish a sentence claws at every social interaction in an airless Brooklyn. Shot on 16mm over years for nothing; Bronstein went on to co-write Good Time and Uncut Gems.</p>
+      <div class="lane">The Safdie cinema's buried root: abrasion as empathy, a protagonist the film refuses to make watchable and dares you to abandon.</div>
+      <div class="badges"><span class="badge">16mm</span><span class="badge hot">Safdie Root System</span></div>
+    </div>
+  </article>
+</section>
+
+<!-- ================= 2010s+ ================= -->
+<section class="shelf" id="s10">
+  <div class="shelf-head"><div class="decade">'10s+</div><div class="range">Films 26-30 &middot; The lane goes digital</div></div>
+  <p class="shelf-note">Post-VHS, post-irony, post-everything. The transgression migrates to anti-comedy, silence, and the internet's id.</p>
+
+  <article class="card">
+    <div class="no">26</div>
+    <div>
+      <h3>The Comedy</h3>
+      <div class="meta">Rick Alverson &middot; 2012 &middot; USA</div>
+      <p>An aging Williamsburg trust-fund heir (Tim Heidecker) drifts through Brooklyn testing how cruel his irony can get before anything feels like anything. Sundance walkouts, furious reviews, and a title that is the film's meanest joke.</p>
+      <div class="lane">Buffalo '66's wounded narcissist updated for the irony economy: privilege as the new squalor.</div>
+      <div class="badges"><span class="badge">Anti-Comedy</span><span class="badge">Walkout Bait</span></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="no">27</div>
+    <div>
+      <h3>Buzzard</h3>
+      <div class="meta">Joel Potrykus &middot; 2014 &middot; USA</div>
+      <p>A Michigan temp worker running penny-ante scams (returning stolen checks, gaming refund policies) spirals into paranoia with a modified Freddy Krueger power glove. Includes an unbroken, legendary scene of a man eating a plate of spaghetti.</p>
+      <div class="lane">Slacker cinema with actual menace; the microwave-dinner realism of Gummo relocated to dead-mall Michigan.</div>
+      <div class="badges"><span class="badge">Dirtbag Realism</span><span class="badge hot">Spaghetti Scene</span></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="no">28</div>
+    <div>
+      <h3>The Tribe</h3>
+      <div class="meta">Myroslav Slaboshpytskyi &middot; 2014 &middot; Ukraine</div>
+      <p>A new student at a boarding school for the deaf climbs its internal crime syndicate. Entirely in unsubtitled Ukrainian sign language, all deaf non-professional actors, long takes, no music, no mercy.</p>
+      <div class="lane">The formal dare taken to its endpoint: a film that removes every access ramp and trusts pure image to carry violence and desire.</div>
+      <div class="badges"><span class="badge">No Subtitles</span><span class="badge">Non-Actors</span></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="no">29</div>
+    <div>
+      <h3>Kuso</h3>
+      <div class="meta">Flying Lotus &middot; 2017 &middot; USA</div>
+      <p>Post-earthquake Los Angeles, everyone covered in boils, told in interlocking sketches broadcast from a dying television. Sundance's "grossest movie ever made" headlines did the marketing for free.</p>
+      <div class="lane">Trash Humpers' true heir without the Korine credit: channel-surfing as form, the internet's id given a body.</div>
+      <div class="badges"><span class="badge">Sketch Nightmare</span><span class="badge hot">Musician's Film</span></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="no">30</div>
+    <div>
+      <h3>Possum</h3>
+      <div class="meta">Matthew Holness &middot; 2018 &middot; UK</div>
+      <p>A disgraced puppeteer returns to his childhood home carrying a bag containing a spider-legged puppet with his own face, which will not stay destroyed. From the creator of Garth Marenghi, played with zero laughs on purpose.</p>
+      <div class="lane">Comedy-brain turned fully against itself: shame and repressed abuse rendered as a physical object you cannot throw away.</div>
+      <div class="badges"><span class="badge">Puppet Dread</span><span class="badge">Anti-Comedy</span></div>
+    </div>
+  </article>
+</section>
+
+<!-- ================= OUTRO ================= -->
+<div class="outro">
+  <h2>Viewing logic</h2>
+  <p><strong>The connective threads</strong>: non-actors and real damage (Pixote, George Washington, The Tribe, Bully), hangout misery (Trees Lounge, Buzzard, The Comedy), transgression as contract (Angst, Nekromantik, I Stand Alone, Visitor Q), image damage as texture (Begotten, Tetsuo, Kuso), and the one-film-and-out auteurs (Angst, Nil by Mouth, Frownland's Bronstein as director).</p>
+  <p><strong>Entry ramps by tolerance</strong>: start gentle with River's Edge, Trees Lounge, George Washington, and Possum. Mid-tier: Bad Boy Bubby, The Reflecting Skin, Buzzard, The Comedy. The deep end is Angst, Nekromantik, Visitor Q, and Kuso, and no one will blame you for tapping out.</p>
+  <p><strong>Deliberate exclusions beyond the two named bans</strong>: Kids and Ken Park are out because Korine wrote them; Bully stays because he didn't. Nothing pre-1980, which spares you the entire Cinema of Transgression short-film rabbit hole (Nick Zedd, Richard Kern), though that is the primordial soup this list crawled out of.</p>
+</div>
+
+<footer>
+  <span>30 Films &middot; 4 Decades &middot; 0 Korine &middot; 0 Gallo</span>
+  <span>Late fees apply</span>
+</footer>
+
+</div>
+</body>
+</html>

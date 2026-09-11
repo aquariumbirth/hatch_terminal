@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Remain in Light — A Listener's Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0d0c0f;
+    --void-2:#15141a;
+    --paper:#e9e8e4;
+    --paper-2:#f3f2ef;
+    --ink:#161417;
+    --red:#ff2b1c;
+    --red-ink:#cc1e10;
+    --muted:#6f6b66;
+    --line:#211d1f;
+    --hairline:rgba(22,20,23,.14);
+    --display:"Archivo",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --serif:"Newsreader",Georgia,"Times New Roman",serif;
+    --mono:"Space Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{overflow-x:hidden;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-size:clamp(1.02rem,0.98rem + 0.3vw,1.2rem);
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  .wrap,.page{max-width:46rem;margin:0 auto;padding:0 24px;}
+  .page{margin-top:clamp(2.5rem,6vw,4rem);margin-bottom:clamp(2.5rem,6vw,4rem);}
+  p{margin:0 0 1.1rem;}
+  a{color:var(--red-ink);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px;}
+  a:hover{background:var(--red-ink);color:var(--paper);text-decoration:none;}
+  :focus-visible{outline:2px solid var(--red-ink);outline-offset:2px;}
+  strong{font-weight:600;}
+  em{font-style:italic;}
+  .scanlines{position:relative;}
+  .scanlines::before{
+    content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+    background:repeating-linear-gradient(0deg,rgba(0,0,0,.55) 0 1px,transparent 1px 3px);
+    opacity:.28;
+  }
+  .scanlines > *{position:relative;z-index:2;}
+  .bleed{width:100vw;position:relative;left:50%;margin-left:-50vw;}
+  .masthead{background:var(--void);color:var(--paper);padding:clamp(2.5rem,6vw,5rem) 0 clamp(2rem,5vw,3.5rem);overflow:hidden;}
+  .mast-top{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+    color:rgba(233,232,228,.55);margin-bottom:clamp(1.5rem,4vw,2.5rem);}
+  .faces{display:flex;gap:.5rem;margin-bottom:clamp(1.2rem,3vw,1.8rem);}
+  .face{width:clamp(34px,7vw,56px);aspect-ratio:1;position:relative;background-color:#2a2730;
+    background-image:repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 2px,transparent 2px 4px),
+                     repeating-linear-gradient(90deg,rgba(255,255,255,.06) 0 2px,transparent 2px 4px);}
+  .face::after{content:"";position:absolute;left:0;right:0;top:30%;height:28%;background:var(--red);}
+  .kicker{font-family:var(--display);font-weight:800;letter-spacing:.06em;color:var(--red);
+    font-size:clamp(.95rem,2vw,1.15rem);text-transform:uppercase;margin-bottom:.55rem;}
+  .flip{display:inline-block;transform:rotate(180deg);}
+  .title{font-family:var(--display);font-weight:900;font-size:clamp(2.7rem,9vw,6rem);
+    line-height:.92;letter-spacing:-.03em;text-transform:uppercase;margin:0;}
+  .title-bar{width:clamp(80px,18vw,160px);height:10px;background:var(--red);margin-top:1.1rem;}
+  .deck{font-family:var(--serif);font-size:clamp(1.1rem,1.8vw,1.4rem);line-height:1.5;
+    max-width:50ch;margin:clamp(1.4rem,3vw,2rem) 0 0;color:rgba(233,232,228,.92);}
+  .mast-meta{font-family:var(--mono);font-size:.78rem;letter-spacing:.04em;
+    color:rgba(233,232,228,.55);margin-top:clamp(1.4rem,3vw,2rem);line-height:1.85;}
+  .facts{border:2px solid var(--ink);background:var(--paper-2);padding:clamp(1rem,2.5vw,1.5rem);margin:0 0 2.5rem;}
+  .facts h2{font-family:var(--mono);font-weight:700;font-size:.78rem;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--red-ink);margin:0 0 .8rem;}
+  .row{display:grid;grid-template-columns:13rem 1fr;gap:.3rem 1.2rem;padding:.55rem 0;border-top:1px solid var(--hairline);}
+  .row:first-of-type{border-top:0;}
+  .row .k{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);align-self:start;padding-top:.18rem;}
+  .row .v{font-family:var(--serif);}
+  .epi{font-size:.94rem;color:var(--muted);font-style:italic;border-left:3px solid var(--red-ink);
+    padding:.2rem 0 .2rem 1rem;margin:0 0 2.5rem;}
+  .toc-h,.cast-h{font-family:var(--mono);font-weight:700;font-size:.78rem;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--red-ink);margin:0 0 .6rem;}
+  .toc{border-top:2px solid var(--ink);margin:0 0 2.5rem;}
+  .toc a{display:grid;grid-template-columns:3rem 1fr;gap:1rem;align-items:baseline;
+    padding:.6rem 0;border-bottom:1px solid var(--hairline);text-decoration:none;color:var(--ink);}
+  .toc a:hover{background:transparent;color:var(--red-ink);}
+  .toc .n{font-family:var(--mono);color:var(--red-ink);font-size:.85rem;}
+  .toc .t{font-family:var(--display);font-weight:600;letter-spacing:-.01em;}
+  .cast{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1px;
+    background:var(--line);border:1px solid var(--line);margin:0 0 2.5rem;}
+  .person{background:var(--paper-2);padding:1rem 1.1rem;}
+  .person .nm{font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.01em;}
+  .person .rl{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--red-ink);margin:.15rem 0 .5rem;}
+  .person .bio{font-size:.92rem;line-height:1.55;color:var(--ink);}
+  .sec{margin-top:clamp(3rem,6vw,4.5rem);}
+  .sechead{border-top:2px solid var(--ink);padding-top:1rem;margin-bottom:1.5rem;position:relative;}
+  .sechead::after{content:"";position:absolute;top:-2px;left:0;width:72px;height:2px;background:var(--red-ink);}
+  .idx{font-family:var(--mono);color:var(--red-ink);font-size:.78rem;letter-spacing:.16em;display:block;margin-bottom:.45rem;}
+  .sec h2{font-family:var(--display);font-weight:800;font-size:clamp(1.7rem,4vw,2.6rem);
+    line-height:1.04;letter-spacing:-.02em;margin:0;}
+  .dek{font-family:var(--serif);color:var(--muted);font-size:clamp(1.02rem,1.5vw,1.18rem);margin:.6rem 0 0;max-width:60ch;}
+  .lede::first-letter{font-family:var(--display);font-weight:900;float:left;font-size:4.2em;
+    line-height:.78;padding:.04em .1em 0 0;color:var(--red-ink);}
+  h3.sub{font-family:var(--display);font-weight:700;font-size:clamp(1.2rem,2.2vw,1.5rem);
+    letter-spacing:-.01em;margin:2.2rem 0 .8rem;}
+  .pq{margin:2.2rem 0;padding-left:1.2rem;border-left:4px solid var(--red-ink);}
+  .pq blockquote{margin:0;font-family:var(--display);font-weight:700;
+    font-size:clamp(1.4rem,3vw,2rem);line-height:1.12;letter-spacing:-.01em;}
+  .pq cite{display:block;margin-top:.7rem;font-family:var(--mono);font-style:normal;
+    color:var(--muted);font-size:.78rem;letter-spacing:.08em;}
+  .pq-dark{background:var(--void);color:var(--paper);padding:clamp(2.6rem,7vw,4.5rem) 0;margin:3rem 0;overflow:hidden;}
+  .pq-dark .mark{font-family:var(--mono);color:var(--red);font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;display:block;margin-bottom:1rem;}
+  .pq-dark blockquote{margin:0;font-size:clamp(1.7rem,4.2vw,2.7rem);line-height:1.18;}
+  .pq-dark.italic blockquote{font-family:var(--serif);font-style:italic;font-weight:500;}
+  .pq-dark.bold blockquote{font-family:var(--display);font-weight:800;letter-spacing:-.02em;line-height:1.08;}
+  .pq-dark cite{display:block;margin-top:1.1rem;font-family:var(--mono);font-style:normal;color:rgba(233,232,228,.6);font-size:.8rem;letter-spacing:.08em;}
+  .side-label{font-family:var(--mono);font-weight:700;font-size:.78rem;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--red-ink);margin:2.2rem 0 .2rem;border-bottom:2px solid var(--ink);padding-bottom:.4rem;}
+  .track{display:grid;grid-template-columns:3rem 1fr;gap:0 1rem;padding:1.1rem 0;border-top:1px solid var(--hairline);}
+  .track:first-of-type{border-top:0;}
+  .track .tn{font-family:var(--mono);color:var(--red-ink);font-size:1.05rem;padding-top:.15rem;}
+  .track h4{margin:0;font-family:var(--display);font-weight:800;font-size:1.12rem;letter-spacing:-.01em;
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem;}
+  .track .time{font-family:var(--mono);font-weight:400;color:var(--muted);font-size:.82rem;}
+  .track p{margin:.45rem 0 0;font-size:.97rem;line-height:1.6;}
+  .sleeve{background:var(--void);color:var(--paper);padding:clamp(1.6rem,4vw,2.6rem);margin:2.5rem 0;overflow:hidden;}
+  .sleeve h3{font-family:var(--display);font-weight:800;font-size:1.3rem;letter-spacing:-.01em;margin:0 0 .3rem;color:var(--paper);}
+  .sleeve .sub-note{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;color:rgba(233,232,228,.55);margin:0 0 1.4rem;}
+  .sleeve .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.3rem 2rem;}
+  .grp .gk{font-family:var(--mono);font-weight:700;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:.3rem;}
+  .grp .gv{font-family:var(--serif);font-size:.95rem;line-height:1.55;color:rgba(233,232,228,.92);}
+  .note{background:var(--paper-2);border-left:4px solid var(--red-ink);padding:1.2rem 1.4rem;margin:2.2rem 0;}
+  .note .tag{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--red-ink);display:block;margin-bottom:.5rem;}
+  .note h3{font-family:var(--display);font-weight:700;font-size:1.15rem;margin:0 0 .6rem;letter-spacing:-.01em;}
+  .note ul{list-style:none;margin:0;padding:0;}
+  .note li{position:relative;padding-left:1.4rem;margin-bottom:.7rem;font-size:.95rem;line-height:1.55;}
+  .note li::before{content:"\25AE";position:absolute;left:0;top:0;color:var(--red-ink);font-size:.8rem;}
+  .timeline{border-top:2px solid var(--ink);margin:1.5rem 0 0;}
+  .tl{display:grid;grid-template-columns:8rem 1fr;gap:0 1.2rem;padding:.7rem 0;border-bottom:1px solid var(--hairline);}
+  .tl .y{font-family:var(--mono);color:var(--red-ink);font-size:.85rem;padding-top:.1rem;}
+  .tl .e{font-family:var(--serif);}
+  .refs{list-style:none;margin:1.5rem 0 0;padding:0;border-top:2px solid var(--ink);}
+  .refs li{padding:.7rem 0;border-bottom:1px solid var(--hairline);font-size:.95rem;line-height:1.5;}
+  .refs .src{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-top:.1rem;}
+  .colophon{background:var(--void);color:var(--paper);margin-top:3rem;padding:clamp(2rem,5vw,3.5rem) 0;overflow:hidden;}
+  .colophon .faces{margin-bottom:1.4rem;}
+  .colophon p{font-family:var(--mono);font-size:.76rem;letter-spacing:.05em;line-height:1.9;color:rgba(233,232,228,.6);max-width:54ch;}
+  .colophon .big{font-family:var(--display);font-weight:800;font-size:1.1rem;letter-spacing:.04em;color:var(--paper);text-transform:uppercase;margin-bottom:1rem;}
+  @media (max-width:620px){
+    .row,.toc a{grid-template-columns:1fr;}
+    .row .k{padding-top:0;}
+    .toc a{gap:.1rem;}
+    .sleeve .grid{grid-template-columns:1fr;}
+    .tl{grid-template-columns:5rem 1fr;}
+    .track{grid-template-columns:2.2rem 1fr;}
+    .track h4{flex-direction:column;gap:.1rem;}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .rise{opacity:0;animation:rise .8s cubic-bezier(.2,.7,.2,1) forwards;}
+    .d1{animation-delay:.05s;}.d2{animation-delay:.18s;}.d3{animation-delay:.32s;}.d4{animation-delay:.46s;}
+    @keyframes rise{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+  }
+  @page{margin:18mm 16mm;}
+  @media print{
+    html,body{background:#fff;color:var(--ink);}
+    .masthead,.colophon,.sleeve,.pq-dark{background:#fff;color:var(--ink);}
+    .scanlines::before{display:none;}
+    .mast-top,.mast-meta,.colophon p,.pq-dark cite{color:var(--muted);}
+    .deck,.grp .gv,.title{color:var(--ink);}
+    .kicker,.mark,.grp .gk,.colophon .big{color:var(--red-ink);}
+    .title-bar,.face::after{background:var(--red-ink);}
+    .bleed{width:auto;left:auto;margin-left:0;}
+    .masthead{padding:0 0 1.4rem;break-after:page;}
+    .colophon{padding:1.4rem 0 0;break-before:avoid;}
+    .pq-dark{padding:1.4rem 0;margin:1.4rem 0;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);}
+    .sleeve{padding:0;margin:1.6rem 0;}
+    a{color:var(--ink);text-decoration:underline;}
+    .sec{margin-top:1.8rem;}
+    .sechead,h3.sub{break-after:avoid;}
+    .sec,.note,.track,.pq,.pq-dark,.person,.tl,.facts{break-inside:avoid;}
+    body{font-size:10.5pt;line-height:1.55;}
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead scanlines">
+  <div class="wrap">
+    <div class="mast-top rise d1">
+      <span>A Listener's Reference</span>
+      <span>Compass Point &middot; Sigma Sound &middot; 1980</span>
+    </div>
+    <div class="faces rise d1" aria-hidden="true">
+      <div class="face"></div><div class="face"></div><div class="face"></div><div class="face"></div>
+    </div>
+    <div class="kicker rise d2">T<span class="flip">A</span>LKING HE<span class="flip">A</span>DS</div>
+    <h1 class="title rise d2">Remain<br>in Light</h1>
+    <div class="title-bar rise d3"></div>
+    <p class="deck rise d3">The complete story of the record that turned a fracturing New York art band into a nine-piece Afro-funk machine: assembled from loops and arguments at the edge of the Caribbean, released as both a masterpiece and a wound, and never quite recovered from.</p>
+    <div class="mast-meta rise d4">
+      Released 8 October 1980 &middot; Sire Records<br>
+      Produced by Brian Eno and Talking Heads<br>
+      No. 19 US &middot; No. 21 UK &middot; National Recording Registry, 2017
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+  <section class="facts" aria-label="The record at a glance">
+    <h2>The Record at a Glance</h2>
+    <div class="row"><div class="k">Release</div><div class="v">8 October 1980</div></div>
+    <div class="row"><div class="k">Label</div><div class="v">Sire Records, distributed by Warner Bros.</div></div>
+    <div class="row"><div class="k">Producer</div><div class="v">Brian Eno and Talking Heads</div></div>
+    <div class="row"><div class="k">Recorded</div><div class="v">Compass Point Studios, Nassau (basic tracks); Sigma Sound Studios, New York (vocals and overdubs), 1980</div></div>
+    <div class="row"><div class="k">Mixed</div><div class="v">Sigma Sound, New York and Eldorado Studios, Los Angeles, August 1980</div></div>
+    <div class="row"><div class="k">Mastered</div><div class="v">Greg Calbi, Sterling Sound, New York</div></div>
+    <div class="row"><div class="k">Running time</div><div class="v">About 40 minutes, 8 tracks</div></div>
+    <div class="row"><div class="k">Working title</div><div class="v">Melody Attack</div></div>
+    <div class="row"><div class="k">Charts</div><div class="v">No. 19 US Billboard 200; No. 21 UK Albums Chart</div></div>
+    <div class="row"><div class="k">Honors</div><div class="v">Library of Congress National Recording Registry, 2017</div></div>
+  </section>
+
+  <p class="epi">A note on evidence. Almost everyone who made this record remembers it differently. Where the accounts of David Byrne, Brian Eno, and the Frantz and Weymouth camp diverge, the divergence is shown here rather than smoothed over. Quotations are drawn from the published interviews, memoirs, and archival sources listed at the close.</p>
+
+  <p class="toc-h">Contents</p>
+  <nav class="toc" aria-label="Contents">
+    <a href="#s01"><span class="n">01</span><span class="t">The Road to Nassau</span></a>
+    <a href="#s02"><span class="n">02</span><span class="t">Four People, Coming Apart</span></a>
+    <a href="#s03"><span class="n">03</span><span class="t">Eno, Byrne, and the Bush of Ghosts</span></a>
+    <a href="#s04"><span class="n">04</span><span class="t">The Blueprint: Fela, Polyrhythm, No Main Author</span></a>
+    <a href="#s05"><span class="n">05</span><span class="t">Inside the Sessions</span></a>
+    <a href="#s06"><span class="n">06</span><span class="t">Track by Track</span></a>
+    <a href="#s07"><span class="n">07</span><span class="t">The Board and the Sleeve</span></a>
+    <a href="#s08"><span class="n">08</span><span class="t">The Credit That Broke the Band</span></a>
+    <a href="#s09"><span class="n">09</span><span class="t">Out into the World</span></a>
+    <a href="#s10"><span class="n">10</span><span class="t">Afterlife</span></a>
+    <a href="#s11"><span class="n">11</span><span class="t">The Nine-Piece</span></a>
+    <a href="#s12"><span class="n">12</span><span class="t">Why It Endures</span></a>
+    <a href="#appendix"><span class="n">A</span><span class="t">Timeline &amp; Sources</span></a>
+  </nav>
+
+  <p class="cast-h">Dramatis Personae</p>
+  <div class="cast">
+    <div class="person"><div class="nm">David Byrne</div><div class="rl">Vocals, guitar, lyrics</div><div class="bio">The frontman whose ambition drove the band forward and pulled it apart. Born 1952 in Scotland, raised in Maryland.</div></div>
+    <div class="person"><div class="nm">Tina Weymouth</div><div class="rl">Bass</div><div class="bio">Learned the instrument for the band. Wrote the bassline that anchors "Once in a Lifetime," and fought to keep it.</div></div>
+    <div class="person"><div class="nm">Chris Frantz</div><div class="rl">Drums</div><div class="bio">Weymouth's husband, the rhythmic engine, and decades later the band's chronicler in the memoir Remain in Love.</div></div>
+    <div class="person"><div class="nm">Jerry Harrison</div><div class="rl">Keyboards, guitar</div><div class="bio">Former Modern Lover and Harvard man. The recruiter and arranger who held the sessions and the live band together.</div></div>
+    <div class="person"><div class="nm">Brian Eno</div><div class="rl">Producer, synths, concept</div><div class="bio">The so-called fifth head, fresh from Bowie's Berlin records. Co-author of the method and the lightning rod for the band's resentment.</div></div>
+    <div class="person"><div class="nm">Adrian Belew</div><div class="rl">Guitar (guest)</div><div class="bio">Zappa and Bowie alumnus. Cut every one of his parts in a single day, then went home.</div></div>
+    <div class="person"><div class="nm">Jon Hassell</div><div class="rl">Trumpet (guest)</div><div class="bio">The "Fourth World" pioneer whose ghostly horn carries "Houses in Motion."</div></div>
+    <div class="person"><div class="nm">Nona Hendryx</div><div class="rl">Backing vocals (guest)</div><div class="bio">Former Labelle singer, brought to Sigma on Harrison's recommendation.</div></div>
+    <div class="person"><div class="nm">Robert Palmer &amp; Jos&eacute; Rossy</div><div class="rl">Percussion (guests)</div><div class="bio">Extra hands on the album's dense rhythm beds. Palmer had just cut Clues in the same Nassau studio.</div></div>
+    <div class="person"><div class="nm">Steven Stanley</div><div class="rl">Engineer</div><div class="bio">The young Compass Point in-house engineer who stepped in mid-session and helped shape the record.</div></div>
+    <div class="person"><div class="nm">Tibor Kalman / M&amp;Co.</div><div class="rl">Design</div><div class="bio">Devised the sleeve, the liner notes, and the wordmark with its A's turned upside down.</div></div>
+    <div class="person"><div class="nm">Toni Basil</div><div class="rl">Video direction</div><div class="bio">Co-directed "Once in a Lifetime," then set the camera and left Byrne to choreograph himself.</div></div>
+  </div>
+
+  <section class="sec" id="s01">
+    <header class="sechead">
+      <span class="idx">&sect; 01</span>
+      <h2>The Road to Nassau</h2>
+      <p class="dek">From a Rhode Island art-school friendship to the Eno trilogy, and the one song that pointed the way.</p>
+    </header>
+    <p class="lede">In the early months of 1980, three quarters of Talking Heads were living above a recording studio on a narrow strip of the Bahamas, trying to talk the other quarter, and their producer, back into a band that had every commercial reason to keep going and several private reasons to stop. What they built there became the high-water mark of American art rock. It also began the long unraveling of the band that made it.</p>
+    <p>Talking Heads grew out of the Rhode Island School of Design, where the singer and guitarist David Byrne (born 14 May 1952 in Dumbarton, Scotland, raised in Maryland) and the drummer Chris Frantz (born 8 May 1951 in Fort Campbell, Kentucky, into a military family) met in 1973 and formed a proto-punk group called the Artistics. Frantz's girlfriend, later his wife, Tina Weymouth (born 22 November 1950) drove the band to gigs. When the Artistics dissolved and the trio moved to New York in 1974 and 1975, Frantz persuaded Weymouth to take up the bass after they failed to find a bassist anywhere else. By several accounts, Byrne made her audition more than once.</p>
+    <p>The trio debuted as Talking Heads opening for the Ramones at CBGB on 5 June 1975. The name came from a television term that a friend found in a TV Guide glossary: a "talking head" was a head-and-shoulders shot, described as "all content, no action," which fit Byrne perfectly. The keyboardist and guitarist Jerry Harrison (born 21 February 1949 in Milwaukee), a Harvard student and a veteran of Jonathan Richman's Modern Lovers, joined in 1977 to complete the lineup. Weymouth and Frantz married that same year.</p>
+    <h3 class="sub">The Eno trilogy begins</h3>
+    <p>The self-titled debut, Talking Heads: 77 (Sire, September 1977), produced "Psycho Killer" and established the band's nervy, clever new wave. Their second record, More Songs About Buildings and Food (14 July 1978), was their first with Brian Eno, the former Roxy Music synthesist who had just finished David Bowie's Berlin albums. The connection had an omen attached: the title of Eno's 1977 song "King's Lead Hat" is an anagram of "Talking Heads." They cut the album at Compass Point in Nassau, becoming the first band to record at what would soon be a famous studio, and scored their first US Top 30 hit with a cover of Al Green's "Take Me to the River" (No. 26), which Eno had them play far slower than the original. Robert Christgau called the pairing "an ideal producer-artist collaboration," with Eno contributing and interfering in roughly equal measure.</p>
+    <h3 class="sub">Fear of Music, and a door left open</h3>
+    <p>Fear of Music (released 3 August 1979) is the crucial bridge to Remain in Light. After miming "Take Me to the River" on American Bandstand in March 1979, the band resolved not to become "a singles machine." They first tried recording in a New York studio without a producer and were unhappy with it, then summoned Eno and cut the basic tracks in Frantz and Weymouth's loft in Long Island City, Queens, with a Record Plant mobile truck parked outside running cables through the window on two days, 22 April and 6 May 1979. The album reached No. 21 in the US and No. 33 in the UK, and later went gold.</p>
+    <p>It is a darker, more paranoid record than its predecessor, full of characters stranded in dystopian situations. The highlights include "Life During Wartime," with its much-quoted line about this being "no party" and "no disco," which started as a Frantz and Weymouth jam; the brittle "Cities"; the claustrophobic "Memories Can't Wait"; and the eerie calm of "Heaven." The pivotal track, though, is the opener, "I Zimbra": an Afrobeat and disco fusion built on highlife-flavored guitar, tribal chanting set to a Dadaist sound poem by Hugo Ball, congas by Ari Up of the Slits, and guitar by Robert Fripp. "I Zimbra" was the band's first real excursion into worldbeat and the direct foreshadowing of everything that came next. Fripp liked the results so much that he used the sound as a launching point for the reconstituted King Crimson on Discipline.</p>
+    <p>Fear of Music topped multiple critics' lists for 1979, including NME and Melody Maker, and placed fourth in the Village Voice Pazz &amp; Jop poll. It also carried a small warning of trouble to come: the album was originally credited almost entirely to Byrne, with only "I Zimbra" shared, and the credit was revised after the other members complained. It was a rehearsal for a much larger fight. "I Zimbra" was the door. Remain in Light walked through it.</p>
+  </section>
+
+  <section class="sec" id="s02">
+    <header class="sechead">
+      <span class="idx">&sect; 02</span>
+      <h2>Four People, Coming Apart</h2>
+      <p class="dek">By 1980 the band's fault lines were widening, and a marriage and a partnership were both being weighed in the balance.</p>
+    </header>
+    <p>The central tension was Byrne's growing dominance and the sense among the others that their creative contributions kept going uncredited. In his 2020 memoir Remain in Love, Frantz traces the friction to the very beginning: Byrne had wanted to fire Weymouth shortly before the first album, frustrated by her relative inexperience after only about a year on the instrument, and had made her audition repeatedly.</p>
+    <p>Frantz and Weymouth, by then married, seriously discussed leaving the band after Weymouth concluded that Byrne was too controlling to keep working with. Frantz did not want to go. The two took a long Caribbean vacation to think it over, weighing the band and the marriage at the same time. While there they took part in Haitian Vodou ceremonies, practiced local percussion, and spent time with the reggae rhythm section Sly and Robbie. They ended the holiday by buying an apartment above Compass Point Studios in Nassau. By Frantz's account, the Remain in Light sessions happened at all only because he, Weymouth, and Harrison effectively lured first Eno and then Byrne back into the project one at a time, offering up the hot instrumental sessions as bait.</p>
+    <p>All four were products of the same art-school world, and their characterizations of the period genuinely conflict. Weymouth has been the sharpest retrospective critic of Byrne, describing him as "a man incapable of returning friendship" and saying that he could not work out "where he stopped and other people began." Frantz is more two-sided: in the memoir and in interviews he both credits Byrne's gifts as a frontman and lyricist and condemns his behavior over credit, telling InsideHook around the book's release that it was "completely unfair and unethical, but a lot of things in the music business are unfair and unethical," and that the band simply found out "that is just the way he is."</p>
+    <p>The counterweight to all of this was the sheer creative excitement. Weymouth has described the Compass Point atmosphere as deliberately kept "light and playful and inclusive," partly because she was aware that, as she put it, "Brian and David had had some falling out during" the side project that ran in parallel to the band's own. The work was joyful even as the relationships frayed.</p>
+  </section>
+
+  <section class="sec" id="s03">
+    <header class="sechead">
+      <span class="idx">&sect; 03</span>
+      <h2>Eno, Byrne, and the Bush of Ghosts</h2>
+      <p class="dek">The producer and the frontman built a private laboratory, and what they learned in it reshaped the band's record.</p>
+    </header>
+    <p>Eno produced all three of the band's middle albums and grew steadily closer to Byrne. During the break before Remain in Light, the two made their own collaborative record, My Life in the Bush of Ghosts, released in February 1981 but largely recorded across 1979 and 1980, before the band's sessions. The title comes from the Nigerian writer Amos Tutuola. The album folded in sampled "found" voices (radio evangelists, an exorcist, a Lebanese mountain singer, talk-radio hosts, an Egyptian pop singer), African and Middle Eastern rhythms, and tape-loop construction. It is now recognized as a landmark of sampling, though clearance problems for the sampled voices delayed its release until four months after Remain in Light.</p>
+    <p>Bush of Ghosts functioned as the test kitchen for the band record. The same methods carried over: loops, found text, dense layering over repetitive grooves. So did some of the personnel, including Jon Hassell and the bassist Busta Jones. Eno himself connected the two projects directly. The lyrical approach on "Once in a Lifetime," he said, was "an extension of the stuff we'd been researching for My Life in The Bush Of Ghosts," which involved "listening to recordings of TV evangelists, preachers, the Islamic call to prayer, religious people getting into a trance."</p>
+    <p>The intensity of the Byrne and Eno bond, with Eno sometimes treated as a fifth member, fed the other members' resentment, all the more because on Remain in Light the creative axis increasingly ran from Byrne to Eno to Harrison, while Frantz and Weymouth sometimes did not appear at the Sigma Sound sessions at all. There is a further wrinkle that Frantz reveals in his memoir: Byrne and Eno themselves had a falling-out during Bush of Ghosts, which is part of why Weymouth worked so hard to keep the band's own atmosphere light.</p>
+  </section>
+
+  <section class="sec" id="s04">
+    <header class="sechead">
+      <span class="idx">&sect; 04</span>
+      <h2>The Blueprint: Fela, Polyrhythm, No Main Author</h2>
+      <p class="dek">A deliberate attempt to dethrone the frontman, built on West African rhythm and a small library of books.</p>
+    </header>
+    <p>The dominant influence was the Nigerian Afrobeat pioneer Fela Kuti, whose music Eno had introduced to the band. Kuti's 1973 album Afrodisiac became the working template. The band also drew on King Sunny Ad&eacute; and West African polyrhythm, on North African and Arabic music, on disco and funk (Parliament-Funkadelic above all), and on the earliest hip-hop. The goal, by their own account, was not imitation. Byrne told the Library of Congress in 2017: "We were listening to African pop music, like Fela Kuti and King Sunny Ad&eacute;, but we didn't set out to imitate those. We deconstructed everything. Our process led us to something with some affinity to afro-funk, but we got there the long way round, and our version sounded slightly off. We didn't get it quite right, but in missing, we ended up with something new."</p>
+    <p>The concept was philosophical as much as musical: build songs from interlocking repetitive parts in which, ideally, there was no main author. Harrison was careful to stress that the aim was to blend rock and African forms rather than to copy African music. Their friend David Gans encouraged them to embrace mistakes and the things one does not intend.</p>
+    <p>Byrne's lyrical research leaned heavily on the page. The press kit included a short bibliography centered on John Miller Chernoff's African Rhythm and African Sensibility and Robert Farris Thompson's African Art in Motion, which is the direct source of the line "The world moves on a woman's hips" in "The Great Curve." Alongside the academic texts he drew on the cadences of radio preachers, on John Dean's Watergate testimony, and on early rap such as Kurtis Blow's "The Breaks." Eno framed the album's emotional stance as a kind of radical optimism: looking out at the world, he said, and saying, "What a fantastic place we live in. Let's celebrate it."</p>
+    <div class="pq">
+      <blockquote>"What a fantastic place we live in. Let's celebrate it."</blockquote>
+      <cite>Brian Eno, on the emotional stance of the record</cite>
+    </div>
+  </section>
+
+  <section class="sec" id="s05">
+    <header class="sechead">
+      <span class="idx">&sect; 05</span>
+      <h2>Inside the Sessions</h2>
+      <p class="dek">Long one-chord jams, a producer in a hurry, an engineer walking out, a frontman improvising nonsense into a cassette recorder, and a guitarist who got the job done in a day.</p>
+    </header>
+    <h3 class="sub">Two studios, one method</h3>
+    <p>The basic tracks were recorded at Compass Point Studios in Nassau, beginning in July 1980. Vocals and additional overdubs were done at Sigma Sound Studios in New York. The album was completed and mixed in August and released in October. Throughout the work the band called it Melody Attack, a title taken from a Japanese game show.</p>
+    <p>Compass Point had been built in 1977 by the Island Records founder Chris Blackwell as a secluded recording community, staffed by in-house engineers and the so-called Compass Point All Stars (Sly Dunbar, Robbie Shakespeare, Wally Badarou, and others). Talking Heads had cut More Songs About Buildings and Food there in 1978, and Frantz and Weymouth now owned an apartment above it. Byrne joined the other three in Nassau early in 1980. Eno, initially reluctant to work with the band again, arrived about three weeks later and changed his mind after hearing the instrumental demos.</p>
+    <p>The method reversed the band's normal order of work. Instead of writing music to fit Byrne's lyrics, the band performed extended instrumental jams using "I Zimbra" as the foundation. They recorded the jams, isolated the best passages, then learned to play those passages over and over as loops. Each section was captured as a long loop, so that compositions could be assembled by positioning and merging loops. The basic tracks were almost entirely about rhythm, and most were played over a single chord. Byrne later put it plainly: "Most of the tracks on Remain In Light were based around jams. We'd listen to the tapes, isolate the best bits, then learn how to play them over and over again. It was exactly what producers do these days with loops and samplers and sequencers. We were human samplers!" Frantz described the goal as a "rhythm bed," "something to be expanded upon later," in pursuit of "a transcendent feeling, something that people could dance to." Eno's Oblique Strategies cards were in play throughout. Frantz recalled drawing cards with instructions like "Don't care about what other people think."</p>
+    <h3 class="sub">Turbulence at the board</h3>
+    <p>Eno's fast pace caused friction in the control room. After a few sessions at Compass Point, the engineer Rhett Davies left following an argument with Eno over how quickly they were working. The young Jamaican in-house engineer Steven Stanley stepped in, and Frantz credited Stanley with helping to create "Once in a Lifetime." The engineer Dave Jerden, who obtained one of the first Lexicon 224 digital reverb units used anywhere on the record, was also unhappy with the pace but kept it to himself. There was at least one no-show: by Frantz's account, the band had arranged to record with Lee "Scratch" Perry at Compass Point, and Perry simply never turned up.</p>
+    <h3 class="sub">The lyrics that would not come</h3>
+    <p>The finished instrumental tracks forced Byrne to rethink how he sang. His first attempts to sing over them came out "stilted," so very few vocals were cut in the Bahamas. Back in the United States he hit a wall of writer's block. His way through was the same one Eno favored: he bounced rough mixes to cassette and improvised over them on a portable recorder, building onomatopoeic, scatted, stream-of-consciousness vocal lines, then played them back again and again until, as he described it, he was no longer hearing nonsense and could hear words. Eno's underlying conviction was that lyrics were never the true center of a song's meaning. Harrison, meanwhile, had booked the band into Sigma Sound, primarily an R&amp;B room, after persuading the owners that the band would bring them new clientele. With real doubt in the air about whether the album would even be finished, the decision to bring in the guitarist Adrian Belew, at the request of Byrne, Harrison, and Eno, broke the logjam.</p>
+    <h3 class="sub">The guests who made it</h3>
+    <p><strong>Adrian Belew (guitar).</strong> Belew, who had played with Frank Zappa and on Bowie's Lodger, was brought in to add solos to the Compass Point tracks using a stack of effects and a Roland guitar synthesizer. Famously, in his own words, "all of my parts were done in one day." He recalled the brief: "They basically said, 'Go into the studio and wait around till you think there should be a guitar solo.' I played and I could see everybody all excited in the control room. So I thought, what the heck? I'll play a second one." He confirmed that he played on "Crosseyed and Painless," "The Great Curve," "Listening Wind," and "The Overload," and corrected a long-running myth: he did not play on "Once in a Lifetime," and he did not play the famous wild solo on "Born Under Punches." That sound was Byrne working a Lexicon Prime Time digital delay. On "The Great Curve," Belew played a battered Stratocaster through a Roland Jazz Chorus 120 with an Electro-Harmonix Big Muff, an Alembic Strat-o-Blaster preamp, an EQ, and an Electro-Harmonix Electric Mistress flanger. Harrison called the result "one of Adrian's finest solos on any record." Belew did not yet own the Roland GR-300 guitar synthesizer at the time of these sessions; he acquired one soon afterward on the band's tour of Japan. His signature animal-noise technique, later heard on King Crimson's "Elephant Talk" and Tom Tom Club's "Genius of Love," grew out of a desire to make the guitar sound like things it should not be able to sound like.</p>
+    <div class="pq">
+      <blockquote>"All of my parts were done in one day."</blockquote>
+      <cite>Adrian Belew, guitarist</cite>
+    </div>
+    <p><strong>Jon Hassell (trumpet and horns).</strong> Hassell, the "Fourth World" trumpeter who had collaborated with Eno on Fourth World, Vol. 1: Possible Musics in 1980 and on Bush of Ghosts, played the haunting, treated brass on "Houses in Motion." Eno had seen him perform at the Kitchen in New York around the time the sessions began. Hassell later spoke warmly of Eno and more coolly of Byrne, and found Bush of Ghosts "too poppy" for his taste.</p>
+    <p><strong>Nona Hendryx (backing vocals).</strong> The former Labelle singer was invited to Sigma Sound on Harrison's advice, since he had produced an album for her. She was coached extensively by Byrne, Frantz, and Weymouth, and often sang in a trio with Byrne and Eno.</p>
+    <p><strong>Robert Palmer and Jos&eacute; Rossy (percussion).</strong> Palmer, who had just recorded his own album Clues at Compass Point, added percussion, appearing courtesy of Island Records. Rossy added more. All four band members layered percussion on top as well, thickening the rhythm beds that the whole record is built on.</p>
+  </section>
+
+  <div class="pq-dark italic bleed scanlines">
+    <div class="wrap">
+      <span class="mark">The Method</span>
+      <blockquote>"It was exactly what producers do these days with loops and samplers and sequencers. We were human samplers."</blockquote>
+      <cite>David Byrne</cite>
+    </div>
+  </div>
+
+  <section class="sec" id="s06">
+    <header class="sechead">
+      <span class="idx">&sect; 06</span>
+      <h2>Track by Track</h2>
+      <p class="dek">The original LP split across two faces. Side one is the engine room. Side two turns inward.</p>
+    </header>
+    <div class="side-label">Side One &middot; The Polyrhythmic Suite</div>
+    <div class="track">
+      <div class="tn">01</div>
+      <div>
+        <h4><span>Born Under Punches (The Heat Goes On)</span><span class="time">5:46</span></h4>
+        <p>The opener establishes the album's jungle of interlocking guitar and keyboard lines. The title phrase, "and the heat goes on," came from a New York Post headline Eno read in the summer of 1980, and Byrne reworked his own debut-album lyric "Don't Worry About the Government" into the new line "Look at the hands of a government man." The wild, unorthodox solo, misattributed to Belew for decades, is in fact Byrne manipulating a Lexicon Prime Time digital delay.</p>
+      </div>
+    </div>
+    <div class="track">
+      <div class="tn">02</div>
+      <div>
+        <h4><span>Crosseyed and Painless</span><span class="time">4:48</span></h4>
+        <p>A portrait of a paranoid, alienated city man. The rhythmical rant that begins "Facts are simple and facts are straight" was shaped by early hip-hop, specifically Kurtis Blow's "The Breaks," a record Frantz handed to Byrne. Belew plays guitar.</p>
+      </div>
+    </div>
+    <div class="track">
+      <div class="tn">03</div>
+      <div>
+        <h4><span>The Great Curve</span><span class="time">6:28</span></h4>
+        <p>The album's African thesis stated outright: "The world moves on a woman's hips," lifted from Robert Farris Thompson. It carries two extended Belew solos, among the first he played during his single day in the studio, and the one Harrison singled out as among Belew's finest on any record.</p>
+      </div>
+    </div>
+    <div class="side-label">Side Two &middot; The Inward Turn</div>
+    <div class="track">
+      <div class="tn">04</div>
+      <div>
+        <h4><span>Once in a Lifetime</span><span class="time">4:19</span></h4>
+        <p>Built on two riffs and first labeled "Weird Guitar Riff Song." Eno alternated eight bars of one riff with eight of the other, deconstructing the jam in the manner of Miles Davis's producer Teo Macero and the German band Can; the original jam survives as the bonus track "Right Start." Weymouth, encouraged by Frantz, wrote the bassline, which she described as "a really dumb bass part, but I had to leave lots of space for the cacophony." She and Eno clashed over it, since he wanted her to drop the downbeat and even re-recorded her bass himself, but the engineer restored her groove after Eno left the room. Eno later admitted he had "misheard the riff," counting the downbeat differently from the band, which gave the song what he called "two centres of gravity," and he supplied the wordless chorus melody. Byrne wrote the verses in the call-and-response cadence of a radio preacher. The band nearly abandoned the song; Byrne insisted he could pull it together, and Eno's chorus melody clinched it. Harrison added the burbling synthesizer and a doomy organ part that drew on the riff from the Velvet Underground's "What Goes On."</p>
+      </div>
+    </div>
+    <div class="track">
+      <div class="tn">05</div>
+      <div>
+        <h4><span>Houses in Motion</span><span class="time">4:31</span></h4>
+        <p>Carried by Jon Hassell's ghostly, treated trumpet. Byrne remixed it with Eno at Compass Point. The song is credited to Byrne, Eno, and Harrison.</p>
+      </div>
+    </div>
+    <div class="track">
+      <div class="tn">06</div>
+      <div>
+        <h4><span>Seen and Not Seen</span><span class="time">3:23</span></h4>
+        <p>A cool, eerie spoken-word piece about a man trying to reshape his own face through sheer will, gradually conforming his features to an ideal he has assembled from other people. The most overtly conceptual moment on the record.</p>
+      </div>
+    </div>
+    <div class="track">
+      <div class="tn">07</div>
+      <div>
+        <h4><span>Listening Wind</span><span class="time">4:42</span></h4>
+        <p>Arabic-music colorings and Belew's textural guitar, played through an Electric Mistress with delay and volume swells. The lyric sympathetically inhabits the mind of an anti-American bomber driven by resentment of US influence. Byrne later said the song reflected his attempt to understand why America is not universally loved, a strikingly prescient subject for 1980.</p>
+      </div>
+    </div>
+    <div class="track">
+      <div class="tn">08</div>
+      <div>
+        <h4><span>The Overload</span><span class="time">6:00</span></h4>
+        <p>The closer, with tribal and industrial beats built mostly by Harrison and Byrne, topped by Belew's growling guitar atmospherics. It was reportedly the band's attempt to evoke Joy Division, a group they knew only by written description rather than by ear. Belew remembered the part as "so improvised."</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="s07">
+    <header class="sechead">
+      <span class="idx">&sect; 07</span>
+      <h2>The Board and the Sleeve</h2>
+      <p class="dek">Full credits at every level, and the story of one of the first computer-generated album covers.</p>
+    </header>
+    <p>None of the songs on Remain in Light use conventional chord changes. The harmony and counter-melody sit over pedal points, which is part of why the record feels both static and constantly in motion. The sound was assembled on MCI machines and consoles at Compass Point and on an API console at Sigma Sound, layered with synthesizers including a Prophet-5, a Minimoog, and Eno's EMS Synthi, and treated with one of the first Lexicon 224 digital reverbs and a Lexicon Prime Time delay. The studio itself was the instrument.</p>
+    <div class="sleeve scanlines">
+      <h3>Credits</h3>
+      <p class="sub-note">As documented on the album and in first-person interviews. Later pressings restored full songwriting credit to all four band members plus Eno.</p>
+      <div class="grid">
+        <div class="grp"><div class="gk">Producer</div><div class="gv">Brian Eno and Talking Heads</div></div>
+        <div class="grp"><div class="gk">Recorded at</div><div class="gv">Compass Point Studios, Nassau (basic tracks); Sigma Sound Studios, New York (vocals and additional tracks)</div></div>
+        <div class="grp"><div class="gk">Engineers</div><div class="gv">Rhett Davies (early Compass Point, departed); Steven Stanley (Compass Point, in-house); Dave Jerden; John Potoker (Sigma Sound)</div></div>
+        <div class="grp"><div class="gk">Mixing</div><div class="gv">Sigma Sound, New York (Eno, Potoker, Harrison) and Eldorado Studios, Los Angeles (Byrne, Jerden), August 1980</div></div>
+        <div class="grp"><div class="gk">Mastering</div><div class="gv">Greg Calbi, Sterling Sound, New York</div></div>
+        <div class="grp"><div class="gk">Band</div><div class="gv">David Byrne (vocals, guitar, bass, synth, percussion); Tina Weymouth (bass, percussion, vocals); Chris Frantz (drums, percussion, vocals); Jerry Harrison (keyboards, guitar, backing vocals)</div></div>
+        <div class="grp"><div class="gk">With</div><div class="gv">Brian Eno (synths, bass, percussion, vocals, treatments); Adrian Belew (lead guitar); Jon Hassell (trumpet and horns on "Houses in Motion"); Nona Hendryx (backing vocals); Robert Palmer (percussion, courtesy of Island Records); Jos&eacute; Rossy (percussion)</div></div>
+        <div class="grp"><div class="gk">Art and design</div><div class="gv">Concept by Weymouth and Frantz with MIT's Architecture Machine Group (Walter Bender, Scott Fisher); design by Tibor Kalman and M&amp;Co.; wordmark with inverted A's</div></div>
+        <div class="grp"><div class="gk">Label</div><div class="gv">Sire Records (Seymour Stein), distributed by Warner Bros. and Warner Communications</div></div>
+      </div>
+    </div>
+    <h3 class="sub">A cover made by computer</h3>
+    <p>The sleeve is one of the first computer-manipulated record jackets in pop. Weymouth and Frantz conceived the artwork with MIT's Architecture Machine Group, the precursor to the Media Lab, working with the researcher Walter Bender and his colleague Scott Fisher. Because the work was unofficial, the MIT contributors signed it with code-name initials, which is why the design credits read as a string of cryptic letters with "C/T" standing in for Chris and Tina. The front cover shows the four members' faces blanked out by blocks of red, inspired by a shared fascination with masks. The back shows red Grumman Avenger warplanes flying over the Himalayas, a tribute to Weymouth's father, the US Navy admiral Ralph Weymouth. That warplane image was originally meant to be the front cover, under the working title Melody Attack; when the band decided the title was too flippant and renamed the record Remain in Light, the front and back were swapped. Tibor Kalman and his firm M&amp;Co. handled the rest of the artwork and the liner notes, and devised the bold wordmark with its A's turned upside down. Weymouth had at one point considered superimposing Eno's face over all four portraits, to gently mock his wish to appear on the cover, and decided against it. The finished sleeve now sits in the collections of the Museum of Modern Art and the Smithsonian.</p>
+  </section>
+
+  <section class="sec" id="s08">
+    <header class="sechead">
+      <span class="idx">&sect; 08</span>
+      <h2>The Credit That Broke the Band</h2>
+      <p class="dek">An agreement made, an agreement quietly altered, and a wound that never fully closed.</p>
+    </header>
+    <p>Once the album was finished, the band had to settle the songwriting splits. Eno had wanted the record billed as Remain in Light by Talking Heads and Brian Eno, and was talked out of it. The four members and Eno then agreed, after failing to devise any precise formula, to credit every song alphabetically to David Byrne, Brian Eno, Chris Frantz, Jerry Harrison, and Tina Weymouth, and the final artwork was signed off on that basis.</p>
+    <p>When advance copies began to circulate, the credits had been changed. They now read that all songs were written by David Byrne and Brian Eno, with only "Houses in Motion" and "The Overload" crediting Byrne, Eno, and Harrison. According to Weymouth, Byrne had instructed Tibor Kalman to doctor the credits on Eno's advice. Frantz, Harrison, and Weymouth disputed the change, all the more bitterly because they had partly funded the recording themselves. In Remain in Love, Frantz recalled that he and Weymouth felt very burned, and that at Sigma it had seemed as if Byrne and Eno thought of them as sidemen who were no longer useful. Weymouth framed her earlier fight over the "Once in a Lifetime" bassline the same way: it was, she said, only a musical dispute at the time, and it "only got heavy again when it was all finished, when we found out that they wanted to co-opt the songwriting credits for the album."</p>
+    <p>Eno has been the most forthcoming about his own role. In a 1981 interview with David Breskin for Musician, he described how, as producer, he had personally devised the formula for splitting royalties. "Traditionally, a song consists of lyrics, melody and arrangement," he explained, "but that didn't reflect the reality of this record," so he drew up a list of what he considered the real factors in making it, weighting melody, lyrics, and the project's conceptual direction, while insisting that the result was, in the case of Talking Heads, "clearly a group thing."</p>
+    <p>Byrne has said much less about the dispute itself. To the Library of Congress in 2017 he framed the process as collective, with the musicians taking turns adding and layering, and called Eno a fifth band member on the record. In retrospective interviews around 2023 he acknowledged having been "more of a little tyrant" in his younger years and expressed general regret about how the band's conflicts were handled, without specifically re-litigating the credits.</p>
+    <p>Later editions of the album restored full songwriting credit to all four members plus Eno. The episode is widely seen as the wound from which the band never fully recovered. Within a couple of years the members had scattered into separate projects: Weymouth and Frantz launched Tom Tom Club and its hit "Genius of Love," Harrison released his solo debut The Red and the Black, and Byrne and Eno put out Bush of Ghosts.</p>
+  </section>
+
+  <div class="pq-dark bold bleed scanlines">
+    <div class="wrap">
+      <span class="mark">Aftermath</span>
+      <blockquote>"It only got heavy when it was all finished, when we found out that they wanted to co-opt the songwriting credits for the album."</blockquote>
+      <cite>Tina Weymouth</cite>
+    </div>
+  </div>
+
+  <section class="sec" id="s09">
+    <header class="sechead">
+      <span class="idx">&sect; 09</span>
+      <h2>Out into the World</h2>
+      <p class="dek">A modest chart run, a slow-burning single, and a video that taught a generation how David Byrne moved.</p>
+    </header>
+    <p>Remain in Light was released worldwide on 8 October 1980 and aired in full on the radio station WDFM two days later. It reached No. 19 on the US Billboard 200 and No. 21 on the UK Albums Chart. It was certified gold in Canada in February 1981 and by the RIAA in September 1985, and has sold more than a million copies worldwide.</p>
+    <p>The lead single was "Once in a Lifetime" in January 1981, followed by "Houses in Motion" in May. Other territories got their own choices: "The Great Curve" in France, "Crosseyed and Painless" in Germany, "Born Under Punches" in Japan. "Once in a Lifetime" underperformed at first in the United States, only bubbling under the Hot 100 at No. 103, but reached No. 14 in the UK. It became a signature song through heavy MTV rotation, and was certified platinum in the UK in 2023. A live version from Stop Making Sense reached No. 91 on the Hot 100 in 1986.</p>
+    <h3 class="sub">The video</h3>
+    <p>Directed by David Byrne and the choreographer Toni Basil, who also made the band's "Crosseyed and Painless" clip, the "Once in a Lifetime" video was shot on a tiny budget at a Los Angeles soundstage. Byrne's jerky, spasmodic, marionette-like movements came out of study: he spent time at the UCLA film archive watching footage of religious ecstasy, trances, preachers and evangelists such as Ernest Angley, African ritual, and Japanese sects, and Basil also showed him footage of people having epileptic seizures. Basil has said that Byrne essentially choreographed himself; she set up the camera, left the room, and used an old-fashioned zoom lens to exaggerate his movements. The video became an early MTV staple, was exhibited at the Museum of Modern Art, and has been parodied by everyone from "Weird Al" Yankovic to Kermit the Frog.</p>
+    <h3 class="sub">Reception</h3>
+    <p>The reviews were close to unanimous. Ken Tucker, in Rolling Stone, called the album brave and absorbing and concluded that it yielded "scary, funny music to which you can dance and think." Robert Christgau, in his 1980 Pazz &amp; Jop essay, wrote that Byrne "conquers his fear of music in a visionary cross-cultural synthesis, clear-eyed and rather detached yet almost mystically optimistic." John Rockwell of the New York Times said it confirmed Talking Heads as "America's most venturesome rock band." It was named the best album of 1980 by both Sounds and Melody Maker. In the 1980 Village Voice Pazz &amp; Jop critics' poll it placed third, with 863 points from 77 voters, behind the Clash's London Calling (1,347 points) and Bruce Springsteen's The River (973), and Christgau ranked it second on his own personal list, behind London Calling.</p>
+  </section>
+
+  <section class="sec" id="s10">
+    <header class="sechead">
+      <span class="idx">&sect; 10</span>
+      <h2>Afterlife</h2>
+      <p class="dek">From a respectable 1980 chart placing to a permanent fixture near the top of the canon.</p>
+    </header>
+    <p>The album's reputation has only grown. Rolling Stone named it the fourth-best album of the 1980s in 1989. Pitchfork placed it second on its Top 100 Albums of the 1980s in 2002, and later gave it a perfect 10. In the 2020 revision of Rolling Stone's 500 Greatest Albums of All Time it sat at No. 39, the highest-placed of four Talking Heads entries. It appears on greatest-albums lists from NME, The Guardian, VH1, Q, and Slant, among others.</p>
+    <p>Its influence runs deep into later music. Radiohead cited it as a major influence on Kid A, and Jonny Greenwood was surprised to learn that the parts had been played repetitively by hand rather than looped electronically. In 2017 the Library of Congress added it to the National Recording Registry. In 2018 the Beninese singer Ang&eacute;lique Kidjo released a full song-for-song cover of the album, re-emphasizing the African roots that the band had taken the long way round to reach.</p>
+  </section>
+
+  <section class="sec" id="s11">
+    <header class="sechead">
+      <span class="idx">&sect; 11</span>
+      <h2>The Nine-Piece</h2>
+      <p class="dek">The album was unplayable by four people, so the band became a double quartet, and briefly one of the great live acts of its era.</p>
+    </header>
+    <p>Eno advised that the dense music could not be reproduced by four players, so the band expanded to nine, with Harrison recruiting the additional musicians. Adrian Belew took lead guitar. Bernie Worrell of Parliament-Funkadelic, a conservatory- and Juilliard-trained musician, joined on keyboards. Busta "Cherry" Jones played second bass, Steve Scales of Ashford &amp; Simpson handled percussion, and Dolette McDonald sang backing vocals. Nona Hendryx and Jos&eacute; Rossy also featured. The result was effectively a double quartet, with two guitarists, two keyboardists, two bassists, and two drummers and percussionists, with the rhythms anchored by Worrell. The larger group rehearsed in Frantz and Weymouth's loft.</p>
+    <p>The expanded band made its debut on 23 August 1980 at the Heatwave festival at Mosport Park in Bowmanville, Ontario. Attendance figures vary by source, with festival accounts citing roughly 85,000 paid swelling toward 100,000, and the band's own literature often citing a figure near 70,000 for their set. The Los Angeles Times critic Robert Hilburn praised the band's "rock-funk sound with dramatic, near show-stopping force." On 27 August they played a showcase at Central Park's Wollman Rink, with 8,000 inside and perhaps 10,000 more on the grass outside. Only the two shows had been planned, but Sire backed an extended tour. The 1980 Rome concert, broadcast on Italian television, is widely cited as a career peak. The tour is documented on the live double album The Name of This Band Is Talking Heads, released in 1982.</p>
+    <p>After the tour the band went on hiatus for several years. This expanded, polyrhythmic, multi-vocalist format fed directly into the band's commercial peak and the Stop Making Sense era of 1983 and 1984, though the personnel shifted along the way, with the guitarist Alex Weir and the singers Lynn Mabry and Edna Holt coming in. Worrell stayed, and the live language invented for Remain in Light became the template for the most celebrated concert film in rock.</p>
+  </section>
+
+  <section class="sec" id="s12">
+    <header class="sechead">
+      <span class="idx">&sect; 12</span>
+      <h2>Why It Endures</h2>
+      <p class="dek">A record that sits at the crossing of half a dozen genres, and the paradox at the center of it.</p>
+    </header>
+    <p>Remain in Light sits at the intersection of post-punk, new wave, art rock, funk, and worldbeat, and it is routinely cited as the moment American art rock fully absorbed African polyrhythm and funk. Its production innovations have proven durable far beyond the band: loop-based composition assembled from live jams, single-chord pedal-point structures, dense multitrack layering, found-text and preacher-cadence lyrics, and one of the first computer-designed album covers. The line of influence runs through Radiohead and LCD Soundsystem and into a great deal of what followed.</p>
+    <p>The paradox at its center is what keeps it alive. A record of this much joy and coherence came out of a band that was coming apart over ego and credit. It is at once Talking Heads' creative summit and the beginning of their long unraveling, and you can hear both things in it: four people, plus a fifth, locking into a groove so tight that no single one of them could claim it, which turned out to be exactly the problem.</p>
+    <div class="pq">
+      <blockquote>"We didn't get it quite right, but in missing, we ended up with something new."</blockquote>
+      <cite>David Byrne, Library of Congress, 2017</cite>
+    </div>
+  </section>
+
+  <div class="note">
+    <span class="tag">Caveats and Attribution Myths</span>
+    <h3>Read these alongside the text</h3>
+    <ul>
+      <li><strong>Conflicting accounts.</strong> The members' memories genuinely diverge in tone and detail. Those divergences are shown here, not resolved. Frantz's memoir is openly partisan toward the rhythm section, and Byrne has commented far less directly on the disputes.</li>
+      <li><strong>The "Born Under Punches" solo.</strong> It is commonly credited to Adrian Belew. By Belew's own account the wild solo is David Byrne working a Lexicon Prime Time delay, and Belew did not play on "Once in a Lifetime" at all.</li>
+      <li><strong>Sigma Sound.</strong> The overdubs and vocals were done at the New York Sigma Sound, not the more famous Philadelphia studio of the same name, a point several secondary sources get wrong.</li>
+      <li><strong>Robert Fripp.</strong> Fripp played on Fear of Music's "I Zimbra," not on Remain in Light. The two are easy to confuse because "I Zimbra" set the template.</li>
+      <li><strong>Figures.</strong> The Heatwave attendance is reported inconsistently. Gear specifics are drawn from interviews and documented equipment and should be read as well supported but not exhaustively audited. Chart and sales numbers follow RIAA and CRIA certifications and contemporary charts, and the "over a million worldwide" figure is widely reported rather than precisely audited.</li>
+    </ul>
+  </div>
+
+  <section class="sec" id="appendix">
+    <header class="sechead">
+      <span class="idx">&sect; A</span>
+      <h2>Timeline &amp; Sources</h2>
+      <p class="dek">A chronological spine, and the published record this document is built from.</p>
+    </header>
+    <h3 class="sub">Timeline</h3>
+    <div class="timeline">
+      <div class="tl"><div class="y">1973</div><div class="e">Byrne and Frantz meet at the Rhode Island School of Design and form the Artistics.</div></div>
+      <div class="tl"><div class="y">1974&ndash;75</div><div class="e">The trio relocates to New York. Weymouth learns the bass.</div></div>
+      <div class="tl"><div class="y">1975</div><div class="e">First gig as Talking Heads, opening for the Ramones at CBGB, 5 June.</div></div>
+      <div class="tl"><div class="y">1977</div><div class="e">Harrison joins; Frantz and Weymouth marry; Talking Heads: 77 released.</div></div>
+      <div class="tl"><div class="y">1978</div><div class="e">More Songs About Buildings and Food, the first Eno collaboration; "Take Me to the River" hits the US Top 30.</div></div>
+      <div class="tl"><div class="y">1979</div><div class="e">Fear of Music; "I Zimbra" points the way toward Afro-funk.</div></div>
+      <div class="tl"><div class="y">early 1980</div><div class="e">The band regroups in Nassau; Eno is talked back into the project.</div></div>
+      <div class="tl"><div class="y">July 1980</div><div class="e">Basic tracks recorded at Compass Point.</div></div>
+      <div class="tl"><div class="y">Aug 1980</div><div class="e">Overdubs and vocals at Sigma Sound; mixing; live debut at the Heatwave festival, 23 August.</div></div>
+      <div class="tl"><div class="y">8 Oct 1980</div><div class="e">Remain in Light released.</div></div>
+      <div class="tl"><div class="y">Jan 1981</div><div class="e">"Once in a Lifetime" single; My Life in the Bush of Ghosts follows in February.</div></div>
+      <div class="tl"><div class="y">1982</div><div class="e">The Name of This Band Is Talking Heads documents the expanded live group.</div></div>
+      <div class="tl"><div class="y">2017</div><div class="e">Added to the Library of Congress National Recording Registry.</div></div>
+      <div class="tl"><div class="y">2018</div><div class="e">Ang&eacute;lique Kidjo releases a full song-for-song cover.</div></div>
+    </div>
+    <h3 class="sub">Sources and further reading</h3>
+    <ul class="refs">
+      <li>This Must Be the Place: The Adventures of Talking Heads in the 20th Century, David Bowman, 2001. <span class="src">Standard narrative biography</span></li>
+      <li>Remain in Love: Talking Heads, Tom Tom Club, Tina, Chris Frantz, 2020. <span class="src">Rhythm section's first-person account</span></li>
+      <li>How Music Works, David Byrne, 2012. <span class="src">Byrne on process and method</span></li>
+      <li>"The Making of Once in a Lifetime," Uncut. <span class="src">Cross-member oral history</span></li>
+      <li>National Recording Registry essay and Byrne interview, Library of Congress, 2017. <span class="src">Primary statement on the concept</span></li>
+      <li>Adrian Belew and Jerry Harrison interviews, Guitar Player and Guitar World. <span class="src">First-person on the guitar parts and gear</span></li>
+      <li>Brian Eno interview, David Breskin, Musician, 1981. <span class="src">Eno's own royalty-split rationale</span></li>
+      <li>Ken Tucker review and the 500 Greatest Albums lists, Rolling Stone. <span class="src">Contemporary and retrospective criticism</span></li>
+      <li>Consumer Guide and Pazz &amp; Jop, Robert Christgau, 1980. <span class="src">Contemporary criticism and poll context</span></li>
+      <li>African Rhythm and African Sensibility, John Miller Chernoff, 1979; African Art in Motion, Robert Farris Thompson, 1974. <span class="src">The lyrical and conceptual reading list</span></li>
+      <li>On Some Faraway Beach: The Life and Times of Brian Eno, David Sheppard. <span class="src">Further reading on Eno</span></li>
+    </ul>
+  </section>
+
+</main>
+
+<footer class="colophon scanlines">
+  <div class="wrap">
+    <div class="faces" aria-hidden="true">
+      <div class="face"></div><div class="face"></div><div class="face"></div><div class="face"></div>
+    </div>
+    <p class="big">Remain in Light &middot; A Listener's Reference</p>
+    <p>A reading reference compiled from public interviews, memoirs, and archival sources. Where the people who made the record remember it differently, both versions are kept. The visual treatment nods to the album's own art direction, the red blocks masking four faces and the wordmark with its A's turned upside down, without reproducing the original sleeve.</p>
+    <p>Set in Archivo, Newsreader, and Space Mono. Built to be read on screen and to print cleanly to PDF.</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nitrate: 60 Films Before Color, and the Directors They Built</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;0,6..96,900;1,6..96,400;1,6..96,700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#101010;
+  --bg-2:#171717;
+  --silver:#d9d7d0;
+  --dim:#8d8b84;
+  --line:#2a2a2a;
+  --flame:#c96f2f; /* nitrate flame, used sparingly */
+  --white:#f2efe6; /* projector beam */
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--bg);
+  color:var(--silver);
+  font-family:'Literata',Georgia,serif;
+  font-size:16.5px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+body::after{
+  content:"";
+  position:fixed;inset:0;pointer-events:none;z-index:9;opacity:.06;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2'/%3E%3C/filter%3E%3Crect width='150' height='150' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.wrap{max-width:840px;margin:0 auto;padding:0 22px}
+
+/* ---------- MASTHEAD ---------- */
+header{padding:66px 0 42px;border-bottom:1px solid var(--silver);text-align:center}
+.reel-mark{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11.5px;letter-spacing:.34em;text-transform:uppercase;
+  color:var(--dim);margin-bottom:26px;
+}
+h1{
+  font-family:'Bodoni Moda',serif;
+  font-weight:900;
+  font-size:clamp(58px,12vw,132px);
+  line-height:.95;
+  color:var(--white);
+  letter-spacing:.01em;
+}
+h1 em{font-style:italic;font-weight:400}
+.rule-line{
+  width:80px;height:2px;background:var(--flame);
+  margin:26px auto;
+}
+.deck{
+  max-width:640px;margin:0 auto;
+  font-size:18px;color:var(--dim);
+  font-style:italic;
+}
+.deck strong{color:var(--silver);font-style:normal}
+.legend{
+  margin-top:30px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--dim);
+  display:flex;justify-content:center;flex-wrap:wrap;gap:8px 22px;
+}
+.legend b{color:var(--white);font-weight:600}
+
+/* ---------- SECTIONS ---------- */
+section{padding:56px 0 6px}
+.sec-head{text-align:center;margin-bottom:8px}
+.sec-head .rn{
+  font-family:'Bodoni Moda',serif;
+  font-style:italic;
+  font-size:16px;
+  color:var(--flame);
+  letter-spacing:.2em;
+}
+.sec-head h2{
+  font-family:'Bodoni Moda',serif;
+  font-weight:700;
+  font-size:clamp(28px,5.5vw,44px);
+  color:var(--white);
+  line-height:1.05;
+  margin-top:6px;
+}
+.sec-head .sc{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--dim);margin-top:10px;
+}
+.sec-head::after{
+  content:"";display:block;width:44px;height:1px;background:var(--silver);
+  margin:18px auto 0;opacity:.5;
+}
+
+/* ---------- FILM ENTRIES ---------- */
+.film{
+  padding:28px 0 26px;
+  border-bottom:1px solid var(--line);
+  display:grid;
+  grid-template-columns:70px 1fr;
+  gap:20px;
+}
+.film:last-child{border-bottom:none}
+.film .no{
+  font-family:'Bodoni Moda',serif;
+  font-weight:400;font-style:italic;
+  font-size:36px;
+  color:var(--dim);
+  line-height:1;
+  padding-top:4px;
+  text-align:right;
+}
+.film h3{
+  font-family:'Bodoni Moda',serif;
+  font-weight:700;
+  font-size:clamp(21px,3.6vw,27px);
+  color:var(--white);
+  line-height:1.1;
+}
+.film .meta{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--dim);
+  margin:7px 0 11px;
+}
+.film p{color:var(--dim);max-width:630px;font-size:16px}
+.film p em{color:var(--silver)}
+.lineage{
+  margin-top:11px;
+  font-size:15px;
+  color:var(--silver);
+  max-width:630px;
+  border-left:2px solid var(--flame);
+  padding-left:14px;
+}
+.lineage b{
+  font-family:'IBM Plex Mono',monospace;
+  font-weight:600;font-size:11px;letter-spacing:.16em;
+  color:var(--flame);
+  display:block;margin-bottom:3px;
+}
+.heirs{margin-top:12px;display:flex;flex-wrap:wrap;gap:7px}
+.heir{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10.5px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;
+  padding:4px 10px;
+  border:1px solid var(--dim);
+  border-radius:20px;
+  color:var(--silver);
+}
+.heir.hot{border-color:var(--white);color:var(--white)}
+@media(max-width:560px){
+  .film{grid-template-columns:1fr;gap:8px}
+  .film .no{text-align:left;font-size:26px}
+}
+
+/* ---------- OUTRO ---------- */
+.outro{padding:54px 0 24px;border-top:1px solid var(--silver);margin-top:48px}
+.outro h2{
+  font-family:'Bodoni Moda',serif;font-style:italic;font-weight:400;
+  font-size:24px;color:var(--white);margin-bottom:14px;
+}
+.outro p{color:var(--dim);max-width:680px;margin-bottom:14px;font-size:15.5px}
+.outro p strong{color:var(--silver)}
+footer{
+  margin-top:34px;padding:24px 0 64px;
+  border-top:1px solid var(--line);
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--dim);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+}
+:focus-visible{outline:2px solid var(--flame);outline-offset:2px}
+</style>
+</head>
+<body>
+<style>
+@keyframes htcur{0%,24.9%{color:#D6291E}25%,49.9%{color:#F2C230}50%,74.9%{color:#D9541E}75%,100%{color:#FFF}}
+@keyframes htblk{0%,49%{opacity:1}50%,100%{opacity:0}}
+.htbar{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.09em;
+ padding:9px 16px;background:#0d0d10;color:#8a8a94;display:flex;gap:9px;align-items:center;
+ flex-wrap:wrap;line-height:1.5;border-bottom:1px solid #24242d}
+.htbar a{text-decoration:none}
+.htbar .htbadge{display:inline-block;background:#000;border:1px solid #33333d;color:#fff;
+ font-weight:700;padding:3px 7px;white-space:nowrap}
+.htbar .htbadge:hover{border-color:#d9541e}
+.htbar .htus{animation:htblk 1.06s steps(1,end) infinite, htcur 4.24s steps(1,end) infinite}
+.htbar .htwing{color:#c4566e}
+.htbar .htwing:hover{text-decoration:underline}
+.htbar .htsl{color:#3a3a44}
+@media(prefers-reduced-motion:reduce){.htbar .htus{animation:none;color:#d9541e}}
+</style>
+<div class="htbar">
+ <a class="htbadge" href="../../">HATCH TERMINAL<span class="htus">_</span></a>
+ <span class="htsl">/</span><a class="htwing" href="../">WET_FILM</a>
+</div>
+
+<div class="wrap">
+
+<header>
+  <div class="reel-mark">Silver halide &middot; 24 frames &middot; Handle with gloves</div>
+  <h1>Nitrate<em>.</em></h1>
+  <div class="rule-line"></div>
+  <p class="deck">Sixty films from before color conquered the screen, roughly 1920 to 1962, chosen for one thing: <strong>documented inheritance</strong>. Every entry names the directors who carried it forward, Scorsese, Carpenter, Lynch, Cameron, Cronenberg, Coppola, Lucas, Spielberg, del Toro, the Coens, and the evidence for the bloodline. The canon, filtered through who actually studied it.</p>
+  <div class="legend">
+    <span><b>LINEAGE</b> = the documented hand-off</span>
+    <span><b>Bright chip</b> = strongest heir</span>
+  </div>
+</header>
+
+<!-- ============ I. GERMAN EXPRESSIONISM ============ -->
+<section id="expressionism">
+  <div class="sec-head"><div class="rn">I</div><h2>German Expressionism &amp; Weimar</h2><div class="sc">Films 1-5 &middot; The shadow factory</div></div>
+
+  <article class="film"><div class="no">1</div><div>
+    <h3>The Cabinet of Dr. Caligari</h3>
+    <div class="meta">Robert Wiene &middot; 1920 &middot; Germany</div>
+    <p>A carnival hypnotist and his sleepwalking assassin stalk a town of painted shadows and impossible angles, with a frame story that invented the unreliable-narrator twist. Cinema's first full descent into a diseased mind's geometry.</p>
+    <div class="lineage"><b>Lineage</b>Ground zero for horror production design: Tim Burton's entire visual language descends from it by his own account, and every warped-set nightmare from Eraserhead's interiors onward answers to Caligari's painted world.</div>
+    <div class="heirs"><span class="heir hot">Burton</span><span class="heir">Lynch</span><span class="heir">Del Toro</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">2</div><div>
+    <h3>Nosferatu</h3>
+    <div class="meta">F.W. Murnau &middot; 1922 &middot; Germany</div>
+    <p>The unauthorized Dracula that a court ordered burned; a few prints survived and became legend. Max Schreck's Count Orlok is vermin, plague, and shadow on a staircase.</p>
+    <div class="lineage"><b>Lineage</b>Werner Herzog remade it outright in 1979, calling Murnau's the greatest film to come out of Germany. Coppola's Bram Stoker's Dracula lifts its shadow play directly, and Tobe Hooper's Salem's Lot rebuilt Orlok's face for its vampire.</div>
+    <div class="heirs"><span class="heir hot">Herzog</span><span class="heir">Coppola</span><span class="heir">Hooper</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">3</div><div>
+    <h3>Metropolis</h3>
+    <div class="meta">Fritz Lang &middot; 1927 &middot; Germany</div>
+    <p>A city of towers above, a city of machines below, and a false robot prophet between them. The most expensive silent film ever made, and the template for every screen dystopia since.</p>
+    <div class="lineage"><b>Lineage</b>Lucas modeled C-3PO on the Maschinenmensch. Ridley Scott's Blade Runner cityscape is Metropolis with rain and neon, a debt Scott has acknowledged, and Cameron's chrome-skeleton Terminator stands in the same machine-woman bloodline.</div>
+    <div class="heirs"><span class="heir hot">Lucas</span><span class="heir hot">R. Scott</span><span class="heir">Cameron</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">4</div><div>
+    <h3>Sunrise: A Song of Two Humans</h3>
+    <div class="meta">F.W. Murnau &middot; 1927 &middot; USA</div>
+    <p>A farmer is seduced into plotting his wife's drowning, and the film follows the couple's shattered day into the city and back. Murnau unchained the camera; it glides through swamps and tram windows like a spirit.</p>
+    <div class="lineage"><b>Lineage</b>The ancestor of every floating, dreaming camera move. It won the only "Unique and Artistic Picture" Oscar ever given, and it sits high on the Sight &amp; Sound directors' polls generation after generation; Charles Laughton screened Murnau while designing Night of the Hunter.</div>
+    <div class="heirs"><span class="heir hot">Laughton</span><span class="heir">Malick</span><span class="heir">Every Steadicam</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">5</div><div>
+    <h3>M</h3>
+    <div class="meta">Fritz Lang &middot; 1931 &middot; Germany</div>
+    <p>A child murderer (Peter Lorre, instantly immortal) is hunted by police and underworld alike, until the criminals put him on trial themselves. Lang's first sound film, and he used sound like a scalpel: the killer is identified by a whistled tune.</p>
+    <div class="lineage"><b>Lineage</b>The police procedural and the serial-killer film both start here, and the whistle is cinema's first sound-design leitmotif. The line from M runs through every manhunt picture since; critics trace Se7en and Zodiac's moral architecture straight back to it.</div>
+    <div class="heirs"><span class="heir hot">Fincher</span><span class="heir">Friedkin</span><span class="heir">Procedural DNA</span></div>
+  </div></article>
+</section>
+
+<!-- ============ II. SILENT MASTERS ============ -->
+<section id="silents">
+  <div class="sec-head"><div class="rn">II</div><h2>The Silent Masters</h2><div class="sc">Films 6-10 &middot; Grammar under construction</div></div>
+
+  <article class="film"><div class="no">6</div><div>
+    <h3>Battleship Potemkin</h3>
+    <div class="meta">Sergei Eisenstein &middot; 1925 &middot; USSR</div>
+    <p>A mutiny over maggoty meat becomes revolution, and a baby carriage bounces down the Odessa Steps through cinema's most imitated sequence. Eisenstein's montage theory, demonstrated at gunpoint.</p>
+    <div class="lineage"><b>Lineage</b>De Palma restaged the Odessa Steps as The Untouchables' station shootout, on purpose and on record. Every action editor who cuts for collision rather than continuity is working inside Eisenstein's argument.</div>
+    <div class="heirs"><span class="heir hot">De Palma</span><span class="heir">Action Editing Itself</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">7</div><div>
+    <h3>The General</h3>
+    <div class="meta">Buster Keaton &middot; 1926 &middot; USA</div>
+    <p>A Confederate engineer chases his stolen locomotive across enemy lines, performing lethal physics with a straight face. Contains the most expensive single shot of the silent era: a real train through a real collapsing bridge.</p>
+    <div class="lineage"><b>Lineage</b>The gold standard of practical spectacle. Jackie Chan built his career on Keaton's geometry by his own testimony, and George Miller described Fury Road as a silent film with sound, which is a Keaton sentence.</div>
+    <div class="heirs"><span class="heir hot">Chan</span><span class="heir">G. Miller</span><span class="heir">Practical Action</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">8</div><div>
+    <h3>Sherlock Jr.</h3>
+    <div class="meta">Buster Keaton &middot; 1924 &middot; USA</div>
+    <p>A projectionist falls asleep and walks into the movie he's screening, where the edits keep cutting the ground out from under him. Forty-five minutes containing a century of ideas about cinema and dreams.</p>
+    <div class="lineage"><b>Lineage</b>The screen-as-permeable-membrane conceit Woody Allen borrowed for The Purple Rose of Cairo, acknowledged, and that every film about watching films has drawn on since.</div>
+    <div class="heirs"><span class="heir hot">Allen</span><span class="heir">Meta-Cinema</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">9</div><div>
+    <h3>City Lights</h3>
+    <div class="meta">Charlie Chaplin &middot; 1931 &middot; USA</div>
+    <p>The Tramp lets a blind flower girl believe he's a millionaire, and pays for her sight with everything he has. The final close-up is routinely called the greatest ending ever filmed.</p>
+    <div class="lineage"><b>Lineage</b>Stanley Kubrick put it on his only published top-ten list in 1963. The ending's mechanism, recognition arriving as devastation, is the emotional engine filmmakers have been reverse-engineering ever since.</div>
+    <div class="heirs"><span class="heir hot">Kubrick's List</span><span class="heir">The Perfect Ending</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">10</div><div>
+    <h3>The Passion of Joan of Arc</h3>
+    <div class="meta">Carl Theodor Dreyer &middot; 1928 &middot; France</div>
+    <p>Joan's trial told almost entirely in faces, with Renée Falconetti giving what is widely held to be the greatest screen performance in history, in her only major film role.</p>
+    <div class="lineage"><b>Lineage</b>The proof that a human face is the largest landscape in cinema. Godard built a scene of Vivre sa vie around Anna Karina watching it and weeping, and every director who has ever held a close-up three beats too long is quoting Dreyer.</div>
+    <div class="heirs"><span class="heir hot">Godard</span><span class="heir">Bergman</span><span class="heir">The Close-Up</span></div>
+  </div></article>
+</section>
+
+<!-- ============ III. STUDIO-ERA HORROR ============ -->
+<section id="horror">
+  <div class="sec-head"><div class="rn">III</div><h2>Studio-Era Horror: Universal, Lewton, Browning</h2><div class="sc">Films 11-15 &middot; Monsters and suggestion</div></div>
+
+  <article class="film"><div class="no">11</div><div>
+    <h3>Frankenstein</h3>
+    <div class="meta">James Whale &middot; 1931 &middot; USA</div>
+    <p>Boris Karloff's creature, assembled from graves and lightning, reaches for sunlight through a skylight and is taught to fear fire. The monster movie's constitution, written in one film.</p>
+    <div class="lineage"><b>Lineage</b>Guillermo del Toro has called Frankenstein his defining myth and personal religion across two decades of interviews. Cameron has framed The Terminator as a Frankenstein story for the machine age, and Edward Scissorhands is Burton's open retelling.</div>
+    <div class="heirs"><span class="heir hot">Del Toro</span><span class="heir">Cameron</span><span class="heir">Burton</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">12</div><div>
+    <h3>Bride of Frankenstein</h3>
+    <div class="meta">James Whale &middot; 1935 &middot; USA</div>
+    <p>The sequel that outgrew the original: campier, sadder, stranger, with the creature learning speech from a blind hermit and the Bride's hiss ending everything in seconds. Whale smuggled wit and grief into a monster picture.</p>
+    <div class="lineage"><b>Lineage</b>Del Toro ranks it above the original and above nearly everything; its blend of the grotesque and the tender is the exact recipe of The Shape of Water. Gods and Monsters made Whale himself the subject.</div>
+    <div class="heirs"><span class="heir hot">Del Toro</span><span class="heir">Camp Gothic</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">13</div><div>
+    <h3>Freaks</h3>
+    <div class="meta">Tod Browning &middot; 1932 &middot; USA</div>
+    <p>Real sideshow performers close ranks against the beautiful trapeze artist who marries one of their own for money. Banned in Britain for three decades, career-ending for Browning, resurrected at Cannes in 1962 as a masterpiece.</p>
+    <div class="lineage"><b>Lineage</b>The "one of us" chant became a permanent cultural artifact, and the film's insistence that the deformed are the moral center anticipates The Elephant Man's whole ethic. Its rain-soaked finale still plays like a nightmare Lynch might have shot.</div>
+    <div class="heirs"><span class="heir hot">Lynch Ethic</span><span class="heir">Waters</span><span class="heir">Cult Object</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">14</div><div>
+    <h3>Cat People</h3>
+    <div class="meta">Jacques Tourneur &middot; 1942 &middot; USA</div>
+    <p>A Serbian bride believes desire will turn her into a panther, and producer Val Lewton proves the unseen is scarier than any costume. A swimming pool, shadows, and a sound: that's the whole horror set.</p>
+    <div class="lineage"><b>Lineage</b>Invented the false-scare beat still taught as "the Lewton Bus." Scorsese produced and narrated the documentary on Lewton, calling these B-pictures poetry; Carpenter's off-screen dread and Ridley Scott's unseen Alien both run on Lewton logic.</div>
+    <div class="heirs"><span class="heir hot">Scorsese</span><span class="heir">Carpenter</span><span class="heir">R. Scott</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">15</div><div>
+    <h3>I Walked with a Zombie</h3>
+    <div class="meta">Jacques Tourneur &middot; 1943 &middot; USA</div>
+    <p>Jane Eyre relocated to a Caribbean sugar plantation, where a nurse walks her catatonic patient through cane fields to a vodou ceremony. The most beautiful film ever made for a title that lurid.</p>
+    <div class="lineage"><b>Lineage</b>The centerpiece of the Lewton unit Scorsese has spent a career championing: horror as atmosphere, guilt, and history rather than shock. Its night-walk sequence is one of the most borrowed passages in the genre.</div>
+    <div class="heirs"><span class="heir hot">Scorsese</span><span class="heir">Atmospheric Horror</span></div>
+  </div></article>
+</section>
+
+<!-- ============ IV. FILM NOIR ============ -->
+<section id="noir">
+  <div class="sec-head"><div class="rn">IV</div><h2>Film Noir</h2><div class="sc">Films 16-23 &middot; The American nightmare, ten years early</div></div>
+
+  <article class="film"><div class="no">16</div><div>
+    <h3>Sunset Boulevard</h3>
+    <div class="meta">Billy Wilder &middot; 1950 &middot; USA</div>
+    <p>A dead screenwriter narrates his own drowning: how he became kept man to a silent-film queen rotting in a Hollywood mansion with her past. The industry's autopsy of itself, performed while the body was still warm.</p>
+    <div class="lineage"><b>Lineage</b>David Lynch has named it his favorite film again and again; Mulholland Drive is literally titled in answer to it, and Norma Desmond's mansion haunts every frame of Lynch's Hollywood. The dead-narrator device alone spawned a lineage.</div>
+    <div class="heirs"><span class="heir hot">Lynch</span><span class="heir">Wilder Cynics Everywhere</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">17</div><div>
+    <h3>The Night of the Hunter</h3>
+    <div class="meta">Charles Laughton &middot; 1955 &middot; USA</div>
+    <p>A preacher with LOVE and HATE tattooed on his knuckles hunts two children down a dream-river of moonlight and animals. Laughton's only film as director; it flopped, and he never made another.</p>
+    <div class="lineage"><b>Lineage</b>Spike Lee handed the knuckle sermon to Radio Raheem in Do the Right Thing. Scorsese's Cape Fear is saturated in it (Mitchum cast in tribute), and the Coens' storybook-sinister register owes it plenty. The most influential one-film career in cinema.</div>
+    <div class="heirs"><span class="heir hot">Scorsese</span><span class="heir hot">S. Lee</span><span class="heir">Coens</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">18</div><div>
+    <h3>Out of the Past</h3>
+    <div class="meta">Jacques Tourneur &middot; 1947 &middot; USA</div>
+    <p>A small-town gas station man's old life arrives in a black coat: the gambler he double-crossed, the woman he ran with, the frame closing around him. Robert Mitchum's sleepy fatalism defines noir acting.</p>
+    <div class="lineage"><b>Lineage</b>The purest expression of noir's central law, that the past is a loaded gun, and the template Scorsese's Personal Journey holds up when explaining the form. Every neo-noir doomed man is doing a Mitchum.</div>
+    <div class="heirs"><span class="heir hot">Scorsese</span><span class="heir">Neo-Noir Template</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">19</div><div>
+    <h3>Sweet Smell of Success</h3>
+    <div class="meta">Alexander Mackendrick &middot; 1957 &middot; USA</div>
+    <p>A gossip columnist (Burt Lancaster, terrifying in glasses) and the press agent who feeds him (Tony Curtis, oily and doomed) destroy lives across one Manhattan night. The nastiest dialogue ever recorded, courtesy of Clifford Odets.</p>
+    <div class="lineage"><b>Lineage</b>Barry Levinson's Diner characters quote it like scripture, on screen. Scorsese cites its poisoned nighttime New York, and every film about media as predation, from Network to Nightcrawler, walks streets this film paved.</div>
+    <div class="heirs"><span class="heir hot">Scorsese</span><span class="heir">Levinson</span><span class="heir">Media Noir</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">20</div><div>
+    <h3>Force of Evil</h3>
+    <div class="meta">Abraham Polonsky &middot; 1948 &middot; USA</div>
+    <p>A numbers-racket lawyer sells out his brother in blank-verse dialogue that sounds like scripture spoken in a boiler room. Polonsky was blacklisted three years later and didn't direct again for two decades.</p>
+    <div class="lineage"><b>Lineage</b>Scorsese has repeatedly named it a direct source for Mean Streets, the guilt, the brothers, the money as sin, and gives it a centerpiece in A Personal Journey. The great buried American crime film.</div>
+    <div class="heirs"><span class="heir hot">Scorsese</span><span class="heir">Blacklist Casualty</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">21</div><div>
+    <h3>Kiss Me Deadly</h3>
+    <div class="meta">Robert Aldrich &middot; 1955 &middot; USA</div>
+    <p>Mike Hammer bullies his way toward a leather box that whispers and burns, and the detective film ends in atomic fire on a Malibu beach. Noir's nervous breakdown.</p>
+    <div class="lineage"><b>Lineage</b>The glowing "great whatsit" was reborn as Repo Man's trunk and Pulp Fiction's briefcase, a chain of homage all parties have acknowledged. Its apocalyptic paranoia is the bridge from noir to Cold War sci-fi.</div>
+    <div class="heirs"><span class="heir hot">Cox</span><span class="heir">Tarantino</span><span class="heir">Apocalypse Noir</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">22</div><div>
+    <h3>In a Lonely Place</h3>
+    <div class="meta">Nicholas Ray &middot; 1950 &middot; USA</div>
+    <p>Bogart as a screenwriter whose violence may or may not include murder, in the most self-lacerating role of his career. A love story where the suspense is whether the man is what the woman fears.</p>
+    <div class="lineage"><b>Lineage</b>Nicholas Ray became the patron saint of the auteur generation: Wim Wenders declared "cinema is Nicholas Ray" and filmed his dying collaboration in Lightning Over Water. This is the Ray film the directors pass to each other.</div>
+    <div class="heirs"><span class="heir hot">Wenders</span><span class="heir">Curtis Hanson</span><span class="heir">Ray Cult</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">23</div><div>
+    <h3>Ace in the Hole</h3>
+    <div class="meta">Billy Wilder &middot; 1951 &middot; USA</div>
+    <p>A disgraced reporter keeps a man trapped in a New Mexico cave to grow the story, and a carnival literally assembles around the dying. Wilder's most hated film in 1951, his most prophetic now.</p>
+    <div class="lineage"><b>Lineage</b>The blueprint for every media-circus indictment since, from Network to Nightcrawler, and a touchstone for the Coens' misanthropic streak; they have spent careers in Wilder's debt and said so.</div>
+    <div class="heirs"><span class="heir hot">Coens</span><span class="heir">Media Prophecy</span></div>
+  </div></article>
+</section>
+
+<!-- ============ V. HITCHCOCK & WELLES ============ -->
+<section id="hw">
+  <div class="sec-head"><div class="rn">V</div><h2>Hitchcock &amp; Welles</h2><div class="sc">Films 24-29 &middot; The two vocabularies</div></div>
+
+  <article class="film"><div class="no">24</div><div>
+    <h3>Citizen Kane</h3>
+    <div class="meta">Orson Welles &middot; 1941 &middot; USA</div>
+    <p>A newspaper tycoon dies alone with a word on his lips, and reporters excavate his life through contradictory memories. Welles was 25, had never made a film, and rewrote the medium's grammar in one pass: deep focus, ceilings, overlapping sound, fractured time.</p>
+    <div class="lineage"><b>Lineage</b>The universal citation. Spielberg bought a Rosebud sled at auction; Scorsese, Coppola, and the whole generation name it the permission slip, proof the form was still open. Kubrick put it on his 1963 list. The structure alone fathered every mosaic biography since.</div>
+    <div class="heirs"><span class="heir hot">Everyone</span><span class="heir">Spielberg</span><span class="heir">Scorsese</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">25</div><div>
+    <h3>The Magnificent Ambersons</h3>
+    <div class="meta">Orson Welles &middot; 1942 &middot; USA</div>
+    <p>An aristocratic Midwestern family declines as the automobile age rises, told in long, mournful takes. RKO cut 43 minutes and burned the footage while Welles was in Brazil; what survives is still overwhelming.</p>
+    <div class="lineage"><b>Lineage</b>Cinema's most grieved-over mutilation and a sacred text for Scorsese and Bogdanovich, who spent decades interviewing Welles about it. Its elegy for a vanishing American order echoes through The Godfather Part II and There Will Be Blood.</div>
+    <div class="heirs"><span class="heir hot">Scorsese</span><span class="heir">Bogdanovich</span><span class="heir">PTA</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">26</div><div>
+    <h3>Touch of Evil</h3>
+    <div class="meta">Orson Welles &middot; 1958 &middot; USA</div>
+    <p>A car bomb crosses the Mexican border in a single three-minute crane shot, and a bloated corrupt cop (Welles himself) plants evidence in a town made of angles and sweat. Noir's baroque last word.</p>
+    <div class="lineage"><b>Lineage</b>The opening shot became the measuring stick: Altman's The Player restages and name-checks it in its own long take, and Carpenter's roaming Halloween opening plays in its shadow. Every bravura oner since is answering Welles.</div>
+    <div class="heirs"><span class="heir hot">Altman</span><span class="heir">Carpenter</span><span class="heir">PTA</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">27</div><div>
+    <h3>Shadow of a Doubt</h3>
+    <div class="meta">Alfred Hitchcock &middot; 1943 &middot; USA</div>
+    <p>Beloved Uncle Charlie visits his adoring small-town family, and his teenage niece slowly realizes he strangles widows for a living. Hitchcock repeatedly named it his own favorite of his films.</p>
+    <div class="lineage"><b>Lineage</b>The founding document of American small-town rot: the sunlit street with the killer at the dinner table. Blue Velvet's severed ear in the grass is this film's discovery restated, and half of Lynch's Lumberton is Santa Rosa.</div>
+    <div class="heirs"><span class="heir hot">Lynch Lineage</span><span class="heir">Small-Town Gothic</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">28</div><div>
+    <h3>Notorious</h3>
+    <div class="meta">Alfred Hitchcock &middot; 1946 &middot; USA</div>
+    <p>An American agent (Cary Grant) sends the woman he loves (Ingrid Bergman) into a Nazi's bed for the mission, and the suspense is moral, not mechanical. Contains the famous ballroom crane dive to a key in her hand.</p>
+    <div class="lineage"><b>Lineage</b>The spy film's emotional ceiling. John Woo's Mission: Impossible II openly rebuilt its plot, De Palma spent a career studying its camera, and the poisoned-domesticity finale is a suspense masterclass still taught shot by shot.</div>
+    <div class="heirs"><span class="heir hot">De Palma</span><span class="heir">Woo</span><span class="heir">Spy Cinema</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">29</div><div>
+    <h3>Strangers on a Train</h3>
+    <div class="meta">Alfred Hitchcock &middot; 1951 &middot; USA</div>
+    <p>A charming psychopath proposes swapping murders with a tennis star who thinks it's cocktail talk, then keeps his half of the bargain. The carousel finale is pure delirium.</p>
+    <div class="lineage"><b>Lineage</b>The criss-cross premise became a permanent story engine, remade openly (Throw Momma from the Train) and covertly everywhere. Its guilt-transference mechanics are the Hitchcock lesson De Palma and the Coens absorbed deepest.</div>
+    <div class="heirs"><span class="heir hot">De Palma</span><span class="heir">Coens</span></div>
+  </div></article>
+</section>
+
+<!-- ============ VI. FORD, HAWKS & THE ADVENTURE LINE ============ -->
+<section id="westerns">
+  <div class="sec-head"><div class="rn">VI</div><h2>Ford, Hawks &amp; the Adventure Line</h2><div class="sc">Films 30-34 &middot; Professionals under pressure</div></div>
+
+  <article class="film"><div class="no">30</div><div>
+    <h3>Stagecoach</h3>
+    <div class="meta">John Ford &middot; 1939 &middot; USA</div>
+    <p>Nine passengers, one coach, Apache territory, and John Wayne's star-making rifle-twirl entrance. Ford's Monument Valley debut turned the western from B-picture to national mythology.</p>
+    <div class="lineage"><b>Lineage</b>Welles screened it around forty times while preparing Citizen Kane and, asked who his influences were, answered "the old masters, by which I mean John Ford, John Ford, and John Ford." The ensemble-in-a-crucible structure never went out of print.</div>
+    <div class="heirs"><span class="heir hot">Welles</span><span class="heir">Ensemble Thrillers</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">31</div><div>
+    <h3>Red River</h3>
+    <div class="meta">Howard Hawks &middot; 1948 &middot; USA</div>
+    <p>A cattle-drive Mutiny on the Bounty: Wayne as a tyrant patriarch, Montgomery Clift as the adopted son who takes his herd. Ford saw it and said of Wayne, "I never knew the big son of a bitch could act."</p>
+    <div class="lineage"><b>Lineage</b>The generational-authority drama the New Hollywood kept remaking in other clothes; its DNA is visible from The Godfather's succession anxiety to every mentor-turned-obstacle story. Carpenter's Hawks devotion starts here and never ends.</div>
+    <div class="heirs"><span class="heir hot">Carpenter</span><span class="heir">Succession Dramas</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">32</div><div>
+    <h3>Only Angels Have Wings</h3>
+    <div class="meta">Howard Hawks &middot; 1939 &middot; USA</div>
+    <p>Mail pilots fly suicidal Andes routes from a fogged-in bar, grieving their dead by never mentioning them. The Hawksian code, professionals, gallows calm, women who earn their seat, in its purest form.</p>
+    <div class="lineage"><b>Lineage</b>Carpenter has said flatly that he thinks of all his films as Hawks films, and this is the machine he means: the group, the job, the siege. Assault on Precinct 13, The Thing, and Ghosts of Mars all run this engine.</div>
+    <div class="heirs"><span class="heir hot">Carpenter</span><span class="heir">Cameron Crews</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">33</div><div>
+    <h3>High Noon</h3>
+    <div class="meta">Fred Zinnemann &middot; 1952 &middot; USA</div>
+    <p>A marshal spends 85 real-time minutes asking a town for help that never comes, then meets four killers alone. A blacklist allegory wearing a badge.</p>
+    <div class="lineage"><b>Lineage</b>So potent it generated cinema by opposition: Hawks and Wayne made Rio Bravo specifically to rebut it, on record, which makes it half of the argument Carpenter's whole career takes sides in. The ticking-clock structure is now a genre of its own.</div>
+    <div class="heirs"><span class="heir hot">The Rio Bravo Feud</span><span class="heir">Real-Time Thrillers</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">34</div><div>
+    <h3>The Treasure of the Sierra Madre</h3>
+    <div class="meta">John Huston &middot; 1948 &middot; USA</div>
+    <p>Three Americans strike gold in Mexico and are dismantled by it, Bogart's Fred C. Dobbs rotting from the inside in Hollywood's least vain star performance. "We don't need no stinking badges" entered the language.</p>
+    <div class="lineage"><b>Lineage</b>On Kubrick's 1963 top ten. Paul Thomas Anderson has said he watched it obsessively, night after night, while writing There Will Be Blood. The greed-corrodes-the-soul structure is one of American film's load-bearing walls.</div>
+    <div class="heirs"><span class="heir hot">PTA</span><span class="heir">Kubrick's List</span><span class="heir">Breaking Bad</span></div>
+  </div></article>
+</section>
+
+<!-- ============ VII. 50s SCIENCE FICTION ============ -->
+<section id="scifi">
+  <div class="sec-head"><div class="rn">VII</div><h2>Atomic-Age Science Fiction</h2><div class="sc">Films 35-39 &middot; Paranoia in a lab coat</div></div>
+
+  <article class="film"><div class="no">35</div><div>
+    <h3>The Thing from Another World</h3>
+    <div class="meta">Christian Nyby / Howard Hawks &middot; 1951 &middot; USA</div>
+    <p>An Arctic crew thaws something out of the ice, and Hawksian professionals trade overlapping wisecracks while it hunts them. "Keep watching the skies" closed the film and opened the decade.</p>
+    <div class="lineage"><b>Lineage</b>Carpenter's north star: he put it on the TV the kids watch in Halloween, then remade it outright in 1982 as The Thing. The siege-against-the-inhuman template is his and Cameron's shared inheritance.</div>
+    <div class="heirs"><span class="heir hot">Carpenter</span><span class="heir">Cameron</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">36</div><div>
+    <h3>The Day the Earth Stood Still</h3>
+    <div class="meta">Robert Wise &middot; 1951 &middot; USA</div>
+    <p>An alien lands in Washington with a warning and a robot enforcer, and humanity responds by shooting him. Klaatu barada nikto: the phrase, the theremin, the saucer, all canon within a year.</p>
+    <div class="lineage"><b>Lineage</b>The dignified, adult template that Spielberg's benevolent-visitor films (Close Encounters, E.T.) inverted from invasion to communion, and the bar every "first contact as mirror" story still clears or fails to.</div>
+    <div class="heirs"><span class="heir hot">Spielberg</span><span class="heir">First-Contact Canon</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">37</div><div>
+    <h3>Invasion of the Body Snatchers</h3>
+    <div class="meta">Don Siegel &middot; 1956 &middot; USA</div>
+    <p>A small-town doctor realizes his neighbors are being replaced in their sleep by emotionless duplicates, and no one will believe him until it's too late, including the audience. Read as anti-Communist and anti-McCarthyite simultaneously, which is its genius.</p>
+    <div class="lineage"><b>Lineage</b>Remade by Philip Kaufman (1978) and Abel Ferrara (1993), each era finding its own paranoia in it. The body-as-betrayer premise is the seedbed Cronenberg's entire cinema grows from, and Siegel became a formative figure for the whole generation.</div>
+    <div class="heirs"><span class="heir hot">Cronenberg Soil</span><span class="heir">Kaufman</span><span class="heir">Carpenter</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">38</div><div>
+    <h3>Them!</h3>
+    <div class="meta">Gordon Douglas &middot; 1954 &middot; USA</div>
+    <p>Atomic tests breed giant ants in the New Mexico desert, and the film plays it as procedural dread: a mute child, a strange print in the sand, a sound in the wind. The best of the bug pictures by miles.</p>
+    <div class="lineage"><b>Lineage</b>Cameron has cited it among the models for Aliens: soldiers descending into a nest with inadequate weapons and worse intel. The structure (mystery first, monster late, nest finale) became the creature-feature constitution.</div>
+    <div class="heirs"><span class="heir hot">Cameron</span><span class="heir">Creature Procedural</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">39</div><div>
+    <h3>Godzilla</h3>
+    <div class="meta">Ishir&#333; Honda &middot; 1954 &middot; Japan</div>
+    <p>Nine years after Hiroshima, Japan made a film where the bomb walks out of the sea. The original is a grave, furious elegy, nothing like the rubber-suit matinees that followed.</p>
+    <div class="lineage"><b>Lineage</b>Del Toro dedicated Pacific Rim to Honda (alongside Ray Harryhausen) on screen. The kaiju genre, the disaster film as national mourning, and every city-scale monster since all begin in this footprint.</div>
+    <div class="heirs"><span class="heir hot">Del Toro</span><span class="heir">Kaiju Everything</span></div>
+  </div></article>
+</section>
+
+<!-- ============ VIII. ITALIAN NEOREALISM ============ -->
+<section id="neorealism">
+  <div class="sec-head"><div class="rn">VIII</div><h2>Italian Neorealism</h2><div class="sc">Films 40-43 &middot; The rubble school</div></div>
+
+  <article class="film"><div class="no">40</div><div>
+    <h3>Rome, Open City</h3>
+    <div class="meta">Roberto Rossellini &middot; 1945 &middot; Italy</div>
+    <p>Shot in a still-occupied Rome on scavenged film stock: a priest, a resistance fighter, and a pregnant woman under Nazi rule. Anna Magnani's death in the street is one of cinema's permanent images.</p>
+    <div class="lineage"><b>Lineage</b>Scorsese's origin story: he has described watching Rossellini on television as a child with his Sicilian grandparents as the moment cinema became real life. My Voyage to Italy is his two-hour thank-you note.</div>
+    <div class="heirs"><span class="heir hot">Scorsese</span><span class="heir">Realism Itself</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">41</div><div>
+    <h3>Paisan</h3>
+    <div class="meta">Roberto Rossellini &middot; 1946 &middot; Italy</div>
+    <p>Six episodes climb the boot of Italy with the Allied liberation, each one a collision between soldiers and civilians who can't speak each other's language. The Po Delta finale is as bleak as the war film gets.</p>
+    <div class="lineage"><b>Lineage</b>Scorsese singles it out in My Voyage to Italy as one of the films of his life; its episodic, unresolved structure taught a generation that stories could end where the truth ends rather than where the plot does.</div>
+    <div class="heirs"><span class="heir hot">Scorsese</span><span class="heir">Episodic Form</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">42</div><div>
+    <h3>Bicycle Thieves</h3>
+    <div class="meta">Vittorio De Sica &middot; 1948 &middot; Italy</div>
+    <p>A man needs a bicycle to keep the job that keeps his family; the bicycle is stolen; he and his small son search Rome for it. That's the whole plot, and it's bottomless.</p>
+    <div class="lineage"><b>Lineage</b>Satyajit Ray walked out of a London screening resolved to become a filmmaker, by his own account, and the world cinema that followed (Ray, Kiarostami, the Dardennes) is its direct family line. The father-son ending remains the genre standard for earned devastation.</div>
+    <div class="heirs"><span class="heir hot">S. Ray</span><span class="heir">World Cinema</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">43</div><div>
+    <h3>La Strada</h3>
+    <div class="meta">Federico Fellini &middot; 1954 &middot; Italy</div>
+    <p>A brute strongman buys a simple-hearted girl as his sidekick and destroys the one thing that loved him, understanding it only when it's years too late, alone on a beach.</p>
+    <div class="lineage"><b>Lineage</b>Scorsese has drawn the line himself from Zampan&ograve; to Jake LaMotta: the inarticulate male engine of violence who ruins what he loves. Raging Bull is La Strada with boxing gloves, and My Voyage to Italy says as much.</div>
+    <div class="heirs"><span class="heir hot">Scorsese</span><span class="heir">The Brute's Grief</span></div>
+  </div></article>
+</section>
+
+<!-- ============ IX. FRENCH CINEMA ============ -->
+<section id="french">
+  <div class="sec-head"><div class="rn">IX</div><h2>French Cinema: Poets, Clockmakers, Surgeons</h2><div class="sc">Films 44-49 &middot; Suspense with a philosophy degree</div></div>
+
+  <article class="film"><div class="no">44</div><div>
+    <h3>The Wages of Fear</h3>
+    <div class="meta">Henri-Georges Clouzot &middot; 1953 &middot; France</div>
+    <p>Four stranded men drive two trucks of nitroglycerin over mountain roads for money, and Clouzot makes every pothole a coin flip. The washed-out oil town first hour is the trap; the drive is the sentence.</p>
+    <div class="lineage"><b>Lineage</b>Friedkin remade it as Sorcerer and spent the rest of his life calling Clouzot's original one of the greatest films ever made. The men-and-a-volatile-cargo engine now powers half of the thriller genre.</div>
+    <div class="heirs"><span class="heir hot">Friedkin</span><span class="heir">Tension Mechanics</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">45</div><div>
+    <h3>Diabolique</h3>
+    <div class="meta">Henri-Georges Clouzot &middot; 1955 &middot; France</div>
+    <p>A tyrannical headmaster is drowned by his wife and his mistress together, and then his body disappears and the school keeps seeing him. The bathtub finale launched a thousand pale imitations and one masterpiece.</p>
+    <div class="lineage"><b>Lineage</b>Hitchcock tried to buy the novel and lost it to Clouzot by hours, per the standard account, then answered with Psycho: same author duo, same shock-twist contract with the audience, same please-don't-spoil-the-ending campaign. The modern twist thriller has two parents, and this is one.</div>
+    <div class="heirs"><span class="heir hot">Hitchcock</span><span class="heir">Twist Thrillers</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">46</div><div>
+    <h3>Rififi</h3>
+    <div class="meta">Jules Dassin &middot; 1955 &middot; France</div>
+    <p>Four thieves crack a jewelry vault in a half-hour sequence with no dialogue and no music, just breath, cloth, and drills. Dassin, blacklisted out of Hollywood, invented the modern heist film in exile.</p>
+    <div class="lineage"><b>Lineage</b>The silent break-in became the genre's crown jewel scene: De Palma's dangling Langley heist in Mission: Impossible is its most famous descendant, and every Ocean's vault sequence pays the tax.</div>
+    <div class="heirs"><span class="heir hot">De Palma</span><span class="heir">Heist Canon</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">47</div><div>
+    <h3>Eyes Without a Face</h3>
+    <div class="meta">Georges Franju &middot; 1960 &middot; France</div>
+    <p>A surgeon abducts young women to graft their faces onto his disfigured daughter, who drifts through the villa in a smooth white mask. Horror as lyric poetry, with one clinical scene that still empties stomachs.</p>
+    <div class="lineage"><b>Lineage</b>The blank mask is the acknowledged ancestor of Michael Myers' Shape, per Halloween's own crew lore, and the surgical-identity horror flows straight into Cronenberg's operating theaters and Almod&oacute;var's The Skin I Live In, which he has cited openly.</div>
+    <div class="heirs"><span class="heir hot">Carpenter</span><span class="heir">Cronenberg</span><span class="heir">Almod&oacute;var</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">48</div><div>
+    <h3>P&eacute;p&eacute; le Moko</h3>
+    <div class="meta">Julien Duvivier &middot; 1937 &middot; France</div>
+    <p>A Parisian gangster is untouchable inside the Algiers Casbah and imprisoned by it, until longing for Paris walks in wearing pearls. Jean Gabin invents the doomed romantic criminal.</p>
+    <div class="lineage"><b>Lineage</b>Poetic realism's crown, remade in Hollywood within a year (Algiers) and feeding directly into Casablanca and the fatalist DNA of American noir. Every gangster who dies reaching for a life he can't have descends from Gabin at the gate.</div>
+    <div class="heirs"><span class="heir hot">Noir Genesis</span><span class="heir">Melville Before Melville</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">49</div><div>
+    <h3>Beauty and the Beast</h3>
+    <div class="meta">Jean Cocteau &middot; 1946 &middot; France</div>
+    <p>Living arms hold the candelabras, statues exhale smoke, and the Beast's grief is realer than any human's in Cocteau's handmade fairy tale, shot in a ruined postwar France that needed one.</p>
+    <div class="lineage"><b>Lineage</b>Del Toro's most-cited enchantment: the direct wellspring of The Shape of Water and Pan's Labyrinth's belief that monsters deserve the love story. He has called it a foundational text in interview after interview.</div>
+    <div class="heirs"><span class="heir hot">Del Toro</span><span class="heir">Dark Fairy Tale</span></div>
+  </div></article>
+</section>
+
+<!-- ============ X. JAPANESE MASTERS ============ -->
+<section id="japan">
+  <div class="sec-head"><div class="rn">X</div><h2>The Japanese Masters</h2><div class="sc">Films 50-54 &middot; Three ways of seeing</div></div>
+
+  <article class="film"><div class="no">50</div><div>
+    <h3>Rashomon</h3>
+    <div class="meta">Akira Kurosawa &middot; 1950 &middot; Japan</div>
+    <p>A crime in a grove, four incompatible testimonies, and no verdict: truth itself put on trial in slashing rain and dappled forest light. It won Venice and opened Japanese cinema to the world overnight.</p>
+    <div class="lineage"><b>Lineage</b>The structure became a common noun; "the Rashomon effect" appears in courtrooms and psychology papers. Its fractured-testimony architecture underwrites everything from The Usual Suspects to Gone Girl, and the whole auteur generation studied it in film school as gospel.</div>
+    <div class="heirs"><span class="heir hot">Narrative Form Itself</span><span class="heir">Scorsese</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">51</div><div>
+    <h3>Ikiru</h3>
+    <div class="meta">Akira Kurosawa &middot; 1952 &middot; Japan</div>
+    <p>A dying bureaucrat who has stamped papers for thirty years spends his last months forcing one small playground into existence, and the film's second half is his wake, where colleagues almost understand. The swing in the snow is one of the medium's holiest images.</p>
+    <div class="lineage"><b>Lineage</b>The humanist Kurosawa the directors cite when they're being honest instead of cool; remade in 2022 as Living from a Kazuo Ishiguro script, and standing behind every story where a small good act answers death.</div>
+    <div class="heirs"><span class="heir hot">Humanist Canon</span><span class="heir">Living (2022)</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">52</div><div>
+    <h3>The Hidden Fortress</h3>
+    <div class="meta">Akira Kurosawa &middot; 1958 &middot; Japan</div>
+    <p>Two bickering peasants stumble into escorting a princess and a general through enemy territory, the epic told from the bottom of the social ladder, with wipes between scenes and gold hidden in firewood.</p>
+    <div class="lineage"><b>Lineage</b>Lucas has said it directly: Star Wars takes its lowliest-characters point of view (R2-D2 and C-3PO are the peasants), its princess, and its screen wipes from this film. The most consequential single citation in blockbuster history.</div>
+    <div class="heirs"><span class="heir hot">Lucas</span><span class="heir">Star Wars DNA</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">53</div><div>
+    <h3>Tokyo Story</h3>
+    <div class="meta">Yasujir&#333; Ozu &middot; 1953 &middot; Japan</div>
+    <p>Aging parents visit their grown children in Tokyo and are politely, lovingly, unbearably inconvenient. Ozu's still camera at tatami height watches family entropy with total calm. "Isn't life disappointing?" "Yes, it is."</p>
+    <div class="lineage"><b>Lineage</b>Voted the greatest film ever made in the 2012 Sight &amp; Sound directors' poll, by the directors. Paul Schrader built a third of Transcendental Style in Film on Ozu, and Wenders made a pilgrimage documentary (Tokyo-Ga) to his grave.</div>
+    <div class="heirs"><span class="heir hot">Schrader</span><span class="heir">Wenders</span><span class="heir">Directors' #1</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">54</div><div>
+    <h3>Ugetsu</h3>
+    <div class="meta">Kenji Mizoguchi &middot; 1953 &middot; Japan</div>
+    <p>Two peasants chase profit and glory through civil war; one is seduced by a ghost who doesn't know she's dead. The lake crossing through fog is cinema's finest passage between worlds.</p>
+    <div class="lineage"><b>Lineage</b>A fixture of Scorsese's all-time favorites lists; he has championed and helped circulate it for decades. Its seamless drift between the living and the dead is the high-water mark every ghost story measures against.</div>
+    <div class="heirs"><span class="heir hot">Scorsese</span><span class="heir">The Ghost Story Perfected</span></div>
+  </div></article>
+</section>
+
+<!-- ============ XI. BRITISH CINEMA ============ -->
+<section id="british">
+  <div class="sec-head"><div class="rn">XI</div><h2>British Cinema</h2><div class="sc">Films 55-57 &middot; Fog, sewers, and Hebridean wind</div></div>
+
+  <article class="film"><div class="no">55</div><div>
+    <h3>The Third Man</h3>
+    <div class="meta">Carol Reed &middot; 1949 &middot; UK</div>
+    <p>A pulp novelist arrives in ruined, four-power Vienna to find his friend Harry Lime dead, then not dead, then worse than dead. Zither score, tilted streets, the Ferris wheel speech, and history's greatest character entrance in a doorway of light.</p>
+    <div class="lineage"><b>Lineage</b>A permanent fixture of directors' favorite lists across the whole generation; its rubble-city moral murk feeds every postwar noir since, and the sewer chase is one of the most restaged sequences in thrillers. The final unbroken shot taught a hundred filmmakers how to end on refusal.</div>
+    <div class="heirs"><span class="heir hot">Universal Citation</span><span class="heir">Postwar Noir</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">56</div><div>
+    <h3>Great Expectations</h3>
+    <div class="meta">David Lean &middot; 1946 &middot; UK</div>
+    <p>Dickens compressed into pure cinema: the marsh graveyard where Magwitch seizes Pip is routinely credited as the first true jump scare, and Miss Havisham's stopped-clock mansion is gothic production design at its peak.</p>
+    <div class="lineage"><b>Lineage</b>Lean is Spielberg's declared master, and this is where the Lean grammar (landscape as fate, faces lit like altars) is already complete. The graveyard scare's rhythm is now hard-coded into horror editing.</div>
+    <div class="heirs"><span class="heir hot">Spielberg</span><span class="heir">The Jump Scare</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">57</div><div>
+    <h3>I Know Where I'm Going!</h3>
+    <div class="meta">Powell &amp; Pressburger &middot; 1945 &middot; UK</div>
+    <p>A woman who has planned her whole life sails toward a rich fianc&eacute; and is weathered in on a Hebridean island where money means nothing and a whirlpool waits. Romance as metaphysics, with a gale for a screwball partner.</p>
+    <div class="lineage"><b>Lineage</b>Scorsese is cinema's loudest Powell &amp; Pressburger evangelist: he led their restoration and rehabilitation, and his editor Thelma Schoonmaker is Powell's widow. This is the black-and-white Archers film he presses on people.</div>
+    <div class="heirs"><span class="heir hot">Scorsese</span><span class="heir">The Archers Cult</span></div>
+  </div></article>
+</section>
+
+<!-- ============ XII. TRANSCENDENTAL CINEMA ============ -->
+<section id="transcendental">
+  <div class="sec-head"><div class="rn">XII</div><h2>The Transcendental Line</h2><div class="sc">Films 58-60 &middot; Where Schrader went to church</div></div>
+
+  <article class="film"><div class="no">58</div><div>
+    <h3>Pickpocket</h3>
+    <div class="meta">Robert Bresson &middot; 1959 &middot; France</div>
+    <p>A Parisian thief refines his craft into ballet and his isolation into philosophy, until grace ambushes him through prison bars in the final seconds. Bresson's flat, deliberate style makes the ending detonate.</p>
+    <div class="lineage"><b>Lineage</b>Schrader has spent a career openly re-staging its final scene: American Gigolo and Light Sleeper both end on it, and Taxi Driver's God's-lonely-man is Bresson's thief with a mohawk. Transcendental Style in Film is one third Bresson worship.</div>
+    <div class="heirs"><span class="heir hot">Schrader</span><span class="heir">Scorsese via Schrader</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">59</div><div>
+    <h3>Ordet</h3>
+    <div class="meta">Carl Theodor Dreyer &middot; 1955 &middot; Denmark</div>
+    <p>A Danish farm family fractured by faith, doubt, and a son who believes he is Christ, resolved by a final scene that either breaks the rules of drama or reveals them. Nothing in cinema prepares you for the last ten minutes.</p>
+    <div class="lineage"><b>Lineage</b>The summit of Schrader's transcendental canon, and the sacred text of Lars von Trier, whose Dreyer devotion runs to owning the master's tuxedo; Breaking the Waves is Ordet's questions asked with the volume up.</div>
+    <div class="heirs"><span class="heir hot">Schrader</span><span class="heir">Von Trier</span></div>
+  </div></article>
+
+  <article class="film"><div class="no">60</div><div>
+    <h3>The Seventh Seal</h3>
+    <div class="meta">Ingmar Bergman &middot; 1957 &middot; Sweden</div>
+    <p>A crusader plays chess with Death across a plague landscape, buying time to witness one meaningful thing. The image of the knight and the black-cloaked figure on the beach became shorthand for cinema itself.</p>
+    <div class="lineage"><b>Lineage</b>The film that proved metaphysics could sell tickets, opening the art-house channel the whole generation grew up inside. Woody Allen built a career in its shadow by his own admission, and its iconography is so total that even the parodies (Bill &amp; Ted included) are homage.</div>
+    <div class="heirs"><span class="heir hot">Allen</span><span class="heir">Art-House Gateway</span></div>
+  </div></article>
+</section>
+
+<!-- ============ OUTRO ============ -->
+<div class="outro">
+  <h2>Reading the bloodlines</h2>
+  <p><strong>By director, the strongest veins</strong>: Carpenter runs on Hawks (Only Angels Have Wings, Red River, The Thing from Another World) plus Eyes Without a Face for the mask. Scorsese's spine is Force of Evil, the Lewton unit, Rossellini, La Strada, Ugetsu, and the Archers. Lynch's two poles are Sunset Boulevard and the Shadow of a Doubt small-town rot. Cameron: Metropolis, Frankenstein, Them!, The Thing. Del Toro: Frankenstein, Bride, Cocteau, Godzilla. Schrader: Pickpocket, Ordet, Tokyo Story, his whole book. Lucas needs exactly two entries here, Metropolis and The Hidden Fortress, and got a galaxy out of them.</p>
+  <p><strong>Sourcing honesty</strong>: most lineage lines are primary-source (director interviews, Scorsese's two documentary essays, Schrader's book, on-screen dedications like Pacific Rim's to Honda). A handful are critic-consensus rather than direct quotation, and they're phrased that way in the entries: the Freaks-to-Elephant Man ethic, Halloween's Touch of Evil echo, and the Se7en/Zodiac descent from M. Treat those as strong circumstantial rather than confession.</p>
+  <p><strong>Deliberate exclusions</strong>: Psycho, Vertigo, Rear Window, Seven Samurai, Yojimbo, The Searchers, Rio Bravo, The Killing, and the Melville crime films all live on your Tarantino/De Palma document and were barred as repeats. Peeping Tom and A Matter of Life and Death fell to the color rule. If any list deserves a companion disc of the banned, it's this one.</p>
+</div>
+
+<footer>
+  <span>60 Films &middot; 1920-1962 &middot; 12 Sections &middot; All bloodlines documented or flagged</span>
+  <span>End of reel</span>
+</footer>
+
+</div>
+</body>
+</html>
